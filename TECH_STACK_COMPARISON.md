@@ -63,13 +63,13 @@ When running local model inference:
 ## 4. Microsoft Edge WebView2: Windows 10 Availability & Offline Strategy
 
 ### 4.1 Is WebView2 Guaranteed on Windows 10?
-Yes. Since late 2022, Microsoft distributes the **Evergreen Edge WebView2 Runtime** as an inbox component via Windows Update for all Windows 10 (version 1809 and newer) and Windows 11 editions.
-- Over **99.2%** of updated Windows 10 desktops have the Evergreen WebView2 runtime pre-installed at `C:\Program Files (x86)\Microsoft\EdgeWebView\Application`.
+While Microsoft distributes the Evergreen WebView2 Runtime via Windows Update for modern Windows 10 installations, **it is NOT guaranteed on air-gapped, offline, or LTSC enterprise PCs**. Assuming universal availability without verification is an architectural failure.
+- The installer must actively check registry key `HKLM\SOFTWARE\WOW6432Node\Microsoft\EdgeUpdate\Clients\{F3017226-FE2A-4295-8BDF-6D3A4405E24E}` or `%LOCALAPPDATA%\Microsoft\EdgeWebView`.
 
 ### 4.2 Offline Installation Guarantee
 To ensure the application functions in strictly **offline / air-gapped environments**:
-1. **Primary Installer (Lightweight, ~20 MB):** Checks registry key `HKLM\SOFTWARE\WOW6432Node\Microsoft\EdgeUpdate\Clients\{F3017226-FE2A-4295-8BDF-6D3A4405E24E}` for existing WebView2 runtime.
-2. **Offline Standalone Installer Bundle (~175 MB):** Packages the Microsoft Edge WebView2 Fixed Version Runtime or Evergreen Standalone Bootstrapper directly inside an Inno Setup / WiX installer. If WebView2 is absent and no internet is reachable, the installer executes the silent local runtime deployment before launching the assistant.
+1. **Lightweight Online Installer (~25 MB):** For internet-connected desktops where WebView2 is pre-installed or can be pulled via Windows Update.
+2. **True Offline Standalone Installer Bundle (~185 MB):** Packages the **Microsoft Edge WebView2 Fixed Version Runtime** (or standalone offline CAB) directly inside an Inno Setup / WiX installer. *(Note: The Evergreen Bootstrapper cannot be used for offline installs because it requires an active network connection to download the runtime cabinet).* If WebView2 is absent and no internet is reachable, the installer executes the silent local extraction of the Fixed Version Runtime before launching the assistant.
 
 ---
 

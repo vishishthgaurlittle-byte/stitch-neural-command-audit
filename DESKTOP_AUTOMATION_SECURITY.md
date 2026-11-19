@@ -46,11 +46,15 @@ flowchart TD
 - **Prohibited System Paths:** Operations targeting `C:\Windows`, `C:\Program Files`, root drives `C:\`, or system boot sectors are blocked at the Rust kernel level and cannot be overridden by agent prompts.
 - **Atomic Backup on Edit:** Before any file is modified or overwritten, the Rust backend creates a timestamped copy in `.assistant/backups/<timestamp>_<filename>`. If an edit corrupts code, the user can click "Rollback" with one click.
 
-### 3.2 Terminal & Shell Execution Sandbox
-- Command execution is driven via native child processes (`std::process::Command` in Rust) wrapping PowerShell 7 or Windows Command Prompt.
-- **Blacklisted Commands:** Commands containing destructive patterns (`Format-Volume`, `del /f /s /q C:\*`, `Remove-Item -Recurse C:\`, `Set-ExecutionPolicy Unrestricted`, registry overwrites) are intercepted and rejected before execution.
-- **Process Supervision:** Every shell process runs under a strict timeout (default: 30 seconds for routine commands, configurable for long builds). If a command hangs, it is automatically terminated.
-- **Real-Time Output Streaming:** Terminal stdout/stderr streams directly into the UI Command Center console in real time.
+### 3.2 Multi-Layered Terminal & Shell Execution Sandbox
+- Command execution is driven via native child processes (`std::process::Command` in Rust) wrapping PowerShell or Windows Command Prompt.
+- **Why Blacklists are Insufficient:** Simple string or regex blacklists can be easily bypassed via PowerShell alias expansion, base64 encoded payloads (`powershell -enc`), or string concatenation.
+- **Multi-Layered Protection:**
+  1. *Directory Whitelisting:* Commands are strictly constrained to execute within explicitly approved project workspace paths. Execution targeting system paths (`C:\Windows`, `C:\Program Files`) is blocked at the Rust host level.
+  2. *AST Semantic Analysis:* Shell commands are parsed into Abstract Syntax Trees using the PowerShell native language parser before invocation to detect hidden script execution, execution policy bypasses, and unquoted dynamic evaluations.
+  3. *Three-Tier Permission Gate:* Any state-changing command triggers an explicit UI modal displaying working directory, command string, and expected impact.
+  4. *Execution Timeout:* Every shell process runs under a strict timeout (default: 30 seconds for routine commands).
+  5. *Real-Time Output Streaming:* Terminal stdout/stderr streams directly into the UI Command Center console in real time.
 
 ### 3.3 Window & Desktop UI Automation
 - **Native Win32 Integration:** Implemented using official Microsoft `windows-rs` bindings.
@@ -85,8 +89,8 @@ sequenceDiagram
 ```
 
 ### 4.1 Implementation Mechanism
-1. **Low-Level Windows Hook:** A native low-level keyboard hook (`SetWindowsHookExW(WH_KEYBOARD_LL)`) registers the `ESC` key at the Windows desktop level. Even if the assistant window is in the background or minimized, pressing `ESC` delivers the cancellation token.
-2. **Deterministic Process Tree Cleanup:** The Rust backend associates all spawned sub-processes (compilers, git commands, python scripts) with a Windows **Job Object** (`CreateJobObjectW`). When the task terminates, `TerminateJobObject` instantly kills the entire process tree, leaving zero orphaned background processes.
+1. **Dedicated Emergency Hotkey (`Ctrl + Alt + Escape`):** Uses Windows `RegisterHotKey` (or a pass-through `WH_KEYBOARD_LL` hook) listening specifically for `Ctrl + Alt + Escape`. It never swallows the plain `ESC` key, preventing any interference with games, IDEs, or standard Windows software. When the Assistant UI or Floating HUD is actively focused, bare `ESC` also immediately pauses execution and closes active modals.
+2. **Deterministic Process Tree Cleanup:** The Rust backend associates all spawned sub-processes (compilers, git commands, python scripts) with a Windows **Job Object** (`CreateJobObjectW` with `JOB_OBJECT_LIMIT_KILL_ON_JOB_CLOSE`). When the task terminates, `TerminateJobObject` instantly kills the entire process tree, leaving zero orphaned background processes.
 
 ---
 

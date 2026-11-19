@@ -43,7 +43,7 @@ Alternative vector databases (such as Chroma, Milvus, or Qdrant) require separat
 ### 2.2 Local Embedding Model Profiling
 - **Model File:** `T:\ai creation\qwen3-embedding-0.6b-q8_0.gguf` (639 MB).
 - **Architecture:** 0.6B parameter transformer outputting 1024-dimensional normalized vectors.
-- **Inference Speed on i3-6100T:** **~120 tokens/millisecond** (CPU vectorized). Embedding a 200-word paragraph takes **~18 ms**.
+- **Inference Speed on i3-6100T:** **[UNVERIFIED THEORETICAL ESTIMATE: ~80 to 180 tokens/second]** (CPU vectorized via AVX2 on 2 threads). Embedding a 200-word paragraph (~260 tokens) takes **~1.4 to 2.8 seconds** in background worker mode. *(Note: Corrected from prior typographical error of 120 tok/ms).*
 - **Memory Footprint:** Pinned in memory using **~750 MB RAM**, sharing the memory space during active indexing sessions.
 
 ### 2.3 Memory Governance & User Control (Screen 09: Memory Center)
@@ -99,8 +99,8 @@ sequenceDiagram
 - **Architecture:** 74M parameter encoder-decoder transformer.
 - **Language Support:** Robust multilingual support, including English and Hindi transcription.
 - **Inference Runtime:** `whisper.cpp` AVX2 backend pinned to 2 threads.
-- **Performance on i3-6100T:**
-  - Real-Time Factor (RTF): **0.25 – 0.35**.
+- **Performance on i3-6100T [UNVERIFIED THEORETICAL ESTIMATES]:**
+  - Real-Time Factor (RTF): **~0.25 – 0.35**.
   - A 3-second spoken sentence transcribes in **~750 – 950 ms**.
   - Memory Footprint: **~220 MB RAM** during active processing.
 
@@ -110,9 +110,9 @@ sequenceDiagram
 - **Hindi Model:** `T:\ai creation\hindi voice onnx + jon\hi_IN-rohan-medium.onnx` (63.0 MB) + JSON config.
   - Voice Profile: `hi_IN-rohan` (Natural Hindi/Hinglish male, high phoneme clarity).
 - **Unified Engine:** Both voice models share the identical ONNX Runtime VITS architecture. Switching languages dynamically involves selecting the corresponding model handle based on detected response language.
-- **Performance on i3-6100T:**
-  - Real-Time Factor (RTF): **0.08 – 0.12** (Generates 1 second of speech in ~90 ms).
-  - Zero playback stutter when pinned to Core 1 / Thread 3.
+- **Performance on i3-6100T [UNVERIFIED THEORETICAL ESTIMATES]:**
+  - Real-Time Factor (RTF): **~0.08 – 0.12** (Synthesizing 1 second of speech takes ~90 ms).
+  - Pinned to Core 1 / Thread 3.
   - Memory Footprint: **~140 MB RAM** when both voice models are resident.
 
 ---

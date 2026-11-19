@@ -30,14 +30,14 @@ stateDiagram-v2
 
     state EphemeralWorkerExecution {
         state "Online Worker (Zero or One)" as OnlineWorker
-        state "Heavy Local Worker (Zero or One)" as LocalHeavyWorker
+        state "Lightweight Local Worker (Zero or One, <=1.5B)" as LocalWorker
     }
 
-    Planning --> OnlineWorker: Requires Cloud / High Context (User Authorized)
-    OnlineWorker --> Planning: Output Returned & Cloud Worker Released
+    Planning --> OnlineWorker: Requires Cloud / Frontier Reasoning (User Authorized)
+    OnlineWorker --> Planning: Output Returned to Main AI for Review
 
-    Planning --> LocalHeavyWorker: Heavyweight Task (Nemotron 7.5B Staged)
-    LocalHeavyWorker --> Planning: Heavy Computation Finished & Unloaded from RAM
+    Planning --> LocalWorker: Small Auxiliary Subtask (Fits in Free RAM)
+    LocalWorker --> Planning: Result Validated by Main AI
 ```
 
 ### 2.1 The Strict Concurrency Rule
@@ -70,20 +70,22 @@ $$\text{Total If Both Loaded} = 4.10\text{ GB (Base)} + 3.10\text{ GB (Qwen3)} +
 **14.30 GB exceeds the 12.0 GB physical capacity by 2.3 GB.**  
 Attempting to hold both models in memory concurrently will cause the Windows Memory Manager to push active process pages into `pagefile.sys` on the storage drive, resulting in hard CPU stalls, severe audio stutter, and an unresponsive desktop interface.
 
-### 2.3 The Architectural Solution: Two Operational Modes
+### 2.3 The Architectural Reality & Resolution: Main AI Permanency
 
-#### Mode 1: Unified Resident Core (Default, High-Speed, Zero Swapping)
-- The resident **`Qwen3-4B-Q4_K_M`** functions as **both** the Main AI Orchestrator and the engine powering the 15 logical specialist roles.
-- Role switching takes **0 milliseconds** because it involves injecting specialized system instructions and tool definitions into the prompt context rather than loading new weights.
+#### 1. Main AI is Permanent & Non-Evictable
+- The resident **`Qwen3-4B-Q4_K_M`** functions as the permanent Main AI Orchestrator and powers the 15 logical specialist roles.
+- It is **NEVER** unloaded, frozen, unmapped, or evicted from memory. Unloading the supervisor leaves the system headless, breaks desktop responsiveness, and causes unacceptable disk paging latencies.
+- Role switching between the 15 specialist agents takes **0 milliseconds** because it involves injecting specialized system instructions and tool definitions into the prompt context rather than loading new weights.
 - Total RAM footprint: **~7.2 GB**. Free system headroom: **~4.8 GB**.
 - System remains silky smooth, fully responsive, and offline.
 
-#### Mode 2: Sequential Heavyweight Staging (When Deep Reasoning is Explicitly Required)
-- When a task specifically demands high parameter reasoning (e.g. extensive code generation or multi-step logic analysis that `Qwen3-4B` struggles with):
-  1. Main AI synthesizes the task specification, saves its operational state into the local SQLite store, and places its inference context into standby.
-  2. The system executes a **Staged Worker Swap**: Main AI's KV cache is compacted, and if physical memory is constrained (<3 GB free), the heavy worker is loaded in a memory-mapped read-only mode (`mmap`).
-  3. The heavy worker executes the specific task, outputs its structured JSON payload into the database, and is immediately unmapped and evicted from memory.
-  4. Main AI resumes control and presents the reviewed solution.
+#### 2. Nemotron-3.5-Bolt-E4B Local Worker Feasibility Verdict
+- The on-disk model **`Nemotron-3.5-Bolt-E4B-Q4_K_M.gguf`** (6.18 GB file, ~7.5B parameters) requires **~7.1 GB to 7.2 GB RAM** during 4K inference.
+- Since free system RAM with Main AI resident is only ~4.8 GB, **`Nemotron-3.5-Bolt-E4B` CANNOT be loaded as a local worker on this 12 GB machine without exhausting physical memory.**
+- When deep reasoning, massive context, or complex software engineering exceeds what `Qwen3-4B` can achieve:
+  1. **Primary Local Path:** Main AI breaks down the task into sequential sub-steps executed by resident logical roles (Coder $\to$ Reviewer $\to$ Tester).
+  2. **Authorized Cloud Path:** Main AI requests explicit user authorization to route the subtask to an ephemeral **Online Worker** (Claude 3.5 Sonnet, GPT-4o, Groq).
+  3. **No Unsafe Swapping:** The system will never attempt to unload Main AI to force-load Nemotron on this 12 GB PC.
 
 ---
 
@@ -194,6 +196,7 @@ The Main AI does not blindly relay specialist outputs. It enforces a **Self-Corr
 ## 5. Emergency Interruption & Task Control Protocol
 
 The application provides continuous, zero-latency operator control over executing agents:
-1. **Global Escape Key (`ESC`):** Pressing `ESC` instantly pauses all active tool dispatches, stops TTS audio playback, and cancels queued subtasks.
-2. **UI Pause / Resume Buttons:** Prominently placed in the Command Center (Screen 01) and Floating HUD (Screen 15).
-3. **Audit History Recording:** Every prompt, tool invocation, shell command, file diff, and return code is committed to the local `task_audit_log` in SQLite for forensic review.
+1. **Global Emergency Interrupt (`Ctrl + Alt + Escape`):** A dedicated, non-swallowing global hotkey cancels running subtasks, halts child processes, and flushes audio buffers without interfering with the Escape key in other Windows applications.
+2. **Context-Aware `ESC` Key:** When the Assistant Main Window or Floating AI HUD has input focus, pressing bare `ESC` instantly pauses all active tool dispatches, stops TTS audio playback, and cancels queued subtasks.
+3. **UI Pause / Resume Buttons:** Prominently placed in the Command Center (Screen 01) and Floating HUD (Screen 15).
+4. **Audit History Recording:** Every prompt, tool invocation, shell command, file diff, and return code is committed to the local `task_audit_log` in SQLite for forensic review.

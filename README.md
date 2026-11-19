@@ -4,25 +4,40 @@
 **Project Identity:** Premium Windows 10 Desktop AI Assistant Application (Not an OS)  
 **Design System:** Obsidian Command (`stitch_neural_command_desktop_os`)  
 **Target Hardware:** Intel Core i3-6100T (2 Cores, 4 Threads @ 3.20 GHz) | 12.0 GB DDR4 RAM | Intel HD 530 Graphics | Windows 10 64-bit  
-**Current Phase:** **Phase 3 Master Architecture Complete** (Implementation Blocked Pending User / ChatGPT Authorization)  
+**Current Phase:** **Phase 3.1 Independent Architecture Audit & Corrections Complete** (Implementation Blocked Pending Final Review)  
 **Primary Source Directory:** [`/design-source/`](./design-source/)  
 
 ---
 
-## 🏛️ Phase 3 Master Architecture & Engineering Deliverables
+## 🛡️ Phase 3.1: Independent Architecture Audit & Technical Corrections
 
-The complete technical blueprint, hardware feasibility benchmarks, and implementation roadmap have been authored and verified:
+An independent technical audit was conducted on the Phase 3 architecture, correcting memory allocations, lifecycle rules, benchmark protocols, and security models:
+
+1. **[PHASE_3_1_INDEPENDENT_AUDIT.md](./PHASE_3_1_INDEPENDENT_AUDIT.md)** — Comprehensive audit report identifying critical discrepancies, unverified claims, and mandated corrections.
+2. **[MODEL_IDENTITY_AND_MEMORY_CORRECTIONS.md](./MODEL_IDENTITY_AND_MEMORY_CORRECTIONS.md)** — Dissection of GGUF metadata, resolution of the Nemotron 4B/E4B/7.5B naming, and mathematical 12 GB RAM budget proof.
+3. **[MAIN_AI_PERMANENT_RESIDENCY_CORRECTION.md](./MAIN_AI_PERMANENT_RESIDENCY_CORRECTION.md)** — Formal codification of Main AI non-evictable residency, repudiating flawed model swapping.
+4. **[REALISTIC_HARDWARE_BENCHMARK_PROTOCOL.md](./REALISTIC_HARDWARE_BENCHMARK_PROTOCOL.md)** — Empirical benchmark protocol for target PC, retraction of the 120 tok/ms embedding typo, and classification of unmeasured metrics.
+5. **[WINDOWS_10_AND_WEBVIEW2_COMPATIBILITY.md](./WINDOWS_10_AND_WEBVIEW2_COMPATIBILITY.md)** — Analysis of WebView2 distribution, debunking bootstrapper offline claims, and bundling Fixed Version Runtime.
+6. **[SECURITY_AND_AIRGAP_CORRECTIONS.md](./SECURITY_AND_AIRGAP_CORRECTIONS.md)** — Non-destructive emergency interruption (`Ctrl + Alt + Escape`), multi-layer shell AST security, and truthful software Air-Gap definition.
+7. **[STITCH_DESIGN_PRESERVATION_AUDIT.md](./STITCH_DESIGN_PRESERVATION_AUDIT.md)** — 100% visual and functional preservation audit across all 15 screens with low-resource 2D/2.5D Canvas optimizations.
+8. **[PHASE_3_1_FINAL_DECISIONS.md](./PHASE_3_1_FINAL_DECISIONS.md)** — Definitive architectural decisions matrix and final approval gate status.
+
+---
+
+## 🏛️ Phase 3 Master Architecture & Engineering Deliverables (Corrected)
+
+The core technical blueprint, updated to align 100% with Phase 3.1 audit decisions:
 
 1. **[PHASE_3_MASTER_ARCHITECTURE.md](./PHASE_3_MASTER_ARCHITECTURE.md)** — **The Master Architecture Blueprint** defining the entire desktop AI assistant system, component topologies, and boundary definitions.
 2. **[TECH_STACK_COMPARISON.md](./TECH_STACK_COMPARISON.md)** — Empirical comparison of Tauri v2 vs. Electron vs. Native C++/WinUI 3 on 12 GB RAM and dual-core Skylake.
 3. **[AI_ORCHESTRATION_ARCHITECTURE.md](./AI_ORCHESTRATION_ARCHITECTURE.md)** — Main AI controller kernel, single-worker concurrency invariants, and specification of all 15 logical agent roles.
 4. **[LOCAL_MODEL_HARDWARE_BENCHMARK_PLAN.md](./LOCAL_MODEL_HARDWARE_BENCHMARK_PLAN.md)** — Mathematical RAM profiling, KV cache formulas, CPU throughput bounds, and automated benchmark commands.
-5. **[DESKTOP_AUTOMATION_SECURITY.md](./DESKTOP_AUTOMATION_SECURITY.md)** — Three-tier human-in-the-loop permission gate, sandboxed shell execution, and low-level Win32 emergency `ESC` interrupt.
+5. **[DESKTOP_AUTOMATION_SECURITY.md](./DESKTOP_AUTOMATION_SECURITY.md)** — Three-tier human-in-the-loop permission gate, sandboxed shell execution, and non-destructive emergency interrupt.
 6. **[PLUGIN_SYSTEM_ARCHITECTURE.md](./PLUGIN_SYSTEM_ARCHITECTURE.md)** — Sandboxed local MCP tools, cloud AI provider drivers, and Windows DPAPI hardware-bound key vault.
 7. **[MEMORY_AND_VOICE_ARCHITECTURE.md](./MEMORY_AND_VOICE_ARCHITECTURE.md)** — Persistent relational SQLite + `sqlite-vec` semantic memory, offline Piper TTS (English & Hindi), and Whisper Base STT with instant barge-in.
 8. **[SCREEN_TO_FEATURE_IMPLEMENTATION_MAP.md](./SCREEN_TO_FEATURE_IMPLEMENTATION_MAP.md)** — Complete bidirectional mapping of all 15 Google Stitch screens to frontend components, backend IPC, and data models.
 9. **[DEVELOPMENT_ROADMAP.md](./DEVELOPMENT_ROADMAP.md)** — 10-milestone sequential implementation plan with strict dependencies, deliverables, and acceptance criteria.
-10. **[RISKS_AND_UNRESOLVED_DECISIONS.md](./RISKS_AND_UNRESOLVED_DECISIONS.md)** — Detailed hardware bottleneck analysis, thermal mitigations, and 4 technical decisions for user review.
+10. **[RISKS_AND_UNRESOLVED_DECISIONS.md](./RISKS_AND_UNRESOLVED_DECISIONS.md)** — Detailed hardware bottleneck analysis, thermal mitigations, and resolved architectural decisions.
 
 ---
 
@@ -60,4 +75,4 @@ The complete technical blueprint, hardware feasibility benchmarks, and implement
 7. [AI_ARCHITECTURE_DESIGN_REVIEW.md](./AI_ARCHITECTURE_DESIGN_REVIEW.md) — Initial AI architecture audit.
 8. [PERFORMANCE_AND_COMPATIBILITY_REVIEW.md](./PERFORMANCE_AND_COMPATIBILITY_REVIEW.md) — Hardware review against Core i3-6100T.
 9. [ASSET_MANIFEST.json](./ASSET_MANIFEST.json) — Asset manifest and bundle specifications.
-10. [GITHUB_UPLOAD_LOG.md](./GITHUB_UPLOAD_LOG.md) — Phase 1 & 2 verification logs.
+10. [GITHUB_UPLOAD_LOG.md](./GITHUB_UPLOAD_LOG.md) — Verification log of the GitHub uploads.

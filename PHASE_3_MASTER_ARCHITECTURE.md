@@ -85,18 +85,20 @@ $$\begin{aligned}
 \mathbf{Remaining\ Model\ Budget} &= \mathbf{8,183\text{ MB} (~8.1\text{ GB})}
 \end{aligned}$$
 
-### 3.2 Model Deployment Strategy
-1. **Resident Daily Workhorse:**
+### 3.2 Model Deployment & Worker Concurrency Strategy
+1. **Permanent Resident Main AI (Non-Evictable):**
    - Model: **`Qwen3-4B-Q4_K_M.gguf`** (2.50 GB file).
    - Working RAM with 4,096 context: **~3,100 MB**.
-   - System Total with Model: **~7,205 MB (~7.2 GB)**.
+   - System Total with Main AI: **~7,205 MB (~7.2 GB)**.
    - **Safe Operating Headroom:** **~5,083 MB (~5.0 GB FREE RAM)**.
-   - Speed on i3-6100T: **12 – 16 tokens/second**.
+   - Speed on i3-6100T: **[UNVERIFIED THEORETICAL ESTIMATE: 12 – 16 tokens/second]**.
+   - **Permanency Invariant:** The Main AI is permanently loaded and **NEVER** unloaded, frozen, unmapped, or evicted from memory.
 
-2. **Sequential Heavy Specialist (When Authorized):**
-   - Model: **`Nemotron-3.5-Bolt-E4B-Q4_K_M.gguf`** (6.18 GB file).
+2. **Local Worker Feasibility Verdict (Nemotron-3.5-Bolt-E4B):**
+   - Model: **`Nemotron-3.5-Bolt-E4B-Q4_K_M.gguf`** (6.18 GB file, ~7.5B parameters).
    - Working RAM with 4,096 context: **~7,200 MB**.
-   - **Operational Rule:** **Never load concurrently with Qwen3-4B.** The resident model context is frozen, memory is unmapped, and Nemotron is staged sequentially.
+   - **Hardware Reality on 12 GB RAM:** Because committed memory (OS + base system + permanent Main AI) is ~7.2 GB, available free RAM is ~5.0 GB. Running `Nemotron` locally requires ~7.2 GB, creating a **2.2 GB deficit**.
+   - **Operational Rule:** **`Nemotron` CANNOT be loaded as a local worker on this 12 GB machine while Main AI is resident.** Tasks requiring frontier parameters must route to an authorized **Online Worker** (Claude 3.5 Sonnet, GPT-4o, Groq) with explicit user consent, or execute via Main AI's resident 15 logical agent roles. Unloading the Main AI to force a local worker is strictly prohibited.
 
 ---
 
@@ -130,7 +132,7 @@ The Main AI is the permanent, un-evictable controller of the system. All 15 spec
   - **Tier 1 (Safe / Read-Only):** Automatically executed under air-gap policy.
   - **Tier 2 (Workspace Modification):** Explicit visual notification / single-click confirmation.
   - **Tier 3 (High Impact / Destructive):** Mandatory modal dialog showing full diff and requiring explicit click.
-- **Instant Emergency Interruption (`ESC`):** Native low-level Win32 keyboard hook intercepts the `ESC` key, immediately terminating running child processes and flushing the audio output buffer in $<50\text{ ms}$.
+- **Instant Emergency Interruption (`Ctrl + Alt + Escape` / `ESC`):** A dedicated global hotkey (`Ctrl + Alt + Escape`) immediately terminates running child processes and flushes the audio output buffer in $<50\text{ ms}$ without swallowing keys in other Windows apps. When the Assistant or HUD window has focus, bare `ESC` provides instant task pausing and modal dismissal.
 - **Zero Hidden Activity:** Every tool invocation displays an on-screen indicator and is committed to the local `audit_events` SQLite table.
 
 ---

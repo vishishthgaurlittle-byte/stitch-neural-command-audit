@@ -49,7 +49,7 @@ Using 16-bit float (`f16`) or 8-bit quantized (`q8_0`) KV cache:
 
 ---
 
-## 3. Theoretical vs. Real-World CPU Inference Speed
+## 3. Theoretical vs. Real-World CPU Inference Speed [UNVERIFIED THEORETICAL ESTIMATES]
 
 On a modern CPU, text generation (eval phase) is strictly **memory bandwidth bound**. Every single token generated requires reading the entire model weight tensor from RAM into the CPU cache once.
 
@@ -57,21 +57,21 @@ $$\text{Theoretical Generation Speed (tokens/sec)} \approx \frac{\text{Sustained
 
 For DDR4 dual-channel @ 2400 MHz with ~24.0 GB/s sustained read rate:
 
-### A. Qwen3-4B-Q4_K_M (Primary Workhorse)
+### A. Qwen3-4B-Q4_K_M (Primary Workhorse) [ESTIMATES]
 - **Weight Footprint:** ~2.33 GB.
 - **Bandwidth Limit:** $24.0\text{ GB/s} / 2.33\text{ GB} \approx 10.3\text{ tokens/sec}$ (unoptimized).
-- **With AVX2 Vector Packing & Skylake FMA:** **12.5 – 15.8 tokens/second**.
-- **Prompt Ingestion Speed (TTFT):** **45 – 65 tokens/second** (compute bound, scales with SIMD throughput).
+- **With AVX2 Vector Packing & Skylake FMA:** **[UNVERIFIED: 12.5 – 15.8 tokens/second]**.
+- **Prompt Ingestion Speed (TTFT):** **[UNVERIFIED: 45 – 65 tokens/second]** (compute bound, scales with SIMD throughput).
 - **Latency to First Word:** **~200 – 350 milliseconds** for a 150-token system prompt.
-- **Feasibility Verdict:** **PERFECT FOR INTERACTIVE DESKTOP ASSISTANT.** An average conversational turn of 40 words generates in ~2.8 seconds.
+- **Feasibility Verdict:** **PERFECT FOR PERMANENT RESIDENT MAIN AI.** An average conversational turn of 40 words generates in ~2.8 seconds.
 
-### B. Nemotron-3.5-Bolt-E4B-Q4_K_M (Heavyweight Specialist)
-- **Weight Footprint:** ~5.76 GB.
+### B. Nemotron-3.5-Bolt-E4B-Q4_K_M (~7.5B Parameter Model) [ESTIMATES]
+- **Weight Footprint:** ~5.76 GB (File size: 6.18 GB).
 - **Bandwidth Limit:** $24.0\text{ GB/s} / 5.76\text{ GB} \approx 4.1\text{ tokens/sec}$.
-- **With AVX2 Optimizations:** **4.2 – 6.5 tokens/second**.
-- **Prompt Ingestion Speed (TTFT):** **18 – 28 tokens/second**.
-- **Latency to First Word:** **~900 – 1,800 milliseconds**.
-- **Feasibility Verdict:** **FEASIBLE ONLY FOR ASYNC / BACKGROUND TASKS.** Suitable for writing complex code files or summarizing 10-page reports while displaying a progress spinner.
+- **With AVX2 Optimizations:** **[UNVERIFIED: 4.2 – 6.5 tokens/second]**.
+- **Prompt Ingestion Speed (TTFT):** **[UNVERIFIED: 18 – 28 tokens/second]**.
+- **Active Working RAM (4K Context):** **~7,200 MB**.
+- **Hardware Coexistence Verdict on 12 GB RAM:** **CANNOT RUN AS CONCURRENT LOCAL WORKER.** Because committed OS + Main AI memory is ~7.2 GB, only ~5.0 GB RAM remains free. Running Nemotron locally requires ~7.2 GB, resulting in a 2.2 GB RAM shortfall. Nemotron is reserved for offline single-model benchmarking, while runtime complex tasks route to authorized Online Workers or resident logical roles.
 
 ---
 
