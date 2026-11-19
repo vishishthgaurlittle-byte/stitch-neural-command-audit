@@ -61,8 +61,8 @@ The host machine was empirically measured using native Windows APIs and WMI/CIM 
 - **GlobalMemoryStatusEx `ullTotalPhys` (Windows-Visible):** **17,049,899,008 bytes** ($15.8790\text{ GiB} = 16,260.05\text{ MiB} \approx 17.05\text{ GB}$).
 - **Win32_OperatingSystem `TotalVisibleMemorySize`:** **16,650,292 KB** ($17,049,899,008\text{ bytes}$).
 - **Hardware-Reserved Memory Difference:** $17,179,869,184 - 17,049,899,008 = \mathbf{129,970,176\text{ bytes}}$ ($123.95\text{ MiB} \approx 124\text{ MiB}$). Measured installed-versus-visible RAM difference: 123.95 MiB. Exact hardware reservation breakdown: unverified.
-- **Currently Available Physical RAM (`ullAvailPhys`):** **7,371,558,912 bytes** ($7,030.07\text{ MiB} \approx 6.87\text{ GiB}$) at initial capture (2026-11-19T18:32:43), and **6,910,607,360 bytes** ($6,590.47\text{ MiB} \approx 6.44\text{ GiB}$) at follow-up capture. Windows `ullAvailPhys` includes Free, Zeroed, and Standby pages.
-- **Physical RAM Not Currently Reported as Available:** $17,049,899,008 - 7,371,558,912 = \mathbf{9,678,340,096\text{ bytes}}$ ($9,229.98\text{ MiB} \approx 9.01\text{ GiB}$) at initial capture, and $17,049,899,008 - 6,910,607,360 = \mathbf{10,139,291,648\text{ bytes}}$ ($9,669.58\text{ MiB} \approx 9.44\text{ GiB}$) at follow-up capture. This comprises active process working sets, modified pages, locked/kernel allocations, and memory compression; standby pages are NOT part of this quantity.
+- **Currently Available Physical RAM (`ullAvailPhys`):** **7,371,558,912 bytes** ($7,030.07\text{ MiB} \approx 6.87\text{ GiB}$) at initial capture (2026-11-19T18:32:43), and **6,910,607,360 bytes** ($6,590.47\text{ MiB} \approx 6.44\text{ GiB}$) at follow-up capture. Under Windows memory architecture, `ullAvailPhys` explicitly includes Free, Zeroed, and Standby page lists.
+- **Physical RAM Not Currently Reported as Available:** $17,049,899,008 - 7,371,558,912 = \mathbf{9,678,340,096\text{ bytes}}$ ($9,229.98\text{ MiB} \approx 9.01\text{ GiB}$) at initial capture, and $17,049,899,008 - 6,910,607,360 = \mathbf{10,139,291,648\text{ bytes}}$ ($9,669.58\text{ MiB} \approx 9.44\text{ GiB}$) at follow-up capture. This comprises active process working sets (which includes user applications and the `Memory Compression` process working set, observed at 1,160,495,104 bytes / ~1,106.73 MiB), modified pages, and locked kernel allocations (Non-Paged Pool, resident Paged Pool); standby pages are NOT part of this non-available quantity.
 - **GlobalMemoryStatusEx `ullTotalPageFile` (Commit Limit):** **19,600,035,840 bytes** ($18.2540\text{ GiB} = 18,692.06\text{ MiB} \approx 19.60\text{ GB}$).
 - **GlobalMemoryStatusEx `ullAvailPageFile` (Available Commit):** **6,995,292,160 bytes** ($6.5149\text{ GiB} = 6,671.24\text{ MiB} \approx 7.00\text{ GB}$).
 - **Currently Committed Virtual Memory:** $19,600,035,840 - 6,995,292,160 = \mathbf{12,604,743,680\text{ bytes}}$ ($12,020.82\text{ MiB} \approx 11.74\text{ GiB}$). *(Note: This is total committed virtual memory across all processes, backed by RAM plus `pagefile.sys`, NOT physical RAM consumed).*
@@ -75,7 +75,7 @@ The host machine was empirically measured using native Windows APIs and WMI/CIM 
 | **2. Windows-Visible Physical RAM** | 17,049,899,008 B | 16,260.05 MiB (15.88 GiB) | ~17.05 GB | Win32 API `GlobalMemoryStatusEx.ullTotalPhys` / `TotalVisibleMemorySize` |
 | **3. Hardware-Reserved Memory Difference** | 129,970,176 B | 123.95 MiB (~0.12 GiB) | ~0.13 GB | Difference: Installed RAM minus Windows-Visible RAM. Measured difference: 123.95 MiB. Exact hardware reservation breakdown: unverified. |
 | **4. Currently Available Physical RAM**| 7,371,558,912 B | 7,030.07 MiB (6.87 GiB) | ~7.37 GB | Win32 API `GlobalMemoryStatusEx.ullAvailPhys` (Captured 2026-11-19T18:32:43; workload-dependent; includes Free, Zeroed, and Standby pages) |
-| **5. Physical RAM Not Reported Available** | 9,678,340,096 B | 9,229.98 MiB (9.01 GiB) | ~9.68 GB | Difference: Visible RAM minus `ullAvailPhys` (Active working sets, modified pages, locked kernel memory, compressed store; does NOT include standby pages) |
+| **5. Physical RAM Not Reported Available** | 9,678,340,096 B | 9,229.98 MiB (9.01 GiB) | ~9.68 GB | Difference: Visible RAM minus `ullAvailPhys` (Comprises active process working sets [including Memory Compression], modified pages, locked kernel memory; does NOT include standby pages) |
 | **6. Currently Committed Memory** | 12,604,743,680 B | 12,020.82 MiB (11.74 GiB) | ~12.02 GB | Win32 API `ullTotalPageFile - ullAvailPageFile` (Virtual commit backed by RAM + pagefile; NOT physical RAM consumed) |
 | **7. Total System Commit Limit** | 19,600,035,840 B | 18,692.06 MiB (18.25 GiB) | ~19.60 GB | Win32 API `GlobalMemoryStatusEx.ullTotalPageFile` (Physical RAM + pagefile.sys) |
 
@@ -91,12 +91,11 @@ To eliminate contradictions, KAATYA strictly distinguishes six discrete memory c
    - **Free Page List:** Unassigned physical pages immediately available.
    - **Zeroed Page List:** Free physical pages initialized to zero.
    - **Standby Page List:** Cached file pages and code whose contents remain valid but can be repurposed or discarded instantly without writing to disk. Standby pages are explicitly part of **Available Physical RAM** in Windows.
-4. **Physical RAM Not Currently Reported as Available:** The mathematical difference between Windows-visible RAM and `ullAvailPhys` ($16,260.05 - 7,030.07 = 9,229.98\text{ MiB}$). This must **NOT** be described as memory purely consumed by application private working sets, nor does it include standby pages. It comprises:
-   - **Active Pages:** Pages actively mapped into process working sets and kernel threads.
-   - **Modified Page List:** Pages containing modified data that must be written to disk before they can be transitioned to standby or free.
+4. **Physical RAM Not Currently Reported as Available:** The mathematical difference between Windows-visible RAM and `ullAvailPhys` ($16,260.05 - 7,030.07 = 9,229.98\text{ MiB}$). Standby pages are NOT part of this non-available figure. It comprises:
+   - **Active Process Working Sets:** Resident physical pages mapped into process address spaces (including third-party applications, developer tooling, background services, and the `Memory Compression` process working set, which was observed at 1,160,495,104 bytes / ~1,106.73 MiB; Memory Compression is an internal component of active working sets, NOT a separate additive quantity).
+   - **Modified Page List:** Pages containing modified data that must be written to disk before transitioning to standby or free.
    - **Locked Kernel Allocations:** Non-Paged Pool (locked in RAM for drivers/network), resident Paged Pool, and page tables.
-   - **Memory Compression Store:** Active physical working set of `Memory Compression` maintained by the Windows Memory Manager.
-5. **Process Working Sets:** The physical RAM pages currently resident for a specific process (e.g. resident GGUF weights, private heap, stack). Process working sets, standby pages, memory compression, and kernel pools are different categories and cannot be naively added together. Visible RAM minus available RAM does NOT equal the arithmetic sum of process working sets, as processes share system DLLs and mapped memory.
+5. **Process Working Sets:** The physical RAM pages currently resident for a specific process (e.g. resident GGUF weights, private heap, stack). Process working sets, standby pages, and kernel pools are different categories and cannot be naively added together. Visible RAM minus available RAM does NOT equal the arithmetic sum of process working sets, as processes share system DLLs and mapped memory.
 6. **System Commit Charge vs. Commit Limit:** The total virtual address space promised to all running processes backed by physical RAM plus `pagefile.sys` ($12,020.82\text{ MiB}$ committed at measurement; $18,692.06\text{ MiB}$ commit limit; $6,671.24\text{ MiB}$ available commit). **Commit charge is NOT physical RAM consumed.**
 
 ### 3.2 Resolution of the Available-Memory and Headroom Discrepancy
@@ -112,9 +111,9 @@ $$\text{Theoretical Idle Margin} = 16,260.05\text{ MiB (Visible)} - 6,788\text{ 
   - Status: **Partially explained; exact reconciliation unavailable.**
   - Visible RAM minus available RAM does NOT equal the sum of process working sets.
   - Active host developer processes captured at timestamp (Google Chrome at ~2,800 MiB, Antigravity IDE at ~1,200 MiB, language servers at ~400 MiB) represent independent virtual working sets that share common libraries and OS mappings.
-  - Windows Memory Compression: Managed by the Windows Memory Manager (`ntoskrnl.exe`), which compresses inactive pages into an in-memory virtual store (`Memory Compression` process working set) rather than paging immediately to disk. Measured directly via PowerShell `(Get-Process -Name "Memory Compression").WorkingSet64` at **1,160,495,104 bytes** (**1,106.73 MiB**) at initial snapshot capture.
+  - Windows Memory Compression: Managed by the Windows Memory Manager (`ntoskrnl.exe`). The working set of the `Memory Compression` process was observed at **1,160,495,104 bytes** (**1,106.73 MiB**) at initial snapshot capture. This is an observation of an active process working set, NOT an additional quantity to add on top of non-available RAM.
   - The Windows kernel maintains Non-Paged Pool (locked in physical RAM, measured at **511.73 MiB** / 536,100,864 bytes) and Paged Pool (measured at **720.04 MiB** / 754,905,088 bytes).
-  - The $6,788\text{ MiB}$ baseline is an engineering projection of an idle Windows machine running KAATYA, whereas the $7,030.07\text{ MiB}$ available reading reflects a live developer workstation with heavy background tooling. Comparing these states demonstrates why live runtime querying is mandatory. Exact component reconciliation is mathematically impossible from snapshot aggregates without kernel ETW tracing.
+  - The $6,788\text{ MiB}$ baseline is an engineering projection of an idle Windows machine running KAATYA, whereas the $7,030.07\text{ MiB}$ available reading reflects a live developer workstation with heavy background tooling. Exact component reconciliation cannot be claimed without independent, non-overlapping measurements across all kernel and user-space structures.
 
 ---
 
@@ -260,26 +259,29 @@ Every model asset physically residing on `T:\ai creation` is categorized by func
   - `final_layer.linear.weight`: shape `(3072, 128)`, type `Q4_0_4_4` (type ID 30).
   - 143 block weights spanning `double_blocks.*` and `single_blocks.*`.
 - **Observed Quantization Types & Runtime Support:**
-  - Primary Projection Weights: Type 30 (`Q4_0_4_4` / tiled 4-bit quantization).
+  - Numeric GGML Type Mapping: Type ID 30 maps to `GGML_TYPE_Q4_0_4_4` in GGML specification (4-bit quantization packed in 4x4 tiled blocks with block size 32 and type size 18 bytes).
+  - Primary Projection Weights: Type 30 (`Q4_0_4_4`).
   - Biases / Norms: Type 0 (`F32`).
-  - Runtime note: CPU support for Type 30 depends on AVX2/tiled kernel compilation flags in `sd.cpp` or `llama.cpp`; standard stock builds without tiled 4-bit support may fail or fallback to slow unquantized conversion.
+  - Runtime Compatibility Limitation: CPU instruction set support (such as AVX2) alone does **NOT** establish inference compatibility. An inference runtime must possess explicit software kernel implementations to dequantize and compute matrix multiplications with `Q4_0_4_4` tiled weights.
+  - Intended Local Inference Runtimes: `stable-diffusion.cpp` (`sd.cpp`) and `ComfyUI-GGUF`. Neither runtime's compiled Windows binary on this PC has been verified to support `GGML_TYPE_Q4_0_4_4` for FLUX models, nor has either been demonstrated to successfully load a 0-metadata DiT model layout. Therefore, runtime inference compatibility remains explicitly **UNVERIFIED**.
 - **Scope of Boundary Validation:**
   - *What it proves:* The GGUF container binary structure is well-formed, tensor offsets are monotonically ascending, and all 149 tensor payloads reside entirely within the 2,256,889,280-byte file boundary (maximum tensor end offset: 2,222,974,400 bytes).
   - *What it DOES NOT prove:* A passing tensor-boundary check does **NOT** prove model authenticity, does not prove weights are untampered or properly trained, does not prove architecture compatibility, and does not prove successful runtime inference or step convergence.
 
-### 9.2 Conditioning Architecture, Dependencies & Extraction Pre-requisites
+### 9.2 Observed Tensor Geometry, Conditioning Hypotheses & Dependency Realities
 - **Variant Disambiguation (Distilled vs. Base):**
   - **FLUX.2 Klein Distilled:** 4-step workflow utilizing rapid diffusion distillation.
   - **FLUX.2 Klein Base:** Standard 50-step iterative denoising workflow.
   - While the filename suggests a Klein distilled variant, model architecture and metadata alone do not prove step-budget tuning without empirical execution.
 - **Definitive Classification:** **EXPERIMENTAL — END-TO-END COMPATIBILITY AND PERFORMANCE UNPROVEN ON TARGET PC.**
-- **True Conditioning Architecture:**
-  - Uses a **Qwen3 language model** feature extractor (concatenating hidden states from layers 9, 18, and 27; $3 \times 2,560 = 7,680$ dimensional conditioning vector directly matching the DiT's `txt_in.weight` shape `(7680, 3072)`).
-  - **Empirical Boundary:** A matching tensor dimension `(7680, 3072)` alone is **NOT** proof of compatible conditioning or runtime feasibility.
+- **Observed Tensor Geometry vs. Conditioning Claims:**
+  - The tensor `txt_in.weight` has an **observed tensor shape** of `(7680, 3072)`.
+  - A popular community hypothesis suggests that this 7,680-dimensional input corresponds to concatenated representations from layers 9, 18, and 27 of a Qwen3 language model ($3 \times 2,560 = 7,680$).
+  - **Critical Engineering Boundary:** Without architecture metadata in the GGUF container or upstream published specifications, this three-part extraction remains an **unproven theoretical conjecture**, NOT a confirmed conditioning implementation. The 7,680 dimension must be treated strictly as an observed tensor shape.
   - Reusing the Main AI (`Qwen3-4B-Q4_K_M.gguf`) for feature extraction cannot be claimed as viable until an actual extraction test proves:
     1. Correct tokenization matching FLUX prompt formatting.
     2. Correct Qwen3 model weights and architecture.
-    3. Extraction of exact hidden states from layers 9, 18, and 27.
+    3. Extraction of exact hidden states from layers 9, 18, and 27 (if the conjecture holds).
     4. Correct normalization (RMSNorm) and tensor layout matching DiT expectations.
     5. Valid, non-degraded conditioning output.
     6. Acceptable memory usage during forward extraction.
@@ -461,7 +463,7 @@ To enforce rigorous scientific and engineering integrity, all system metrics, ar
 6. **Live System Virtual Commit:** 12,604,743,680 bytes (12,020.82 MiB) committed across RAM and `pagefile.sys` against a 19,600,035,840-byte (18,692.06 MiB) commit limit. (Committed memory is virtual address allocation backed by RAM or pagefile, NOT physical RAM consumed).
 7. **Model Binary Assets on Disk:** Exact byte counts and SHA-256 hashes of all 10 local model assets residing in `T:\ai creation`.
 8. **GGUF Binary Metadata & Architectural Parameters:** Verified via `tools/inspect_model_metadata.py` with exit code 0:
-   - `flux-2-klein-4b-q4_0.gguf`: 149 tensors, 0 KV pairs, architecture `unknown` (missing `general.architecture`), primary quantization Type 30 (`Q4_0_4_4`) with Type 0 (`F32`), `txt_in.weight` shape `(7680, 3072)`. Tensor offsets are monotonically ascending and all 149 tensor payloads fall strictly within the 2,256,889,280-byte file boundary. (Passing binary boundary validation proves container structural integrity within file bounds, but does NOT prove authenticity, training validity, correct architecture, or runtime inference success).
+   - `flux-2-klein-4b-q4_0.gguf`: 149 tensors, 0 KV pairs, architecture `unknown` (missing `general.architecture`), primary quantization Type 30 (`Q4_0_4_4`) with Type 0 (`F32`), `txt_in.weight` observed shape `(7680, 3072)`. Tensor offsets are monotonically ascending and all 149 tensor payloads fall strictly within the 2,256,889,280-byte file boundary. (Passing binary boundary validation proves container structural integrity within file bounds, but does NOT prove authenticity, training validity, correct architecture, or runtime inference success).
    - `Qwen3-4B-Q4_K_M.gguf`: 398 tensors, 28 KV pairs, 36 layers (`block_count`), 2560 embedding length, 32 attention heads (`head_count`), 8 KV heads (`head_count_kv`), key length 128 (`key_length`), value length 128 (`value_length`).
 
 ### 20.2 Mathematically Derived Values
@@ -475,8 +477,8 @@ To enforce rigorous scientific and engineering integrity, all system metrics, ar
 3. **Physical Memory Not Reported as Available:**
    - Snapshot 1: $16,260.05\text{ MiB} - 7,030.07\text{ MiB} = \mathbf{9,229.98\text{ MiB}}$.
    - Snapshot 2: $16,260.05\text{ MiB} - 6,590.47\text{ MiB} = \mathbf{9,669.58\text{ MiB}}$.
-   - This non-available physical RAM consists of active process working sets, modified pages, locked kernel memory (non-paged pool), resident paged pool, and Memory Compression working set. Standby pages are NOT part of this figure because they are counted in available memory.
-4. **FLUX.2 Klein Conditioning Dimension:** 3 layers (9, 18, 27) $\times 2,560\text{ dims} = \mathbf{7,680\text{ dimensions}}$ matching `txt_in.weight` shape `(7680, 3072)`.
+   - This non-available physical RAM consists of active process working sets (which includes user applications and the `Memory Compression` process working set, observed at 1,106.73 MiB), modified pages, and locked kernel memory (non-paged pool, resident paged pool). Standby pages are NOT part of this figure because they are counted in available memory.
+4. **Observed FLUX Tensor Geometry vs. Conditioning Conjecture:** The tensor `txt_in.weight` has an observed shape of `(7680, 3072)`. A community hypothesis proposes that this 7,680-dimensional input corresponds to three concatenated 2,560-dimensional representations from layers 9, 18, and 27 of a Qwen3 model ($3 \times 2,560 = 7,680$). Without architecture metadata or empirical demonstration, this remains an unproven theoretical conjecture, NOT a confirmed conditioning implementation.
 
 ### 20.3 Provisional Estimates
 1. **Dynamic Safety Margin ($S_{\text{dynamic}}$):** $S_{\text{dynamic}} \approx \mathbf{2,151\text{ MiB}}$ is a provisional formula ($0.12 \times M_{\text{total\_phys}} + 200\text{ MiB}$) intended to protect system stability. The derived worker budget ($4,879.07\text{ MiB}$) is a theoretical estimate under Snapshot 1 and must not be treated as a validated guaranteed capacity.
@@ -491,10 +493,10 @@ To enforce rigorous scientific and engineering integrity, all system metrics, ar
 4. **FLUX.2 Klein Generation Latency on CPU:** 45–90 seconds per Euler step (yielding ~3–6 minutes for 4-step distilled workflow, ~15–30 minutes for 20 steps) is an unverified theoretical estimate.
 
 ### 20.4 Unverified Implementation Assumptions
-1. **Main AI Hidden State Extraction for FLUX:** Reusing `Qwen3-4B-Q4_K_M.gguf` for DiT text conditioning assumes custom C++ patches can extract layers 9, 18, and 27 without corrupting Main AI state or exceeding latency budgets. This is unverified in code.
+1. **FLUX Runtime Compatibility & Conditioning Extraction:** Running `flux-2-klein-4b-q4_0.gguf` on CPU requires an inference runtime with explicit software support for GGML Type 30 (`Q4_0_4_4`) tiled kernels and 0-metadata DiT layouts; AVX2 CPU support alone does not establish compatibility. Furthermore, extracting intermediate Qwen3 layers (9, 18, 27) for text conditioning assumes custom C++ patches in `llama.cpp`, which remains unverified in code.
 2. **Main AI Memory Residency Behavior:** KAATYA application runtime policy mandates that Main AI is never intentionally evicted or unloaded during normal operation. However, the Windows Memory Manager (`ntoskrnl.exe`) may still page virtual memory pages to `pagefile.sys` under severe host memory pressure. Actual physical residency and paging behavior cannot be guaranteed by application policy alone and require empirical validation under load during Phase 4.
 3. **Hardware-Reserved Memory Breakdown:** The exact breakdown of the 123.95 MiB hardware-reserved difference between BIOS, APIC/PCIe, and Intel HD 530 DVMT frame buffer remains unverified.
-4. **Host Memory Reconciliation:** The ~2,442 MiB difference between the projected 6,788 MiB clean baseline and the 9,229.98 MiB host memory not reported as available is accounted for by background developer applications (Chrome, Antigravity, Python), Windows Memory Compression working set (measured at 1,106.73 MiB via `(Get-Process -Name "Memory Compression").WorkingSet64`), and kernel memory pools (1,231.77 MiB). Note that physical RAM not reported as available does NOT equal the direct arithmetic sum of process working sets due to shared pages and kernel allocations.
+4. **Host Memory Reconciliation:** The ~2,442 MiB difference between the projected 6,788 MiB clean baseline and the 9,229.98 MiB host memory not reported as available is partially explained by background developer applications (Chrome, Antigravity, Python), Windows Memory Compression working set (observed at 1,106.73 MiB via `(Get-Process -Name "Memory Compression").WorkingSet64` as an element of active working sets, NOT an additive quantity), and kernel memory pools (1,231.77 MiB). Exact component reconciliation cannot be claimed without independent, non-overlapping measurements across all kernel and user-space structures.
 
 ### 20.5 Tests That Can Only Be Performed After Explicit Phase 4 Authorization
 1. **Model Token Generation Throughput:** Physical measurement of token generation speeds (tok/s) for Qwen3-4B and secondary workers via `llama-bench` on AVX2 CPU.

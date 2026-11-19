@@ -139,7 +139,7 @@ def run_numerical_unit_tests():
         hidden_dim = 2560
         total_conditioning_dim = layers_used * hidden_dim
         assert total_conditioning_dim == 7680, f"FLUX conditioning dim expected 7680, got {total_conditioning_dim}"
-        record_pass("Unit Test: FLUX Dimension", "FLUX.2 Klein conditioning vector math (3 * 2,560 = 7,680) asserted")
+        record_pass("Unit Test: FLUX Dimension", "Observed FLUX txt_in.weight dimension arithmetic (3 * 2,560 = 7,680 conjecture) asserted")
     except AssertionError as e:
         record_fail("Unit Test: FLUX Dimension", str(e))
         unit_test_passed = False
@@ -417,7 +417,7 @@ else:
     flux_ok = False
 
 if "layers 9, 18, and 27" in image_arch.lower() or "layers 9, 18, and 27" in signoff_txt.lower():
-    record_pass("FLUX Extraction Layers", "FLUX.2 Klein intermediate conditioning layers (9, 18, 27) specified")
+    record_pass("FLUX Extraction Layers", "Community hypothesis of intermediate conditioning layers (9, 18, 27) documented as unverified conjecture")
 else:
     record_fail("FLUX Extraction Layers", "Conditioning layers (9, 18, 27) missing in documentation", "KAATYA_IMAGE_GENERATION_ARCHITECTURE.md")
     flux_ok = False

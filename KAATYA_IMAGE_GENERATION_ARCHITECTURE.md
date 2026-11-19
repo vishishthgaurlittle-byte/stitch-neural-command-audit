@@ -37,13 +37,17 @@ flowchart TD
 - **SHA-256 Checksum:** `9c5939d55e3ac76e3a700029770fcc5e1b873d12c2a6d22c6c3fec217488e718`
 - **Upstream Source:** Community Hugging Face GGUF repository (unverified upstream signed manifest).
 - **GGUF Structure:** Version 3, 149 tensors, **0 KV metadata entries** (architecture reported as `unknown` due to missing `general.architecture`).
-- **Quantization Types:** Predominantly GGML Type 30 (`Q4_0_4_4`, 4-bit tiled blocks requiring AVX2 runtime support) alongside GGML Type 0 (`F32`) for modulation, norm, and projection layers.
-- **Tensors Present:** Exclusively the Diffusion Transformer (DiT) weights: 5 double blocks (`double_blocks.0` through `double_blocks.4`) and 20 single blocks (`single_blocks.0` through `single_blocks.19`), plus input/output modulations and `txt_in.weight` `[7680, 3072]`.
+- **Quantization Types & Runtime Limits:**
+  - Numeric GGML Type ID 30 maps to `GGML_TYPE_Q4_0_4_4` (a 4-bit quantization packed in 4x4 tiled blocks with block size 32 and type size 18 bytes).
+  - Tensors use Type 30 (`Q4_0_4_4`) for weights and Type 0 (`F32`) for modulation and projection layers.
+  - Runtime note: CPU AVX2 instruction support alone does **NOT** establish inference compatibility. An inference runtime must implement dedicated matrix multiplication kernels for `Q4_0_4_4`.
+  - Neither intended runtime (`stable-diffusion.cpp` or `ComfyUI-GGUF`) has been demonstrated on this machine to support `GGML_TYPE_Q4_0_4_4` for FLUX models or to load a 0-metadata DiT container without hyper-parameters. Therefore, runtime inference compatibility remains explicitly **UNVERIFIED**.
+- **Tensors Present:** Exclusively the Diffusion Transformer (DiT) weights: 5 double blocks (`double_blocks.0` through `double_blocks.4`) and 20 single blocks (`single_blocks.0` through `single_blocks.19`), plus input/output modulations and `txt_in.weight` of observed dimension `[7680, 3072]`.
 - **Binary Boundary Validation:** Verified via `tools/inspect_model_metadata.py` (Exit code 0). Tensor offsets are monotonically ascending and all 149 tensor payloads fall strictly within the 2,256,889,280-byte file boundary (maximum tensor end offset: 2,222,974,400 bytes).
 - **Scope of Binary Validation:** Passing container boundary validation confirms that the file is structurally intact as a GGUF container on disk. It does **NOT** prove model authenticity, does not prove weights are untampered or properly trained, does not prove architecture compatibility, and does not prove successful runtime inference.
 - **Definitive Classification:** **EXPERIMENTAL — END-TO-END COMPATIBILITY AND PERFORMANCE UNPROVEN ON TARGET PC.**
 
-### 2.2 True FLUX.2 Klein Pipeline Dependencies
+### 2.2 FLUX.2 Klein Pipeline Dependencies & Observed Geometry
 Earlier audit references erroneously listed legacy FLUX.1 assets (`clip_l.safetensors` and `t5xxl_fp8`). FLUX.2 Klein departs fundamentally from the dual CLIP/T5 scheme:
 
 - **Variant Disambiguation (Distilled vs. Base):**
@@ -53,17 +57,17 @@ Earlier audit references erroneously listed legacy FLUX.1 assets (`clip_l.safete
 
 | Pipeline Component | Actual Required Asset | Architecture Details | Status in `T:\ai creation` |
 | :--- | :--- | :--- | :---: |
-| **Diffusion Backbone (DiT)** | `flux-2-klein-4b-q4_0.gguf` | 4B DiT backbone, Q4_0 quant, 149 tensors | **CONFIRMED PRESENT** |
-| **Text Encoder** | Qwen3 Language Model Feature Extractor | Extracts intermediate layers 9, 18, and 27 ($2560 \times 3 = 7,680$ dims) | **ABSENT AS COMPANION FILE** |
+| **Diffusion Backbone (DiT)** | `flux-2-klein-4b-q4_0.gguf` | 4B DiT backbone, Q4_0_4_4 quant, 149 tensors | **CONFIRMED PRESENT** |
+| **Text Encoder** | Qwen3 Language Model Feature Extractor (Hypothesized) | Community hypothesis suggests extracting intermediate layers 9, 18, and 27 ($2560 \times 3 = 7,680$ dims); unverified conjecture | **ABSENT AS COMPANION FILE** |
 | **Variational Autoencoder** | `flux2-vae.safetensors` | FLUX.2 Latent Autoencoder (16-channel) | **ABSENT** |
 | **Tokenizer & Template** | Qwen3 Tokenizer | Structured `<|im_start|>` chat template formatting | Bundled with Qwen3 runtime |
 
 ### 2.3 Evaluation: Can Resident `Qwen3-4B-Q4_K_M.gguf` Serve as the Text Encoder?
 The local disk already holds `Qwen3-4B-Q4_K_M.gguf`. Could this file double as the FLUX text encoder to avoid downloading another 3–5 GB asset?
-- **Architectural Overlap:** Qwen3-4B contains the necessary attention blocks and layers 9, 18, and 27.
+- **Architectural Overlap:** Qwen3-4B contains attention blocks and layers 9, 18, and 27.
 - **Critical Technical Limitations:**
   1. **Logit Evaluation vs. Layer Extraction:** Standard `llama.cpp` inference processes tokens forward to generate logits, discarding intermediate hidden states to optimize cache memory. Harvesting concatenated hidden vectors from layers 9, 18, and 27 requires custom C-API forward hooks not present in stock runtime builds.
-  2. **Empirical Boundary:** A matching tensor dimension `(7680, 3072)` alone is **NOT** proof of compatible conditioning. Reusing `Qwen3-4B` cannot be claimed as viable until an actual extraction test proves:
+  2. **Empirical Boundary:** The tensor `txt_in.weight` has an observed shape of `(7680, 3072)`. A matching tensor dimension `(7680, 3072)` alone is strictly an observed shape and is **NOT** proof of compatible conditioning or a confirmed three-part conditioning implementation. Reusing `Qwen3-4B` cannot be claimed as viable until an actual extraction test proves:
      - Correct tokenization matching FLUX prompt formatting.
      - Correct Qwen3 model weights and architecture.
      - Correct extraction of hidden states from layers 9, 18, and 27.

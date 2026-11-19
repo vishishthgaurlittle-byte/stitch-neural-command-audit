@@ -49,7 +49,7 @@ To maintain absolute technical truthfulness, all project metrics are categorized
 - **External Storage:** Amazon Basics USB 3.0 pendrive (~116 GB usable capacity).
 - **10 Present Models:** Verified byte-sizes and calculated SHA-256 hashes (see `KAATYA_FINAL_MODEL_INVENTORY.md`).
 - **Absence of Historical Models:** `Nemotron-7.5B`, `qwen-image-2.1`, `nomic-embed`, and `qwen2.5-coder-3b` are verified absent.
-- **FLUX.2 GGUF Structure:** Verified as DiT backbone only (149 tensors, 0 KV pairs; utilizes Qwen3 text encoder and `flux2-vae.safetensors`, both absent locally; input shape is `txt_in.weight` `(7680, 3072)`).
+- **FLUX.2 GGUF Structure:** Verified as DiT backbone only (149 tensors, 0 KV pairs; observed input shape is `txt_in.weight` `(7680, 3072)`; hypothesized Qwen3 text encoder and `flux2-vae.safetensors` are absent locally).
 
 ### 2.2 Theoretical Calculations (Derived from Measured Hardware Bounds)
 - **Base Committed Working Set:** ~3.65 GB (Windows 10 base ~3.0 GB + dynamic Intel HD 530 idle UI ~0.16 GB + Tauri/WebView2 shell/audio ~0.50 GB).

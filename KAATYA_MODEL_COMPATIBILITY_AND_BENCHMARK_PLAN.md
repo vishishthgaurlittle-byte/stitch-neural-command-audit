@@ -57,8 +57,8 @@ The table below delineates **recommended baseline assignments** versus **benchma
 Our direct binary header and tensor inspection revealed:
 1. **Header Structure:** GGUF v3, 149 tensors, **0 KV metadata entries**.
 2. **Component Identity:** Contains exclusively the **Diffusion Transformer (DiT) backbone weights** (`double_blocks.*`, `single_blocks.*`).
-3. **Actual FLUX.2 Klein Pipeline Dependencies:**
-   - **Text Encoder:** Unlike FLUX.1 (which used CLIP-L + T5-XXL), FLUX.2 Klein utilizes a **Qwen3 language model** text encoder. It concatenates intermediate hidden activations from layers 9, 18, and 27 (each 2,560 dimensions, $2560 \times 3 = 7,680$) to match the DiT's `txt_in.weight` dimensions (`[7680, 3072]`).
+3. **Actual FLUX.2 Klein Pipeline Dependencies & Observed Geometry:**
+   - **Text Encoder & Conditioning:** The tensor `txt_in.weight` has an observed shape of `[7680, 3072]`. A community hypothesis proposes that this 7,680-dimension corresponds to three concatenated hidden layers (9, 18, and 27) of a Qwen3 model ($3 \times 2,560 = 7,680$). However, without architecture metadata in the container or official upstream documentation, this remains an unproven theoretical conjecture, NOT a confirmed three-part conditioning implementation. Companion weights (text encoder and VAE) are absent from disk.
    - **Variational Autoencoder (VAE):** `flux2-vae.safetensors` (not legacy `ae.safetensors`).
    - **Tokenizer:** Qwen3 tokenizer with `<|im_start|>` chat template formatting.
 4. **Feasibility of Reusing Resident `Qwen3-4B-Q4_K_M.gguf` as Text Encoder:**
