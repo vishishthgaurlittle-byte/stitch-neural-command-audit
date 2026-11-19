@@ -26,7 +26,7 @@ GGML_TYPE_INFO = {
     28: {"name": "I64",      "block_size": 1,   "type_size": 8},
     29: {"name": "F64",      "block_size": 1,   "type_size": 8},
     30: {"name": "BF16",     "block_size": 1,   "type_size": 2},
-    31: {"name": "Q4_0_4_4", "block_size": 32,  "type_size": 18},
+    31: {"name": "UNRESOLVED_TYPE_31", "block_size": 32, "type_size": 18}, # Unverified/experimental historical mapping; 0 tensors present in local file
 }
 
 def parse_gguf_metadata(filepath, verbose=False):
@@ -339,28 +339,23 @@ def parse_gguf_metadata(filepath, verbose=False):
             print(f"[FAIL] Container byte accounting mismatch! Difference: {accounting_diff} bytes", file=sys.stderr)
             return False
 
-        # Save detailed audit TSV
+        # Save detailed canonical audit TSV for FLUX
         tools_dir = os.path.dirname(os.path.abspath(__file__))
-        tsv_output_path = os.path.join(tools_dir, f"{os.path.splitext(os.path.basename(filepath))[0]}_per_tensor_audit.tsv")
-        try:
-            headers = [
-                "Index", "Name", "Dimensions", "Raw_GGUF_Type_ID", "Correct_Type_Name",
-                "Block_Size", "Bytes_Per_Block", "Expected_Payload_Size_Bytes", "Actual_Tensor_Offset",
-                "Absolute_File_Start_Byte", "Expected_Tensor_End_Offset", "Alignment_Padding_Before_Next_Tensor",
-                "Boundary_Validation_Result"
-            ]
-            tsv_content = "\t".join(headers) + "\n" + "\n".join("\t".join(r) for r in tsv_rows) + "\n"
-            with open(tsv_output_path, "w", encoding="utf-8") as tsv_file:
-                tsv_file.write(tsv_content)
-            print(f"\nDetailed per-tensor audit written to: {tsv_output_path}")
-
-            if "flux" in os.path.basename(filepath).lower():
-                canonical_tsv = os.path.join(tools_dir, "flux_per_tensor_audit.tsv")
+        if "flux" in os.path.basename(filepath).lower():
+            canonical_tsv = os.path.join(tools_dir, "flux_per_tensor_audit.tsv")
+            try:
+                headers = [
+                    "Index", "Name", "Dimensions", "Raw_GGUF_Type_ID", "Correct_Type_Name",
+                    "Block_Size", "Bytes_Per_Block", "Expected_Payload_Size_Bytes", "Actual_Tensor_Offset",
+                    "Absolute_File_Start_Byte", "Expected_Tensor_End_Offset", "Alignment_Padding_Before_Next_Tensor",
+                    "Boundary_Validation_Result"
+                ]
+                tsv_content = "\t".join(headers) + "\n" + "\n".join("\t".join(r) for r in tsv_rows) + "\n"
                 with open(canonical_tsv, "w", encoding="utf-8") as can_file:
                     can_file.write(tsv_content)
-                print(f"Canonical per-tensor audit written to: {canonical_tsv}")
-        except Exception as e:
-            print(f"[WARN] Could not write detailed audit TSV: {e}")
+                print(f"\nCanonical per-tensor audit written to: {canonical_tsv}")
+            except Exception as e:
+                print(f"[WARN] Could not write canonical audit TSV: {e}")
 
         print(f"\n--- Significant Architectural Tensors Sample ---")
         for tname, shape, ttype, offset, payload_size in sample_tensors[:12]:

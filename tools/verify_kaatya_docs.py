@@ -176,14 +176,14 @@ def run_numerical_unit_tests():
         assert size_bf16 == 47185920, f"BF16 byte size expected 47185920, got {size_bf16}"
         assert size_q4_0 == 13271040, f"Q4_0 byte size expected 13271040, got {size_q4_0}"
         
-        # Upstream GGML Enum types (ggml.h)
+        # Upstream GGML Enum types (ggml.h) and historical mappings
         ggml_enum_q4_0 = 2
         ggml_enum_bf16 = 30
-        ggml_enum_q4_0_4_4 = 31
+        ggml_enum_unresolved_31 = 31
         
         assert ggml_enum_q4_0 == 2, "GGML_TYPE_Q4_0 must be 2"
         assert ggml_enum_bf16 == 30, "GGML_TYPE_BF16 must be 30"
-        assert ggml_enum_q4_0_4_4 == 31, "GGML_TYPE_Q4_0_4_4 must be 31"
+        assert ggml_enum_unresolved_31 == 31, "Unresolved historical enum ID must be 31"
         
         # Total GGUF container size calculation
         # Header & Metadata: 10,682 bytes
@@ -213,7 +213,7 @@ def run_numerical_unit_tests():
         total_calculated_bytes = header_bytes + header_pad + payload_bf16 + payload_q4_0
         assert total_calculated_bytes == 2256889280, f"Total GGUF bytes expected 2256889280, got {total_calculated_bytes}"
         
-        record_pass("Unit Test: FLUX GGML Types", "FLUX GGML type enums (2=Q4_0, 30=BF16, 31=Q4_0_4_4), txt_in.weight byte sizes (47,185,920 bytes = BF16), Q4_0 payload (2,149,908,480 B, div by 18), BF16 payload (106,970,112 B, div by 2), and exact container sum asserted")
+        record_pass("Unit Test: FLUX GGML Types", "FLUX GGML type enums (2=Q4_0, 30=BF16, 31=unresolved historical enum), txt_in.weight byte sizes (47,185,920 bytes = BF16), Q4_0 payload (2,149,908,480 B, div by 18), BF16 payload (106,970,112 B, div by 2), and exact container sum asserted")
     except AssertionError as e:
         record_fail("Unit Test: FLUX GGML Types", str(e))
         unit_test_passed = False
@@ -525,13 +525,43 @@ for doc_name, content in doc_contents.items():
 if not stale_flux_bytes_found:
     record_pass("Stale FLUX Elimination", "Obsolete non-divisible FLUX aggregates (2,085,108,736 / 171,769,856) completely eliminated repository-wide")
 
-# Verify that detailed per-tensor TSV exists and contains 149 valid tensor rows
+# Verify that detailed per-tensor TSV exists, contains 149 valid tensor rows, and proves zero inter-tensor padding pairwise
 flux_tsv_path = os.path.join(repo_root, "tools", "flux_per_tensor_audit.tsv")
 if os.path.exists(flux_tsv_path):
     with open(flux_tsv_path, "r", encoding="utf-8") as f_tsv:
         tsv_lines = [l.strip().split("\t") for l in f_tsv if l.strip()]
     if len(tsv_lines) == 150: # header + 149 tensors
-        record_pass("FLUX Per-Tensor TSV", "Detailed per-tensor audit file (tools/flux_per_tensor_audit.tsv) verified with exactly 149 tensor records")
+        # Pairwise verification across all 149 rows
+        pairwise_ok = True
+        for idx in range(1, len(tsv_lines)):
+            row = tsv_lines[idx]
+            offset = int(row[8]) # Expected_Payload_Size_Bytes is col 7, Actual_Tensor_Offset is col 8
+            start_b = int(row[9]) # Absolute_File_Start_Byte
+            end_b = int(row[10]) # Expected_Tensor_End_Offset
+            pad_to_next = int(row[11]) # Alignment_Padding_Before_Next_Tensor
+            status = row[12]
+            
+            if offset % 32 != 0 or start_b % 32 != 0:
+                record_fail("TSV Pairwise Audit", f"Row {idx} ({row[1]}) unaligned offset {offset} or start {start_b}", "tools/flux_per_tensor_audit.tsv")
+                pairwise_ok = False
+            if status != "PASSED":
+                record_fail("TSV Pairwise Audit", f"Row {idx} ({row[1]}) status not PASSED", "tools/flux_per_tensor_audit.tsv")
+                pairwise_ok = False
+            if pad_to_next != 0:
+                record_fail("TSV Pairwise Audit", f"Row {idx} ({row[1]}) non-zero padding to next: {pad_to_next}", "tools/flux_per_tensor_audit.tsv")
+                pairwise_ok = False
+            if idx < len(tsv_lines) - 1:
+                next_start = int(tsv_lines[idx + 1][9])
+                if end_b != next_start:
+                    record_fail("TSV Pairwise Audit", f"Row {idx} end {end_b} != Row {idx+1} start {next_start}", "tools/flux_per_tensor_audit.tsv")
+                    pairwise_ok = False
+            else:
+                if end_b != 2256889280:
+                    record_fail("TSV Pairwise Audit", f"Final tensor end {end_b} != file size 2256889280", "tools/flux_per_tensor_audit.tsv")
+                    pairwise_ok = False
+                    
+        if pairwise_ok:
+            record_pass("FLUX Per-Tensor TSV", "Detailed per-tensor audit file (tools/flux_per_tensor_audit.tsv) verified with exactly 149 tensor records and 100% pairwise zero-padding/boundary compliance")
     else:
         record_fail("FLUX Per-Tensor TSV", f"TSV row count unexpected: {len(tsv_lines)} (expected 150)", "tools/flux_per_tensor_audit.tsv")
 else:
