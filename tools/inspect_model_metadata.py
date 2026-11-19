@@ -1,122 +1,128 @@
-import struct, os, sys
+import struct
+import os
+import sys
 
-def inspect_flux():
-    path = r'T:\ai creation\flux-2-klein-4b-q4_0.gguf'
-    if not os.path.exists(path):
-        print('File not found:', path)
-        return
+def parse_gguf_metadata(filepath):
+    if not os.path.exists(filepath):
+        print(f"[ERROR] File not found: {filepath}")
+        return False
 
-    with open(path, 'rb') as f:
+    file_size = os.path.getsize(filepath)
+    print(f"\n=======================================================")
+    print(f" INSPECTING GGUF FILE: {os.path.basename(filepath)}")
+    print(f" Full Path: {filepath}")
+    print(f" File Size: {file_size:,} bytes ({file_size/(1024**3):.4f} GiB / {file_size/1e9:.4f} GB)")
+    print(f"=======================================================")
+
+    with open(filepath, "rb") as f:
         magic = f.read(4)
-        if magic != b'GGUF':
-            print('Not GGUF:', magic)
-            return
-        version, = struct.unpack('<I', f.read(4))
-        ti_count, = struct.unpack('<Q', f.read(8))
-        kv_count, = struct.unpack('<Q', f.read(8))
-        print(f'=== FLUX.2 Klein GGUF ===')
-        print(f'Magic: {magic}, Version: {version}, Tensors: {ti_count}, KV metadata count: {kv_count}')
+        if magic != b"GGUF":
+            print(f"[ERROR] Invalid magic bytes: {magic}")
+            return False
+
+        version, = struct.unpack("<I", f.read(4))
+        tensor_count, = struct.unpack("<Q", f.read(8))
+        metadata_kv_count, = struct.unpack("<Q", f.read(8))
+
+        print(f"GGUF Version:          {version}")
+        print(f"Total Tensor Count:    {tensor_count:,}")
+        print(f"Metadata Key-Value Pairs: {metadata_kv_count:,}")
 
         def read_str():
-            slen, = struct.unpack('<Q', f.read(8))
-            return f.read(slen).decode('utf-8', errors='replace')
+            length, = struct.unpack("<Q", f.read(8))
+            if length > 100_000_000:
+                raise ValueError(f"String length too large ({length}), likely alignment error")
+            raw = f.read(length)
+            return raw.decode("utf-8", errors="replace")
 
-        def skip_val(vtype):
-            if vtype in (0, 1, 7): # u8, i8, bool
-                f.seek(1, 1)
-            elif vtype in (2, 3): # u16, i16
-                f.seek(2, 1)
-            elif vtype in (4, 5, 12): # u32, i32, f32
-                f.seek(4, 1)
-            elif vtype in (6, 10, 11, 13): # u64, i64, f64
-                f.seek(8, 1)
-            elif vtype == 8: # str
-                slen, = struct.unpack('<Q', f.read(8))
-                f.seek(slen, 1)
-            elif vtype == 9: # arr
-                atype, = struct.unpack('<I', f.read(4))
-                alen, = struct.unpack('<Q', f.read(8))
-                for _ in range(alen):
-                    skip_val(atype)
-
-        for i in range(kv_count):
-            k = read_str()
-            vtype, = struct.unpack('<I', f.read(4))
-            if vtype == 8:
-                slen, = struct.unpack('<Q', f.read(8))
-                val = f.read(slen).decode('utf-8', errors='replace')
-                print(f'KV: {k} = "{val}"')
-            elif vtype in (4, 5, 12):
-                val, = struct.unpack('<I', f.read(4))
-                print(f'KV: {k} = {val}')
-            elif vtype in (6, 10):
-                val, = struct.unpack('<Q', f.read(8))
-                print(f'KV: {k} = {val}')
+        def read_value(vtype):
+            if vtype == 0:   # UINT8
+                val, = struct.unpack("<B", f.read(1))
+                return val
+            elif vtype == 1: # INT8
+                val, = struct.unpack("<b", f.read(1))
+                return val
+            elif vtype == 2: # UINT16
+                val, = struct.unpack("<H", f.read(2))
+                return val
+            elif vtype == 3: # INT16
+                val, = struct.unpack("<h", f.read(2))
+                return val
+            elif vtype == 4: # UINT32
+                val, = struct.unpack("<I", f.read(4))
+                return val
+            elif vtype == 5: # INT32
+                val, = struct.unpack("<i", f.read(4))
+                return val
+            elif vtype == 6: # FLOAT32 (4 bytes)
+                val, = struct.unpack("<f", f.read(4))
+                return val
+            elif vtype == 7: # BOOL
+                val, = struct.unpack("<B", f.read(1))
+                return bool(val)
+            elif vtype == 8: # STRING
+                return read_str()
+            elif vtype == 9: # ARRAY
+                elem_type, = struct.unpack("<I", f.read(4))
+                elem_count, = struct.unpack("<Q", f.read(8))
+                arr = []
+                for _ in range(elem_count):
+                    arr.append(read_value(elem_type))
+                return arr
+            elif vtype == 10: # UINT64
+                val, = struct.unpack("<Q", f.read(8))
+                return val
+            elif vtype == 11: # INT64
+                val, = struct.unpack("<q", f.read(8))
+                return val
+            elif vtype == 12: # FLOAT64 (8 bytes)
+                val, = struct.unpack("<d", f.read(8))
+                return val
             else:
-                skip_val(vtype)
+                raise ValueError(f"Unsupported GGUF value type {vtype}")
 
-        print('\n=== Relevant Input Tensors ===')
-        for i in range(ti_count):
+        kv_data = {}
+        for _ in range(metadata_kv_count):
+            k = read_str()
+            vtype, = struct.unpack("<I", f.read(4))
+            v = read_value(vtype)
+            kv_data[k] = v
+
+        print(f"\n--- Parsed Key Architectural Metadata ({len(kv_data)} keys) ---")
+        for k in sorted(kv_data.keys()):
+            if any(term in k.lower() for term in ["architecture", "context", "embedding", "block", "head", "feed_forward", "vocab", "file_type", "quantization"]):
+                val_disp = kv_data[k]
+                if isinstance(val_disp, list) and len(val_disp) > 10:
+                    val_disp = f"[Array of {len(val_disp)} elements]"
+                print(f"  * {k:<45} = {val_disp}")
+
+        print(f"\n--- Reading Tensor Info Table ({tensor_count} tensors) ---")
+        tensor_info = []
+        for _ in range(tensor_count):
             tname = read_str()
-            ndims, = struct.unpack('<I', f.read(4))
-            shape = struct.unpack(f'<{ndims}Q', f.read(8 * ndims))
-            ttype, = struct.unpack('<I', f.read(4))
-            offset, = struct.unpack('<Q', f.read(8))
-            if any(term in tname for term in ['txt_in', 'img_in', 'vector_in', 'time_in', 'guidance_in', 'final_layer']):
-                print(f'Tensor: {tname:35} shape={shape} type={ttype}')
+            ndims, = struct.unpack("<I", f.read(4))
+            shape = struct.unpack(f"<{ndims}Q", f.read(8 * ndims))
+            ttype, = struct.unpack("<I", f.read(4))
+            offset, = struct.unpack("<Q", f.read(8))
+            tensor_info.append((tname, shape, ttype, offset))
+            if any(term in tname.lower() for term in ["txt_in", "img_in", "time_in", "vector_in", "ada_ln", "final_layer", "token_embd", "output"]):
+                print(f"  * Tensor {tname:<35} shape={shape} type={ttype}")
 
-def inspect_qwen_main():
-    path = r'T:\ai creation\Qwen3-4B-Q4_K_M.gguf'
-    if not os.path.exists(path):
-        print('File not found:', path)
-        return
-    with open(path, 'rb') as f:
-        magic = f.read(4)
-        if magic != b'GGUF':
-            return
-        version, = struct.unpack('<I', f.read(4))
-        ti_count, = struct.unpack('<Q', f.read(8))
-        kv_count, = struct.unpack('<Q', f.read(8))
-        print(f'\n=== Qwen3-4B-Q4_K_M GGUF ===')
-        print(f'Tensors: {ti_count}, KV metadata count: {kv_count}')
+        return True
 
-        def read_str():
-            slen, = struct.unpack('<Q', f.read(8))
-            return f.read(slen).decode('utf-8', errors='replace')
+if __name__ == "__main__":
+    flux_path = r"T:\ai creation\flux-2-klein-4b-q4_0.gguf"
+    qwen_path = r"T:\ai creation\Qwen3-4B-Q4_K_M.gguf"
 
-        def skip_val(vtype):
-            if vtype in (0, 1, 7): f.seek(1, 1)
-            elif vtype in (2, 3): f.seek(2, 1)
-            elif vtype in (4, 5, 12): f.seek(4, 1)
-            elif vtype in (6, 10, 11, 13): f.seek(8, 1)
-            elif vtype == 8:
-                slen, = struct.unpack('<Q', f.read(8))
-                f.seek(slen, 1)
-            elif vtype == 9:
-                atype, = struct.unpack('<I', f.read(4))
-                alen, = struct.unpack('<Q', f.read(8))
-                for _ in range(alen):
-                    skip_val(atype)
+    print("Executing GGUF Binary Metadata Inspection Tool...")
+    success_flux = parse_gguf_metadata(flux_path)
+    success_qwen = parse_gguf_metadata(qwen_path)
 
-        for i in range(kv_count):
-            k = read_str()
-            vtype, = struct.unpack('<I', f.read(4))
-            if any(x in k for x in ['context_length', 'embedding_length', 'block_count', 'head_count', 'feed_forward_length', 'rope']):
-                if vtype in (4, 5, 12):
-                    val, = struct.unpack('<I', f.read(4))
-                    print(f'KV: {k} = {val}')
-                elif vtype in (6, 10):
-                    val, = struct.unpack('<Q', f.read(8))
-                    print(f'KV: {k} = {val}')
-                elif vtype == 8:
-                    slen, = struct.unpack('<Q', f.read(8))
-                    val = f.read(slen).decode('utf-8', errors='replace')
-                    print(f'KV: {k} = "{val}"')
-                else:
-                    skip_val(vtype)
-            else:
-                skip_val(vtype)
-
-if __name__ == '__main__':
-    inspect_flux()
-    inspect_qwen_main()
+    if success_flux and success_qwen:
+        print("\n=======================================================")
+        print(" GGUF METADATA INSPECTION COMPLETED SUCCESSFULLY (EXIT 0)")
+        print("=======================================================")
+        sys.exit(0)
+    else:
+        print("\n[FAIL] GGUF metadata inspection failed")
+        sys.exit(1)

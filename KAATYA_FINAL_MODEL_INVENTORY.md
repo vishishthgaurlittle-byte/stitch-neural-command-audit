@@ -100,9 +100,9 @@ The 10 local files on `T:\ai creation` span multiple distinct model families and
 - **Size:** 2,256,889,280 bytes (2.102 GiB / 2.257 GB)
 - **Architecture Details:** FLUX Diffusion Transformer (DiT) backbone, 149 tensors, Q4_0 quantization.
 - **Crucial Technical Reality:** This file contains **ONLY the DiT transformer backbone weights** (149 tensors, 0 KV metadata entries). Unlike FLUX.1, FLUX.2 Klein departs from CLIP-L/T5-XXL and utilizes a **Qwen3 language model** text encoder (extracting layers 9, 18, and 27 to produce a 7,680-dimensional conditioning vector matching `txt_in.weight` shape `(7680, 3072)`) plus `flux2-vae.safetensors`. These companion weights are absent from disk.
-- **Estimated Pipeline RAM:** Requires **~3.7 to 5.2 GB RAM** when paired with companion text encoder, VAE, and latent buffers.
+- **Estimated Pipeline RAM:** Requires **~3.7 to 4.3 GB RAM** (Main AI extraction route) or **~5.2 to 6.1 GB RAM** (dedicated encoder route) when paired with companion text encoder, VAE, and latent scratch buffers.
 - **Runtime Compatibility:** ComfyUI with `ComfyUI-GGUF` (or specialized `sd.cpp` FLUX.2 Klein branches).
-- **Coexistence Status:** **EXPERIMENTAL / COMPUTE-BOUND.** On the verified 16.0 GB hardware (16,260 MiB visible, ~9,472 MiB uncommitted headroom above baseline), the DiT worker and VAE physically fit alongside the permanent Main AI without violating residency rules. However, execution is CPU-only (AVX2, 0 CUDA) with generation latency estimated at 45–90s per step (15–30 minutes total for 20 steps). Classified strictly as experimental research prototype.
+- **Coexistence Status:** **EXPERIMENTAL / UNPROVEN ON TARGET PC.** Under current live available RAM (~7,030 MiB) and dynamic safety margin (~2,151 MiB), the net admissible worker budget is ~4,879 MiB. The dedicated encoder route (~5,200 MiB) exceeds this budget and is rejected by the dynamic admission controller. The Main AI extraction route (~3,737–4,335 MiB peak) lacks a verified CPU C++ implementation for extracting intermediate hidden states. Generation latency is an **[UNVERIFIED THEORETICAL ESTIMATE]** of 45–90s per step (15–30 minutes for 20 steps). Feasibility will not be claimed until an end-to-end benchmark succeeds in Phase 4.
 - **Assigned Role:** **Image Studio** (Agent 17 - Experimental Local Mode).
 
 ---

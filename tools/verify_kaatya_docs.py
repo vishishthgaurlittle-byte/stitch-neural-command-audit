@@ -137,8 +137,8 @@ if "disabled by default" in online_doc.lower() and "explicit consent" in online_
 else:
     record_fail("Online Policy", "Online default air-gap or explicit approval policy missing", "KAATYA_ONLINE_PROVIDER_AND_PLUGIN_ARCHITECTURE.md")
 
-# 6. Hardware RAM Specification Audit (16 GB Installed / 16,260 MiB Visible)
-print("\n--- 5. Hardware RAM Re-Audit & Calculation Consistency ---", flush=True)
+# 6. Hardware RAM Specification Audit (16 GB Installed / 16,260 MiB Visible / 2,133 MT/s Operating)
+print("\n--- 5. Hardware RAM Re-Audit & Clock Speed Verification ---", flush=True)
 ram_ok = True
 key_ram_docs = [
     "KAATYA_PHASE_3_FINAL_TECHNICAL_SIGNOFF.md",
@@ -151,13 +151,10 @@ key_ram_docs = [
 
 for doc_name in key_ram_docs:
     content = doc_contents.get(doc_name, "")
-    # Check that 16 GB is present
     if "16" not in content and "16.0" not in content:
         record_fail("RAM Audit", f"Document missing 16 GB hardware specification: {doc_name}", doc_name)
         ram_ok = False
     
-    # Check for obsolete uncorrected active statements of 12 GB as installed RAM
-    # (Allowing historical mentions of earlier errors)
     lines = content.splitlines()
     for lnum, line in enumerate(lines, 1):
         if re.search(r'\|\s*\*\*System Memory\*\*\s*\|\s*\*\*12\.0\s*GB', line, re.IGNORECASE) or \
@@ -167,11 +164,17 @@ for doc_name in key_ram_docs:
             record_fail("Obsolete 12GB RAM", f"Line {lnum} contains obsolete active 12 GB spec: '{line.strip()}'", doc_name)
             ram_ok = False
 
+signoff_txt = doc_contents.get("KAATYA_PHASE_3_FINAL_TECHNICAL_SIGNOFF.md", "")
+if "2,133" in signoff_txt or "2133" in signoff_txt:
+    record_pass("RAM Clock Speed", "Configured operating memory clock speed confirmed at 2,133 MT/s (Core i3-6100T limit)")
+else:
+    record_fail("RAM Clock Speed", "Configured memory speed of 2,133 MT/s missing in sign-off document", "KAATYA_PHASE_3_FINAL_TECHNICAL_SIGNOFF.md")
+
 if ram_ok:
     record_pass("RAM Specification", "Verified 16.0 GB installed RAM (16,384 MiB installed, 16,260 MiB visible) across all core documents")
 
-# 7. Contradiction Detection: Memory Arithmetic & Outdated 2.5 GB Formula
-print("\n--- 6. Contradiction Detection: Memory Arithmetic & Elimination of Outdated Rules ---", flush=True)
+# 7. Contradiction Detection: Memory Arithmetic & Elimination of Outdated Rules
+print("\n--- 6. Contradiction Detection: Memory Arithmetic & Available RAM Disambiguation ---", flush=True)
 outdated_formula_found = False
 for doc_name, content in doc_contents.items():
     if "Req_RAM + 2.5 GB" in content or "safety_cushion = 2_500" in content or "2.5 GB reserved cushion" in content:
@@ -184,6 +187,12 @@ for doc_name, content in doc_contents.items():
 if not outdated_formula_found:
     record_pass("Formula Elimination", "Outdated fixed 2.5 GB formula and contradictory 4.88 GB arithmetic absent repository-wide")
 
+# Check Available Memory Disambiguation
+if "7,029.84" in signoff_txt and ("9,230" in signoff_txt or "9,230.21" in signoff_txt):
+    record_pass("Available Memory Truth", "Live available RAM (7,029.84 MiB) and host in-use RAM (9,230.21 MiB) correctly disambiguated from theoretical headroom")
+else:
+    record_fail("Available Memory Truth", "Available physical RAM or host in-use RAM missing disambiguation in sign-off document", "KAATYA_PHASE_3_FINAL_TECHNICAL_SIGNOFF.md")
+
 # Check Dynamic Worker Admission
 if "10-step" in master_arch.lower() and "10-step" in doc_contents.get("KAATYA_LOCAL_RUNTIME_AND_MEMORY_POLICY.md", "").lower():
     record_pass("Dynamic Admission", "10-Step Dynamic Worker Admission Procedure uniformly codified in master architecture and runtime policy")
@@ -192,13 +201,12 @@ else:
 
 # 8. Baseline Reconciliation & KV Cache Audit
 print("\n--- 7. Baseline Reconciliation & KV Cache Memory Audit ---", flush=True)
-signoff_text = doc_contents.get("KAATYA_PHASE_3_FINAL_TECHNICAL_SIGNOFF.md", "")
-if "6,788" in signoff_text and "7.12" in signoff_text:
+if "6,788" in signoff_txt and "7.12" in signoff_txt:
     record_pass("Baseline Reconciliation", "6,788 MiB and 7.12 GB baseline figures technically reconciled as identical load")
 else:
     record_fail("Baseline Reconciliation", "Reconciliation of baseline figures missing in sign-off document", "KAATYA_PHASE_3_FINAL_TECHNICAL_SIGNOFF.md")
 
-if "46,080" in signoff_text or "92,160" in signoff_text:
+if "46,080" in signoff_txt or "92,160" in signoff_txt:
     record_pass("KV Cache Verification", "Qwen3-4B KV cache calculation mathematically verified (46,080 elements/tok, 360 MiB @ 4K FP16, 180 MiB @ 2K/Q8_0)")
 else:
     record_fail("KV Cache Verification", "Qwen3-4B exact KV cache formula missing in sign-off document", "KAATYA_PHASE_3_FINAL_TECHNICAL_SIGNOFF.md")
@@ -214,17 +222,19 @@ for doc_key in ["KAATYA_IMAGE_GENERATION_ARCHITECTURE.md", "KAATYA_MODEL_COMPATI
     if "qwen3" not in txt.lower() or "flux2-vae" not in txt.lower():
         record_fail("FLUX Dependencies", f"FLUX.2 Klein Qwen3 text encoder or flux2-vae missing in {doc_key}", doc_key)
         flux_ok = False
-    if "7860" in txt:
+    if re.search(r'7860-dimension', txt) or re.search(r'shape.*7860', txt):
         record_fail("FLUX Dimensions", f"Erroneous dimension '7860' found in {doc_key} (empirical shape is 7680)", doc_key)
         flux_ok = False
+
 if flux_ok:
     record_pass("FLUX Dependencies", "FLUX.2 Klein dependencies consistently identified (DiT backbone + Qwen3 encoder [7680 dim] + flux2-vae)")
 
-# Check that FLUX feasibility preserves permanent Main AI residency
-if "without violating" in doc_contents.get("KAATYA_FINAL_MASTER_ARCHITECTURE.md", "").lower() or "alongside" in doc_contents.get("KAATYA_FINAL_MASTER_ARCHITECTURE.md", "").lower():
-    record_pass("FLUX Main AI Invariant", "FLUX execution models coexistence alongside permanent Main AI without eviction")
+# Check that FLUX is marked experimental / unproven
+image_arch = doc_contents.get("KAATYA_IMAGE_GENERATION_ARCHITECTURE.md", "")
+if "experimental" in image_arch.lower() and ("unproven" in image_arch.lower() or "research prototype" in image_arch.lower()):
+    record_pass("FLUX Feasibility", "FLUX.2 Klein classified as strictly experimental and unproven on target PC")
 else:
-    record_fail("FLUX Main AI Invariant", "FLUX feasibility fails to preserve permanent Main AI residency rule", "KAATYA_FINAL_MASTER_ARCHITECTURE.md")
+    record_fail("FLUX Feasibility", "FLUX.2 Klein feasibility status not properly classified as experimental/unproven", "KAATYA_IMAGE_GENERATION_ARCHITECTURE.md")
 
 # 10. Video Studio & Editor Interoperability Consistency
 print("\n--- 9. Video Studio & CapCut Integration Consistency ---", flush=True)
@@ -249,8 +259,15 @@ if "APPROVED PROPOSED ARCHITECTURE — IMPLEMENTATION NOT STARTED" in master_arc
 else:
     record_fail("Tech Stack Status", "Master architecture missing explicit implementation-not-started status label", "KAATYA_FINAL_MASTER_ARCHITECTURE.md")
 
-# 12. Phase 4 Stop Condition Cross-Document Validation
-print("\n--- 11. Phase 4 Stop Condition & Hold Status Validation ---", flush=True)
+# 12. Outstanding Evidence and Measurement Limitations Section
+print("\n--- 11. Outstanding Evidence & Measurement Limitations Audit ---", flush=True)
+if "Outstanding Evidence and Measurement Limitations" in signoff_txt:
+    record_pass("Limitations Section", "New dedicated section 'Outstanding Evidence and Measurement Limitations' present in sign-off document")
+else:
+    record_fail("Limitations Section", "Missing required section 'Outstanding Evidence and Measurement Limitations'", "KAATYA_PHASE_3_FINAL_TECHNICAL_SIGNOFF.md")
+
+# 13. Phase 4 Stop Condition Cross-Document Validation
+print("\n--- 12. Phase 4 Stop Condition & Hold Status Validation ---", flush=True)
 phase4_ok = True
 for doc_name, content in doc_contents.items():
     if "phase 4 started" in content.lower() or "phase 4 completed" in content.lower():

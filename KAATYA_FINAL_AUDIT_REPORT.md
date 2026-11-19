@@ -43,11 +43,12 @@ $$\begin{aligned}
 \text{Tauri v2 + WebView2 + Audio/DB Runtimes} &\approx 600\text{ MiB} \quad (~0.63\text{ GB}) \\
 \text{KAATYA Permanent Main AI (Qwen3-4B @ 4K FP16 KV)} &\approx \mathbf{3,138\text{ MiB}} \quad (\mathbf{~3.29\text{ GB}}) \\
 \hline
-\mathbf{Total\ Base\ Working\ Set\ Commitment} &\approx \mathbf{6,788\text{ MiB}} \quad (\mathbf{~7.12\text{ GB}}) \\
-\mathbf{Remaining\ Uncommitted\ Headroom} &\approx \mathbf{9,472\text{ MiB}} \quad (\mathbf{~9.25\text{ GiB} \text{ / } ~9.93\text{ GB}})
+\mathbf{Total\ Base\ Projected\ Baseline} &\approx \mathbf{6,788\text{ MiB}} \quad (\mathbf{~7.12\text{ GB}}) \\
+\text{Theoretical Idle Margin (Visible minus Baseline)} &\approx 9,472\text{ MiB} \quad (~9.25\text{ GiB} \text{ / } ~9.93\text{ GB}) \\
+\mathbf{Live\ Measured\ Available\ Physical\ RAM} &= \mathbf{7,029.84\text{ MiB}} \quad (\mathbf{~6.87\text{ GiB}})
 \end{aligned}$$
 
-*(Note: In decimal conversion, the $9,472\text{ MiB}$ remainder equals $9,472 \times 1,048,576 / 10^9 \approx \mathbf{9.93\text{ GB}}$. Gross headroom relative to installed 16,384 MiB is $16,384 - 6,788 = \mathbf{9,596\text{ MiB}} \approx \mathbf{9.37\text{ GiB}} \approx \mathbf{10.06\text{ GB}}$. In a hypothetical pure 16.00 GB decimal calculation with 7.12 GB baseline, remainder is $16.00 - 7.12 = \mathbf{8.88\text{ GB}}$, or $16.00 - 7.20 = \mathbf{8.80\text{ GB}}$ if baseline is rounded to one decimal place).*
+*(Critical Note: $9,472\text{ MiB}$ is a theoretical calculation assuming an idle OS with Main AI resident; it is NOT measured available RAM. The actual live available RAM measured via `GlobalMemoryStatusEx.ullAvailPhys` is **$7,029.84\text{ MiB}$**, with active host physical usage at $16,260.05 - 7,029.84 = \mathbf{9,230.21\text{ MiB}}$ due to third-party developer software, Windows memory compression, and system cache while KAATYA is not running).*
 
 - **Dynamic Worker Admission Procedure:** The outdated fixed 2.5 GB buffer rule has been eliminated. The runtime enforces a 10-step dynamic procedure querying `GlobalMemoryStatusEx`, verifying an initial 2,048 MiB floor, calculating exact model weights, KV cache, and graph scratch buffers, and applying a configurable margin.
 - **Permanent Residency Invariant:** KAATYA Main AI context remains continuously resident in memory and is never deallocated.

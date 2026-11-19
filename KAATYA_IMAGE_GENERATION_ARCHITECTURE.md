@@ -61,14 +61,17 @@ The local disk already holds `Qwen3-4B-Q4_K_M.gguf`. Could this file double as t
 - **stable-diffusion.cpp (`sd.cpp`):** Lightweight C++ implementation without Python overhead. However, native support for the FLUX.2 Klein multi-layer Qwen3 extraction pipeline is currently experimental and unverified on Windows AVX2.
 
 ### 2.5 Hardware Execution Reality on Intel Core i3-6100T (16.0 GB RAM)
-- **No Dedicated GPU / No CUDA:** Compute executes entirely across CPU threads via AVX2 (Intel HD 530 has dynamic shared memory with 0 dedicated VRAM and 0 CUDA cores).
-- **Execution Latency:** **UNVERIFIED.** End-to-end CPU diffusion latency for FLUX.2 Klein has not been physically measured on this Intel Core i3-6100T machine. Realistic CPU-only estimates project 45–90 seconds per Euler step (15–30 minutes for a standard 20-step generation).
-- **Memory Footprint & Coexistence with Main AI:**
-  - With verified 16.0 GB installed RAM (16,260 MiB Windows-visible), the uncommitted memory headroom above the baseline (~6,788 MiB) is ~9,472 MiB.
-  - The DiT worker (~3,100 MiB with scratch) and VAE decode (~635 MiB) physically fit alongside Windows and the permanent Main AI without violating the permanent residency policy.
+- **No Dedicated GPU / No CUDA:** Compute executes entirely across CPU threads via AVX2 (Intel HD 530 has dynamic shared memory with 0 dedicated VRAM and 0 CUDA cores). Memory controller operates at DDR4-2133 MT/s with max theoretical bandwidth of 34.13 GB/s (Intel spec 34.1 GB/s).
+- **Execution Latency:** **[UNVERIFIED THEORETICAL ESTIMATE]** Projected at 45–90 seconds per Euler step (15–30 minutes for a standard 20-step generation) on 2 CPU cores. No physical diffusion benchmark has been captured on this PC.
+- **Memory Footprint & Admission Analysis:**
+  - `flux-2-klein-4b-q4_0.gguf` DiT backbone weights and `txt_in.weight` shape `(7680, 3072)` are verified via `tools/inspect_model_metadata.py` (Exit code 0).
+  - Under live host telemetry, available physical RAM is **$7,029.84\text{ MiB}$**. With dynamic safety margin $S_{\text{dynamic}} \approx 2,151\text{ MiB}$, the admissible worker budget is $\approx \mathbf{4,879\text{ MiB}}$.
+  - The dedicated encoder route (~5,200 to 6,100 MiB peak) exceeds the 4,879 MiB budget and is **REJECTED** by the dynamic worker admission controller.
+  - The Main AI extraction route (~3,737 to 4,335 MiB peak with VAE decode scratch buffers) theoretically fits within the arithmetic budget, BUT standard `llama.cpp` evaluates tokens forward to produce output logits and discards intermediate layer hidden states. Reusing `Qwen3-4B` requires custom C++ runtime patches to capture intermediate activations from layers 9, 18, and 27 before memory reclamation.
+  - VAE decoding intermediate tensors (expanding 16-channel $64 \times 64$ latent grid to $512 \times 512 \times 3$ RGB) creates significant transient memory spikes.
 - **Architectural Directive:**
-  - **Local FLUX generation is strictly EXPERIMENTAL / RESEARCH PROTOTYPE.**
-  - Because of extreme CPU generation latency and lack of a unified off-the-shelf C++ runtime exposing Qwen3 multi-layer extraction into GGUF DiT sampling on CPU, local generation is not recommended for real-time interactive tasks.
+  - **Local FLUX generation is strictly EXPERIMENTAL / UNPROVEN ON TARGET PC.**
+  - Because of extreme CPU generation latency, absence of companion files, and lack of a validated C++ pipeline exposing Qwen3 multi-layer extraction into GGUF DiT sampling on CPU, local generation is not proven to fit or perform.
   - **Do NOT download companion files** until an end-to-end runtime implementation is empirically tested and approved.
   - The production workflow relies on the **Authorized Online Diffusion Gate** (DALL-E 3, Stability AI, Fal.ai) with explicit human confirmation.
 

@@ -43,7 +43,7 @@ Every architectural decision, model deployment, and memory allocation in KAATYA 
 | Hardware Component | Authoritative Specification | Architectural Implication |
 | :--- | :--- | :--- |
 | **Processor** | Intel Core i3-6100T (6th-Gen Skylake, 35W TDP, 3.20 GHz) | 2 Physical Cores, 4 Logical Threads. AVX2 supported. No AVX-512. |
-| **System Memory** | **16.0 GB DDR4** (Dual-Channel 2x8 GB Samsung DIMMs @ 2666 MHz) | **VERIFIED 16 GB INSTALLED.** 16,384 MiB installed, 16,260 MiB OS-visible (`ullTotalPhys`), ~124 MiB hardware-reserved. Base working set commit ~6,788 MiB. |
+| **System Memory** | **16.0 GB DDR4** (Dual-Channel 2x8 GB Samsung DIMMs; Rated DDR4-2666, Operating at 2133 MT/s) | **VERIFIED 16 GB INSTALLED.** 16,384 MiB installed, 16,260 MiB OS-visible (`ullTotalPhys`), ~124 MiB hardware-reserved. Theoretical max bandwidth: 34.13 GB/s (Intel spec 34.1 GB/s). Projected base commit ~6,788 MiB; live available RAM ~7,030 MiB. |
 | **Graphics Adapter** | Integrated Intel HD Graphics 530 (Shared system RAM) | **No dedicated VRAM.** Zero CUDA support. Compute relies on CPU SIMD / OpenCL. |
 | **Operating System** | Windows 10 Pro / Home 64-bit | Baseline OS and desktop services require **~3,100 MB RAM**. |
 | **External Storage** | Amazon Basics USB 3.0 Pendrive (~116 GB usable capacity) | High-capacity secondary repository for media scratch files and model backups. |
@@ -135,25 +135,27 @@ $$\begin{aligned}
 \text{Local Store (SQLite + sqlite-vec Cache)} &\approx 80\text{ MiB} \quad (~0.08\text{ GB}) \\
 \text{KAATYA Permanent Main AI (Qwen3-4B @ 4K FP16 KV)} &\approx \mathbf{3,138\text{ MiB}} \quad (\mathbf{~3.29\text{ GB}}) \\
 \hline
-\mathbf{Total\ Base\ Working\ Set\ Commitment} &\approx \mathbf{6,788\text{ MiB}} \quad (\mathbf{~7.12\text{ GB}}) \\
-\mathbf{Uncommitted\ Physical\ Memory\ Headroom} &\approx \mathbf{9,472\text{ MiB}} \quad (\mathbf{~9.25\text{ GiB} \text{ / } ~9.93\text{ GB}})
+\mathbf{Total\ Base\ Projected\ Baseline} &\approx \mathbf{6,788\text{ MiB}} \quad (\mathbf{~7.12\text{ GB}}) \\
+\text{Theoretical Idle Margin (Visible minus Baseline)} &\approx 9,472\text{ MiB} \quad (~9.25\text{ GiB} \text{ / } ~9.93\text{ GB}) \\
+\mathbf{Live\ Measured\ Available\ Physical\ RAM\ (ullAvailPhys)} &= \mathbf{7,029.84\text{ MiB}} \quad (\mathbf{~6.87\text{ GiB}})
 \end{aligned}$$
 
-*(Note: In decimal conversion, the $9,472\text{ MiB}$ remainder equals $9,472 \times 1,048,576 / 10^9 \approx \mathbf{9.93\text{ GB}}$. Gross headroom relative to installed 16,384 MiB is $16,384 - 6,788 = \mathbf{9,596\text{ MiB}} \approx \mathbf{9.37\text{ GiB}} \approx \mathbf{10.06\text{ GB}}$. In a hypothetical pure 16.00 GB decimal calculation with 7.12 GB baseline, remainder is $16.00 - 7.12 = \mathbf{8.88\text{ GB}}$, or $16.00 - 7.20 = \mathbf{8.80\text{ GB}}$ if baseline is rounded to one decimal place).*
+*(Critical Distinction: $9,472\text{ MiB}$ is a theoretical calculation of uncommitted margin assuming an idle OS with Main AI resident. It is NOT measured available RAM. The actual live available RAM measured via `GlobalMemoryStatusEx.ullAvailPhys` is **$7,029.84\text{ MiB}$** at initial capture and fluctuates dynamically with host workload. The host physical RAM in active use is $16,260.05 - 7,029.84 = \mathbf{9,230.21\text{ MiB}}$. The ~2,442 MiB difference between the 6,788 MiB baseline and the 9,230 MiB host load is accounted for by active developer software [Chrome ~2.8 GB, Antigravity IDE ~1.2 GB], Windows Memory Compression [`MemCompression` ~1.1 GB], and kernel non-paged/paged pools [~1.23 GB], while KAATYA Main AI is not yet loaded).*
 
 #### Required Itemized Memory Accounting Table
 
-| Component | Measured or Estimated (MiB) | Evidence Status | Notes |
+| Component | Footprint (MiB) | Evidence Classification | Notes |
 | :--- | ---:| :--- | :--- |
-| **Windows Base OS & Services** | ~2,900 MiB | PROVISIONAL ESTIMATE | Windows 10 x64 kernel, DWM, background services |
-| **Dynamic GPU Shared Memory** | ~150 MiB | PROVISIONAL ESTIMATE | Intel HD 530 DVMT dynamic UI allocation (idle) |
-| **KAATYA Desktop Shell** | ~220 MiB | PROVISIONAL ESTIMATE | Tauri v2 host binary + Edge WebView2 (15 screens) |
-| **Audio Subsystem** | ~300 MiB | PROVISIONAL ESTIMATE | PortAudio stream, Piper dual ONNX, Whisper buffer |
-| **Database Store** | ~80 MiB | PROVISIONAL ESTIMATE | SQLite 3 engine and `sqlite-vec` cache |
-| **KAATYA Main AI** | ~3,138 MiB | PROVISIONAL ESTIMATE | `Qwen3-4B-Q4_K_M` weights + 4K FP16 KV cache + graph |
-| **Other Active User Processes** | ~0 MiB | PROVISIONAL ESTIMATE | Variable third-party background load |
-| **Total Observed Working Set** | **~6,788 MiB** | PROVISIONAL ESTIMATE | Sum of active baseline resident working sets (~6.63 GiB / ~7.12 GB) |
-| **Available Physical Memory** | **~9,472 MiB** | PROVISIONAL ESTIMATE | Remaining from 16,260 MiB visible pool (~9.25 GiB / ~9.93 GB) |
+| **Windows Base OS & Services** | ~2,900 MiB | PROVISIONAL ESTIMATE | Windows 10 x64 kernel, DWM, background services (idle clean boot) |
+| **Dynamic GPU Shared Memory** | ~150 MiB | PROVISIONAL ESTIMATE | Intel HD 530 DVMT dynamic UI allocation (idle 2D surface) |
+| **KAATYA Desktop Shell** | ~220 MiB | PROVISIONAL ESTIMATE | Tauri v2 host binary + Edge WebView2 (unimplemented) |
+| **Audio Subsystem** | ~300 MiB | PROVISIONAL ESTIMATE | PortAudio stream, Piper dual ONNX, Whisper buffer (unimplemented) |
+| **Database Store** | ~80 MiB | PROVISIONAL ESTIMATE | SQLite 3 engine and `sqlite-vec` cache (unimplemented) |
+| **KAATYA Main AI** | ~3,138 MiB | THEORETICAL CALCULATION | `Qwen3-4B-Q4_K_M` weights (2,382 MiB) + 4K FP16 KV (360 MiB) + graph |
+| **Total Projected Baseline** | **~6,788 MiB** | **PROJECTED ESTIMATE** | **Sum of projected components — NOT AN OBSERVED RUNNING SYSTEM** |
+| **Live Host Visible RAM** | **16,260.05 MiB** | **EMPIRICALLY MEASURED** | Win32 API `GlobalMemoryStatusEx.ullTotalPhys` |
+| **Live Host Available RAM** | **7,029.84 MiB** | **EMPIRICALLY MEASURED** | Win32 API `GlobalMemoryStatusEx.ullAvailPhys` (Workload-dependent) |
+| **Live Host Commit Charge** | **12,020.83 MiB** | **EMPIRICALLY MEASURED** | Win32 API `ullTotalPageFile - ullAvailPageFile` (Virtual commit across all apps) |
 
 ### 4.2 Dynamic Worker Admission Procedure
 Rather than enforcing an unsupported static safety-cushion formula, KAATYA executes a deterministic **10-Step Dynamic Worker Admission Procedure** before starting any optional specialist worker:
