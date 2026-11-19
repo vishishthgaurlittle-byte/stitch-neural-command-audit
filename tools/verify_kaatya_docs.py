@@ -533,22 +533,56 @@ if os.path.exists(flux_tsv_path):
     if len(tsv_lines) == 150: # header + 149 tensors
         # Pairwise verification across all 149 rows
         pairwise_ok = True
+        total_q4_0_tsv = 0
+        total_bf16_tsv = 0
+        count_q4_0_tsv = 0
+        count_bf16_tsv = 0
+        
         for idx in range(1, len(tsv_lines)):
             row = tsv_lines[idx]
-            offset = int(row[8]) # Expected_Payload_Size_Bytes is col 7, Actual_Tensor_Offset is col 8
+            tname = row[1]
+            dims = [int(x) for x in row[2].split("x")]
+            raw_type_id = int(row[3])
+            bs = int(row[5])
+            ts = int(row[6])
+            payload = int(row[7]) # Expected_Payload_Size_Bytes
+            offset = int(row[8])  # Actual_Tensor_Offset
             start_b = int(row[9]) # Absolute_File_Start_Byte
-            end_b = int(row[10]) # Expected_Tensor_End_Offset
+            end_b = int(row[10])  # Expected_Tensor_End_Offset
             pad_to_next = int(row[11]) # Alignment_Padding_Before_Next_Tensor
             status = row[12]
             
+            # Check dimensions and payload derivation
+            n_elems = 1
+            for d in dims: n_elems *= d
+            calc_payload = (n_elems // bs) * ts
+            if payload != calc_payload:
+                record_fail("TSV Pairwise Audit", f"Row {idx} ({tname}) payload mismatch: {payload} != calc {calc_payload}", "tools/flux_per_tensor_audit.tsv")
+                pairwise_ok = False
+                
+            if dims[0] % bs != 0:
+                record_fail("TSV Pairwise Audit", f"Row {idx} ({tname}) dim[0]={dims[0]} not divisible by bs={bs}", "tools/flux_per_tensor_audit.tsv")
+                pairwise_ok = False
+                
+            if end_b != start_b + payload:
+                record_fail("TSV Pairwise Audit", f"Row {idx} ({tname}) end_b {end_b} != start_b + payload {start_b + payload}", "tools/flux_per_tensor_audit.tsv")
+                pairwise_ok = False
+                
+            if raw_type_id == 2:
+                count_q4_0_tsv += 1
+                total_q4_0_tsv += payload
+            elif raw_type_id == 30:
+                count_bf16_tsv += 1
+                total_bf16_tsv += payload
+            
             if offset % 32 != 0 or start_b % 32 != 0:
-                record_fail("TSV Pairwise Audit", f"Row {idx} ({row[1]}) unaligned offset {offset} or start {start_b}", "tools/flux_per_tensor_audit.tsv")
+                record_fail("TSV Pairwise Audit", f"Row {idx} ({tname}) unaligned offset {offset} or start {start_b}", "tools/flux_per_tensor_audit.tsv")
                 pairwise_ok = False
             if status != "PASSED":
-                record_fail("TSV Pairwise Audit", f"Row {idx} ({row[1]}) status not PASSED", "tools/flux_per_tensor_audit.tsv")
+                record_fail("TSV Pairwise Audit", f"Row {idx} ({tname}) status not PASSED", "tools/flux_per_tensor_audit.tsv")
                 pairwise_ok = False
             if pad_to_next != 0:
-                record_fail("TSV Pairwise Audit", f"Row {idx} ({row[1]}) non-zero padding to next: {pad_to_next}", "tools/flux_per_tensor_audit.tsv")
+                record_fail("TSV Pairwise Audit", f"Row {idx} ({tname}) non-zero padding to next: {pad_to_next}", "tools/flux_per_tensor_audit.tsv")
                 pairwise_ok = False
             if idx < len(tsv_lines) - 1:
                 next_start = int(tsv_lines[idx + 1][9])
@@ -560,8 +594,16 @@ if os.path.exists(flux_tsv_path):
                     record_fail("TSV Pairwise Audit", f"Final tensor end {end_b} != file size 2256889280", "tools/flux_per_tensor_audit.tsv")
                     pairwise_ok = False
                     
+        if total_q4_0_tsv != 2149908480 or count_q4_0_tsv != 83:
+            record_fail("TSV Pairwise Audit", f"Q4_0 sum mismatch in TSV: count={count_q4_0_tsv}, bytes={total_q4_0_tsv}", "tools/flux_per_tensor_audit.tsv")
+            pairwise_ok = False
+            
+        if total_bf16_tsv != 106970112 or count_bf16_tsv != 66:
+            record_fail("TSV Pairwise Audit", f"BF16 sum mismatch in TSV: count={count_bf16_tsv}, bytes={total_bf16_tsv}", "tools/flux_per_tensor_audit.tsv")
+            pairwise_ok = False
+                    
         if pairwise_ok:
-            record_pass("FLUX Per-Tensor TSV", "Detailed per-tensor audit file (tools/flux_per_tensor_audit.tsv) verified with exactly 149 tensor records and 100% pairwise zero-padding/boundary compliance")
+            record_pass("FLUX Per-Tensor TSV", "Detailed per-tensor audit file (tools/flux_per_tensor_audit.tsv) verified with exactly 149 tensor records, exact payload calculations, and 100% pairwise zero-padding/boundary compliance")
     else:
         record_fail("FLUX Per-Tensor TSV", f"TSV row count unexpected: {len(tsv_lines)} (expected 150)", "tools/flux_per_tensor_audit.tsv")
 else:
