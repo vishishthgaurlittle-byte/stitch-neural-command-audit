@@ -13,6 +13,7 @@
 
 The complete, hardware-calibrated technical blueprint and multimodal architecture for KAATYA:
 
+-1. **[KAATYA_TOMORROW_CONTINUATION_CHECKPOINT.md](./KAATYA_TOMORROW_CONTINUATION_CHECKPOINT.md)** — **End-of-Day Checkpoint & Tomorrow's Continuation Record:** Finalized project preservation record for resumption with ChatGPT and Antigravity, including architecture baseline, hardware telemetry, model inventory, and morning protocol.
 0. **[KAATYA_PHASE_3_FINAL_TECHNICAL_SIGNOFF.md](./KAATYA_PHASE_3_FINAL_TECHNICAL_SIGNOFF.md)** — **Authoritative Phase 3 Sign-Off Report:** Complete technical sign-off covering all 20 sections, verified 16 GB hardware measurement, memory math, 10-step worker admission, evidence classification table, and Phase 4 hold status.
 00. **[KAATYA_PHASE_3_CORRECTION_AND_VALIDATION_REPORT.md](./KAATYA_PHASE_3_CORRECTION_AND_VALIDATION_REPORT.md)** — **Validation & Correction Report:** 16 GB hardware re-measurement, arithmetic fixes, FLUX.2 Klein Qwen3 dependencies, video diffusion feasibility, multi-editor interchange, restored 23-agent roster, and unified tech stack.
 1. **[KAATYA_FINAL_MASTER_ARCHITECTURE.md](./KAATYA_FINAL_MASTER_ARCHITECTURE.md)** — **The Master Blueprint:** System topology, 16 GB RAM budget, permanent Main AI residency, boundaries.

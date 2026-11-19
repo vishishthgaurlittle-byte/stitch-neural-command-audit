@@ -227,6 +227,7 @@ run_numerical_unit_tests()
 # ==============================================================================
 print("\n--- 1. File Existence and Non-Trivial Size Checks ---", flush=True)
 required_docs = [
+    "KAATYA_TOMORROW_CONTINUATION_CHECKPOINT.md",
     "KAATYA_PHASE_3_FINAL_TECHNICAL_SIGNOFF.md",
     "KAATYA_PHASE_3_CORRECTION_AND_VALIDATION_REPORT.md",
     "KAATYA_FINAL_MASTER_ARCHITECTURE.md",
@@ -376,6 +377,7 @@ else:
 print("\n--- 5. Hardware RAM Re-Audit & Clock Speed Verification ---", flush=True)
 ram_ok = True
 key_ram_docs = [
+    "KAATYA_TOMORROW_CONTINUATION_CHECKPOINT.md",
     "KAATYA_PHASE_3_FINAL_TECHNICAL_SIGNOFF.md",
     "KAATYA_PHASE_3_CORRECTION_AND_VALIDATION_REPORT.md",
     "KAATYA_FINAL_MASTER_ARCHITECTURE.md",
