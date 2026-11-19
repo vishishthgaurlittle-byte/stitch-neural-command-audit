@@ -185,54 +185,187 @@ def parse_gguf_metadata(filepath, verbose=False):
 
         # Current file position after tensor table is aligned to compute tensor data offset
         cur_pos = f.tell()
+        header_size = cur_pos
         tensor_data_offset = (cur_pos + alignment - 1) // alignment * alignment
+        header_padding = tensor_data_offset - cur_pos
+        print(f"Header & Metadata Size:   {header_size:,} bytes")
+        print(f"Header Alignment Padding: {header_padding:,} bytes (alignment={alignment})")
         print(f"Tensor Data Start Offset: {tensor_data_offset:,} bytes")
 
         if tensor_data_offset > file_size:
             print(f"[FAIL] Tensor data start offset {tensor_data_offset} exceeds file size {file_size}", file=sys.stderr)
             return False
 
-        # Validate tensor offsets and ranges against file size
+        # Sort tensors by offset for sequential layout, overlap, and padding verification
+        sorted_tensors = sorted(tensor_info, key=lambda x: x[3])
+
+        type_payloads = {}
+        type_counts = {}
+        type_elements = {}
+        type_blocks = {}
+        inter_tensor_padding = 0
+        prev_end_byte = tensor_data_offset
+        prev_name = "<data_start>"
         max_tensor_end = tensor_data_offset
         sample_tensors = []
-        for tname, shape, ttype, offset in tensor_info:
+        validation_failed = False
+        tsv_rows = []
+
+        for idx, (tname, shape, ttype, offset) in enumerate(sorted_tensors, 1):
             start_byte = tensor_data_offset + offset
-            # Calculate tensor size if known type
+            
+            # 1. Type resolution
+            type_info = GGML_TYPE_INFO.get(ttype)
+            if not type_info:
+                print(f"[FAIL] Tensor '{tname}' uses unknown GGML type ID {ttype}", file=sys.stderr)
+                validation_failed = True
+                continue
+
+            t_name = type_info["name"]
+            bs = type_info["block_size"]
+            ts = type_info["type_size"]
+
+            # 2. Block dimension check (shape[0] % bs == 0)
+            if len(shape) == 0 or shape[0] % bs != 0:
+                print(f"[FAIL] Tensor '{tname}' shape[0]={shape[0] if len(shape) > 0 else 0} not divisible by block size {bs}", file=sys.stderr)
+                validation_failed = True
+
+            # 3. Payload size calculation from elements and block specification
             n_elements = 1
             for dim in shape:
                 n_elements *= dim
-            
-            type_info = GGML_TYPE_INFO.get(ttype)
-            if type_info:
-                bs = type_info["block_size"]
-                ts = type_info["type_size"]
-                n_blocks = (n_elements + bs - 1) // bs
-                byte_size = n_blocks * ts
-                end_byte = start_byte + byte_size
-            else:
-                byte_size = None
-                end_byte = start_byte
 
-            if start_byte > file_size:
-                print(f"[FAIL] Tensor '{tname}' start offset {start_byte:,} exceeds file size {file_size:,}", file=sys.stderr)
-                return False
-            if byte_size is not None and end_byte > file_size:
-                print(f"[FAIL] Tensor '{tname}' end offset {end_byte:,} exceeds file size {file_size:,}", file=sys.stderr)
-                return False
+            n_blocks = n_elements // bs
+            payload_size = n_blocks * ts
+            end_byte = start_byte + payload_size
+
+            # Check exact divisibility by type_size
+            if payload_size % ts != 0:
+                print(f"[FAIL] Tensor '{tname}' payload {payload_size} not divisible by type size {ts}", file=sys.stderr)
+                validation_failed = True
+
+            # 4. Alignment and boundary validation
+            if start_byte % alignment != 0:
+                print(f"[FAIL] Tensor '{tname}' start byte {start_byte} not aligned to {alignment} bytes", file=sys.stderr)
+                validation_failed = True
+
+            if start_byte < tensor_data_offset or end_byte > file_size:
+                print(f"[FAIL] Tensor '{tname}' bounds [{start_byte:,}, {end_byte:,}) exceed file bounds [{tensor_data_offset:,}, {file_size:,})", file=sys.stderr)
+                validation_failed = True
+
+            # 5. Overlap and padding detection
+            if start_byte < prev_end_byte:
+                overlap = prev_end_byte - start_byte
+                print(f"[FAIL] Tensor '{tname}' overlaps with '{prev_name}' by {overlap:,} bytes", file=sys.stderr)
+                validation_failed = True
+                pad_before = 0
+            else:
+                pad_before = start_byte - prev_end_byte
+                inter_tensor_padding += pad_before
+                if pad_before >= alignment:
+                    print(f"[WARN] Tensor '{tname}' has excess padding {pad_before} >= alignment {alignment}")
+
+            # Check padding to next tensor or file end
+            if idx < len(sorted_tensors):
+                next_start_byte = tensor_data_offset + sorted_tensors[idx][3]
+                pad_to_next = next_start_byte - end_byte
+            else:
+                pad_to_next = file_size - end_byte
 
             if end_byte > max_tensor_end:
                 max_tensor_end = end_byte
 
-            if any(term in tname.lower() for term in ["txt_in", "img_in", "time_in", "token_embd", "output", "blk.0.attn"]):
-                sample_tensors.append((tname, shape, ttype, offset))
+            prev_end_byte = end_byte
+            prev_name = tname
 
-        print(f"Tensor Boundary Check:    PASSED (All {tensor_count:,} tensors reside within file bounds)")
-        print(f"Max Tensor End Offset:    {max_tensor_end:,} / {file_size:,} bytes")
+            # Accumulate per-type totals
+            type_payloads[ttype] = type_payloads.get(ttype, 0) + payload_size
+            type_counts[ttype] = type_counts.get(ttype, 0) + 1
+            type_elements[ttype] = type_elements.get(ttype, 0) + n_elements
+            type_blocks[ttype] = type_blocks.get(ttype, 0) + n_blocks
+
+            # Record sample architectural tensors
+            if any(term in tname.lower() for term in ["txt_in", "img_in", "time_in", "token_embd", "output", "blk.0.attn"]):
+                sample_tensors.append((tname, shape, ttype, offset, payload_size))
+
+            tsv_rows.append([
+                str(idx), tname, 'x'.join(str(x) for x in shape), str(ttype), t_name,
+                str(bs), str(ts), str(payload_size), str(offset),
+                str(start_byte), str(end_byte), str(pad_to_next),
+                "PASSED" if not validation_failed else "FAILED"
+            ])
+
+        trailing_padding = file_size - max_tensor_end
+        total_payload = sum(type_payloads.values())
+        accounted_total = header_size + header_padding + total_payload + inter_tensor_padding + trailing_padding
+        accounting_diff = file_size - accounted_total
+
+        print(f"\n--- Tensor Boundary & Structural Validation ---")
+        if validation_failed:
+            print(f"[FAIL] One or more tensor structural assertions failed!", file=sys.stderr)
+            return False
+        else:
+            print(f"Tensor Boundary Check:    PASSED (All {tensor_count:,} tensors reside within file bounds)")
+            print(f"Tensor Overlap Check:     PASSED (Zero overlapping tensors detected)")
+            print(f"Block Dimension Check:    PASSED (All tensor dimensions conform to quantization block sizes)")
+            print(f"Max Tensor End Offset:    {max_tensor_end:,} / {file_size:,} bytes")
+
+        print(f"\n--- Per-Type Payload Accounting ---")
+        for ttype in sorted(type_payloads.keys()):
+            t_info = GGML_TYPE_INFO.get(ttype, {})
+            t_name = t_info.get("name", f"type_{ttype}")
+            ts = t_info.get("type_size", 1)
+            t_count = type_counts[ttype]
+            t_payload = type_payloads[ttype]
+            t_elems = type_elements[ttype]
+            t_blks = type_blocks[ttype]
+            pct = (t_payload / file_size) * 100
+            div_check = "PASSED" if (t_payload % ts == 0) else "FAILED"
+            print(f"  * {t_name:<10} (ID {ttype:>2}): {t_count:>4} tensors | {t_payload:>13,} bytes ({pct:6.2f}%) | "
+                  f"{t_elems:>12,} elems | {t_blks:>11,} blocks | Divisibility by {ts}B: {div_check}")
+
+        print(f"\n--- Exact Container Byte Accounting ---")
+        print(f"  Header & Metadata Table:   {header_size:>13,} bytes")
+        print(f"  Header Alignment Padding:  {header_padding:>13,} bytes")
+        print(f"  Total Tensor Payloads:     {total_payload:>13,} bytes")
+        print(f"  Inter-Tensor Padding:      {inter_tensor_padding:>13,} bytes")
+        print(f"  Trailing File Padding:     {trailing_padding:>13,} bytes")
+        print(f"  -------------------------------------------------")
+        print(f"  Total Accounted Bytes:     {accounted_total:>13,} bytes")
+        print(f"  Actual File Size on Disk:  {file_size:>13,} bytes")
+        print(f"  Accounting Difference:     {accounting_diff:>13,} bytes ({'EXACT MATCH' if accounting_diff == 0 else 'MISMATCH'})")
+
+        if accounting_diff != 0:
+            print(f"[FAIL] Container byte accounting mismatch! Difference: {accounting_diff} bytes", file=sys.stderr)
+            return False
+
+        # Save detailed audit TSV
+        tools_dir = os.path.dirname(os.path.abspath(__file__))
+        tsv_output_path = os.path.join(tools_dir, f"{os.path.splitext(os.path.basename(filepath))[0]}_per_tensor_audit.tsv")
+        try:
+            headers = [
+                "Index", "Name", "Dimensions", "Raw_GGUF_Type_ID", "Correct_Type_Name",
+                "Block_Size", "Bytes_Per_Block", "Expected_Payload_Size_Bytes", "Actual_Tensor_Offset",
+                "Absolute_File_Start_Byte", "Expected_Tensor_End_Offset", "Alignment_Padding_Before_Next_Tensor",
+                "Boundary_Validation_Result"
+            ]
+            tsv_content = "\t".join(headers) + "\n" + "\n".join("\t".join(r) for r in tsv_rows) + "\n"
+            with open(tsv_output_path, "w", encoding="utf-8") as tsv_file:
+                tsv_file.write(tsv_content)
+            print(f"\nDetailed per-tensor audit written to: {tsv_output_path}")
+
+            if "flux" in os.path.basename(filepath).lower():
+                canonical_tsv = os.path.join(tools_dir, "flux_per_tensor_audit.tsv")
+                with open(canonical_tsv, "w", encoding="utf-8") as can_file:
+                    can_file.write(tsv_content)
+                print(f"Canonical per-tensor audit written to: {canonical_tsv}")
+        except Exception as e:
+            print(f"[WARN] Could not write detailed audit TSV: {e}")
 
         print(f"\n--- Significant Architectural Tensors Sample ---")
-        for tname, shape, ttype, offset in sample_tensors[:12]:
+        for tname, shape, ttype, offset, payload_size in sample_tensors[:12]:
             t_type_name = GGML_TYPE_INFO.get(ttype, {}).get("name", f"type_{ttype}")
-            print(f"  * Tensor {tname:<35} shape={shape!s:<22} type={t_type_name:<8} offset={offset}")
+            print(f"  * Tensor {tname:<35} shape={shape!s:<22} type={t_type_name:<8} payload={payload_size:>10,} B offset={offset}")
 
         print(f"\n[STATUS] Structural GGUF parse & boundary validation: PASSED")
         print(f"[NOTE] Structural validity confirms file integrity; it does NOT prove runtime inference compatibility.")

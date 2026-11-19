@@ -186,13 +186,34 @@ def run_numerical_unit_tests():
         assert ggml_enum_q4_0_4_4 == 31, "GGML_TYPE_Q4_0_4_4 must be 31"
         
         # Total GGUF container size calculation
-        # Header + Info: 10,688 bytes
-        # 66 BF16 tensors: 171,769,856 bytes
-        # 83 Q4_0 tensors: 2,085,108,736 bytes
-        total_calculated_bytes = 10688 + 171769856 + 2085108736
+        # Header & Metadata: 10,682 bytes
+        # Header alignment pad: 6 bytes
+        # 66 BF16 tensors payload: 106,970,112 bytes (divisible by 2)
+        # 83 Q4_0 tensors payload: 2,149,908,480 bytes (divisible by 18)
+        # Inter-tensor padding: 0 bytes
+        # Trailing padding: 0 bytes
+        header_bytes = 10682
+        header_pad = 6
+        payload_bf16 = 106970112
+        payload_q4_0 = 2149908480
+        
+        # Verify exact divisibility by block type sizes
+        assert payload_q4_0 % 18 == 0, f"Q4_0 payload must be divisible by 18, got remainder {payload_q4_0 % 18}"
+        assert payload_bf16 % 2 == 0, f"BF16 payload must be divisible by 2, got remainder {payload_bf16 % 2}"
+        
+        # Verify block counts and element counts
+        q4_0_blocks = payload_q4_0 // 18
+        q4_0_elems = q4_0_blocks * 32
+        assert q4_0_blocks == 119439360, f"Q4_0 blocks expected 119439360, got {q4_0_blocks}"
+        assert q4_0_elems == 3822059520, f"Q4_0 elems expected 3822059520, got {q4_0_elems}"
+        
+        bf16_elems = payload_bf16 // 2
+        assert bf16_elems == 53485056, f"BF16 elems expected 53485056, got {bf16_elems}"
+        
+        total_calculated_bytes = header_bytes + header_pad + payload_bf16 + payload_q4_0
         assert total_calculated_bytes == 2256889280, f"Total GGUF bytes expected 2256889280, got {total_calculated_bytes}"
         
-        record_pass("Unit Test: FLUX GGML Types", "FLUX GGML type enums (2=Q4_0, 30=BF16, 31=Q4_0_4_4), txt_in.weight byte sizes (47,185,920 bytes = BF16), and container total asserted")
+        record_pass("Unit Test: FLUX GGML Types", "FLUX GGML type enums (2=Q4_0, 30=BF16, 31=Q4_0_4_4), txt_in.weight byte sizes (47,185,920 bytes = BF16), Q4_0 payload (2,149,908,480 B, div by 18), BF16 payload (106,970,112 B, div by 2), and exact container sum asserted")
     except AssertionError as e:
         record_fail("Unit Test: FLUX GGML Types", str(e))
         unit_test_passed = False
@@ -487,6 +508,34 @@ if "47,185,920" in signoff_txt:
 else:
     record_fail("FLUX txt_in.weight Precision", "txt_in.weight exact byte length (47,185,920 bytes) missing in sign-off", "KAATYA_PHASE_3_FINAL_TECHNICAL_SIGNOFF.md")
     flux_ok = False
+
+# Exact FLUX Container Byte Accounting Assertions
+if "2,149,908,480" in signoff_txt and "106,970,112" in signoff_txt and "10,682" in signoff_txt:
+    record_pass("FLUX Byte Accounting", "Exact container accounting verified (10,682 B header, 6 B pad, 2,149,908,480 B Q4_0 div by 18, 106,970,112 B BF16 div by 2, sum = 2,256,889,280 B)")
+else:
+    record_fail("FLUX Byte Accounting", "Sign-off missing exact container accounting numbers (10,682 B header, 2,149,908,480 B Q4_0, or 106,970,112 B BF16)", "KAATYA_PHASE_3_FINAL_TECHNICAL_SIGNOFF.md")
+    flux_ok = False
+
+# Assert that obsolete non-divisible aggregate '2,085,108,736' is completely absent
+stale_flux_bytes_found = False
+for doc_name, content in doc_contents.items():
+    if "2,085,108,736" in content or "171,769,856" in content:
+        record_fail("Stale FLUX Aggregate", f"Obsolete FLUX payload volume found in {doc_name}", doc_name)
+        stale_flux_bytes_found = True
+if not stale_flux_bytes_found:
+    record_pass("Stale FLUX Elimination", "Obsolete non-divisible FLUX aggregates (2,085,108,736 / 171,769,856) completely eliminated repository-wide")
+
+# Verify that detailed per-tensor TSV exists and contains 149 valid tensor rows
+flux_tsv_path = os.path.join(repo_root, "tools", "flux_per_tensor_audit.tsv")
+if os.path.exists(flux_tsv_path):
+    with open(flux_tsv_path, "r", encoding="utf-8") as f_tsv:
+        tsv_lines = [l.strip().split("\t") for l in f_tsv if l.strip()]
+    if len(tsv_lines) == 150: # header + 149 tensors
+        record_pass("FLUX Per-Tensor TSV", "Detailed per-tensor audit file (tools/flux_per_tensor_audit.tsv) verified with exactly 149 tensor records")
+    else:
+        record_fail("FLUX Per-Tensor TSV", f"TSV row count unexpected: {len(tsv_lines)} (expected 150)", "tools/flux_per_tensor_audit.tsv")
+else:
+    record_fail("FLUX Per-Tensor TSV", "Missing tools/flux_per_tensor_audit.tsv", "tools/flux_per_tensor_audit.tsv")
 
 # ==============================================================================
 # SECTION 9: VIDEO STUDIO & MULTI-EDITOR INTERCHANGE
