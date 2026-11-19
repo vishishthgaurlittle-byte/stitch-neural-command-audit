@@ -43,7 +43,7 @@ Every architectural decision, model deployment, and memory allocation in KAATYA 
 | Hardware Component | Authoritative Specification | Architectural Implication |
 | :--- | :--- | :--- |
 | **Processor** | Intel Core i3-6100T (6th-Gen Skylake, 35W TDP, 3.20 GHz) | 2 Physical Cores, 4 Logical Threads. AVX2 supported. No AVX-512. |
-| **System Memory** | **16.0 GB DDR4** (Dual-Channel 2x8 GB Samsung DIMMs; Rated DDR4-2666, Operating at 2133 MT/s) | **VERIFIED 16 GB INSTALLED.** 16,384 MiB installed, 16,260 MiB OS-visible (`ullTotalPhys`), ~124 MiB hardware-reserved. Theoretical max bandwidth: 34.13 GB/s (Intel spec 34.1 GB/s). Projected base commit ~6,788 MiB; live available RAM ~7,030 MiB. |
+| **System Memory** | **16.0 GB DDR4** (Two 8 GB Samsung DIMMs in `ChannelA-DIMM0` and `ChannelB-DIMM0`; Rated DDR4-2666, Configured at 2133 MT/s via WMI `ConfiguredClockSpeed = 2133`, active dual-channel mode unverified) | **VERIFIED 16 GB INSTALLED.** 16,384 MiB installed, 16,260.05 MiB OS-visible (`ullTotalPhys`), ~124 MiB hardware-reserved. Theoretical max bandwidth: 34.13 GB/s (Intel spec 34.1 GB/s). Projected base commit ~6,788 MiB; live available RAM ~7,030 MiB. |
 | **Graphics Adapter** | Integrated Intel HD Graphics 530 (Shared system RAM) | **No dedicated VRAM.** Zero CUDA support. Compute relies on CPU SIMD / OpenCL. |
 | **Operating System** | Windows 10 Pro / Home 64-bit | Baseline OS and desktop services require **~3,100 MB RAM**. |
 | **External Storage** | Amazon Basics USB 3.0 Pendrive (~116 GB usable capacity) | High-capacity secondary repository for media scratch files and model backups. |
@@ -110,7 +110,7 @@ stateDiagram-v2
 
 ### 4.1 Memory Allocation Analysis & Hardware Realities (16.0 GB Physical Budget)
 
-The target machine possesses **16.0 GB Physical RAM** ($16,384\text{ MiB}$ binary installed / $16,260\text{ MiB}$ Windows-visible `ullTotalPhys` / $17.05\text{ GB}$ decimal).
+The target machine possesses **16.0 GB Physical RAM** ($16,384\text{ MiB}$ binary installed across two 8 GB Samsung DIMMs in `ChannelA-DIMM0` and `ChannelB-DIMM0`, rated at 2,666 MT/s, configured operating speed 2,133 MT/s via WMI `ConfiguredClockSpeed = 2133`, active dual-channel mode unverified / $16,260.05\text{ MiB}$ Windows-visible `ullTotalPhys` / $17.05\text{ GB}$ decimal).
 
 #### Critical Architecture Principles:
 1. **Model File Size $\neq$ Memory Footprint:**
@@ -123,11 +123,13 @@ The target machine possesses **16.0 GB Physical RAM** ($16,384\text{ MiB}$ binar
    Intel HD 530 uses Dynamic Video Memory Technology (DVMT). It has **0 dedicated VRAM** and dynamically allocates memory from system RAM on demand (typically ~100–180 MB working set for idle 2D desktop compositing and WebView2 rendering; measured installed-vs-visible RAM difference is 123.95 MiB, exact reservation breakdown unverified).
 3. **Realistic Application & WebView2 Working Sets:**
    Tauri v2 host binary + Microsoft Edge WebView2 (browser engine, render process, GPU compositor) consumes ~180–250 MiB under realistic multi-screen rendering.
+4. **Main AI Memory Residency Behavior:**
+   KAATYA application runtime policy mandates that Main AI is never intentionally evicted or unloaded during normal execution. However, the Windows Memory Manager (`ntoskrnl.exe`) may still page virtual memory pages to `pagefile.sys` under severe host memory pressure; actual physical residency and paging behavior require runtime validation under load during Phase 4.
 
 #### Memory Budget Breakdown (Binary MiB & Decimal GB):
 
 $$\begin{aligned}
-\text{Total Visible Physical Memory (ullTotalPhys)} &= 16,260\text{ MiB} \quad (15.88\text{ GiB} \text{ / } 17.05\text{ GB}) \\
+\text{Total Visible Physical Memory (ullTotalPhys)} &= 16,260.05\text{ MiB} \quad (15.88\text{ GiB} \text{ / } 17.05\text{ GB}) \\
 \text{Windows 10 Base OS + DWM + System Services} &\approx 2,900\text{ MiB} \quad (~3.04\text{ GB}) \\
 \text{Intel HD 530 Dynamic Shared Memory (Idle UI)} &\approx 150\text{ MiB} \quad (~0.16\text{ GB}) \\
 \text{Tauri v2 Shell + Microsoft WebView2 Engine} &\approx 220\text{ MiB} \quad (~0.23\text{ GB}) \\
@@ -140,7 +142,7 @@ $$\begin{aligned}
 \mathbf{Live\ Measured\ Available\ Physical\ RAM\ (ullAvailPhys)} &= \mathbf{7,030.07\text{ MiB}} \quad (\mathbf{~6.87\text{ GiB}})
 \end{aligned}$$
 
-*(Critical Distinction: $9,472.05\text{ MiB}$ is a theoretical calculation of uncommitted margin assuming an idle OS with Main AI resident. It is NOT measured available RAM. The actual live available RAM measured via `GlobalMemoryStatusEx.ullAvailPhys` is **$7,030.07\text{ MiB}$** ($7,371,558,912\text{ bytes} / 1,048,576 = 7,030.07\text{ MiB}$) at initial capture and fluctuates dynamically with host workload. Physical RAM not currently reported as available is $16,260.05 - 7,030.07 = \mathbf{9,229.98\text{ MiB}}$. The ~2,442 MiB difference between the 6,788 MiB baseline and the 9,230 MiB host load is partially explained by active developer software [Chrome ~2.8 GB, Antigravity IDE ~1.2 GB], Windows Memory Compression [`MemCompression` ~1.1 GB], and kernel non-paged/paged pools [~1.23 GB], while KAATYA Main AI is not yet loaded; exact reconciliation is unavailable due to category overlap).*
+*(Critical Distinction: $9,472.05\text{ MiB}$ is a theoretical calculation of uncommitted margin assuming an idle OS with Main AI resident. It is NOT measured available RAM. The actual live available RAM measured via `GlobalMemoryStatusEx.ullAvailPhys` is **$7,030.07\text{ MiB}$** ($7,371,558,912\text{ bytes} / 1,048,576 = 7,030.07\text{ MiB}$) at initial capture and fluctuates dynamically with host workload. In Windows memory architecture, `ullAvailPhys` includes Free, Zeroed, and Standby pages. Physical RAM not currently reported as available is $16,260.05 - 7,030.07 = \mathbf{9,229.98\text{ MiB}}$. This non-available physical RAM consists of active process working sets, modified pages, locked kernel memory [non-paged pool], resident paged pool, and Windows Memory Compression working set; standby pages are NOT part of this quantity. The ~2,442 MiB difference between the 6,788 MiB baseline and the 9,230 MiB host load is partially explained by active developer software [Chrome ~2.8 GB, Antigravity IDE ~1.2 GB], Windows Memory Compression [`MemCompression` ~1,106.73 MiB, managed by the Windows Memory Manager `ntoskrnl.exe`], and kernel pools [~1.23 GB], while KAATYA Main AI is not yet loaded. Note that physical RAM not reported as available does NOT equal the arithmetic sum of process working sets due to shared pages and kernel memory).*
 
 #### Required Itemized Memory Accounting Table
 
@@ -154,8 +156,8 @@ $$\begin{aligned}
 | **KAATYA Main AI** | ~3,138 MiB | THEORETICAL CALCULATION | `Qwen3-4B-Q4_K_M` weights (2,382 MiB) + 4K FP16 KV (576 MiB) + graph/scratch (180 MiB) |
 | **Total Projected Baseline** | **~6,788 MiB** | **PROJECTED ESTIMATE** | **Sum of projected components — NOT AN OBSERVED RUNNING SYSTEM** |
 | **Live Host Visible RAM** | **16,260.05 MiB** | **EMPIRICALLY MEASURED** | Win32 API `GlobalMemoryStatusEx.ullTotalPhys` |
-| **Live Host Available RAM** | **7,030.07 MiB** | **EMPIRICALLY MEASURED** | Win32 API `GlobalMemoryStatusEx.ullAvailPhys` (Workload-dependent) |
-| **Live Host Commit Charge** | **12,020.83 MiB** | **EMPIRICALLY MEASURED** | Win32 API `ullTotalPageFile - ullAvailPageFile` (Virtual commit across all apps; NOT physical RAM consumed) |
+| **Live Host Available RAM** | **7,030.07 MiB** | **EMPIRICALLY MEASURED** | Win32 API `GlobalMemoryStatusEx.ullAvailPhys` (Includes Free, Zeroed, Standby pages) |
+| **Live Host Commit Charge** | **12,020.82 MiB** | **EMPIRICALLY MEASURED** | Win32 API `ullTotalPageFile - ullAvailPageFile` (Virtual commit across all apps; NOT physical RAM consumed) |
 
 ### 4.2 Dynamic Worker Admission Procedure
 Rather than enforcing an unsupported static safety-cushion formula, KAATYA executes a deterministic **10-Step Dynamic Worker Admission Procedure** before starting any optional specialist worker:

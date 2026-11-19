@@ -266,7 +266,7 @@ main_ai_ok = False
 if "Qwen3-4B-Q4_K_M.gguf" in master_arch and "permanent" in master_arch.lower():
     if "never" in master_arch.lower() and ("unload" in master_arch.lower() or "evicted" in master_arch.lower()):
         main_ai_ok = True
-        record_pass("Main AI Invariant", "Main AI designated to Qwen3-4B-Q4_K_M.gguf with strictly enforced permanent residency")
+        record_pass("Main AI Invariant", "Main AI designated to Qwen3-4B-Q4_K_M.gguf permanent residency: Architecture requirement documented and verified; runtime enforcement pending implementation and testing.")
 if not main_ai_ok:
     record_fail("Main AI Invariant", "Main AI permanent residency policy missing or incomplete", "KAATYA_FINAL_MASTER_ARCHITECTURE.md")
 
@@ -274,7 +274,7 @@ if not main_ai_ok:
 worker_bound_ok = False
 if "0 or 1 active local worker" in runtime_policy.lower() or "maximum 1 active local worker" in runtime_policy.lower() or "max 1 active local worker" in runtime_policy.lower() or "at most one optional local worker" in runtime_policy.lower():
     worker_bound_ok = True
-    record_pass("Worker Bound", "Local worker strictly bounded to at most 1 active ephemeral instance")
+    record_pass("Worker Bound", "Local worker bound (maximum 1 active ephemeral instance): Architecture requirement documented and verified; runtime enforcement pending implementation and testing.")
 else:
     record_fail("Worker Bound", "Local worker upper bound (max 1 active worker) missing or ambiguously specified", "KAATYA_LOCAL_RUNTIME_AND_MEMORY_POLICY.md")
 
@@ -287,12 +287,12 @@ for doc_key in ["KAATYA_AGENT_ROSTER_AND_CAPABILITY_MATRIX.md", "KAATYA_FINAL_MA
             record_fail("Game Helper", "Game Helper missing explicit read-only / no gameplay bots rule", doc_key)
             game_helper_ok = False
 if game_helper_ok:
-    record_pass("Game Helper Rule", "Game Helper strictly enforced as read-only hints with zero gameplay automation")
+    record_pass("Game Helper Rule", "Game Helper read-only hints with zero gameplay automation: Architecture requirement documented and verified; runtime enforcement pending implementation and testing.")
 
 # 4.4 Online User Approval & Default Air-Gap
 online_doc = doc_contents.get("KAATYA_ONLINE_PROVIDER_AND_PLUGIN_ARCHITECTURE.md", "")
 if "disabled by default" in online_doc.lower() and ("explicit consent" in online_doc.lower() or "explicit approval" in online_doc.lower()):
-    record_pass("Online Policy", "Online services enforced as air-gapped by default with per-operation explicit user approval")
+    record_pass("Online Policy", "Online air-gapped default with per-operation explicit user approval: Architecture requirement documented and verified; runtime enforcement pending implementation and testing.")
 else:
     record_fail("Online Policy", "Online default air-gap or explicit approval policy missing", "KAATYA_ONLINE_PROVIDER_AND_PLUGIN_ARCHITECTURE.md")
 
@@ -499,7 +499,7 @@ if failures:
     print("==================================================================", flush=True)
     sys.exit(1)
 else:
-    print(" ALL VERIFICATION CHECKS AND NUMERICAL ASSERTIONS PASSED (100%).", flush=True)
+    print(" All implemented documentation and numerical assertions passed.", flush=True)
     print(" Repository documentation is completely consistent and mathematically validated.", flush=True)
     print("==================================================================", flush=True)
     sys.exit(0)

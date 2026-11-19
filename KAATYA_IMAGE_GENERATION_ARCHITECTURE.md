@@ -30,13 +30,18 @@ flowchart TD
 
 ## 2. Technical Audit of Local Model: FLUX.2 Klein 4B
 
-### 2.1 Binary Metadata & Architectural Inspection
+### 2.1 Binary Metadata & Technical Identity Profile
 - **File Name:** `flux-2-klein-4b-q4_0.gguf`
 - **File Location:** `T:\ai creation\flux-2-klein-4b-q4_0.gguf`
-- **File Size:** 2,256,889,280 bytes (2.102 GiB / 2.257 GB)
-- **SHA-256 Checksum:** `9c5939d564fa7454261d7a8e7e1cb5bf4d27192667ae967a5b39414da8846c10`
-- **GGUF Structure:** Version 3, 149 tensors, **0 KV metadata entries**.
+- **File Size:** 2,256,889,280 bytes (2.1019 GiB / 2,152.34 MiB / 2.2569 GB)
+- **SHA-256 Checksum:** `9c5939d55e3ac76e3a700029770fcc5e1b873d12c2a6d22c6c3fec217488e718`
+- **Upstream Source:** Community Hugging Face GGUF repository (unverified upstream signed manifest).
+- **GGUF Structure:** Version 3, 149 tensors, **0 KV metadata entries** (architecture reported as `unknown` due to missing `general.architecture`).
+- **Quantization Types:** Predominantly GGML Type 30 (`Q4_0_4_4`, 4-bit tiled blocks requiring AVX2 runtime support) alongside GGML Type 0 (`F32`) for modulation, norm, and projection layers.
 - **Tensors Present:** Exclusively the Diffusion Transformer (DiT) weights: 5 double blocks (`double_blocks.0` through `double_blocks.4`) and 20 single blocks (`single_blocks.0` through `single_blocks.19`), plus input/output modulations and `txt_in.weight` `[7680, 3072]`.
+- **Binary Boundary Validation:** Verified via `tools/inspect_model_metadata.py` (Exit code 0). Tensor offsets are monotonically ascending and all 149 tensor payloads fall strictly within the 2,256,889,280-byte file boundary (maximum tensor end offset: 2,222,974,400 bytes).
+- **Scope of Binary Validation:** Passing container boundary validation confirms that the file is structurally intact as a GGUF container on disk. It does **NOT** prove model authenticity, does not prove weights are untampered or properly trained, does not prove architecture compatibility, and does not prove successful runtime inference.
+- **Definitive Classification:** **EXPERIMENTAL — END-TO-END COMPATIBILITY AND PERFORMANCE UNPROVEN ON TARGET PC.**
 
 ### 2.2 True FLUX.2 Klein Pipeline Dependencies
 Earlier audit references erroneously listed legacy FLUX.1 assets (`clip_l.safetensors` and `t5xxl_fp8`). FLUX.2 Klein departs fundamentally from the dual CLIP/T5 scheme:

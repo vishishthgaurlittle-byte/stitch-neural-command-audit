@@ -18,14 +18,14 @@ Following an independent review of the Phase 3 architecture deliverables, this r
 
 ### 1.1 Arithmetic & Unit Consistency Rules
 Earlier documentation contained an arithmetic contradiction by subtracting a 7.2 GB committed baseline from 12 GB RAM and stating that approximately 5.0 GB remained ($12.00 - 7.20 = 4.80\text{ GB}$).
-Furthermore, the actual physical hardware measurement reveals that the host machine possesses **16.0 GB of physically installed RAM** (two 8 GB Samsung DDR4-2666 DIMMs = 17,179,869,184 bytes = 16,384 MiB), of which **17,049,899,008 bytes (16,260 MiB / 15.88 GiB / 17.05 GB decimal)** is visible to Windows via `GlobalMemoryStatusEx` (`ullTotalPhys`), and ~124 MiB is hardware-reserved.
+Furthermore, the actual physical hardware measurement reveals that the host machine possesses **16.0 GB of physically installed RAM** across two Samsung DDR4 DIMMs (`ChannelA-DIMM0` and `ChannelB-DIMM0`, rated at 2,666 MT/s, configured operating speed 2,133 MT/s via WMI `ConfiguredClockSpeed = 2133` matching the i3-6100T memory controller limit; active dual-channel mode remains unverified without low-level diagnostic tools). Total physical capacity is 17,179,869,184 bytes (16,384 MiB), of which **17,049,899,008 bytes (16,260.05 MiB / 15.88 GiB / 17.05 GB decimal)** is visible to Windows via `GlobalMemoryStatusEx` (`ullTotalPhys`), and ~124 MiB is hardware-reserved.
 
 To establish absolute mathematical rigor, binary gigabytes ($\text{GiB} = 2^{30}\text{ bytes} = 1,073,741,824\text{ bytes}$) and decimal gigabytes ($\text{GB} = 10^9\text{ bytes} = 1,000,000,000\text{ bytes}$) are never mixed in the same equation:
 - **Installed Marketed Physical Capacity:** 16 GB ($16\text{ GiB} = 16,384\text{ MiB} = 17,179,869,184\text{ bytes} \approx 17.18\text{ GB}$ decimal).
-- **Windows-Visible Physical Memory (`ullTotalPhys`):** $17,049,899,008\text{ bytes} = 15.88\text{ GiB} = 16,260\text{ MiB} \approx 17.05\text{ GB}$ decimal.
+- **Windows-Visible Physical Memory (`ullTotalPhys`):** $17,049,899,008\text{ bytes} = 15.8790\text{ GiB} = 16,260.05\text{ MiB} \approx 17.05\text{ GB}$ decimal.
 - **Provisional Baseline Working Set:** $6,788\text{ MiB} \approx 6.63\text{ GiB}$ (or ~7.12 GB decimal; projected sum of idle components).
 - **Theoretical Idle Margin:** $16,260.05\text{ MiB} - 6,788\text{ MiB} = \mathbf{9,472.05\text{ MiB}} \approx \mathbf{9.25\text{ GiB}}$ binary (or $9,472 \times 1,048,576 / 10^9 \approx \mathbf{9.93\text{ GB}}$ decimal). This is a theoretical calculation of uncommitted margin assuming an idle OS with Main AI resident. It is NOT measured available RAM.
-- **Actual Live Available RAM (`ullAvailPhys`):** **$7,030.07\text{ MiB}$** ($7,371,558,912\text{ bytes} / 1,048,576 = 7,030.07\text{ MiB}$, and $6,590.47\text{ MiB}$ under multitasking). Physical RAM not currently reported as available is $16,260.05 - 7,030.07 = \mathbf{9,229.98\text{ MiB}}$. The ~2,442 MiB difference between the 6,788 MiB baseline and the 9,230 MiB host usage is partially explained by third-party developer software (Chrome, IDE), Windows memory compression (`MemCompression` ~1.1 GB), and kernel memory pools; exact reconciliation is unavailable due to category overlap.
+- **Actual Live Available RAM (`ullAvailPhys`):** **$7,030.07\text{ MiB}$** ($7,371,558,912\text{ bytes} / 1,048,576 = 7,030.07\text{ MiB}$, and $6,590.47\text{ MiB}$ under multitasking). In Windows memory architecture, `ullAvailPhys` includes Free, Zeroed, and Standby pages (the standby page list contains cached files/code that can be repurposed immediately). Physical RAM not currently reported as available is $16,260.05 - 7,030.07 = \mathbf{9,229.98\text{ MiB}}$. This non-available physical RAM consists of active process working sets, modified pages, locked kernel memory (non-paged pool), resident paged pool, and Windows Memory Compression working set; standby pages are NOT part of this quantity. The ~2,442 MiB difference between the 6,788 MiB baseline and the 9,230 MiB host usage is partially explained by third-party developer software (Chrome, IDE), Windows Memory Compression (`MemCompression` ~1,106.73 MiB, managed by the Windows Memory Manager `ntoskrnl.exe`), and kernel memory pools (~1,231.77 MiB); note that physical RAM not reported as available does NOT equal the arithmetic sum of process working sets due to shared pages and kernel allocations.
 - **Gross Headroom (Installed):** $16,384\text{ MiB} - 6,788\text{ MiB} = \mathbf{9,596\text{ MiB}} \approx \mathbf{9.37\text{ GiB}}$ binary (or $9,596 \times 1,048,576 / 10^9 \approx \mathbf{10.06\text{ GB}}$ decimal).
 - **Decimal Comparison:** In a pure decimal calculation, $16.00\text{ GB} - 7.12\text{ GB} = \mathbf{8.88\text{ GB}}$, or $16.00\text{ GB} - 7.20\text{ GB} = \mathbf{8.80\text{ GB}}$. Earlier contradictory calculations have been completely eliminated across all documents.
 
@@ -38,11 +38,11 @@ The target machine’s Intel Core i3-6100T contains an integrated Intel HD Graph
 
 ### 1.3 Physical RAM, Committed Memory, Process Working Sets, and Pagefile Behavior
 To provide an engineering-accurate foundation, KAATYA strictly distinguishes memory concepts:
-1. **Physical RAM:** 16.0 GB installed DDR4 memory across 2x8 GB Samsung DIMMs ($16,384\text{ MiB}$ binary / $17.18\text{ GB}$ decimal; $16,260\text{ MiB}$ Windows-visible).
-2. **Committed Memory:** Virtual address space allocations backed by either physical RAM or `pagefile.sys`.
+1. **Physical RAM:** 16.0 GB installed DDR4 memory across two 8 GB Samsung DIMMs ($16,384\text{ MiB}$ binary / $17.18\text{ GB}$ decimal; $16,260.05\text{ MiB}$ Windows-visible).
+2. **Committed Memory:** Virtual address space allocations backed by either physical RAM or `pagefile.sys` ($12,604,743,680\text{ bytes} = 12,020.82\text{ MiB}$).
 3. **Process Working Set:** The subset of pages currently resident in physical RAM.
-4. **Memory Mapped Files (`mmap`):** GGUF weights are loaded via Win32 `CreateFileMapping` / `MapViewOfFile`. The Windows Cache Manager pages clean file-backed pages into the process working set on demand and can discard clean pages under pressure without writing to the pagefile.
-5. **Windows VMM & Working-Set Limits:** While KAATYA sets its process priority to `ABOVE_NORMAL_PRIORITY_CLASS` and optimizes working set quotas (`SetProcessWorkingSetSizeEx`), the application **cannot guarantee** that Windows will never trim pages or page virtual memory under heavy third-party system load.
+4. **Memory Mapped Files (`mmap`):** GGUF weights are loaded via Win32 `CreateFileMapping` / `MapViewOfFile`. The Windows Cache Manager and Memory Manager page clean file-backed pages into the process working set on demand and can discard clean pages under pressure without writing to the pagefile.
+5. **Windows VMM & Working-Set Limits:** While KAATYA sets its process priority to `ABOVE_NORMAL_PRIORITY_CLASS` and optimizes working set quotas (`SetProcessWorkingSetSizeEx`), the application **cannot guarantee** that Windows Memory Manager (`ntoskrnl.exe`) will never page virtual memory pages to `pagefile.sys` under heavy third-party system load. Application policy mandates that Main AI is never intentionally unloaded or evicted, but actual physical residency and paging behavior require runtime validation.
 6. **Removal of "Guaranteed 2.5 GB Safety Cushion":** The unsupported claim of a permanent guaranteed 2.5 GB safety buffer has been removed. Instead, KAATYA enforces a **dynamic pre-flight scheduler threshold**: before launching any ephemeral local worker, the runtime queries `GlobalMemoryStatusEx`. If available physical memory (`ullAvailPhys`) is $< 2,048\text{ MiB}$ (~2.0 GB), worker spawning is rejected, queued, or routed to the resident Main AI.
 
 ### 1.4 Model File Size vs. True Process Memory Footprint
@@ -81,10 +81,16 @@ Measured empirically on Windows 10:
 
 ## 2. FLUX.2 Klein 4B Pipeline & Dependency Audit
 
-### 2.1 Empirical Binary Audit of `flux-2-klein-4b-q4_0.gguf`
-Direct binary inspection of the GGUF header and tensor table revealed:
-- **Header:** GGUF version 3, 149 tensors, **0 KV metadata entries**.
-- **Architecture:** Contains exclusively the Diffusion Transformer (DiT) backbone: 5 double-stream blocks (`double_blocks.0` to `double_blocks.4`) and 20 single-stream blocks (`single_blocks.0` to `single_blocks.19`), alongside modulation layers and text projection tensor `txt_in.weight` of dimension `[7680, 3072]`.
+### 2.1 Empirical Binary Audit & Technical Identity of `flux-2-klein-4b-q4_0.gguf`
+Direct binary inspection of the GGUF header and tensor table via `tools/inspect_model_metadata.py` revealed:
+- **File System Identity:** Path: `T:\ai creation\flux-2-klein-4b-q4_0.gguf`. Exact size: **2,256,889,280 bytes** ($2.1019\text{ GiB} = 2,152.34\text{ MiB} \approx 2.2569\text{ GB}$).
+- **Cryptographic Hash (SHA-256):** `9c5939d55e3ac76e3a700029770fcc5e1b873d12c2a6d22c6c3fec217488e718`.
+- **Upstream Origin:** Community Hugging Face GGUF repository (unverified upstream signed manifest).
+- **Container Format & Header:** GGUF version 3, **0 KV metadata entries** (architecture reported as `unknown` because `general.architecture` is absent).
+- **Tensor Count & Quantization Types:** 149 tensors. Primary quantization is GGML Type 30 (`Q4_0_4_4`, 4-bit tiled quantized blocks requiring AVX2 runtime support) alongside GGML Type 0 (`F32`) for modulation, norm, and projection layers.
+- **Architecture & Backbone:** Contains exclusively the Diffusion Transformer (DiT) backbone: 5 double-stream blocks (`double_blocks.0` to `double_blocks.4`) and 20 single-stream blocks (`single_blocks.0` to `single_blocks.19`), alongside modulation layers and text projection tensor `txt_in.weight` of dimension `[7680, 3072]`.
+- **Binary Boundary Validation:** All tensor offsets are monotonically ascending, and all 149 tensor payloads fall strictly within the 2,256,889,280-byte file boundary (max tensor end offset: 2,222,974,400 bytes).
+- **Scope of Validation:** Passing container boundary validation proves that the GGUF container is well-formed and uncorrupted on disk. It does **NOT** prove model authenticity, does not prove weights are properly trained, does not prove architecture compatibility, and does not prove successful runtime inference.
 
 ### 2.2 Correcting Companion Dependencies: No CLIP-L or T5-XXL
 Earlier reports erroneously cited `clip_l.safetensors` and `t5xxl_fp8` from the legacy FLUX.1 family. 
@@ -195,7 +201,7 @@ The 10 local assets on `T:\ai creation` have been categorized by functional type
 | **3** | `SmolLM2-1.7B-Instruct-Q4_K_M.gguf` | **Chat Model** | 1,055,609,824 B | 0.983 GiB | 1.056 GB | `77665ea41a2aeb049ffcceaececfd864190c102a9df2c2b7ba122d46e33bd3b4` | *Unavailable (bartowski / HF quant)* |
 | **4** | `Qwen2.5-Coder-1.5B-Instruct-Q3_K_M.gguf`| **Coding Model** | 824,178,784 B | 0.768 GiB | 0.824 GB | `0c292dae43e2e92cfae8bf668e1fb7fdf870f71933ba21fc2a297e28b28f8f2b` | *Unavailable (Community GGUF)* |
 | **5** | `qwen2.5-1.5b-instruct-q4_k_m.gguf` | **Chat Model** | 1,117,320,736 B | 1.041 GiB | 1.117 GB | `6a1a2eb67ea278d976077556a34ea3efadbc91d8bbd4c6227c244c77c6888f4b` | *Unavailable (Community GGUF)* |
-| **6** | `flux-2-klein-4b-q4_0.gguf` | **Image-Gen Model (DiT)**| 2,256,889,280 B | 2.102 GiB | 2.257 GB | `9c5939d564fa7454261d7a8e7e1cb5bf4d27192667ae967a5b39414da8846c10` | *Unavailable (Unsloth / HF quant)* |
+| **6** | `flux-2-klein-4b-q4_0.gguf` | **Image-Gen Model (DiT)**| 2,256,889,280 B | 2.102 GiB | 2.257 GB | `9c5939d55e3ac76e3a700029770fcc5e1b873d12c2a6d22c6c3fec217488e718` | *Unavailable (Unsloth / HF quant)* |
 | **7** | `qwen3-embedding-0.6b-q8_0.gguf` | **Embedding Model** | 639,150,592 B | 0.595 GiB | 0.639 GB | `ee02981604efb343cb4620021cbe15a519fc6eec77e928236fb6c4839880f074` | *Unavailable (Community GGUF)* |
 | **8** | `ggml-base.bin` | **Speech-Recog (STT)**| 147,951,465 B | 0.138 GiB | 0.148 GB | `60ed5bc3dd14edd81339603a9ad24f7f5255470d06152a5ec6d0290538a719d2` | *Whisper.cpp ecosystem build* |
 | **9** | `en_US-mike-medium.onnx` | **TTS Voice Asset** | 63,221,984 B | 0.059 GiB | 0.063 GB | `6876866e4a2e5ee9352ef5a557b2ffeb7ee10fc05a9ea2ffbc6e67e3fa43df65` | *Rhasspy Piper voice build* |
