@@ -5,6 +5,7 @@
 **GitHub Repository:** `https://github.com/vishishthgaurlittle-byte/stitch-neural-command-audit`  
 **GitHub Destination Path:** `/design-source/`  
 **Target Branch:** `main`  
+**Verified Commit SHA:** `589fd2c`  
 **Verification Status:** **100% Verified (All 20 Source Files Live on GitHub)**  
 
 ---
@@ -61,6 +62,6 @@ Below are the permanent, direct GitHub links for every Google Stitch HTML templa
 ## 4. Verification Protocol & Methodology
 
 1. **Local Integrity:** `T:\ai creation\stitch_neural_command_desktop_os` was verified using recursive file hashing and size checks. All 20 original files were copied directly into `design-source/` without modification.
-2. **Commit & Push:** Uploaded to branch `main` of `https://github.com/vishishthgaurlittle-byte/stitch-neural-command-audit`.
+2. **Commit & Push:** Uploaded to branch `main` of `https://github.com/vishishthgaurlittle-byte/stitch-neural-command-audit` (Commit: `589fd2c`).
 3. **Independent GitHub Query:** An automated Python verification harness queried the GitHub REST API (`https://api.github.com/repos/vishishthgaurlittle-byte/stitch-neural-command-audit/contents/design-source/...`) and fetched the raw payload size for all 20 items.
 4. **Result:** Every single file returned HTTP 200 with 100% byte-size match. Zero 404 errors remain.
