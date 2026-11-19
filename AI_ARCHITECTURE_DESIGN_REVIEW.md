@@ -1,7 +1,7 @@
 # AI Architecture & Model Management Design Review
 
 **Core Operating Principle:** Strict Single-Authority Hierarchy with Resource-Governed Dual Workers  
-**Target Hardware Constraints:** Intel Core i3-6100T (2C/4T) | 12.0 GB RAM | CPU-Only Execution  
+**Target Hardware Constraints:** Intel Core i3-6100T (2C/4T) | 16.0 GB RAM (16,384 MiB installed / 16,260 MiB visible) | CPU-Only Execution  
 
 ---
 

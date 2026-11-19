@@ -48,7 +48,7 @@ This document codifies the final, authoritative technical decisions governing th
 - [x] All 8 required Phase 3.1 correction documents authored and cross-referenced.
 - [x] Contradictions in existing Phase 3 documents audited and updated.
 - [x] Zero application source code written.
-- [x] Hardware constraints (12 GB RAM, Core i3-6100T, HD 530) strictly respected.
+- [x] Hardware constraints (16 GB RAM, Core i3-6100T, HD 530) strictly respected.
 - [x] Offline-first principles mathematically and technically validated.
 
 ### Recommendation:

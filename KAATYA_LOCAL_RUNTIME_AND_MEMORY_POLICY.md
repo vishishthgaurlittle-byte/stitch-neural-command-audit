@@ -2,7 +2,7 @@
 
 ## 1. Executive Memory Governance Framework
 
-Operating a local-first AI assistant on an **Intel Core i3-6100T with 12.0 GB RAM and no dedicated GPU** requires a deterministic, hardware-enforced memory policy. 
+Operating a local-first AI assistant on an **Intel Core i3-6100T with 16.0 GB RAM (16,384 MiB installed / 16,260 MiB Windows-visible) and no dedicated GPU** requires a deterministic, hardware-enforced memory policy. 
 
 Windows 10 physical memory is an unforgiving boundary: exceeding physical RAM triggers hard pagefile paging, dropping system throughput to $<0.5\text{ tok/s}$ and causing audio stutter and UI freezing.
 
@@ -53,26 +53,27 @@ flowchart TD
 
 ## 3. Dynamic Memory Budget & Hardware Scheduling Thresholds
 
-### 3.1 Memory Math & Operating System Realities (12.0 GB Physical Budget)
+### 3.1 Memory Math & Operating System Realities (16.0 GB Physical Budget)
 
-The target machine possesses **12.0 GB marketed capacity Physical RAM**:
-- **Binary Capacity:** $12\text{ GiB} = 12,288\text{ MiB} = 12,884,901,888\text{ bytes}$.
-- **Decimal Capacity:** $\approx 12.88\text{ GB}$ ($12,884,901,888 / 10^9\text{ bytes}$).
+The target machine possesses **16.0 GB physically installed Physical RAM** across two dual-channel Samsung DDR4-2666 modules:
+- **Installed Physical Capacity:** $16\text{ GiB} = 16,384\text{ MiB} = 17,179,869,184\text{ bytes} \approx 17.18\text{ GB}$ decimal ($17,179,869,184 / 10^9$).
+- **Hardware-Reserved Memory:** $129,970,176\text{ bytes} \approx 123.95\text{ MiB} \approx 124\text{ MiB}$ (~0.13 GB), reserved by BIOS, APIC/PCIe, and Intel HD Graphics 530 DVMT.
+- **Windows-Visible Physical Memory (`ullTotalPhys`):** $17,049,899,008\text{ bytes} = 15.8790\text{ GiB} = 16,260.05\text{ MiB} \approx 17.05\text{ GB}$ decimal ($17,049,899,008 / 10^9$).
 - **Mandatory Conversion Rules:**
   - $1\text{ GiB} = 1,024\text{ MiB} = 1,073,741,824\text{ bytes}$.
   - $1\text{ GB} = 1,000,000,000\text{ bytes}$.
   - $1\text{ MiB} = 1,048,576\text{ bytes}$.
   - *Never mix decimal GB with binary GiB in the same subtraction.*
 
-#### Binary Calculation (MiB & GiB):
+#### Binary Calculation Against Windows-Visible Physical RAM (MiB & GiB):
 $$\begin{aligned}
-\text{Total Visible Physical Memory} &= 12,288\text{ MiB} \quad (12.00\text{ GiB}) \\
-\text{Provisional Base Working Set Commitment} &\approx 6,788\text{ MiB} \quad (~6.63\text{ GiB}) \\
+\text{Total Visible Physical Memory (ullTotalPhys)} &= 16,260\text{ MiB} \quad (15.88\text{ GiB} \text{ / } 17.05\text{ GB}) \\
+\text{Provisional Base Working Set Commitment} &\approx 6,788\text{ MiB} \quad (~6.63\text{ GiB} \text{ / } ~7.12\text{ GB}) \\
 \hline
-\mathbf{Uncommitted\ Physical\ Memory\ Headroom} &\approx \mathbf{5,500\text{ MiB}} \quad (\mathbf{~5.37\text{ GiB}})
+\mathbf{Uncommitted\ Physical\ Memory\ Headroom} &\approx \mathbf{9,472\text{ MiB}} \quad (\mathbf{~9.25\text{ GiB}})
 \end{aligned}$$
 
-*(Note: In decimal conversion, the $5,500\text{ MiB}$ remainder equals $5,500 \times 1,048,576 / 10^9 \approx \mathbf{5.77\text{ GB}}$. In a hypothetical pure $12.00\text{ GB}$ decimal calculation with a $7.20\text{ GB}$ footprint, the remainder is $12.00 - 7.20 = \mathbf{4.80\text{ GB}}$. Earlier contradictory references to $4.88\text{ GB}$ have been removed).*
+*(Note: In decimal conversion, the $9,472\text{ MiB}$ remainder equals $9,472 \times 1,048,576 / 10^9 \approx \mathbf{9.93\text{ GB}}$. Relative to gross installed memory ($16,384\text{ MiB}$), gross headroom is $16,384 - 6,788 = \mathbf{9,596\text{ MiB}} \approx \mathbf{9.37\text{ GiB}} \approx \mathbf{10.06\text{ GB}}$. In a hypothetical pure $16.00\text{ GB}$ decimal calculation with a $7.12\text{ GB}$ footprint, the remainder is $16.00 - 7.12 = \mathbf{8.88\text{ GB}}$, or $16.00 - 7.20 = \mathbf{8.80\text{ GB}}$ if baseline is rounded to one decimal place).*
 
 ### 3.2 Required Itemized Memory Accounting Table
 
@@ -85,18 +86,19 @@ $$\begin{aligned}
 | **Database Store** | ~80 MiB | PROVISIONAL ESTIMATE | SQLite 3 engine and `sqlite-vec` cache |
 | **KAATYA Main AI** | ~3,138 MiB | PROVISIONAL ESTIMATE | `Qwen3-4B-Q4_K_M` weights + 4K FP16 KV cache + graph |
 | **Other Active User Processes** | ~0 MiB | PROVISIONAL ESTIMATE | Variable third-party background load |
-| **Total Observed Working Set** | **~6,788 MiB** | PROVISIONAL ESTIMATE | Sum of active baseline resident working sets (~6.63 GiB) |
-| **Available Physical Memory** | **~5,500 MiB** | PROVISIONAL ESTIMATE | Remaining from 12,288 MiB pool (~5.37 GiB / ~5.77 GB) |
+| **Total Observed Working Set** | **~6,788 MiB** | PROVISIONAL ESTIMATE | Sum of active baseline resident working sets (~6.63 GiB / ~7.12 GB) |
+| **Available Physical Memory** | **~9,472 MiB** | PROVISIONAL ESTIMATE | Remaining from 16,260 MiB visible pool (~9.25 GiB / ~9.93 GB) |
 
 ### 3.3 Memory Concepts & Distinctions
-1. **Installed Physical Memory:** 12.0 GB hardware module total ($12,288\text{ MiB}$ binary / ~12.88 GB decimal).
-2. **OS-Visible Physical Memory:** Memory reported by Windows via `GlobalMemoryStatusEx` (`ullTotalPhys`).
-3. **Available Physical Memory:** Memory available for allocation without paging (`ullAvailPhys`).
-4. **Committed Memory:** Virtual address space allocations backed by RAM or pagefile (`ullTotalPageFile`).
-5. **Process Working Set:** Physical RAM pages currently assigned to the active process.
-6. **Private Working Set:** Memory allocated specifically to the process that cannot be shared.
-7. **Memory-Mapped File Pages:** Clean file-backed pages (e.g., GGUF weights) that Windows Cache Manager can discard and reload without writing to `pagefile.sys`.
-8. **Pagefile Usage:** Backing store on disk utilized when physical memory demands exceed available RAM.
+1. **Installed Physical Memory:** 16.0 GB hardware module total across 2x8 GB Samsung DIMMs ($16,384\text{ MiB}$ binary / ~17.18 GB decimal).
+2. **Hardware-Reserved Memory:** ~124 MiB ($129,970,176\text{ bytes}$) reserved by BIOS, system boards, and Intel HD 530 DVMT pre-allocation.
+3. **OS-Visible Physical Memory:** Memory reported by Windows via `GlobalMemoryStatusEx` (`ullTotalPhys`: 17,049,899,008 bytes = 16,260 MiB).
+4. **Available Physical Memory:** Memory available for allocation without paging (`ullAvailPhys`).
+5. **Committed Memory:** Virtual address space allocations backed by RAM or pagefile (`ullTotalPageFile`).
+6. **Process Working Set:** Physical RAM pages currently assigned to the active process.
+7. **Private Working Set:** Memory allocated specifically to the process that cannot be shared.
+8. **Memory-Mapped File Pages:** Clean file-backed pages (e.g., GGUF weights) that Windows Cache Manager can discard and reload without writing to `pagefile.sys`.
+9. **Pagefile Usage:** Backing store on disk utilized when physical memory demands exceed available RAM.
 
 ---
 

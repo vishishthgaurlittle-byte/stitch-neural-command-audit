@@ -8,7 +8,7 @@ KAATYA operates under four distinct physical hardware constraints on the target 
 graph TD
     subgraph Bottlenecks ["Hardware Bottlenecks"]
         B1["1. Dual-Core CPU (Core i3-6100T, 35W TDP, 4 Threads)"]
-        B2["2. 12.0 GB RAM Hard Limit (NOT 16 GB)"]
+        B2["2. 16.0 GB RAM (16,384 MiB Installed / 16,260 MiB Visible)"]
         B3["3. Integrated Intel HD Graphics 530 (No CUDA / Shared RAM)"]
         B4["4. USB 3.0 External Pendrive Bus Bandwidth (~100 MB/s)"]
     end
@@ -31,7 +31,7 @@ graph TD
 | Risk ID | Risk Description | Severity | Probability | Defensive Mitigation Strategy |
 | :---: | :--- | :---: | :---: | :--- |
 | **R-01** | **CPU Thread Saturation & Audio Stutter:** If model inference uses all 4 logical threads, the Piper TTS audio buffer stutters and the UI drops frames. | **HIGH** | **HIGH** | Pinned `llama.cpp` to **3 threads** (`-t 3`). Thread 3 is reserved exclusively for the Windows message pump, PortAudio playback, and Tokio async I/O. |
-| **R-02** | **RAM Exhaustion by Heavy Models:** Loading models $>2\text{ GB}$ (like FLUX.2 or the former Nemotron) while KAATYA is resident triggers severe Windows pagefile swapping. | **CRITICAL** | **HIGH** | Enforce **Pre-Flight Memory Verification**. If free RAM is $<2.5\text{ GB}$, worker loading is blocked, and KAATYA handles the task via resident logical roles or offers cloud delegation. |
+| **R-02** | **RAM Exhaustion by Heavy Models:** Loading heavy worker models while KAATYA Main AI is resident risks triggering Windows pagefile swapping if memory margins are breached. | **CRITICAL** | **LOW-MEDIUM** | Enforce **10-Step Dynamic Worker Admission Procedure**. If projected memory exceeds available physical memory (`ullAvailPhys`) minus dynamic safety margin, worker loading is safely deferred or rejected, and KAATYA handles the task via resident roles or offers cloud delegation. |
 | **R-03** | **Integrated GPU Memory Contention (HD 530):** Heavy 3D WebGL scenes contend with CPU for DDR4 memory bus bandwidth, slowing down token generation. | **MEDIUM** | **HIGH** | Render Neural Core in **HTML5 2D / 2.5D Canvas** (`GL_LOWRES`). Zero high-polygon WebGL post-processing. |
 | **R-04** | **USB 3.0 I/O Latency:** Loading models directly from the Amazon Basics USB 3.0 pendrive will take 3x to 5x longer than internal SSD storage due to USB bus overhead. | **MEDIUM** | **MEDIUM** | **Drive Partitioning Policy:** Keep KAATYA Main AI and active worker models on the internal drive (`T:\`). Reserve the USB drive for video scratch footage, image exports, and cold model archives. |
 | **R-05** | **Thermal Throttling on 35W CPU:** Long diffusion steps (FLUX.2) or extended code generation will heat the 35W Skylake package, dropping clocks from 3.20 GHz to ~2.40 GHz. | **MEDIUM** | **MEDIUM** | Batching pauses (10 ms between prompt evaluation chunks) and live CPU thermal status in System Monitor (Screen 12). |
@@ -44,18 +44,18 @@ To maintain absolute technical truthfulness, all project metrics are categorized
 
 ### 2.1 Verified Facts (Empirically Confirmed on Filesystem & OS)
 - **Host CPU:** Intel Core i3-6100T (2 cores, 4 threads @ 3.20 GHz, AVX2).
-- **Physical RAM:** Exactly 12.0 GB DDR4.
-- **Graphics Adapter:** Intel HD Graphics 530 (Integrated, dynamic shared memory).
+- **Physical RAM:** 16.0 GB DDR4 (Two 8 GB Samsung DIMMs @ 2666 MHz; 16,384 MiB installed, 16,260 MiB Windows-visible `ullTotalPhys`, ~124 MiB hardware-reserved).
+- **Graphics Adapter:** Intel HD Graphics 530 (Integrated, dynamic shared memory via DVMT, 0 dedicated VRAM).
 - **External Storage:** Amazon Basics USB 3.0 pendrive (~116 GB usable capacity).
 - **10 Present Models:** Verified byte-sizes and calculated SHA-256 hashes (see `KAATYA_FINAL_MODEL_INVENTORY.md`).
 - **Absence of Historical Models:** `Nemotron-7.5B`, `qwen-image-2.1`, `nomic-embed`, and `qwen2.5-coder-3b` are verified absent.
-- **FLUX.2 GGUF Structure:** Verified as DiT backbone only (149 tensors, 0 KV pairs; utilizes Qwen3 text encoder and `flux2-vae.safetensors`, both absent locally).
+- **FLUX.2 GGUF Structure:** Verified as DiT backbone only (149 tensors, 0 KV pairs; utilizes Qwen3 text encoder and `flux2-vae.safetensors`, both absent locally; input shape is `txt_in.weight` `(7680, 3072)`).
 
 ### 2.2 Theoretical Calculations (Derived from Measured Hardware Bounds)
 - **Base Committed Working Set:** ~3.65 GB (Windows 10 base ~3.0 GB + dynamic Intel HD 530 idle UI ~0.16 GB + Tauri/WebView2 shell/audio ~0.50 GB).
-- **KAATYA Main AI Resident Working Set:** ~3.14 GB (2.50 GB weights + 576 MB 4K FP16 KV cache + compute graph buffers).
-- **Total Base Active Working Set:** ~6.79 to 7.12 GB.
-- **Physical Headroom:** $12,288\text{ MiB} - 6,788\text{ MiB} = \mathbf{5,500\text{ MiB}}$ (~5.37 GiB binary / ~5.77 GB decimal).
+- **KAATYA Main AI Resident Working Set:** ~3.14 GB (2.38 GB weights + 360 MB 4K FP16 KV cache + compute graph buffers).
+- **Total Base Active Working Set:** ~6.79 to 7.12 GB (~6,788 MiB).
+- **Physical Headroom:** $16,260\text{ MiB} - 6,788\text{ MiB} = \mathbf{9,472\text{ MiB}}$ (~9.25 GiB binary / ~9.93 GB decimal).
 - **Dynamic Worker Admission:** Evaluated on demand via the 10-step procedure (enforcing a minimum 2,048 MiB system floor before calculating model weights, KV cache, and runtime buffers).
 
 

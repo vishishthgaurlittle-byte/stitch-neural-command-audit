@@ -3,7 +3,7 @@
 **Report Date:** November 19, 2026  
 **Project Identity:** **KAATYA** — Premium Windows 10 Desktop AI Assistant Application  
 **Design System:** Obsidian Command (Preserving all 15 Google Stitch Screens)  
-**Target Hardware:** Intel Core i3-6100T (2C/4T @ 3.20 GHz) | 12.0 GB DDR4 RAM | Intel HD Graphics 530 | Amazon Basics USB 3.0 (116 GB) | Windows 10 64-bit  
+**Target Hardware:** Intel Core i3-6100T (2C/4T @ 3.20 GHz) | 16.0 GB DDR4 RAM (16,384 MiB installed / 16,260 MiB visible) | Intel HD Graphics 530 | Amazon Basics USB 3.0 (116 GB) | Windows 10 64-bit  
 **Current Status:** Architecture Finalized, Verified & Approved for Review (Phase 4 Implementation Blocked)  
 
 ---
@@ -24,30 +24,30 @@ An empirical audit of `T:\ai creation` and the project repository was conducted,
 
 ---
 
-## 2. Definitive Hardware-Calibrated Memory Budget (12.0 GB RAM)
+## 2. Definitive Hardware-Calibrated Memory Budget (16.0 GB RAM)
 
 ```mermaid
-pie title Windows 10 (12.0 GB RAM) Working Set Allocation
+pie title Windows 10 (16.0 GB RAM) Working Set Allocation
     "Windows 10 OS Base + DWM" : 2900
     "Intel HD 530 Dynamic UI Allocation" : 150
     "Tauri Host + WebView2 Engine + Audio" : 520
     "KAATYA Permanent Main AI (Qwen3-4B @ 4K)" : 3138
-    "Local Worker Slot (When Active)" : 1100
-    "Uncommitted Headroom / OS Cache" : 4480
+    "Local Worker Slot (When Active)" : 1300
+    "Uncommitted Headroom / OS Cache" : 8252
 ```
 
 $$\begin{aligned}
-\text{Total Physical Memory} &= 12,288\text{ MiB} \quad (12.00\text{ GiB} \text{ / } 12.88\text{ GB}) \\
+\text{Total Visible Physical Memory (ullTotalPhys)} &= 16,260\text{ MiB} \quad (15.88\text{ GiB} \text{ / } 17.05\text{ GB}) \\
 \text{Base Operating System + System Services} &\approx 2,900\text{ MiB} \quad (~3.04\text{ GB}) \\
 \text{Intel HD 530 Dynamic Shared Memory (Idle UI)} &\approx 150\text{ MiB} \quad (~0.16\text{ GB}) \\
 \text{Tauri v2 + WebView2 + Audio/DB Runtimes} &\approx 600\text{ MiB} \quad (~0.63\text{ GB}) \\
 \text{KAATYA Permanent Main AI (Qwen3-4B @ 4K FP16 KV)} &\approx \mathbf{3,138\text{ MiB}} \quad (\mathbf{~3.29\text{ GB}}) \\
 \hline
 \mathbf{Total\ Base\ Working\ Set\ Commitment} &\approx \mathbf{6,788\text{ MiB}} \quad (\mathbf{~7.12\text{ GB}}) \\
-\mathbf{Remaining\ Uncommitted\ Headroom} &\approx \mathbf{5,500\text{ MiB}} \quad (\mathbf{~5.76\text{ GB}})
+\mathbf{Remaining\ Uncommitted\ Headroom} &\approx \mathbf{9,472\text{ MiB}} \quad (\mathbf{~9.25\text{ GiB} \text{ / } ~9.93\text{ GB}})
 \end{aligned}$$
 
-*(Note: In decimal conversion, the $5,500\text{ MiB}$ remainder equals $5,500 \times 1,048,576 / 10^9 \approx \mathbf{5.77\text{ GB}}$. In a hypothetical pure $12.00\text{ GB}$ decimal calculation with a $7.20\text{ GB}$ footprint, the remainder is $12.00 - 7.20 = \mathbf{4.80\text{ GB}}$. Earlier contradictory calculations mixing marketed 12.00 decimal GB with binary-derived gigabytes have been removed).*
+*(Note: In decimal conversion, the $9,472\text{ MiB}$ remainder equals $9,472 \times 1,048,576 / 10^9 \approx \mathbf{9.93\text{ GB}}$. Gross headroom relative to installed 16,384 MiB is $16,384 - 6,788 = \mathbf{9,596\text{ MiB}} \approx \mathbf{9.37\text{ GiB}} \approx \mathbf{10.06\text{ GB}}$. In a hypothetical pure 16.00 GB decimal calculation with 7.12 GB baseline, remainder is $16.00 - 7.12 = \mathbf{8.88\text{ GB}}$, or $16.00 - 7.20 = \mathbf{8.80\text{ GB}}$ if baseline is rounded to one decimal place).*
 
 - **Dynamic Worker Admission Procedure:** The outdated fixed 2.5 GB buffer rule has been eliminated. The runtime enforces a 10-step dynamic procedure querying `GlobalMemoryStatusEx`, verifying an initial 2,048 MiB floor, calculating exact model weights, KV cache, and graph scratch buffers, and applying a configurable margin.
 - **Permanent Residency Invariant:** KAATYA Main AI context remains continuously resident in memory and is never deallocated.

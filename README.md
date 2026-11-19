@@ -3,7 +3,7 @@
 **Project Identity:** **KAATYA** — Premium Windows 10 Desktop AI Assistant Application (Not an OS)  
 **Audit & Architecture Finalization Date:** November 19, 2026  
 **Design System:** Obsidian Command (Preserving all 15 Google Stitch Screens)  
-**Target Hardware:** Intel Core i3-6100T (2 Cores, 4 Threads @ 3.20 GHz) | 12.0 GB DDR4 RAM | Intel HD Graphics 530 | Amazon Basics USB 3.0 (116 GB) | Windows 10 64-bit  
+**Target Hardware:** Intel Core i3-6100T (2 Cores, 4 Threads @ 3.20 GHz) | 16.0 GB DDR4 RAM (16,384 MiB installed / 16,260 MiB visible) | Intel HD Graphics 530 | Amazon Basics USB 3.0 (116 GB) | Windows 10 64-bit  
 **Current Status:** **Final Architecture, Model Inventory & 23-Agent Expansion Complete** (Phase 4 Blocked Pending Review)  
 **Primary Source Directory:** [`/design-source/`](./design-source/)  
 
@@ -13,9 +13,9 @@
 
 The complete, hardware-calibrated technical blueprint and multimodal architecture for KAATYA:
 
-0. **[KAATYA_PHASE_3_FINAL_TECHNICAL_SIGNOFF.md](./KAATYA_PHASE_3_FINAL_TECHNICAL_SIGNOFF.md)** — **Authoritative Phase 3 Sign-Off Report:** Complete technical sign-off covering all 20 sections, memory math, 10-step worker admission, evidence classification table, and Phase 4 hold status.
-00. **[KAATYA_PHASE_3_CORRECTION_AND_VALIDATION_REPORT.md](./KAATYA_PHASE_3_CORRECTION_AND_VALIDATION_REPORT.md)** — **Validation & Correction Report:** Arithmetic fixes ($12.0 - 7.2 = 4.8\text{ GB}$), FLUX.2 Klein Qwen3 dependencies, video diffusion feasibility, multi-editor interchange, restored 23-agent roster, and unified tech stack.
-1. **[KAATYA_FINAL_MASTER_ARCHITECTURE.md](./KAATYA_FINAL_MASTER_ARCHITECTURE.md)** — **The Master Blueprint:** System topology, 12 GB RAM budget, permanent Main AI residency, boundaries.
+0. **[KAATYA_PHASE_3_FINAL_TECHNICAL_SIGNOFF.md](./KAATYA_PHASE_3_FINAL_TECHNICAL_SIGNOFF.md)** — **Authoritative Phase 3 Sign-Off Report:** Complete technical sign-off covering all 20 sections, verified 16 GB hardware measurement, memory math, 10-step worker admission, evidence classification table, and Phase 4 hold status.
+00. **[KAATYA_PHASE_3_CORRECTION_AND_VALIDATION_REPORT.md](./KAATYA_PHASE_3_CORRECTION_AND_VALIDATION_REPORT.md)** — **Validation & Correction Report:** 16 GB hardware re-measurement, arithmetic fixes, FLUX.2 Klein Qwen3 dependencies, video diffusion feasibility, multi-editor interchange, restored 23-agent roster, and unified tech stack.
+1. **[KAATYA_FINAL_MASTER_ARCHITECTURE.md](./KAATYA_FINAL_MASTER_ARCHITECTURE.md)** — **The Master Blueprint:** System topology, 16 GB RAM budget, permanent Main AI residency, boundaries.
 2. **[KAATYA_FINAL_MODEL_INVENTORY.md](./KAATYA_FINAL_MODEL_INVENTORY.md)** — **Authoritative Model Inventory:** Exact byte sizes, architectures, SHA-256 hashes for all 10 present models.
 3. **[KAATYA_MODEL_COMPATIBILITY_AND_BENCHMARK_PLAN.md](./KAATYA_MODEL_COMPATIBILITY_AND_BENCHMARK_PLAN.md)** — Model comparisons, KV cache formulas, CPU throughput bounds, and llama-bench suite.
 4. **[KAATYA_AGENT_ROSTER_AND_CAPABILITY_MATRIX.md](./KAATYA_AGENT_ROSTER_AND_CAPABILITY_MATRIX.md)** — **The 23 Logical Agent Roles:** Complete capability matrix, schemas, and task handoff loops.

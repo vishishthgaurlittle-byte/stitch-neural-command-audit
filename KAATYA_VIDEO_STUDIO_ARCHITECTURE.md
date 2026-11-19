@@ -141,12 +141,12 @@ Rather than binding exclusively to one proprietary editor, KAATYA exports standa
 | :--- | :--- | :--- | :--- | :--- |
 | **Backbone File Size** | ~1.5 GB (Q4 GGUF) / ~2.8 GB (FP16) | ~2.2 GB (GGUF/FP8) | Limited USB/internal disk | Exists as download candidate |
 | **Companion Files** | T5-XXL text encoder (4.8 GB) + 3D VAE (~350 MB) | T5/Gemma Encoder (4.8 GB) + Spatio-Temporal VAE | Extra ~5.2 GB storage | Absent locally |
-| **Runtime Memory** | Min 8–10 GB VRAM; 16–32 GB system RAM | Min 8–12 GB VRAM; 32 GB system RAM | Host has 12.0 GB physical RAM | **Severe Memory Exhaustion** |
-| **GPU Requirements** | Dedicated NVIDIA tensor cores (RTX 3060/4060+) | Dedicated NVIDIA GPU (RTX 3060/4060 Ti+) | Integrated Intel HD 530 (0 CUDA) | **Unsupported by GPU** |
-| **CPU Fallback Availability**| Technical PyTorch CPU fallback exists | Technical CPU fallback exists | 2 cores / 4 threads @ 35W TDP | **Extremely Slow Execution** |
+| **Runtime Memory** | Min 8–10 GB dedicated VRAM; 16–32 GB system RAM | Min 8–12 GB dedicated VRAM; 32 GB system RAM | Host has 16.0 GB physical RAM (16,260 MiB visible) | **Inadequate for High-Res 3D Attention** |
+| **GPU Requirements** | High-bandwidth dedicated GPU (RTX 3060/4060+) | Dedicated tensor-core GPU (RTX 3060/4060 Ti+) | Integrated Intel HD 530 (0 dedicated VRAM, dynamic shared memory via DVMT, 0 CUDA) | **Unsupported by GPU Hardware** |
+| **CPU Fallback Availability**| Technical PyTorch CPU fallback exists | Technical CPU fallback exists | 2 cores / 4 threads @ 35W TDP, AVX2 only | **Extremely Slow Execution** |
 | **Actual Latency Performance**| **UNVERIFIED** (No physical CPU benchmark) | **UNVERIFIED** (No physical CPU benchmark) | CPU diffusion on 2C/4T Skylake is unmeasured | **Impractical on target hardware** |
 
 ### 4.2 Definitive Architectural Classification:
-1. **Local Video Diffusion (Wan 2.1 / LTX-Video):** Classified as **Impractical on target hardware / Unsupported by selected local runtime**. Attempting to run local video diffusion on a 2-core i3-6100T with 12 GB RAM induces severe pagefile thrashing, high thermal load, and unviable processing delays.
+1. **Local Video Diffusion (Wan 2.1 / LTX-Video):** Classified as **Impractical on target hardware / Unsupported by selected local runtime**. Video models require high-throughput tensor cores and tens of gigabytes of memory bandwidth (GDDR6/HBM). The target PC utilizes Intel HD Graphics 530 (dynamic shared system memory with 0 dedicated VRAM) and dual-channel DDR4-2666 RAM (~21.3–24 GB/s bus). Attempting CPU-only video diffusion on a 2-core i3-6100T results in multi-hour render times per 5-second clip and heavy thermal throttling, making local real-time video diffusion impractical.
 2. **Video Studio Autonomy:** The KAATYA Video Studio does **NOT** require local video diffusion. It delivers full script-to-video production via Piper speech synthesis, Whisper transcription, asset sourcing, programmatic FFmpeg CLI effects, and timeline interchange.
 3. **Frontier Video Gate:** Generative text-to-video clips are delegated to **authorized Online Video Providers** (e.g., Runway Gen-3, Luma Dream Machine, Kling AI) with mandatory per-clip cost and prompt approval.

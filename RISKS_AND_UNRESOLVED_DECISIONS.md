@@ -2,13 +2,13 @@
 
 ## 1. Hardware Bottleneck Analysis & Mitigations
 
-Deploying a local, multi-capability AI assistant on an **Intel Core i3-6100T (35W TDP, 2 cores / 4 threads)**, **12 GB DDR4 RAM**, and **Intel HD Graphics 530** introduces several physical constraints that must be handled with defensive engineering:
+Deploying a local, multi-capability AI assistant on an **Intel Core i3-6100T (35W TDP, 2 cores / 4 threads)**, **16.0 GB DDR4 RAM (16,384 MiB installed / 16,260 MiB visible)**, and **Intel HD Graphics 530** introduces several physical constraints that must be handled with defensive engineering:
 
 ```mermaid
 graph TD
     subgraph Bottlenecks ["Hardware Bottlenecks"]
         B1["1. Dual-Core CPU Thread Starvation"]
-        B2["2. 12 GB RAM Hard Ceiling"]
+        B2["2. 16 GB RAM Hardware Ceiling"]
         B3["3. Integrated GPU (No Dedicated VRAM)"]
         B4["4. 35W Skylake Thermal Throttling"]
     end

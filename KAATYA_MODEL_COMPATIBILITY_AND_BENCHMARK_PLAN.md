@@ -81,7 +81,7 @@ Our direct binary header and tensor inspection revealed:
 | Video Diffusion Model | File Size (Backbone) | Companion Assets | Minimum VRAM | Target Machine Status | Technical Rationale |
 | :--- | :---: | :--- | :---: | :---: | :--- |
 | **Wan 2.1 T2V 1.3B** | ~1.5–2.8 GB | T5-XXL (4.8 GB) + 3D VAE | 8–10 GB VRAM | **Impractical on target hardware** | Demands 16–32 GB system RAM; 3D attention on 2-core i3-6100T takes hours per 5s clip. |
-| **LTX-Video 2B Distilled**| ~2.2 GB | T5/Gemma Encoder + Spatio-Temporal VAE | 8–12 GB VRAM | **Impractical on target hardware** | Requires high-throughput tensor cores; CPU execution exceeds physical 12 GB RAM budget. |
+| **LTX-Video 2B Distilled**| ~2.2 GB | T5/Gemma Encoder + Spatio-Temporal VAE | 8–12 GB VRAM | **Impractical on target hardware** | Requires dedicated tensor cores and high VRAM bandwidth; CPU execution on dual-channel DDR4 takes hours per clip. |
 | **Programmatic Video Pipeline**| ~150 MB (binaries) | Whisper Base + Piper ONNX + FFmpeg | 0 GB (Shared) | **FULLY SUPPORTED** | Fast, deterministic cuts, transitions, subtitles, and voiceover synchronization on CPU. |
 | **Online Cloud Video Providers**| N/A (API) | Runway Gen-3 / Luma / Kling | N/A | **SUPPORTED (Human Gate)** | High-fidelity video generation with explicit per-call user confirmation. |
 

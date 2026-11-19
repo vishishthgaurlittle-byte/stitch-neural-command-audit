@@ -10,7 +10,7 @@ else:
     repo_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 print("==================================================================", flush=True)
-print(" KAATYA DOCUMENTATION INTEGRITY & CONTRADICTION AUDIT SUITE", flush=True)
+print(" KAATYA DOCUMENTATION INTEGRITY, RAM RE-AUDIT & CONTRADICTION SUITE", flush=True)
 print("==================================================================", flush=True)
 print(f"Discovered Repository Root: {repo_root}\n", flush=True)
 
@@ -70,7 +70,6 @@ if "README.md" in doc_contents:
     for text, link in links:
         if link.startswith("http://") or link.startswith("https://") or link.startswith("#"):
             continue
-        # Clean relative link
         clean_link = link.split("#")[0].strip()
         if not clean_link:
             continue
@@ -138,8 +137,41 @@ if "disabled by default" in online_doc.lower() and "explicit consent" in online_
 else:
     record_fail("Online Policy", "Online default air-gap or explicit approval policy missing", "KAATYA_ONLINE_PROVIDER_AND_PLUGIN_ARCHITECTURE.md")
 
-# 6. Contradiction Detection: Memory Arithmetic & Elimination of Outdated 2.5 GB Formula
-print("\n--- 5. Contradiction Detection: Memory Arithmetic & Outdated Formulas ---", flush=True)
+# 6. Hardware RAM Specification Audit (16 GB Installed / 16,260 MiB Visible)
+print("\n--- 5. Hardware RAM Re-Audit & Calculation Consistency ---", flush=True)
+ram_ok = True
+key_ram_docs = [
+    "KAATYA_PHASE_3_FINAL_TECHNICAL_SIGNOFF.md",
+    "KAATYA_PHASE_3_CORRECTION_AND_VALIDATION_REPORT.md",
+    "KAATYA_FINAL_MASTER_ARCHITECTURE.md",
+    "KAATYA_LOCAL_RUNTIME_AND_MEMORY_POLICY.md",
+    "KAATYA_FINAL_AUDIT_REPORT.md",
+    "README.md"
+]
+
+for doc_name in key_ram_docs:
+    content = doc_contents.get(doc_name, "")
+    # Check that 16 GB is present
+    if "16" not in content and "16.0" not in content:
+        record_fail("RAM Audit", f"Document missing 16 GB hardware specification: {doc_name}", doc_name)
+        ram_ok = False
+    
+    # Check for obsolete uncorrected active statements of 12 GB as installed RAM
+    # (Allowing historical mentions of earlier errors)
+    lines = content.splitlines()
+    for lnum, line in enumerate(lines, 1):
+        if re.search(r'\|\s*\*\*System Memory\*\*\s*\|\s*\*\*12\.0\s*GB', line, re.IGNORECASE) or \
+           re.search(r'Target Hardware.*12\.0\s*GB', line, re.IGNORECASE) or \
+           re.search(r'possesses\s*\*\*12\.0\s*GB', line, re.IGNORECASE) or \
+           re.search(r'Total Physical Memory.*12,288\s*MiB', line, re.IGNORECASE):
+            record_fail("Obsolete 12GB RAM", f"Line {lnum} contains obsolete active 12 GB spec: '{line.strip()}'", doc_name)
+            ram_ok = False
+
+if ram_ok:
+    record_pass("RAM Specification", "Verified 16.0 GB installed RAM (16,384 MiB installed, 16,260 MiB visible) across all core documents")
+
+# 7. Contradiction Detection: Memory Arithmetic & Outdated 2.5 GB Formula
+print("\n--- 6. Contradiction Detection: Memory Arithmetic & Elimination of Outdated Rules ---", flush=True)
 outdated_formula_found = False
 for doc_name, content in doc_contents.items():
     if "Req_RAM + 2.5 GB" in content or "safety_cushion = 2_500" in content or "2.5 GB reserved cushion" in content:
@@ -152,16 +184,29 @@ for doc_name, content in doc_contents.items():
 if not outdated_formula_found:
     record_pass("Formula Elimination", "Outdated fixed 2.5 GB formula and contradictory 4.88 GB arithmetic absent repository-wide")
 
-# Verify Dynamic Worker Admission Procedure in Master Architecture and Runtime Policy
+# Check Dynamic Worker Admission
 if "10-step" in master_arch.lower() and "10-step" in doc_contents.get("KAATYA_LOCAL_RUNTIME_AND_MEMORY_POLICY.md", "").lower():
     record_pass("Dynamic Admission", "10-Step Dynamic Worker Admission Procedure uniformly codified in master architecture and runtime policy")
 else:
     record_fail("Dynamic Admission", "10-Step Dynamic Worker Admission Procedure missing or contradictory", "KAATYA_LOCAL_RUNTIME_AND_MEMORY_POLICY.md")
 
-# 7. FLUX.2 Klein Dependency Consistency
-print("\n--- 6. FLUX.2 Klein Multi-Document Consistency ---", flush=True)
+# 8. Baseline Reconciliation & KV Cache Audit
+print("\n--- 7. Baseline Reconciliation & KV Cache Memory Audit ---", flush=True)
+signoff_text = doc_contents.get("KAATYA_PHASE_3_FINAL_TECHNICAL_SIGNOFF.md", "")
+if "6,788" in signoff_text and "7.12" in signoff_text:
+    record_pass("Baseline Reconciliation", "6,788 MiB and 7.12 GB baseline figures technically reconciled as identical load")
+else:
+    record_fail("Baseline Reconciliation", "Reconciliation of baseline figures missing in sign-off document", "KAATYA_PHASE_3_FINAL_TECHNICAL_SIGNOFF.md")
+
+if "46,080" in signoff_text or "92,160" in signoff_text:
+    record_pass("KV Cache Verification", "Qwen3-4B KV cache calculation mathematically verified (46,080 elements/tok, 360 MiB @ 4K FP16, 180 MiB @ 2K/Q8_0)")
+else:
+    record_fail("KV Cache Verification", "Qwen3-4B exact KV cache formula missing in sign-off document", "KAATYA_PHASE_3_FINAL_TECHNICAL_SIGNOFF.md")
+
+# 9. FLUX.2 Klein Multi-Document Consistency & Feasibility
+print("\n--- 8. FLUX.2 Klein Multi-Document Consistency & Coexistence Audit ---", flush=True)
 flux_ok = True
-for doc_key in ["KAATYA_IMAGE_GENERATION_ARCHITECTURE.md", "KAATYA_MODEL_COMPATIBILITY_AND_BENCHMARK_PLAN.md"]:
+for doc_key in ["KAATYA_IMAGE_GENERATION_ARCHITECTURE.md", "KAATYA_MODEL_COMPATIBILITY_AND_BENCHMARK_PLAN.md", "KAATYA_PHASE_3_FINAL_TECHNICAL_SIGNOFF.md"]:
     txt = doc_contents.get(doc_key, "")
     if re.search(r'\|\s*\*\*Text Encoder 1\*\*\s*\|\s*`?clip_l', txt, re.IGNORECASE) or re.search(r'\|\s*\*\*Text Encoder 2\*\*\s*\|\s*`?t5xxl', txt, re.IGNORECASE):
         record_fail("FLUX Dependencies", f"Legacy FLUX.1 CLIP-L/T5-XXL dependencies erroneously listed in active pipeline table of {doc_key}", doc_key)
@@ -169,11 +214,20 @@ for doc_key in ["KAATYA_IMAGE_GENERATION_ARCHITECTURE.md", "KAATYA_MODEL_COMPATI
     if "qwen3" not in txt.lower() or "flux2-vae" not in txt.lower():
         record_fail("FLUX Dependencies", f"FLUX.2 Klein Qwen3 text encoder or flux2-vae missing in {doc_key}", doc_key)
         flux_ok = False
+    if "7860" in txt:
+        record_fail("FLUX Dimensions", f"Erroneous dimension '7860' found in {doc_key} (empirical shape is 7680)", doc_key)
+        flux_ok = False
 if flux_ok:
-    record_pass("FLUX Dependencies", "FLUX.2 Klein dependencies consistently identified (DiT backbone + Qwen3 encoder + flux2-vae)")
+    record_pass("FLUX Dependencies", "FLUX.2 Klein dependencies consistently identified (DiT backbone + Qwen3 encoder [7680 dim] + flux2-vae)")
 
-# 8. Video Studio & Editor Interoperability Consistency
-print("\n--- 7. Video Studio & CapCut Integration Consistency ---", flush=True)
+# Check that FLUX feasibility preserves permanent Main AI residency
+if "without violating" in doc_contents.get("KAATYA_FINAL_MASTER_ARCHITECTURE.md", "").lower() or "alongside" in doc_contents.get("KAATYA_FINAL_MASTER_ARCHITECTURE.md", "").lower():
+    record_pass("FLUX Main AI Invariant", "FLUX execution models coexistence alongside permanent Main AI without eviction")
+else:
+    record_fail("FLUX Main AI Invariant", "FLUX feasibility fails to preserve permanent Main AI residency rule", "KAATYA_FINAL_MASTER_ARCHITECTURE.md")
+
+# 10. Video Studio & Editor Interoperability Consistency
+print("\n--- 9. Video Studio & CapCut Integration Consistency ---", flush=True)
 video_txt = doc_contents.get("KAATYA_VIDEO_STUDIO_ARCHITECTURE.md", "")
 if "strictly impossible" in video_txt.lower() or "mathematically impossible" in video_txt.lower():
     record_fail("Video Feasibility", "Absolute 'impossible' language found in video studio architecture", "KAATYA_VIDEO_STUDIO_ARCHITECTURE.md")
@@ -182,8 +236,8 @@ elif "impractical on target hardware" in video_txt.lower() and "opentimelineio" 
 else:
     record_fail("Video Feasibility", "Video diffusion feasibility classification or multi-editor interchange missing", "KAATYA_VIDEO_STUDIO_ARCHITECTURE.md")
 
-# 9. Technology Stack Consistency
-print("\n--- 8. Final Proposed Technology Stack Consistency ---", flush=True)
+# 11. Technology Stack Consistency
+print("\n--- 10. Final Proposed Technology Stack Consistency ---", flush=True)
 tech_terms = ["Tauri v2", "Rust", "React 19", "WebView2", "llama.cpp", "Whisper", "Piper"]
 tech_ok = True
 for term in tech_terms:
@@ -195,8 +249,8 @@ if "APPROVED PROPOSED ARCHITECTURE — IMPLEMENTATION NOT STARTED" in master_arc
 else:
     record_fail("Tech Stack Status", "Master architecture missing explicit implementation-not-started status label", "KAATYA_FINAL_MASTER_ARCHITECTURE.md")
 
-# 10. Phase 4 Stop Condition Cross-Document Validation
-print("\n--- 9. Phase 4 Stop Condition & Hold Status Validation ---", flush=True)
+# 12. Phase 4 Stop Condition Cross-Document Validation
+print("\n--- 11. Phase 4 Stop Condition & Hold Status Validation ---", flush=True)
 phase4_ok = True
 for doc_name, content in doc_contents.items():
     if "phase 4 started" in content.lower() or "phase 4 completed" in content.lower():

@@ -99,10 +99,10 @@ The 10 local files on `T:\ai creation` span multiple distinct model families and
 - **Directory:** `T:\ai creation\`
 - **Size:** 2,256,889,280 bytes (2.102 GiB / 2.257 GB)
 - **Architecture Details:** FLUX Diffusion Transformer (DiT) backbone, 149 tensors, Q4_0 quantization.
-- **Crucial Technical Reality:** This file contains **ONLY the DiT transformer backbone weights** (149 tensors, 0 KV metadata entries). Unlike FLUX.1, FLUX.2 Klein departs from CLIP-L/T5-XXL and utilizes a **Qwen3 language model** text encoder (extracting layers 9, 18, and 27 to produce a 7860-dimensional conditioning vector) plus `flux2-vae.safetensors`. These companion weights are absent from disk.
-- **Estimated Pipeline RAM:** Requires **~7.5 to 10.5 GB RAM** when paired with companion text encoder, VAE, and latent buffers.
+- **Crucial Technical Reality:** This file contains **ONLY the DiT transformer backbone weights** (149 tensors, 0 KV metadata entries). Unlike FLUX.1, FLUX.2 Klein departs from CLIP-L/T5-XXL and utilizes a **Qwen3 language model** text encoder (extracting layers 9, 18, and 27 to produce a 7,680-dimensional conditioning vector matching `txt_in.weight` shape `(7680, 3072)`) plus `flux2-vae.safetensors`. These companion weights are absent from disk.
+- **Estimated Pipeline RAM:** Requires **~3.7 to 5.2 GB RAM** when paired with companion text encoder, VAE, and latent buffers.
 - **Runtime Compatibility:** ComfyUI with `ComfyUI-GGUF` (or specialized `sd.cpp` FLUX.2 Klein branches).
-- **Coexistence Status:** **EXPERIMENTAL / MEMORY-GATED.** Running on CPU alongside KAATYA Main AI (~3.1 GB) risks pushing total system commit near or past the 12.0 GB physical limit. Local FLUX execution is strictly experimental pending real hardware benchmark validation.
+- **Coexistence Status:** **EXPERIMENTAL / COMPUTE-BOUND.** On the verified 16.0 GB hardware (16,260 MiB visible, ~9,472 MiB uncommitted headroom above baseline), the DiT worker and VAE physically fit alongside the permanent Main AI without violating residency rules. However, execution is CPU-only (AVX2, 0 CUDA) with generation latency estimated at 45–90s per step (15–30 minutes total for 20 steps). Classified strictly as experimental research prototype.
 - **Assigned Role:** **Image Studio** (Agent 17 - Experimental Local Mode).
 
 ---

@@ -6,7 +6,7 @@ This document presents a rigorous, independent technical audit of the Phase 3 ar
 
 The audit evaluated all architectural assertions, hardware calculations, process lifecycles, and security models against the actual target hardware:
 - **Processor:** Intel Core i3-6100T (Skylake, 35W TDP, 2 Cores / 4 Threads @ 3.20 GHz, AVX2).
-- **System Memory:** 12.0 GB DDR4 (NOT 16 GB).
+- **System Memory:** 16.0 GB DDR4 (16,384 MiB installed / 16,260 MiB Windows-visible; re-audited).
 - **Graphics Adapter:** Intel HD Graphics 530 (Integrated, dynamic shared RAM, no dedicated VRAM).
 - **Operating System:** Windows 10 64-bit.
 

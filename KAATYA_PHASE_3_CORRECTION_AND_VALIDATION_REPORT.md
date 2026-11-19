@@ -17,13 +17,16 @@ Following an independent review of the Phase 3 architecture deliverables, this r
 ## 1. Memory Architecture Correction & Windows OS Realities
 
 ### 1.1 Arithmetic & Unit Consistency Rules
-Earlier documentation contained an arithmetic contradiction by subtracting a 7.2 GB committed baseline from 12 GB RAM and stating that approximately 5.0 GB remained. 
-$$\mathbf{12.0\text{ GB} - 7.20\text{ GB} = 4.80\text{ GB}}$$
+Earlier documentation contained an arithmetic contradiction by subtracting a 7.2 GB committed baseline from 12 GB RAM and stating that approximately 5.0 GB remained ($12.00 - 7.20 = 4.80\text{ GB}$).
+Furthermore, the actual physical hardware measurement reveals that the host machine possesses **16.0 GB of physically installed RAM** (two 8 GB Samsung DDR4-2666 DIMMs = 17,179,869,184 bytes = 16,384 MiB), of which **17,049,899,008 bytes (16,260 MiB / 15.88 GiB / 17.05 GB decimal)** is visible to Windows via `GlobalMemoryStatusEx` (`ullTotalPhys`), and ~124 MiB is hardware-reserved.
+
 To establish absolute mathematical rigor, binary gigabytes ($\text{GiB} = 2^{30}\text{ bytes} = 1,073,741,824\text{ bytes}$) and decimal gigabytes ($\text{GB} = 10^9\text{ bytes} = 1,000,000,000\text{ bytes}$) are never mixed in the same equation:
-- **Installed Marketed Physical Capacity:** 12 GB ($12\text{ GiB} = 12,288\text{ MiB} = 12,884,901,888\text{ bytes} \approx 12.88\text{ GB}$ decimal).
+- **Installed Marketed Physical Capacity:** 16 GB ($16\text{ GiB} = 16,384\text{ MiB} = 17,179,869,184\text{ bytes} \approx 17.18\text{ GB}$ decimal).
+- **Windows-Visible Physical Memory (`ullTotalPhys`):** $17,049,899,008\text{ bytes} = 15.88\text{ GiB} = 16,260\text{ MiB} \approx 17.05\text{ GB}$ decimal.
 - **Provisional Baseline Working Set:** $6,788\text{ MiB} \approx 6.63\text{ GiB}$ (or ~7.12 GB decimal).
-- **Uncommitted Physical Headroom:** $12,288\text{ MiB} - 6,788\text{ MiB} = \mathbf{5,500\text{ MiB}} \approx \mathbf{5.37\text{ GiB}}$ binary (or $5,500 \times 1,048,576 / 10^9 \approx \mathbf{5.77\text{ GB}}$ decimal).
-- Contradictory calculations mixing decimal 12.00 GB with binary gigabytes have been completely eliminated across all documents.
+- **Uncommitted Physical Headroom (Visible):** $16,260\text{ MiB} - 6,788\text{ MiB} = \mathbf{9,472\text{ MiB}} \approx \mathbf{9.25\text{ GiB}}$ binary (or $9,472 \times 1,048,576 / 10^9 \approx \mathbf{9.93\text{ GB}}$ decimal).
+- **Gross Headroom (Installed):** $16,384\text{ MiB} - 6,788\text{ MiB} = \mathbf{9,596\text{ MiB}} \approx \mathbf{9.37\text{ GiB}}$ binary (or $9,596 \times 1,048,576 / 10^9 \approx \mathbf{10.06\text{ GB}}$ decimal).
+- **Decimal Comparison:** In a pure decimal calculation, $16.00\text{ GB} - 7.12\text{ GB} = \mathbf{8.88\text{ GB}}$, or $16.00\text{ GB} - 7.20\text{ GB} = \mathbf{8.80\text{ GB}}$. Earlier contradictory calculations have been completely eliminated across all documents.
 
 ### 1.2 Intel HD Graphics 530 Dynamic Shared Memory vs. Fixed Reservations
 The target machine’s Intel Core i3-6100T contains an integrated Intel HD Graphics 530 GPU. 
@@ -34,7 +37,7 @@ The target machine’s Intel Core i3-6100T contains an integrated Intel HD Graph
 
 ### 1.3 Physical RAM, Committed Memory, Process Working Sets, and Pagefile Behavior
 To provide an engineering-accurate foundation, KAATYA strictly distinguishes memory concepts:
-1. **Physical RAM:** Exactly 12.0 GB installed DDR4 memory ($12,288\text{ MiB}$ binary / $12.88\text{ GB}$ decimal).
+1. **Physical RAM:** 16.0 GB installed DDR4 memory across 2x8 GB Samsung DIMMs ($16,384\text{ MiB}$ binary / $17.18\text{ GB}$ decimal; $16,260\text{ MiB}$ Windows-visible).
 2. **Committed Memory:** Virtual address space allocations backed by either physical RAM or `pagefile.sys`.
 3. **Process Working Set:** The subset of pages currently resident in physical RAM.
 4. **Memory Mapped Files (`mmap`):** GGUF weights are loaded via Win32 `CreateFileMapping` / `MapViewOfFile`. The Windows Cache Manager pages clean file-backed pages into the process working set on demand and can discard clean pages under pressure without writing to the pagefile.
@@ -67,8 +70,8 @@ Measured empirically on Windows 10:
 | **Database Store** | ~80 MiB | PROVISIONAL ESTIMATE | SQLite 3 engine and `sqlite-vec` cache |
 | **KAATYA Main AI** | ~3,138 MiB | PROVISIONAL ESTIMATE | `Qwen3-4B-Q4_K_M` weights + 4K FP16 KV cache + graph |
 | **Other Active User Processes** | ~0 MiB | PROVISIONAL ESTIMATE | Variable third-party background load |
-| **Total Observed Working Set** | **~6,788 MiB** | PROVISIONAL ESTIMATE | Sum of active baseline resident working sets (~6.63 GiB) |
-| **Available Physical Memory** | **~5,500 MiB** | PROVISIONAL ESTIMATE | Remaining from 12,288 MiB pool (~5.37 GiB / ~5.77 GB) |
+| **Total Observed Working Set** | **~6,788 MiB** | PROVISIONAL ESTIMATE | Sum of active baseline resident working sets (~6.63 GiB / ~7.12 GB) |
+| **Available Physical Memory** | **~9,472 MiB** | PROVISIONAL ESTIMATE | Remaining from 16,260 MiB visible pool (~9.25 GiB / ~9.93 GB) |
 
 *(Note: The numbers above are strictly classified as PROVISIONAL ESTIMATES — NOT INDEPENDENTLY VERIFIED because the KAATYA desktop application, WebView2 UI shell, and Main AI inference runtime have not yet been built or executed on the target computer).*
 
@@ -111,7 +114,7 @@ The absolute phrase "strictly impossible" has been replaced with an evidence-bas
 | Video Diffusion Model | File Size (Backbone) | Companion Assets | Minimum VRAM | Status on Target Machine | Technical Rationale |
 | :--- | :---: | :--- | :---: | :---: | :--- |
 | **Wan 2.1 T2V 1.3B** | ~1.5–2.8 GB | T5-XXL (4.8 GB) + 3D VAE | 8–10 GB VRAM | **Impractical on target hardware** | Demands 16–32 GB system RAM; 3D attention on 2-core i3-6100T takes hours per 5s clip. |
-| **LTX-Video 2B Distilled**| ~2.2 GB | T5/Gemma Encoder + Spatio-Temporal VAE | 8–12 GB VRAM | **Impractical on target hardware** | Requires high-throughput tensor cores; CPU execution exceeds physical 12 GB RAM budget. |
+| **LTX-Video 2B Distilled**| ~2.2 GB | T5/Gemma Encoder + Spatio-Temporal VAE | 8–12 GB VRAM | **Impractical on target hardware** | Requires dedicated tensor cores and high VRAM bandwidth; CPU execution on dual-channel DDR4 takes hours per clip. |
 | **Programmatic Video Pipeline**| ~150 MB (binaries) | Whisper Base + Piper ONNX + FFmpeg | 0 GB (Shared) | **FULLY SUPPORTED** | Fast, deterministic cuts, transitions, subtitles, and voiceover synchronization on CPU. |
 | **Online Cloud Video Providers**| N/A (API) | Runway Gen-3 / Luma / Kling | N/A | **SUPPORTED (Human Gate)** | High-fidelity video generation with explicit per-clip user confirmation. |
 
@@ -214,7 +217,7 @@ To eliminate cross-document contradictions, the technology stack is formally uni
 
 ### Strictly Verified Facts (Empirically Confirmed)
 1. Physical machine CPU: Intel Core i3-6100T (2 cores, 4 threads @ 3.20 GHz, AVX2).
-2. Physical RAM: Exactly 12.0 GB installed DDR4.
+2. Physical RAM: 16.0 GB installed DDR4 (Two 8 GB Samsung DIMMs @ 2666 MHz; 16,384 MiB installed, 16,260 MiB Windows-visible `ullTotalPhys`, ~124 MiB hardware-reserved).
 3. Graphics: Integrated Intel HD Graphics 530 (Dynamic shared memory, zero CUDA).
 4. Drive `T:\ai creation` contains exactly 10 valid model assets totaling ~8.70 GB.
 5. `Nemotron-3.5-Bolt-E4B-Q4_K_M.gguf` is absent from disk (deleted by user).

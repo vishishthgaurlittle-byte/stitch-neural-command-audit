@@ -60,12 +60,15 @@ The local disk already holds `Qwen3-4B-Q4_K_M.gguf`. Could this file double as t
 - **ComfyUI-GGUF:** Supports loading GGUF DiT backbones via `UnetLoaderGGUF`. However, it requires running a Python/PyTorch server (~800 MB baseline) and specialized FLUX.2 loader nodes for the Qwen text encoder and `flux2-vae`.
 - **stable-diffusion.cpp (`sd.cpp`):** Lightweight C++ implementation without Python overhead. However, native support for the FLUX.2 Klein multi-layer Qwen3 extraction pipeline is currently experimental and unverified on Windows AVX2.
 
-### 2.5 Hardware Execution Reality on Intel Core i3-6100T
-- **No CUDA Cores:** Compute executes entirely across CPU threads via AVX2 (Intel HD 530 has no dedicated CUDA cores).
-- **Execution Latency:** **UNVERIFIED.** End-to-end CPU diffusion latency for FLUX.2 Klein has not been physically measured on this Intel Core i3-6100T machine. No speculative performance figures (e.g. 8–25 minutes) are assumed prior to an actual empirical Phase 4 hardware benchmark.
-- **Memory Footprint:** Loading DiT (2.26 GB) + Qwen text encoder (~2.0 GB) + VAE (~0.35 GB) + diffusion scratch buffers requires substantial RAM, making local concurrent execution alongside Windows and Main AI high-risk for paging.
+### 2.5 Hardware Execution Reality on Intel Core i3-6100T (16.0 GB RAM)
+- **No Dedicated GPU / No CUDA:** Compute executes entirely across CPU threads via AVX2 (Intel HD 530 has dynamic shared memory with 0 dedicated VRAM and 0 CUDA cores).
+- **Execution Latency:** **UNVERIFIED.** End-to-end CPU diffusion latency for FLUX.2 Klein has not been physically measured on this Intel Core i3-6100T machine. Realistic CPU-only estimates project 45–90 seconds per Euler step (15–30 minutes for a standard 20-step generation).
+- **Memory Footprint & Coexistence with Main AI:**
+  - With verified 16.0 GB installed RAM (16,260 MiB Windows-visible), the uncommitted memory headroom above the baseline (~6,788 MiB) is ~9,472 MiB.
+  - The DiT worker (~3,100 MiB with scratch) and VAE decode (~635 MiB) physically fit alongside Windows and the permanent Main AI without violating the permanent residency policy.
 - **Architectural Directive:**
-  - **Local FLUX generation is strictly EXPERIMENTAL.**
+  - **Local FLUX generation is strictly EXPERIMENTAL / RESEARCH PROTOTYPE.**
+  - Because of extreme CPU generation latency and lack of a unified off-the-shelf C++ runtime exposing Qwen3 multi-layer extraction into GGUF DiT sampling on CPU, local generation is not recommended for real-time interactive tasks.
   - **Do NOT download companion files** until an end-to-end runtime implementation is empirically tested and approved.
   - The production workflow relies on the **Authorized Online Diffusion Gate** (DALL-E 3, Stability AI, Fal.ai) with explicit human confirmation.
 

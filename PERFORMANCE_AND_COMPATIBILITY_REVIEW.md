@@ -3,7 +3,7 @@
 **Target Hardware Profile:**
 - **Processor:** Intel Core i3-6100T (6th-Generation Skylake, 35W TDP, 3.20 GHz Base Clock)
 - **Cores & Threads:** 2 Physical Cores, 4 Logical Threads (Hyper-Threading enabled)
-- **System Memory:** 12.0 GB RAM (Windows 10 64-bit)
+- **System Memory:** 16.0 GB RAM (16,384 MiB installed / 16,260 MiB Windows-visible; Windows 10 64-bit)
 - **Graphics Subsystem:** Integrated Intel HD Graphics 530 (Shared system memory, no dedicated VRAM)
 - **Execution Architecture:** Strictly CPU-Only inference
 
@@ -31,7 +31,7 @@ Crucially, **the 3D Neural Core in `screen_03_3d_neural_core` was implemented as
 
 ## 3. Desktop Shell Evaluation: Tauri v2 vs. Electron
 
-The choice of desktop host application is the single most critical performance factor for your 12 GB RAM setup:
+The choice of desktop host application is the single most critical performance factor for your 16 GB RAM setup:
 
 ```
 +-------------------------------------------------------------------------+

@@ -2,7 +2,7 @@
 
 ## 1. Executive Summary & Verdict
 
-For our Windows 10 desktop AI assistant running on an **Intel Core i3-6100T (2 cores, 4 threads @ 3.20 GHz)**, **12 GB DDR4 RAM**, and **Intel HD Graphics 530**, application runtime efficiency is not merely an aesthetic choice—it dictates whether our local LLMs can run without swapping to disk.
+For our Windows 10 desktop AI assistant running on an **Intel Core i3-6100T (2 cores, 4 threads @ 3.20 GHz)**, **16.0 GB DDR4 RAM (16,384 MiB installed / 16,260 MiB visible)**, and **Intel HD Graphics 530**, application runtime efficiency is not merely an aesthetic choice—it dictates whether our local LLMs can run without swapping to disk.
 
 ### The Verdict: **Tauri v2 (Rust Backend + React/TypeScript Frontend via Vite)**
 - **Runtime Shell:** Tauri v2 leveraging the built-in Microsoft Edge WebView2 runtime.
@@ -28,14 +28,14 @@ For our Windows 10 desktop AI assistant running on an **Intel Core i3-6100T (2 c
 
 ---
 
-## 3. Deep Evaluation Against Target Hardware (i3-6100T, 12 GB RAM)
+## 3. Deep Evaluation Against Target Hardware (i3-6100T, 16 GB RAM)
 
 ### 3.1 RAM Scarcity Analysis
-On a 12 GB Windows 10 machine:
+On a 16 GB Windows 10 machine (16,260 MiB visible):
 - Windows 10 OS baseline: **~3,000 MB**
-- Display driver + Intel HD 530 shared frame buffer: **~400 MB**
+- Display driver + Intel HD 530 shared frame buffer: **~150–400 MB**
 - Essential background services (Antivirus, audio engine, explorer): **~600 MB**
-- **Available Working Budget for AI Assistant:** **~8,000 MB (8.0 GB)**.
+- **Available Working Budget for AI Assistant:** **~12,000 MB (12.0 GB)**.
 
 If we select **Electron**:
 - The shell alone consumes ~350 MB active RAM.

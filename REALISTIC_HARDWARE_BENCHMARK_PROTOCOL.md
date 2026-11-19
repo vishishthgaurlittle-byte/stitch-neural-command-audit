@@ -42,7 +42,7 @@ When Phase 4 validation is authorized, the target machine will execute this empi
 
 ```powershell
 # ==============================================================================
-# EMPIRICAL BENCHMARK PROTOCOL FOR INTEL CORE i3-6100T (12 GB RAM)
+# EMPIRICAL BENCHMARK PROTOCOL FOR INTEL CORE i3-6100T (16 GB RAM)
 # ==============================================================================
 
 # 1. Hardware Environment Snapshot

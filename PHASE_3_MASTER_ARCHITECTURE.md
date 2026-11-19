@@ -66,7 +66,7 @@ flowchart TB
 
 Target PC Profile:
 - **CPU:** Intel Core i3-6100T (2 physical cores, 4 threads @ 3.20 GHz, AVX2, 35W TDP).
-- **RAM:** 12.0 GB DDR4 (Dual-channel, ~24 GB/s sustained memory bandwidth).
+- **RAM:** 16.0 GB DDR4 (16,384 MiB installed / 16,260 MiB Windows-visible; dual-channel 2x8 GB Samsung DIMMs).
 - **GPU:** Intel HD Graphics 530 (Integrated, dynamic shared memory).
 - **OS:** Windows 10 64-bit.
 

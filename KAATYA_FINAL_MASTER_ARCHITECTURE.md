@@ -11,7 +11,7 @@
 flowchart TB
     subgraph Host_Environment ["Windows 10 Desktop Host Environment (Bare-Metal)"]
         OS["Windows 10 64-bit Kernel & DWM"]
-        Hardware["Intel Core i3-6100T (2C/4T @ 3.20 GHz) | 12 GB DDR4 RAM | Intel HD Graphics 530"]
+        Hardware["Intel Core i3-6100T (2C/4T @ 3.20 GHz) | 16 GB DDR4 RAM | Intel HD Graphics 530"]
         Storage["Internal Storage + Amazon Basics USB 3.0 (116 GB Usable)"]
     end
 
@@ -43,7 +43,7 @@ Every architectural decision, model deployment, and memory allocation in KAATYA 
 | Hardware Component | Authoritative Specification | Architectural Implication |
 | :--- | :--- | :--- |
 | **Processor** | Intel Core i3-6100T (6th-Gen Skylake, 35W TDP, 3.20 GHz) | 2 Physical Cores, 4 Logical Threads. AVX2 supported. No AVX-512. |
-| **System Memory** | **12.0 GB DDR4** (Dual-Channel, ~24 GB/s theoretical bus) | **NOT 16 GB.** Hard operational ceiling of ~7.2 GB committed base memory. |
+| **System Memory** | **16.0 GB DDR4** (Dual-Channel 2x8 GB Samsung DIMMs @ 2666 MHz) | **VERIFIED 16 GB INSTALLED.** 16,384 MiB installed, 16,260 MiB OS-visible (`ullTotalPhys`), ~124 MiB hardware-reserved. Base working set commit ~6,788 MiB. |
 | **Graphics Adapter** | Integrated Intel HD Graphics 530 (Shared system RAM) | **No dedicated VRAM.** Zero CUDA support. Compute relies on CPU SIMD / OpenCL. |
 | **Operating System** | Windows 10 Pro / Home 64-bit | Baseline OS and desktop services require **~3,100 MB RAM**. |
 | **External Storage** | Amazon Basics USB 3.0 Pendrive (~116 GB usable capacity) | High-capacity secondary repository for media scratch files and model backups. |
@@ -108,26 +108,26 @@ stateDiagram-v2
     OnlineWorker --> OutputSynthesis: Return to KAATYA for Verification
 ```
 
-### 4.1 Memory Allocation Analysis & Hardware Realities (12.0 GB Physical Budget)
+### 4.1 Memory Allocation Analysis & Hardware Realities (16.0 GB Physical Budget)
 
-The target machine possesses **12.0 GB Physical RAM** ($12,288\text{ MiB}$ binary / $12.88\text{ GB}$ decimal, or $12.00\text{ GB}$ decimal if strictly bounded to $12 \times 10^9$ bytes).
+The target machine possesses **16.0 GB Physical RAM** ($16,384\text{ MiB}$ binary installed / $16,260\text{ MiB}$ Windows-visible `ullTotalPhys` / $17.05\text{ GB}$ decimal).
 
 #### Critical Architecture Principles:
 1. **Model File Size $\neq$ Memory Footprint:**
    A 2.50 GB GGUF model file does not consume merely 2.50 GB of RAM. The true process working set comprises:
-   - Memory-mapped weights: ~2,382 MiB (2.497 GB)
-   - KV Cache (4,096 context, FP16): $2 \times 36\text{ layers} \times 8\text{ KV heads} \times 128\text{ head\_dim} \times 4096\text{ tokens} \times 2\text{ bytes} = 576\text{ MiB}$ ($0.604\text{ GB}$).
-   - Compute scratch buffers (`ggml_gallocr`) & runtime context: ~180 MiB.
+   - Memory-mapped weights: ~2,382 MiB (2,497,280,256 bytes)
+   - KV Cache (4,096 context, FP16): $2 \times 36\text{ layers} \times 8\text{ KV heads} \times 80\text{ head\_dim} \times 4096\text{ tokens} \times 2\text{ bytes} = 360\text{ MiB}$ (or up to $576\text{ MiB}$ if padded to 128 head_dim by specific compute backends; ~180 MiB at 2,048 tokens or Q8_0).
+   - Compute scratch buffers (`ggml_gallocr`) & runtime context: ~396 MiB.
    - **Total Active Main AI Process Working Set:** **~3,138 MiB (~3.29 GB)** (or ~2,850 MiB with Q8_0 KV quantization).
 2. **Intel HD Graphics 530 Dynamic Shared Memory:**
-   Intel HD 530 uses Dynamic Video Memory Technology (DVMT). It does **NOT** permanently reserve a fixed 450 MB chunk of physical RAM at boot. Instead, it dynamically allocates memory from system RAM on demand (typically ~100–180 MB working set for idle 2D desktop compositing and WebView2 rendering).
+   Intel HD 530 uses Dynamic Video Memory Technology (DVMT). It has **0 dedicated VRAM** and dynamically allocates memory from system RAM on demand (typically ~100–180 MB working set for idle 2D desktop compositing and WebView2 rendering; initial BIOS/DVMT hardware pre-allocation is ~124 MiB).
 3. **Realistic Application & WebView2 Working Sets:**
    Tauri v2 host binary + Microsoft Edge WebView2 (browser engine, render process, GPU compositor) consumes ~180–250 MiB under realistic multi-screen rendering.
 
 #### Memory Budget Breakdown (Binary MiB & Decimal GB):
 
 $$\begin{aligned}
-\text{Total Physical Memory} &= 12,288\text{ MiB} \quad (12.00\text{ GiB} \text{ / } 12.88\text{ GB}) \\
+\text{Total Visible Physical Memory (ullTotalPhys)} &= 16,260\text{ MiB} \quad (15.88\text{ GiB} \text{ / } 17.05\text{ GB}) \\
 \text{Windows 10 Base OS + DWM + System Services} &\approx 2,900\text{ MiB} \quad (~3.04\text{ GB}) \\
 \text{Intel HD 530 Dynamic Shared Memory (Idle UI)} &\approx 150\text{ MiB} \quad (~0.16\text{ GB}) \\
 \text{Tauri v2 Shell + Microsoft WebView2 Engine} &\approx 220\text{ MiB} \quad (~0.23\text{ GB}) \\
@@ -136,10 +136,10 @@ $$\begin{aligned}
 \text{KAATYA Permanent Main AI (Qwen3-4B @ 4K FP16 KV)} &\approx \mathbf{3,138\text{ MiB}} \quad (\mathbf{~3.29\text{ GB}}) \\
 \hline
 \mathbf{Total\ Base\ Working\ Set\ Commitment} &\approx \mathbf{6,788\text{ MiB}} \quad (\mathbf{~7.12\text{ GB}}) \\
-\mathbf{Uncommitted\ Physical\ Memory\ Headroom} &\approx \mathbf{5,500\text{ MiB}} \quad (\mathbf{~5.76\text{ GB}})
+\mathbf{Uncommitted\ Physical\ Memory\ Headroom} &\approx \mathbf{9,472\text{ MiB}} \quad (\mathbf{~9.25\text{ GiB} \text{ / } ~9.93\text{ GB}})
 \end{aligned}$$
 
-*(Note: In decimal conversion, the $5,500\text{ MiB}$ remainder equals $5,500 \times 1,048,576 / 10^9 \approx \mathbf{5.77\text{ GB}}$. Earlier contradictory calculations mixing marketed 12.00 decimal GB with binary-derived gigabytes have been removed).*
+*(Note: In decimal conversion, the $9,472\text{ MiB}$ remainder equals $9,472 \times 1,048,576 / 10^9 \approx \mathbf{9.93\text{ GB}}$. Gross headroom relative to installed 16,384 MiB is $16,384 - 6,788 = \mathbf{9,596\text{ MiB}} \approx \mathbf{9.37\text{ GiB}} \approx \mathbf{10.06\text{ GB}}$. In a hypothetical pure 16.00 GB decimal calculation with 7.12 GB baseline, remainder is $16.00 - 7.12 = \mathbf{8.88\text{ GB}}$, or $16.00 - 7.20 = \mathbf{8.80\text{ GB}}$ if baseline is rounded to one decimal place).*
 
 #### Required Itemized Memory Accounting Table
 
@@ -152,8 +152,8 @@ $$\begin{aligned}
 | **Database Store** | ~80 MiB | PROVISIONAL ESTIMATE | SQLite 3 engine and `sqlite-vec` cache |
 | **KAATYA Main AI** | ~3,138 MiB | PROVISIONAL ESTIMATE | `Qwen3-4B-Q4_K_M` weights + 4K FP16 KV cache + graph |
 | **Other Active User Processes** | ~0 MiB | PROVISIONAL ESTIMATE | Variable third-party background load |
-| **Total Observed Working Set** | **~6,788 MiB** | PROVISIONAL ESTIMATE | Sum of active baseline resident working sets (~6.63 GiB) |
-| **Available Physical Memory** | **~5,500 MiB** | PROVISIONAL ESTIMATE | Remaining from 12,288 MiB pool (~5.37 GiB / ~5.77 GB) |
+| **Total Observed Working Set** | **~6,788 MiB** | PROVISIONAL ESTIMATE | Sum of active baseline resident working sets (~6.63 GiB / ~7.12 GB) |
+| **Available Physical Memory** | **~9,472 MiB** | PROVISIONAL ESTIMATE | Remaining from 16,260 MiB visible pool (~9.25 GiB / ~9.93 GB) |
 
 ### 4.2 Dynamic Worker Admission Procedure
 Rather than enforcing an unsupported static safety-cushion formula, KAATYA executes a deterministic **10-Step Dynamic Worker Admission Procedure** before starting any optional specialist worker:
@@ -212,22 +212,26 @@ KAATYA orchestrates **23 logical specialist agent roles** (1 permanent Main AI +
   2. *Visible UI Automation:* Accessible desktop automation via Windows UIAutomation (`UIAutomationCore.dll`) for hands-free timeline loading.
   3. *Experimental:* Internal draft project generation (`%LOCALAPPDATA%\CapCut\User Data\Projects\com.lveditor.draft\kaatya_test_*`). This internal schema is treated as strictly experimental, tested only on isolated disposable folders, and **never overwrites existing user projects**.
 - **Local Video Diffusion Feasibility:**
-  - Video diffusion models (e.g., Wan 2.1 T2V 1.3B, LTX-Video 2B) require 8–12+ GB dedicated VRAM and 16–32 GB system RAM.
-  - On the target Intel Core i3-6100T (2 cores, 4 threads, Intel HD 530, 12 GB RAM), local text-to-video diffusion is classified as **Impractical on target hardware / Unsupported by local realtime runtime** (generation latency measured in hours per 5s clip).
+  - Video diffusion models (e.g., Wan 2.1 T2V 1.3B, LTX-Video 2B) require dedicated high-throughput tensor cores and 8–16+ GB dedicated high-bandwidth VRAM.
+  - On the target Intel Core i3-6100T (2 cores, 4 threads, Intel HD 530 with dynamic shared RAM and 0 dedicated VRAM, 16 GB DDR4 system RAM), local text-to-video diffusion is classified as **Impractical on target hardware / Unsupported by local realtime runtime** (generation latency measured in hours per 5s clip and memory bus bottlenecked).
   - The Video Studio does **NOT** rely on local video diffusion: it produces complete, broadcast-ready videos through script generation, Piper TTS voiceovers, Whisper subtitles, user footage, and programmatic FFmpeg composition. When generative video clips are required, KAATYA routes to an **authorized Online Video Provider** (Runway, Luma, Kling) with explicit human confirmation.
 
 ### 6.2 Image Studio Architecture
-- **Local Model Identity:** `flux-2-klein-4b-q4_0.gguf` (2.26 GB). Empirical tensor audit proves it is a standalone Diffusion Transformer (DiT) backbone (149 tensors, 0 KV metadata).
+- **Local Model Identity:** `flux-2-klein-4b-q4_0.gguf` (2.26 GB / 2,256,889,280 bytes). Empirical tensor audit proves it is a standalone Diffusion Transformer (DiT) backbone (149 tensors, 0 KV metadata).
 - **Actual FLUX.2 Klein Pipeline Dependencies:**
   - Unlike older FLUX.1 models, FLUX.2 Klein does **NOT** use CLIP-L or T5-XXL.
-  - It utilizes a **Qwen3 language model** as its text encoder (harvesting concatenated hidden states from layers 9, 18, and 27 to produce a 7860-dimensional conditioning vector matching the DiT's `txt_in.weight` `[7680, 3072]`).
-  - Required VAE: `flux2-vae.safetensors`.
+  - It utilizes a **Qwen3 language model** as its text encoder (harvesting concatenated hidden states from layers 9, 18, and 27; $3 \times 2,560 = 7,680$ dimensional conditioning vector directly matching the DiT's `txt_in.weight` shape `(7680, 3072)`). Earlier references to 7860 were typos.
+  - Required VAE: `flux2-vae.safetensors` (~335 MiB).
   - Required Tokenizer: Qwen3 tokenizer with `<|im_start|>` chat template formatting.
 - **Can the Resident Main AI (`Qwen3-4B`) be Reused as Text Encoder?**
   - While architectural weights overlap, reusing the resident Main AI instance introduces severe runtime hurdles:
     1. Standard `llama.cpp` inference evaluates next-token logits and discards intermediate layer activations; intermediate feature extraction requires custom C-API hook branches.
     2. Quantization: `Q4_K_M` quantization in Main AI degrades conditioning embeddings compared to FP8/BF16.
     3. Concurrency Lock: Reusing the resident instance for feature extraction disrupts or blocks ongoing conversational dialogue and KV-caching.
+- **Memory Feasibility on 16 GB Hardware:**
+  - With 16 GB installed RAM (16,260 MiB Windows-visible), the uncommitted memory headroom above baseline (~6,788 MiB) is ~9,472 MiB.
+  - FLUX DiT worker (~3,100 MiB) + VAE decode (~635 MiB) physically fit alongside Windows and permanent Main AI without violating the permanent residency policy.
+  - However, because generation latency on CPU-only AVX2 is estimated at 45–90 seconds per step (15–30 minutes total for 20 steps), and no unified C++ pipeline exists yet, FLUX.2 Klein execution remains strictly classified as **EXPERIMENTAL / RESEARCH PROTOTYPE (CPU-Only)**.
 - **Hardware & Runtime Strategy:**
   - Local FLUX generation remains **EXPERIMENTAL** pending real hardware benchmarking. Companion encoders will not be fetched until compatible runtimes (e.g. ComfyUI-GGUF or stable-diffusion.cpp FLUX.2 Klein branches) are validated.
   - Primary production path: **Online Cloud Diffusion Gate** (OpenAI DALL-E 3, Stability AI, Fal.ai) with strict per-generation approval.

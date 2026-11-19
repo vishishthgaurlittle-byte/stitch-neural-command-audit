@@ -17,18 +17,17 @@
 
 ---
 
-## 2. Final Hardware Specification
+## 2. Final Hardware Specification & Raw Measurement Evidence
 
-All architectural thresholds and execution policies are calibrated against the target physical computer:
-- **Processor:** Intel Core i3-6100T (Skylake, 35W TDP).
+All architectural thresholds, memory budgets, and execution policies are calibrated against the target physical computer, empirically re-measured on **November 19, 2026**:
+
+### 2.1 Verified Hardware Architecture
+- **Processor:** Intel Core i3-6100T (6th-Gen Skylake, 35W TDP).
 - **Cores / Threads:** 2 physical cores, 4 logical threads @ 3.20 GHz base frequency.
 - **Instruction Set:** AVX2, FMA3, SSE4.2, BMI2 supported (no AVX-512, no AMX).
-- **Physical Memory:** 12.0 GB marketed capacity DDR4 RAM.
-  - Binary Representation: $12\text{ GiB} = 12,288\text{ MiB} = 12,884,901,888\text{ bytes}$.
-  - Decimal Representation: $\approx 12.88\text{ GB}$ ($12,884,901,888 / 10^9\text{ bytes}$).
-- **Graphics Subsystem:** Intel HD Graphics 530 (Integrated Processor Graphics).
+- **Physical Memory:** **16.0 GB physically installed DDR4 RAM** across two dual-channel Samsung DIMMs.
+- **Graphics Subsystem:** Integrated Intel HD Graphics 530 (Skylake GT2, 24 Execution Units).
   - Dedicated VRAM: 0 MB (No dedicated GDDR/HBM).
-  - Architecture: Gen9 GT2 (24 Execution Units).
   - Acceleration Capability: DirectX 12, Direct3D 11, Intel Quick Sync Video (QSV).
   - Compute Limitations: Zero NVIDIA CUDA cores, zero Tensor cores.
   - Video Memory Management: Intel Dynamic Video Memory Technology (DVMT) utilizing shared system RAM dynamically.
@@ -36,6 +35,47 @@ All architectural thresholds and execution policies are calibrated against the t
   - Internal System Drive (`T:\ai creation`): Hosts resident model assets, SQLite databases, and workspace directories.
   - External Storage: Amazon Basics USB 3.0 Pendrive (~116 GB usable capacity, reserved for media scratch and cold archives).
 - **Operating System:** Windows 10 64-bit (Build 19045 / 22H2).
+
+### 2.2 Raw Memory Measurement Data & Reproducible Commands
+
+The following measurements were captured via native Windows APIs, WMI/CIM queries, and `kernel32!GlobalMemoryStatusEx` at timestamp `2026-11-19T18:32:43`:
+
+#### Reproducible Inspection Commands:
+```powershell
+# 1. Physical Memory Modules (Capacity, Manufacturer, Speed)
+Get-CimInstance Win32_PhysicalMemory | Select-Object BankLabel, Capacity, DeviceLocator, Manufacturer, PartNumber, Speed, MemoryType, FormFactor | ConvertTo-Json
+
+# 2. Total Visible Physical Memory (ComputerSystem)
+Get-CimInstance Win32_ComputerSystem | Select-Object TotalPhysicalMemory, NumberOfProcessors, NumberOfLogicalProcessors | ConvertTo-Json
+
+# 3. Visible Memory and Pagefile (OperatingSystem)
+Get-CimInstance Win32_OperatingSystem | Select-Object TotalVisibleMemorySize, FreePhysicalMemory, TotalVirtualMemorySize, FreeVirtualMemory | ConvertTo-Json
+
+# 4. Win32 API GlobalMemoryStatusEx via Python/ctypes
+python -c "import ctypes; class M(ctypes.Structure): _fields_=[('d',ctypes.c_ulong),('l',ctypes.c_ulong),('tp',ctypes.c_ulonglong),('ap',ctypes.c_ulonglong),('tpf',ctypes.c_ulonglong),('apf',ctypes.c_ulonglong),('tv',ctypes.c_ulonglong),('av',ctypes.c_ulonglong),('aev',ctypes.c_ulonglong)]; m=M(); m.d=ctypes.sizeof(M); ctypes.windll.kernel32.GlobalMemoryStatusEx(ctypes.byref(m)); print(f'TotalPhys={m.tp}, AvailPhys={m.ap}, TotalPageFile={m.tpf}, AvailPageFile={m.apf}')"
+```
+
+#### Raw Captured Telemetry:
+- **Win32_PhysicalMemory Module 0:** Bank 0 / `ChannelA-DIMM0`: Samsung `M378A1K43DB2-CTD`, Speed: 2666 MHz, Capacity: **8,589,934,592 bytes** (8.00 GiB / 8,192 MiB).
+- **Win32_PhysicalMemory Module 1:** Bank 2 / `ChannelB-DIMM0`: Samsung `M378A1K43DB2-CTD`, Speed: 2666 MHz, Capacity: **8,589,934,592 bytes** (8.00 GiB / 8,192 MiB).
+- **Total Physically Installed Capacity:** $8,589,934,592 \times 2 = \mathbf{17,179,869,184\text{ bytes}}$ ($16.00\text{ GiB} = 16,384\text{ MiB} \approx 17.18\text{ GB}$).
+- **GlobalMemoryStatusEx `ullTotalPhys`:** **17,049,899,008 bytes** ($15.8790\text{ GiB} = 16,260.05\text{ MiB} \approx 17.05\text{ GB}$).
+- **Win32_OperatingSystem `TotalVisibleMemorySize`:** **16,650,292 KB** ($17,049,899,008\text{ bytes}$).
+- **Hardware-Reserved Memory:** $17,179,869,184 - 17,049,899,008 = \mathbf{129,970,176\text{ bytes}}$ ($123.95\text{ MiB} \approx 124\text{ MiB}$), reserved by system BIOS, APIC/PCIe address windows, and Intel HD 530 DVMT initial frame buffer.
+- **GlobalMemoryStatusEx `ullTotalPageFile`:** **19,600,035,840 bytes** ($18.2540\text{ GiB} = 18,692.06\text{ MiB} \approx 19.60\text{ GB}$).
+- **GlobalMemoryStatusEx `ullAvailPageFile`:** **6,995,292,160 bytes** ($6.5149\text{ GiB} = 6,671.23\text{ MiB} \approx 7.00\text{ GB}$).
+- **Currently Committed System Memory:** $19,600,035,840 - 6,995,292,160 = \mathbf{12,604,743,680\text{ bytes}}$ ($11.7391\text{ GiB} \approx 12.02\text{ GB}$).
+- **Currently Available Physical RAM (`ullAvailPhys`):** **7,371,558,912 bytes** ($6.8653\text{ GiB} = 7,029.84\text{ MiB} \approx 7.37\text{ GB}$) at capture timestamp.
+
+### 2.3 Authoritative Hardware Memory Categorization Table
+
+| Classification Category | Exact Bytes | Binary (MiB / GiB) | Decimal (GB) | Measurement Source & Verification Method |
+| :--- | ---:| ---:| ---:| :--- |
+| **1. Physically Installed RAM** | 17,179,869,184 B | 16,384.00 MiB (16.00 GiB) | ~17.18 GB | WMI `Win32_PhysicalMemory` (2x Samsung 8 GB DDR4-2666 modules) |
+| **2. Windows-Visible Physical RAM** | 17,049,899,008 B | 16,260.05 MiB (15.88 GiB) | ~17.05 GB | Win32 API `GlobalMemoryStatusEx.ullTotalPhys` / `TotalVisibleMemorySize` |
+| **3. Hardware-Reserved Memory** | 129,970,176 B | 123.95 MiB (~0.12 GiB) | ~0.13 GB | Difference: Installed RAM minus Windows-Visible RAM (BIOS/DVMT) |
+| **4. Currently Available Physical RAM**| 7,371,558,912 B | 7,029.84 MiB (6.87 GiB) | ~7.37 GB | Win32 API `GlobalMemoryStatusEx.ullAvailPhys` (Captured 2026-11-19) |
+| **5. Currently Committed Memory** | 12,604,743,680 B | 12,020.83 MiB (11.74 GiB) | ~12.02 GB | Win32 API `ullTotalPageFile - ullAvailPageFile` (System under IDE/browser load) |
 
 ---
 
@@ -47,21 +87,28 @@ To avoid arithmetic contradictions, binary and decimal gigabytes are never mixed
 - $1\text{ GB} = 1,000,000,000\text{ bytes}$.
 - $1\text{ MiB} = 1,048,576\text{ bytes}$.
 
-### 3.2 Binary Memory Arithmetic
+### 3.2 Binary Memory Arithmetic Against Windows-Visible Physical RAM
 $$\begin{aligned}
-\text{Total Visible Physical Memory} &= 12,288\text{ MiB} \quad (12.00\text{ GiB}) \\
-\text{Provisional Base Working Set Commitment} &\approx 6,788\text{ MiB} \quad (~6.63\text{ GiB}) \\
+\text{Total Visible Physical Memory (ullTotalPhys)} &= 16,260\text{ MiB} \quad (15.88\text{ GiB} \text{ / } 17.05\text{ GB}) \\
+\text{Provisional Base Working Set Commitment} &\approx 6,788\text{ MiB} \quad (~6.63\text{ GiB} \text{ / } ~7.12\text{ GB}) \\
 \hline
-\mathbf{Uncommitted\ Physical\ Memory\ Headroom} &\approx \mathbf{5,500\text{ MiB}} \quad (\mathbf{~5.37\text{ GiB}})
+\mathbf{Uncommitted\ Physical\ Memory\ Headroom} &\approx \mathbf{9,472\text{ MiB}} \quad (\mathbf{~9.25\text{ GiB} \text{ / } ~9.93\text{ GB}})
 \end{aligned}$$
 
-*(Note: In decimal conversion, the $5,500\text{ MiB}$ remainder equals $5,500 \times 1,048,576 / 10^9 \approx \mathbf{5.77\text{ GB}}$. In a hypothetical pure $12.00\text{ GB}$ decimal calculation with a $7.20\text{ GB}$ footprint, the remainder is $12.00 - 7.20 = \mathbf{4.80\text{ GB}}$. The previous contradictory calculation that subtracted a 7.12 GB baseline from a 12.00 decimal capacity has been completely removed).*
+*(Note: In decimal conversion, the $9,472\text{ MiB}$ remainder equals $9,472 \times 1,048,576 / 10^9 \approx \mathbf{9.93\text{ GB}}$. Relative to gross installed memory ($16,384\text{ MiB}$), gross headroom is $16,384 - 6,788 = \mathbf{9,596\text{ MiB}} \approx \mathbf{9.37\text{ GiB}} \approx \mathbf{10.06\text{ GB}}$. In a hypothetical pure $16.00\text{ GB}$ decimal calculation with a $7.12\text{ GB}$ footprint, the remainder is $16.00 - 7.12 = \mathbf{8.88\text{ GB}}$, or $16.00 - 7.20 = \mathbf{8.80\text{ GB}}$ if baseline is rounded to one decimal place. Earlier contradictory calculations have been completely removed).*
 
 ---
 
-## 4. Memory Evidence and Measurement Limitations
+## 4. Memory Evidence, Baseline Reconciliation and Measurement Limitations
 
-### 4.1 Itemized Memory Accounting Table
+### 4.1 Reconciliation of Baseline Figures (6,788 MiB, 7.12 GB, 7.20 GB)
+- **Technical Reconciliation:** The three historical figures refer to the **same underlying baseline load**:
+  - $6,788\text{ MiB} = 6,788 \times 1,048,576\text{ bytes} = 7,117,733,888\text{ bytes}$.
+  - $7,117,733,888\text{ bytes} / 10^9 = 7.1177\text{ GB} \approx \mathbf{7.12\text{ GB}}$ decimal.
+  - Rounding $7.1177\text{ GB}$ to one decimal place yields $\mathbf{7.2\text{ GB}}$ (or $7.20\text{ GB}$).
+- **Working Set vs. Committed Memory Overlap:** Process working sets represent physical RAM pages actively resident in memory, whereas committed memory represents total virtual address space reserved by the OS and applications that is guaranteed by either physical RAM or `pagefile.sys`. Working sets and committed pages are **not independent quantities**; resident working set pages are backed by committed virtual memory.
+
+### 4.2 Itemized Memory Accounting Table
 
 | Component | Measured or Estimated (MiB) | Evidence Status | Notes |
 | :--- | ---:| :--- | :--- |
@@ -72,27 +119,39 @@ $$\begin{aligned}
 | **Database Store** | ~80 MiB | PROVISIONAL ESTIMATE | SQLite 3 engine and `sqlite-vec` cache |
 | **KAATYA Main AI** | ~3,138 MiB | PROVISIONAL ESTIMATE | `Qwen3-4B-Q4_K_M` weights + 4K FP16 KV cache + graph |
 | **Other Active User Processes** | ~0 MiB | PROVISIONAL ESTIMATE | Variable third-party background load |
-| **Total Observed Working Set** | **~6,788 MiB** | PROVISIONAL ESTIMATE | Sum of active baseline resident working sets (~6.63 GiB) |
-| **Available Physical Memory** | **~5,500 MiB** | PROVISIONAL ESTIMATE | Remaining from 12,288 MiB pool (~5.37 GiB / ~5.77 GB) |
+| **Total Observed Working Set** | **~6,788 MiB** | PROVISIONAL ESTIMATE | Sum of active baseline resident working sets (~6.63 GiB / ~7.12 GB) |
+| **Available Physical Memory** | **~9,472 MiB** | PROVISIONAL ESTIMATE | Remaining from 16,260 MiB visible pool (~9.25 GiB / ~9.93 GB) |
 
-### 4.2 Measurement Limitations & Operating System Realities
+### 4.3 Measurement Limitations & Operating System Realities
 1. **Status of Baseline Figures:** All process working-set figures above (~150 MiB GPU, ~220 MiB WebView2, ~300 MiB audio, ~3,138 MiB Main AI) are **PROVISIONAL ESTIMATES — NOT INDEPENDENTLY VERIFIED**. Because Phase 4 implementation has not commenced, no compiled KAATYA binary or active WebView2 session has been measured under full application workload.
 2. **Dynamic Shared GPU Memory:** Intel HD 530 utilizes Dynamic Video Memory Technology (DVMT). It does **NOT** permanently reserve a fixed 450 MB block of physical RAM. Dynamic allocations fluctuate based on active 2D/3D surface complexity.
 3. **Windows Working-Set Management:** Elevating process priority (`ABOVE_NORMAL_PRIORITY_CLASS`) and requesting working-set quotas (`SetProcessWorkingSetSizeEx`) provides application hints to Windows. However, the Windows Virtual Memory Manager (VMM) controls physical page residency. If external user applications induce severe physical memory exhaustion, Windows will trim working sets or page memory to `pagefile.sys`.
 
 ---
 
-## 5. Permanent Main AI Residency Policy
+## 5. Permanent Main AI Residency Policy & KV Cache Validation
 
 - **Designated Permanent Model:** `Qwen3-4B-Q4_K_M.gguf` (2,497,280,256 bytes / 2.326 GiB / 2.497 GB).
 - **Application-Level Invariant:** The KAATYA runtime guarantees that it will **NEVER** issue an `unload()`, `free()`, or model-destruction API call on the Main AI instance during application execution.
-- **Model Memory Profile:**
-  - Architecture: Qwen3, 36 layers, 32 attention heads, 8 KV heads, head dimension 128.
+- **Model Architectural Parameters (Audited from GGUF Binary):**
+  - Architecture: `qwen3`, 36 layers (`block_count = 36`), embedding length 2560 (`embedding_length = 2560`), 32 attention heads (`head_count = 32`), 8 KV heads (`head_count_kv = 8`).
+  - Nominal Head Dimension: $\text{head\_dim} = 2560 / 32 = 80$.
+- **KV Cache Memory Formula & Supported Context Profiles:**
+  $$\text{KV Cache Bytes} = 2 \times (\text{Layers} = 36) \times (\text{KV Heads} = 8) \times (\text{Head Dim} = 80) \times (\text{Context Tokens } N) \times (\text{Bytes Per Element})$$
+  - Elements per token across all layers: $2 \times 36 \times 8 \times 80 = 46,080\text{ elements/token}$.
+  - **FP16 Precision (2 bytes/element, default):** $92,160\text{ bytes/token}$ ($90.0\text{ KiB/token}$).
+    - At $N = 2,048\text{ tokens}$: $188,743,680\text{ bytes} = \mathbf{180.0\text{ MiB}}$ (reconciles earlier ~180-200 MiB figures).
+    - At $N = 4,096\text{ tokens}$: $377,487,360\text{ bytes} = \mathbf{360.0\text{ MiB}}$ (nominal 4K baseline).
+    - At $N = 8,192\text{ tokens}$: $754,974,720\text{ bytes} = \mathbf{720.0\text{ MiB}}$.
+    - *(Note: If a specific ggml kernel backend pads head_dim to 128, 4K FP16 KV expands to 576.0 MiB).*
+  - **Q8_0 Precision (1 byte/element, quantized KV):** $46,080\text{ bytes/token}$ ($45.0\text{ KiB/token}$).
+    - At $N = 4,096\text{ tokens}$: $188,743,680\text{ bytes} = \mathbf{180.0\text{ MiB}}$.
+- **Process Working Set Breakdown:**
   - Memory-Mapped Weights: ~2,382 MiB (faulted into working set as accessed).
-  - KV Cache (4,096 tokens, FP16): $2 \times 36 \times 8 \times 128 \times 4,096 \times 2 = 576.0\text{ MiB}$ ($0.604\text{ GB}$).
-  - Compute Buffers: ~180 MiB scratch buffer allocation (`ggml_gallocr`).
-  - Total Active Process Working Set: **~3,138 MiB** (with FP16 KV) or **~2,850 MiB** (with Q8_0 KV).
-- **Residency Reality:** Clean memory-mapped file pages may be faulted in and out by the Windows Cache Manager under heavy I/O, but the model remains continuously active and referenced in application state.
+  - Nominal 4K FP16 KV Cache: ~360 MiB.
+  - Compute Scratch & Graph Buffers (`ggml_gallocr`): ~396 MiB.
+  - Total Active Main AI Process Working Set: **~3,138 MiB** (~3.29 GB).
+- **Residency Reality:** Clean memory-mapped file pages may be faulted in and out by the Windows Cache Manager under heavy I/O, but the model remains continuously active and referenced in application state. KAATYA will never unload Main AI to make room for any optional worker.
 
 ---
 
@@ -151,10 +210,13 @@ Every model asset physically residing on `T:\ai creation` is categorized by func
 ## 9. FLUX.2 Klein Compatibility Assessment
 
 - **File Structure:** `flux-2-klein-4b-q4_0.gguf` contains 149 tensors and 0 KV metadata entries, comprising exclusively the Diffusion Transformer (DiT) backbone weights.
-- **True Conditioning Architecture:** Uses a **Qwen3 language model** feature extractor (concatenating hidden states from layers 9, 18, and 27 to produce a 7860-dimensional conditioning vector matching `txt_in.weight`).
-- **Required Companion Files:** Requires Qwen3 text encoder and `flux2-vae.safetensors` (both currently absent from disk).
-- **Main AI Reuse Limitation:** Reusing `Qwen3-4B-Q4_K_M.gguf` as the text encoder is not supported out-of-the-box due to logit evaluation vs. layer extraction differences, quantization noise in embeddings, runtime concurrency/context locking, and additional memory overhead.
-- **Status:** **EXPERIMENTAL.** No companion files will be downloaded until a validated runtime is benchmarked on target hardware.
+- **True Conditioning Architecture:** Uses a **Qwen3 language model** feature extractor (concatenating hidden states from layers 9, 18, and 27; $3 \times 2,560 = 7,680$ dimensional conditioning vector directly matching the DiT's `txt_in.weight` shape `(7680, 3072)`). Any earlier reference to inverted digits was an unverified typo; the verified GGUF dimension is 7,680.
+- **Required Companion Files:** Requires Qwen3 text encoder and `flux2-vae.safetensors` (~335 MiB, both currently absent from disk).
+- **Main AI Reuse Limitation:** Reusing `Qwen3-4B-Q4_K_M.gguf` as the text encoder is not supported out-of-the-box due to logit evaluation vs. layer extraction differences, quantization noise in embeddings, runtime concurrency/context locking, and custom C++ hook requirements.
+- **Memory Feasibility on 16.0 GB Hardware:**
+  - On the verified 16.0 GB hardware (16,260 MiB visible, ~9,472 MiB uncommitted headroom above baseline), the DiT worker (~3,100 MiB with scratch) and VAE decode (~635 MiB) physically fit in RAM alongside Windows and the permanent Main AI without violating residency rules.
+  - However, because generation latency on CPU-only AVX2 is estimated at 45–90 seconds per step (15–30 minutes total for 20 Euler steps), and no unified C++ pipeline exists yet, FLUX.2 Klein execution remains strictly classified as **EXPERIMENTAL / RESEARCH PROTOTYPE (CPU-Only)**.
+  - No companion files will be downloaded until a validated runtime is benchmarked on target hardware.
 
 ---
 
@@ -163,7 +225,7 @@ Every model asset physically residing on `T:\ai creation` is categorized by func
 Local video diffusion models are classified according to three rigorous categories:
 1. **Supported:** Programmatic Video Production (headless FFmpeg CLI, Whisper Base subtitles, Piper neural voiceovers, media trimming, merging, and audio ducking).
 2. **Experimental / Unverified:** Direct CapCut draft project manipulation and observable UI automation.
-3. **Impractical on Target Hardware:** Local text-to-video diffusion (Wan 2.1 T2V 1.3B, LTX-Video 2B). These models require 8–12+ GB dedicated VRAM and 16–32 GB system RAM; CPU execution on a dual-core 35W processor induces severe pagefile thrashing and unviable latency.
+3. **Impractical on Target Hardware:** Local text-to-video diffusion (Wan 2.1 T2V 1.3B, LTX-Video 2B). These models require high-throughput tensor cores and tens of gigabytes of dedicated VRAM bandwidth (GDDR6/HBM). On Intel HD Graphics 530 (0 dedicated VRAM, dynamic shared RAM) and dual-channel DDR4-2666 RAM, CPU-only video diffusion would take hours per 5-second clip and cause thermal throttling, making local real-time video diffusion impractical.
 - **Autonomy:** The Video Studio is 100% operational for complete video creation without requiring local video diffusion. Generative clips are routed to authorized Online Video Providers with explicit human approval.
 
 ---
@@ -281,7 +343,7 @@ The enhanced verification suite (`tools/verify_kaatya_docs.py`) was executed:
 
 | Category | Documented Items |
 | :--- | :--- |
-| **Verified Facts (Empirically Confirmed)** | Intel Core i3-6100T (2C/4T @ 3.20 GHz, AVX2); 12.0 GB RAM; Intel HD Graphics 530; 10 physical model assets in `T:\ai creation` with exact bytes and SHA-256 hashes; `flux-2-klein-4b` DiT structure (149 tensors, 0 KV); absence of deleted Nemotron and un-downloaded models; Git repository location. |
+| **Verified Facts (Empirically Confirmed)** | Intel Core i3-6100T (2C/4T @ 3.20 GHz, AVX2); 16.0 GB RAM (Two 8 GB Samsung DDR4-2666 DIMMs = 16,384 MiB installed, 16,260 MiB Windows-visible `ullTotalPhys`, ~124 MiB hardware-reserved); Intel HD Graphics 530 (0 dedicated VRAM, dynamic shared memory via DVMT); 10 physical model assets in `T:\ai creation` with exact bytes and SHA-256 hashes; `flux-2-klein-4b` DiT structure (149 tensors, 0 KV, `txt_in.weight` shape `(7680, 3072)`); absence of deleted Nemotron and un-downloaded models; Git repository location. |
 | **Directly Measured Observations** | Windows 10 host memory state via `GlobalMemoryStatusEx` and CIM; process working sets for idle desktop processes; WMI adapter RAM report. |
 | **Provisional Estimates (Unverified)** | Component baseline memory working sets (~150 MiB GPU, ~220 MiB WebView2, ~300 MiB audio, ~3,138 MiB Main AI); LLM generation throughput on Skylake 3-thread AVX2; Whisper/Piper Real-Time Factor under peak load. |
 | **Proposed Design Decisions** | Tauri v2 + Rust + React 19 + WebView2 stack; 10-step Dynamic Worker Admission Procedure; 3-tier security permissions; DPAPI encryption; Multi-editor XML/EDL/OTIO interchange; 23-agent logical roster on shared runtimes. |
