@@ -27,25 +27,30 @@ An empirical audit of `T:\ai creation` and the project repository was conducted,
 ## 2. Definitive Hardware-Calibrated Memory Budget (12.0 GB RAM)
 
 ```mermaid
-pie title Windows 10 (12.0 GB RAM) Dynamic Memory Budget
-    "Windows 10 OS + System Services" : 3100
-    "Intel HD 530 Shared Frame Buffer" : 450
-    "Tauri Shell + SQLite + Audio Runtimes" : 555
-    "KAATYA Permanent Main AI (Qwen3-4B @ 4K)" : 3100
-    "Mandatory Windows OS Disk Cache Cushion" : 2500
-    "Safe Headroom for Ephemeral Local Worker" : 2583
+pie title Windows 10 (12.0 GB RAM) Working Set Allocation
+    "Windows 10 OS Base + DWM" : 2900
+    "Intel HD 530 Dynamic UI Allocation" : 150
+    "Tauri Host + WebView2 Engine + Audio" : 520
+    "KAATYA Permanent Main AI (Qwen3-4B @ 4K)" : 3138
+    "Local Worker Slot (When Active)" : 1100
+    "Uncommitted Headroom / OS Cache" : 4480
 ```
 
 $$\begin{aligned}
-\text{Total Physical Capacity} &= 12,288\text{ MB} (12.0\text{ GB}) \\
-\text{Permanent System Commitment} &= 7,205\text{ MB} (~7.2\text{ GB}) \\
-\text{Mandatory OS Cushion} &= 2,500\text{ MB} (~2.5\text{ GB}) \\
+\text{Total Physical Memory} &= 12,288\text{ MiB} \quad (12.00\text{ GiB} \text{ / } 12.88\text{ GB}) \\
+\text{Base Operating System + System Services} &\approx 2,900\text{ MiB} \quad (~3.04\text{ GB}) \\
+\text{Intel HD 530 Dynamic Shared Memory (Idle UI)} &\approx 150\text{ MiB} \quad (~0.16\text{ GB}) \\
+\text{Tauri v2 + WebView2 + Audio/DB Runtimes} &\approx 600\text{ MiB} \quad (~0.63\text{ GB}) \\
+\text{KAATYA Permanent Main AI (Qwen3-4B @ 4K FP16 KV)} &\approx \mathbf{3,138\text{ MiB}} \quad (\mathbf{~3.29\text{ GB}}) \\
 \hline
-\mathbf{Safe\ Maximum\ Allocatable\ Budget\ for\ Local\ Worker} &= \mathbf{2,583\text{ MB} (~2.5\text{ GB})}
+\mathbf{Total\ Base\ Working\ Set\ Commitment} &\approx \mathbf{6,788\text{ MiB}} \quad (\mathbf{~7.12\text{ GB}}) \\
+\mathbf{Remaining\ Uncommitted\ Headroom} &\approx \mathbf{5,500\text{ MiB}} \quad (\mathbf{~5.76\text{ GB}})
 \end{aligned}$$
 
-- **Local Worker Feasibility:** Local workers like `Qwen2.5-Coder-1.5B` (~1.05 GB RAM), `SmolLM2-1.7B` (~1.35 GB RAM), or `Qwen3-1.7B` (~1.25 GB RAM) **fit comfortably within the 2.5 GB safe budget**.
-- **Permanent Residency Invariant:** KAATYA Main AI is **NEVER** unloaded, frozen, unmapped, or evicted to accommodate any worker.
+*(Note: On a strict decimal $12.00\text{ GB}$ baseline, $12.00 - 7.12 = \mathbf{4.88\text{ GB}}$ remaining; or $12.0 - 7.2 = \mathbf{4.80\text{ GB}}$ decimal, correcting earlier reports that incorrectly claimed 5.0 GB).*
+
+- **Dynamic Scheduling Policy:** The application guarantees that Main AI is never unloaded to load a worker. It does not make unsupported kernel-level paging guarantees; instead, it enforces a pre-flight check via `GlobalMemoryStatusEx` ensuring $\ge 2,048\text{ MiB}$ free physical RAM before spawning an ephemeral local worker.
+- **Permanent Residency Invariant:** KAATYA Main AI context remains continuously resident in memory and is never deallocated.
 
 ---
 
@@ -76,17 +81,17 @@ $$\begin{aligned}
 5.  Writer              -> Documentation, technical reports, manuals, release notes.
 6.  Messenger           -> Drafting communications, notifications (Mandatory human approval to send).
 7.  File Manager        -> Scoped filesystem navigation, pre-edit backups, archiving (Deletion confirmed).
-8.  Game Helper         -> Strategy hints, keybinding references, walkthrough lookups (READ-ONLY).
+8.  Game Helper         -> Strategy hints, keybinding references, walkthrough lookups (READ-ONLY; NO gameplay bots).
 9.  Tester              -> Test case generation, test execution, coverage inspection.
 10. 3D Artist           -> Blender scripting, 3D file metadata inspection, 2D/2.5D canvas tuning.
 11. Automator           -> Scheduled automation, routine developer workflows.
 12. Security            -> Permission enforcement, shell AST inspection, path blacklisting.
-13. Data Analyst        -> SQLite queries, CSV data formatting, statistics, calculations.
+13. Data Analyst        -> SQLite queries, CSV formatting, deterministic statistics via Python/pandas/sqlite.
 14. Code Reviewer       -> Static code analysis, diff verification, syntax checking.
 15. Assistant           -> Quick notes, to-dos, calendar reminders, everyday productivity.
-16. Video Editor        -> Complete video production: CapCut automation, FFmpeg processing, subtitles.
-17. Image Studio        -> Image generation workflows (FLUX.2 Klein 4B / Qwen Image / Cloud fallback).
-18. Grammar & Language  -> Grammar correction, spelling, multi-language translation, proofreading.
+16. Video Editor        -> Complete video production: multi-editor interchange, FFmpeg CLI, Whisper subtitles.
+17. Image Studio        -> Image generation workflows (FLUX.2 Klein 4B DiT / Cloud Diffusion Gate).
+18. Grammar & Language  -> Grammar correction, spelling, translation (Benchmark-dependent between SmolLM2-1.7B and Qwen3-1.7B).
 19. Social Media        -> Social media post drafting, YouTube/Instagram captions, hashtags.
 20. Audio & Voice       -> Voice cloning prep, audio enhancement, transcription formatting.
 21. Presentation        -> Slide deck structure planning, outline generation, markdown presentation decks.

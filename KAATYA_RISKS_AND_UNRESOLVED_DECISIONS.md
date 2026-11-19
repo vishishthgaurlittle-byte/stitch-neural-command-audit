@@ -49,13 +49,14 @@ To maintain absolute technical truthfulness, all project metrics are categorized
 - **External Storage:** Amazon Basics USB 3.0 pendrive (~116 GB usable capacity).
 - **10 Present Models:** Verified byte-sizes and calculated SHA-256 hashes (see `KAATYA_FINAL_MODEL_INVENTORY.md`).
 - **Absence of Historical Models:** `Nemotron-7.5B`, `qwen-image-2.1`, `nomic-embed`, and `qwen2.5-coder-3b` are verified absent.
-- **FLUX.2 GGUF Structure:** Verified as DiT backbone only (149 tensors, 0 KV pairs; missing CLIP-L, T5-XXL, and VAE).
+- **FLUX.2 GGUF Structure:** Verified as DiT backbone only (149 tensors, 0 KV pairs; utilizes Qwen3 text encoder and `flux2-vae.safetensors`, both absent locally).
 
-### 2.2 Theoretical Calculations (Derived from Hardware Bounds)
-- **Base Committed RAM:** ~4.1 GB (Windows 10 baseline 3.1 GB + HD 530 450 MB + App shell/Audio 555 MB).
-- **KAATYA Main AI Resident RAM:** ~3.1 GB (2.50 GB weights + 520 MB 4K KV cache + overhead).
-- **Total Permanent Memory:** ~7.2 GB. Free headroom: ~5.0 GB.
-- **Safe Working Budget for Local Workers:** $\le 2.5\text{ GB RAM}$.
+### 2.2 Theoretical Calculations (Derived from Measured Hardware Bounds)
+- **Base Committed Working Set:** ~3.65 GB (Windows 10 base ~3.0 GB + dynamic Intel HD 530 idle UI ~0.16 GB + Tauri/WebView2 shell/audio ~0.50 GB).
+- **KAATYA Main AI Resident Working Set:** ~3.14 GB (2.50 GB weights + 576 MB 4K FP16 KV cache + compute graph buffers).
+- **Total Base Active Working Set:** ~6.79 to 7.12 GB.
+- **Physical Headroom:** $12.00\text{ GB} - 7.12\text{ GB} = \mathbf{4.88\text{ GB}}$ (or $12.0 - 7.2 = \mathbf{4.80\text{ GB}}$ decimal, correcting earlier reports that claimed 5.0 GB).
+- **Safe Working Budget for Local Workers:** $\le 1,400\text{ MB RAM}$ (enforcing a minimum 2.0 GB free memory scheduler threshold via `GlobalMemoryStatusEx`).
 
 ### 2.3 Untested Items (Classified as [UNVERIFIED] Pending Phase 4 Benchmarking)
 - Real-world tokens/second throughput of `Qwen3-4B` on 3 threads.

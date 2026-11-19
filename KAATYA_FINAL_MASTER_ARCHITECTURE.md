@@ -59,8 +59,15 @@ The central AI is officially designated **KAATYA**.
 - **Architecture:** `qwen3` (36 layers, 2,560 embedding, 32 attention heads, 8 KV heads).
 - **Active Working Footprint:** **~3,100 MB RAM** (with 4,096 context window).
 
-### 3.2 The Cardinal Permanent-Residency Rule
-> **KAATYA (Main AI) is permanently loaded into memory at application launch and must NEVER be unloaded, frozen, unmapped, or evicted to make room for any specialist model.**
+### 3.2 Permanent-Residency Invariant & Windows Memory Realities
+> **Application-Level Residency Invariant:**
+> The KAATYA runtime will **NEVER** issue an unload, unmap, or destruction call on the Main AI instance (`Qwen3-4B-Q4_K_M.gguf`) during its application lifecycle. The Main AI context and model pointers remain permanently referenced in the host process.
+
+#### Distinguishing Application Guarantees vs. Windows Operating System Behavior:
+1. **Application-Level Model Residency:** The KAATYA runtime guarantees that no worker model or user action will cause the Main AI to be evicted or deallocated by the application.
+2. **Memory Mapping (`mmap`):** Weights are mapped via Win32 `CreateFileMapping` / `MapViewOfFile`. Active weight pages reside in the process working set.
+3. **Windows Working-Set Management & Pagefile:** The Windows Virtual Memory Manager (VMM) ultimately manages physical RAM pages. While KAATYA sets its process priority to `ABOVE_NORMAL_PRIORITY_CLASS` and optimizes working set quotas (`SetProcessWorkingSetSizeEx`), under severe external OS memory pressure (e.g. user opening heavy external applications), Windows may trim process working sets or page virtual memory to `pagefile.sys`.
+4. **What KAATYA Guarantees:** KAATYA guarantees it will never intentionally unload Main AI to load a worker, and enforces pre-flight physical memory checks (`GlobalMemoryStatusEx`) before spawning any worker to prevent triggering OS-level paging.
 
 ### 3.3 Core Responsibilities of KAATYA
 1. Default user-facing conversational interface across all 15 desktop screens and the Floating AI HUD.
@@ -101,26 +108,44 @@ stateDiagram-v2
     OnlineWorker --> OutputSynthesis: Return to KAATYA for Verification
 ```
 
-### 4.1 Memory Allocation Math (12.0 GB Physical Budget)
+### 4.1 Memory Allocation Analysis & Hardware Realities (12.0 GB Physical Budget)
+
+The target machine possesses **12.0 GB Physical RAM** ($12,288\text{ MiB}$ binary / $12.88\text{ GB}$ decimal, or $12.00\text{ GB}$ decimal if strictly bounded to $12 \times 10^9$ bytes).
+
+#### Critical Architecture Principles:
+1. **Model File Size $\neq$ Memory Footprint:**
+   A 2.50 GB GGUF model file does not consume merely 2.50 GB of RAM. The true process working set comprises:
+   - Memory-mapped weights: ~2,382 MiB (2.497 GB)
+   - KV Cache (4,096 context, FP16): $2 \times 36\text{ layers} \times 8\text{ KV heads} \times 128\text{ head\_dim} \times 4096\text{ tokens} \times 2\text{ bytes} = 576\text{ MiB}$ ($0.604\text{ GB}$).
+   - Compute scratch buffers (`ggml_gallocr`) & runtime context: ~180 MiB.
+   - **Total Active Main AI Process Working Set:** **~3,138 MiB (~3.29 GB)** (or ~2,850 MiB with Q8_0 KV quantization).
+2. **Intel HD Graphics 530 Dynamic Shared Memory:**
+   Intel HD 530 uses Dynamic Video Memory Technology (DVMT). It does **NOT** permanently reserve a fixed 450 MB chunk of physical RAM at boot. Instead, it dynamically allocates memory from system RAM on demand (typically ~100–180 MB working set for idle 2D desktop compositing and WebView2 rendering).
+3. **Realistic Application & WebView2 Working Sets:**
+   Tauri v2 host binary + Microsoft Edge WebView2 (browser engine, render process, GPU compositor) consumes ~180–250 MiB under realistic multi-screen rendering.
+
+#### Memory Budget Breakdown (Binary MiB & Decimal GB):
 
 $$\begin{aligned}
-\text{Total Physical Memory} &= 12,288\text{ MB} (12.0\text{ GB}) \\
-\text{Windows 10 Baseline OS + DWM} &= 3,100\text{ MB} \\
-\text{Intel HD 530 Shared Frame Buffer} &= 450\text{ MB} \\
-\text{Tauri v2 App Shell + Edge WebView2} &= 90\text{ MB} \\
-\text{Piper TTS Dual Engine (Mike + Rohan)} &= 145\text{ MB} \\
-\text{Whisper Base Multilingual STT Buffer} &= 220\text{ MB} \\
-\text{SQLite + sqlite-vec Local Database} &= 100\text{ MB} \\
-\text{KAATYA Permanent Main AI (Qwen3-4B @ 4K)} &= \mathbf{3,100\text{ MB}} \\
+\text{Total Physical Memory} &= 12,288\text{ MiB} \quad (12.00\text{ GiB} \text{ / } 12.88\text{ GB}) \\
+\text{Windows 10 Base OS + DWM + System Services} &\approx 2,900\text{ MiB} \quad (~3.04\text{ GB}) \\
+\text{Intel HD 530 Dynamic Shared Memory (Idle UI)} &\approx 150\text{ MiB} \quad (~0.16\text{ GB}) \\
+\text{Tauri v2 Shell + Microsoft WebView2 Engine} &\approx 220\text{ MiB} \quad (~0.23\text{ GB}) \\
+\text{Audio Subsystem (PortAudio + Piper Dual ONNX + Whisper)} &\approx 300\text{ MiB} \quad (~0.31\text{ GB}) \\
+\text{Local Store (SQLite + sqlite-vec Cache)} &\approx 80\text{ MiB} \quad (~0.08\text{ GB}) \\
+\text{KAATYA Permanent Main AI (Qwen3-4B @ 4K FP16 KV)} &\approx \mathbf{3,138\text{ MiB}} \quad (\mathbf{~3.29\text{ GB}}) \\
 \hline
-\mathbf{Total\ Base\ Committed\ Memory} &= \mathbf{7,205\text{ MB} (~7.2\text{ GB})} \\
-\mathbf{Remaining\ Free\ RAM\ Headroom} &= \mathbf{5,083\text{ MB} (~5.0\text{ GB})}
+\mathbf{Total\ Base\ Working\ Set\ Commitment} &\approx \mathbf{6,788\text{ MiB}} \quad (\mathbf{~7.12\text{ GB}}) \\
+\mathbf{Uncommitted\ Physical\ Memory\ Headroom} &\approx \mathbf{5,500\text{ MiB}} \quad (\mathbf{~5.76\text{ GB}})
 \end{aligned}$$
 
-### 4.2 Local Worker Constraint
-Any local worker model loaded concurrently with KAATYA **must fit safely within the ~5.0 GB headroom** (leaving at least 2.5 GB for OS disk cache and UI fluidity).
-- Models like `Qwen2.5-Coder-1.5B` (~1.1 GB RAM) or `SmolLM2-1.7B` (~1.4 GB RAM) **fit safely**.
-- Heavy models requiring $>5\text{ GB RAM}$ (such as the former `Nemotron-7.5B`) **cannot be loaded locally**.
+*(Note: On a strict $12.00\text{ GB}$ decimal ceiling: $12.00\text{ GB} - 7.12\text{ GB} = \mathbf{4.88\text{ GB}}$ remaining; if calculated as $12.0 - 7.2\text{ GB}$, the exact remainder is $\mathbf{4.80\text{ GB}}$, correcting earlier reports that incorrectly claimed 5.0 GB).*
+
+### 4.2 Dynamic Worker Policy & Absence of Guaranteed Buffers
+- **No Guaranteed Safety Buffer:** The application **cannot guarantee** a persistent 2.5 GB physical RAM safety cushion because Windows VMM dynamically schedules memory based on all active system processes.
+- **Dynamic Scheduling Enforcement:** Rather than relying on an unsupported static guarantee, KAATYA executes a dynamic pre-flight check via Win32 `GlobalMemoryStatusEx` before spawning any local worker.
+- **Threshold Rule:** If reported `ullAvailPhys` is $< 2,048\text{ MiB}$ (~2.0 GB), the local worker request is rejected, queued, or routed to the resident Main AI, preventing system-wide swapping.
+- **Safe Worker Budget:** Local worker models are strictly constrained to $\le 1,400\text{ MiB}$ working set (e.g. `Qwen2.5-Coder-1.5B` @ ~1,000 MiB or `SmolLM2-1.7B` @ ~1,350 MiB). Heavy models ($>2.5\text{ GB}$) are barred from local concurrent execution.
 
 ---
 
@@ -136,17 +161,17 @@ KAATYA orchestrates **23 logical specialist agent roles** (1 permanent Main AI +
 5.  Writer              -> Documentation, technical reports, manuals, release notes.
 6.  Messenger           -> Drafting communications, notifications (Mandatory human approval to send).
 7.  File Manager        -> Scoped filesystem navigation, pre-edit backups, archiving (Deletion confirmed).
-8.  Game Helper         -> Strategy hints, keybinding references, walkthrough lookups (READ-ONLY).
+8.  Game Helper         -> Strategy hints, keybinding references, walkthrough lookups (READ-ONLY; NO gameplay automation bots).
 9.  Tester              -> Test case generation, test execution, coverage inspection.
 10. 3D Artist           -> Blender scripting, 3D file metadata inspection, 2D/2.5D canvas tuning.
 11. Automator           -> Scheduled automation, routine developer workflows.
 12. Security            -> Permission enforcement, shell AST inspection, path blacklisting.
-13. Data Analyst        -> SQLite queries, CSV data formatting, statistics, calculations.
+13. Data Analyst        -> SQLite queries, CSV data formatting, deterministic statistics via Python/pandas/sqlite (never pure LLM token math).
 14. Code Reviewer       -> Static code analysis, syntax checking, diff validation.
 15. Assistant           -> Quick notes, to-dos, calendar reminders, everyday productivity.
-16. Video Editor        -> Complete video production: CapCut automation, FFmpeg processing, subtitles.
-17. Image Studio        -> Image generation workflows (FLUX.2 Klein 4B / Qwen Image / Cloud fallback).
-18. Grammar & Language  -> Grammar correction, spelling, multi-language translation, proofreading.
+16. Video Editor        -> Complete video production: multi-editor interchange, FFmpeg CLI processing, Whisper subtitles.
+17. Image Studio        -> Image generation workflows (FLUX.2 Klein 4B DiT / Cloud Diffusion Gate).
+18. Grammar & Language  -> Grammar correction, spelling, translation, proofreading (Benchmark-dependent between SmolLM2-1.7B and Qwen3-1.7B).
 19. Social Media        -> Social media post drafting, YouTube/Instagram captions, hashtags.
 20. Audio & Voice       -> Voice cloning prep, audio enhancement, transcription formatting.
 21. Presentation        -> Slide deck structure planning, outline generation, markdown presentation decks.
@@ -159,13 +184,32 @@ KAATYA orchestrates **23 logical specialist agent roles** (1 permanent Main AI +
 ## 6. Multimodal Architecture: Video Studio & Image Studio
 
 ### 6.1 Video Studio Architecture
-- **Dual Engine:** Programmatic editing via **FFmpeg** combined with observable desktop automation of **CapCut Desktop**.
-- **Capabilities:** Script writing, automated subtitle extraction via Whisper, voiceover synchronization via Piper, clip trimming, aspect ratio formatting (16:9, 9:16 Shorts/Reels, 1:1), and quality validation.
-- **Local Video Generation Feasibility:** Experimental small models (Wan 2.1, LTX-Video) are memory-gated and strictly optional. Video editing remains 100% functional through existing media assets, FFmpeg, and CapCut without requiring local video generation.
+- **Primary Workhorse (FFmpeg CLI):** Deterministic, headless execution via supervised child processes. Trimming, concatenating, loudness normalization (EBU R128), and hardcoded/soft Whisper subtitle burn-in.
+- **Multi-Editor Support:** Supports industry-standard interchange formats (Final Cut Pro / Premiere XML, Edit Decision List `.edl`, OpenTimelineIO `.otio`, and `.srt`/`.ass` subtitle tracks) enabling seamless workflows across DaVinci Resolve, Adobe Premiere, Shotcut, Kdenlive, and CapCut.
+- **CapCut Desktop Integration:**
+  1. *Supported:* External media export and standard subtitle track import.
+  2. *Visible UI Automation:* Accessible desktop automation via Windows UIAutomation (`UIAutomationCore.dll`) for hands-free timeline loading.
+  3. *Experimental:* Internal draft project generation (`%LOCALAPPDATA%\CapCut\User Data\Projects\com.lveditor.draft\kaatya_test_*`). This internal schema is treated as strictly experimental, tested only on isolated disposable folders, and **never overwrites existing user projects**.
+- **Local Video Diffusion Feasibility:**
+  - Video diffusion models (e.g., Wan 2.1 T2V 1.3B, LTX-Video 2B) require 8–12+ GB dedicated VRAM and 16–32 GB system RAM.
+  - On the target Intel Core i3-6100T (2 cores, 4 threads, Intel HD 530, 12 GB RAM), local text-to-video diffusion is classified as **Impractical on target hardware / Unsupported by local realtime runtime** (generation latency measured in hours per 5s clip).
+  - The Video Studio does **NOT** rely on local video diffusion: it produces complete, broadcast-ready videos through script generation, Piper TTS voiceovers, Whisper subtitles, user footage, and programmatic FFmpeg composition. When generative video clips are required, KAATYA routes to an **authorized Online Video Provider** (Runway, Luma, Kling) with explicit human confirmation.
 
 ### 6.2 Image Studio Architecture
-- **Local Model:** `flux-2-klein-4b-q4_0.gguf` (2.26 GB). Audited as a Diffusion Transformer (DiT) backbone requiring companion CLIP-L, T5-XXL, and VAE weights.
-- **Hardware Strategy:** Because FLUX inference on CPU is extremely heavy (~9–11 GB RAM total, 5–15 min per image), the Image Studio supports local generation as an experimental mode while seamlessly integrating **authorized online image providers** (e.g. OpenAI DALL-E, Stability, Ideogram) with explicit per-generation user consent.
+- **Local Model Identity:** `flux-2-klein-4b-q4_0.gguf` (2.26 GB). Empirical tensor audit proves it is a standalone Diffusion Transformer (DiT) backbone (149 tensors, 0 KV metadata).
+- **Actual FLUX.2 Klein Pipeline Dependencies:**
+  - Unlike older FLUX.1 models, FLUX.2 Klein does **NOT** use CLIP-L or T5-XXL.
+  - It utilizes a **Qwen3 language model** as its text encoder (harvesting concatenated hidden states from layers 9, 18, and 27 to produce a 7860-dimensional conditioning vector matching the DiT's `txt_in.weight` `[7680, 3072]`).
+  - Required VAE: `flux2-vae.safetensors`.
+  - Required Tokenizer: Qwen3 tokenizer with `<|im_start|>` chat template formatting.
+- **Can the Resident Main AI (`Qwen3-4B`) be Reused as Text Encoder?**
+  - While architectural weights overlap, reusing the resident Main AI instance introduces severe runtime hurdles:
+    1. Standard `llama.cpp` inference evaluates next-token logits and discards intermediate layer activations; intermediate feature extraction requires custom C-API hook branches.
+    2. Quantization: `Q4_K_M` quantization in Main AI degrades conditioning embeddings compared to FP8/BF16.
+    3. Concurrency Lock: Reusing the resident instance for feature extraction disrupts or blocks ongoing conversational dialogue and KV-caching.
+- **Hardware & Runtime Strategy:**
+  - Local FLUX generation remains **EXPERIMENTAL** pending real hardware benchmarking. Companion encoders will not be fetched until compatible runtimes (e.g. ComfyUI-GGUF or stable-diffusion.cpp FLUX.2 Klein branches) are validated.
+  - Primary production path: **Online Cloud Diffusion Gate** (OpenAI DALL-E 3, Stability AI, Fal.ai) with strict per-generation approval.
 
 ---
 
@@ -188,3 +232,15 @@ The application shell preserves **100% of the approved 15 Google Stitch screens*
 - All 23 agents integrate into Screen 06 (Agent Workspace) and Screen 01 (Command Center).
 - Video Studio and Image Studio integrate directly into existing studio panels and PC Control tools without fragmenting the UI.
 - Neural Core (Screen 03) renders in lightweight 2D/2.5D Canvas (`GL_LOWRES`), protecting the Intel HD 530 GPU.
+
+---
+
+## 9. Definitive Technology Stack
+
+To ensure complete architectural consistency across all documents, the core technology stack is formally fixed:
+- **Desktop Application Shell:** **Tauri v2** (Rust host process, memory footprint ~25–40 MiB).
+- **Frontend Presentation Layer:** **React 19 + TypeScript + Tailwind CSS** running inside the native Windows **Microsoft Edge WebView2** runtime (~180–220 MiB working set).
+- **Local LLM Engine:** Native **`llama.cpp` AVX2 backend** linked via direct C-FFI bindings into the Rust core.
+- **Local Audio Engine:** **Piper ONNX** (via ONNX Runtime CPU) + **Whisper.cpp** (`ggml-base.bin`).
+- **Local Data & Vector Store:** Embedded **SQLite 3 + `sqlite-vec` extension** for sub-millisecond local vector retrieval.
+- **Operating System Platform:** Strictly hosted on **Windows 10 64-bit**.

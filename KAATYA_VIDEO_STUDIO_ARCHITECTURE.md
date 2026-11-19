@@ -86,32 +86,67 @@ flowchart LR
     CapCut --> MasterOut
 ```
 
-### 3.1 Programmatic FFmpeg Engine (Primary Workhorse)
-- **Zero Headless Overhead:** Executes directly via supervised child processes in the Rust backend.
-- **Speed on i3-6100T:** Fast stream copying (`-c copy`) trims and merges 1080p video in seconds without CPU re-encoding.
-- **Subtitle Burn-in:** Renders crisp ASS/SRT subtitles directly onto video frames using the `subtitles` filter with custom styling (e.g., yellow bold font, black outline).
+## 3. Video Editing Strategy: Multi-Editor Ecosystem & CapCut Integration
 
-### 3.2 CapCut Desktop Automation Architecture
-- **No Fictitious API:** CapCut Desktop provides no public HTTP/REST developer API. Claiming an API exists would be an engineering falsehood.
-- **Observable Windows UIAutomation:** When advanced CapCut transitions, kinetic text templates, or effects are requested:
-  1. The assistant launches `CapCut.exe` visibly on the desktop.
-  2. Uses Microsoft Windows UI Automation (`UIAutomationCore.dll` via `windows-rs`) to locate interface elements (Timeline, Media Import, Effects Drawer).
-  3. Prepares an editable CapCut project file (`draft_content.json` in CapCut's project directory), inserting video assets and subtitle tracks programmatically.
-  4. Never performs covert mouse movements or hides the window.
-- **Safety Interlock:** If the user moves the mouse or presses `ESC`, automation instantly pauses.
+To ensure versatility and zero lock-in, KAATYA implements a **Multi-Tier Video Architecture**:
+
+```mermaid
+flowchart TD
+    Task[Video Editing Request] --> EngineSelect{Task Type}
+    
+    EngineSelect -->|Deterministic Rendering: Cuts, Loudness, Subtitle Burn-in| FFmpeg["1. Headless FFmpeg Engine (Supported Default)"]
+    EngineSelect -->|Non-Destructive Project Interchange| Interchange["2. Standard NLE Interchange (XML / EDL / OTIO)"]
+    EngineSelect -->|Assisted Visual Editing| CapCutUI["3. Observable UI Automation (CapCut / Premiere / Resolve)"]
+    EngineSelect -->|Internal Project Drafting| CapCutDraft["4. Experimental CapCut Internal Manipulation (Isolated Test Only)"]
+    
+    FFmpeg --> FinalRender[Direct Rendered Master MP4]
+    Interchange --> ExternalNLE[DaVinci Resolve / Adobe Premiere / Shotcut / Kdenlive]
+    CapCutUI --> UserInteractive[User Finishes Project in Desktop Editor]
+    CapCutDraft --> UserInteractive
+```
+
+### 3.1 Headless FFmpeg Engine (Primary Supported Workhorse)
+- **Zero Headless Overhead:** Executes directly via supervised child processes in the Rust backend.
+- **Deterministic Throughput:** Stream copying (`-c copy`) trims and concatenates 1080p footage in seconds without re-encoding.
+- **Audio & Subtitle Mastering:** Applies EBU R128 loudness normalization and hardcoded/soft subtitle rendering via the `subtitles` / `ass` filters.
+
+### 3.2 Standards-Compliant Multi-Editor Interchange
+Rather than binding exclusively to one proprietary editor, KAATYA exports standard project files:
+- **Final Cut Pro XML / Premiere XML (`.xml`):** Multitrack timeline structures with asset paths, clip offsets, and transition marks supported natively by Adobe Premiere Pro and DaVinci Resolve.
+- **Edit Decision List (`.edl`):** Universal CMX 3600 standard supported across virtually all NLEs.
+- **OpenTimelineIO (`.otio`):** Modern open interchange format for track hierarchies and transitions.
+- **Timed Subtitle Tracks (`.srt`, `.ass`, `.vtt`):** Formatted speech-to-text tracks with millisecond accuracy.
+
+### 3.3 Safe CapCut Desktop Integration Tiers
+1. **Tier A: Supported Import/Export (Production Standard):**
+   - KAATYA renders footage, background audio, and generates timed `.srt` files into `.assistant/exports/video/`.
+   - The user opens CapCut and imports these media assets directly into standard bins.
+2. **Tier B: Visible UI Automation (Optional Helper):**
+   - Uses Microsoft Windows UI Automation (`UIAutomationCore.dll`) to launch `CapCut.exe`, focus the window, and open the import dialog.
+   - Strictly observable: No hidden windows, no synthetic mouse grabbing, and immediate abort if `ESC` or mouse movement is detected.
+3. **Tier C: Experimental Internal Project Manipulation:**
+   - Writing directly into `%LOCALAPPDATA%\CapCut\User Data\Projects\com.lveditor.draft\` is categorized as **EXPERIMENTAL**.
+   - *Strict Safety Mandates:*
+     - **NEVER Overwrite:** The engine will never overwrite, alter, or rename existing user projects.
+     - **Disposable Test Folders Only:** Always writes to a dedicated, uniquely timestamped test folder (e.g., `kaatya_test_draft_YYYYMMDD_HHMMSS`).
+     - **User Authorization Required:** Creating an internal draft requires explicit user confirmation via an Obsidian Command modal.
 
 ---
 
 ## 4. Local Video-Generation Model Feasibility Audit
 
-### 4.1 Evaluation of Small Video Models (Wan 2.1 1.3B, LTX-Video 2B)
-- **The Claim:** Can small video-generation models (e.g. Wan 2.1 T2V 1.3B or LTX-Video 2B) run locally on our target PC?
-- **The Physical Reality on Intel Core i3-6100T (12 GB RAM, Intel HD 530):**
-  - **Zero Dedicated VRAM:** Video diffusion models require massive 3D spatio-temporal attention matrices.
-  - **Memory Footprint:** A 1.3B–2B video diffusion model paired with a video VAE and T5-XXL text encoder demands **11 to 14 GB RAM**, causing immediate memory exhaustion on a 12 GB host where OS + Main AI already consume ~7.2 GB.
-  - **CPU Latency:** Video diffusion generates 49 to 120 latent video frames across 20–30 denoising steps. On a 2-core / 4-thread CPU, generating a 3-second 480p video clip would take **[UNVERIFIED ESTIMATE: 45 to 120 minutes per clip]**.
-- **Definitive Architectural Policy:**
-  1. **Local video generation is strictly EXPERIMENTAL.**
-  2. **Video creation and editing in KAATYA does NOT depend on local video generation.**
-  3. The Video Editor agent produces complete, professional videos by orchestrating user footage, screen recordings, synthesized speech, Whisper subtitles, and programmatic FFmpeg effects.
-  4. When AI video clip generation is explicitly desired, the assistant delegates to an **authorized Online Video Provider** (Runway Gen-3, Luma Dream Machine, Kling AI) with explicit per-clip human approval.
+### 4.1 Evidence-Based Feasibility Analysis for Diffusion Video Models
+
+| Dimension | Wan 2.1 T2V 1.3B | LTX-Video 2B Distilled | Target Hardware Constraint | Status on Target Machine |
+| :--- | :--- | :--- | :--- | :--- |
+| **Backbone File Size** | ~1.5 GB (Q4 GGUF) / ~2.8 GB (FP16) | ~2.2 GB (GGUF/FP8) | Limited USB/internal disk | Exists as download candidate |
+| **Companion Files** | T5-XXL text encoder (4.8 GB) + 3D VAE (~350 MB) | T5/Gemma Encoder (4.8 GB) + Spatio-Temporal VAE | Extra ~5.2 GB storage | Absent locally |
+| **Runtime Memory** | Min 8–10 GB VRAM; 16–32 GB system RAM | Min 8–12 GB VRAM; 32 GB system RAM | Host has 12.0 GB physical RAM | **Severe Memory Exhaustion** |
+| **GPU Requirements** | Dedicated NVIDIA tensor cores (RTX 3060/4060+) | Dedicated NVIDIA GPU (RTX 3060/4060 Ti+) | Integrated Intel HD 530 (0 CUDA) | **Unsupported by GPU** |
+| **CPU Fallback Availability**| Technical PyTorch CPU fallback exists | Technical CPU fallback exists | 2 cores / 4 threads @ 35W TDP | **Extremely Slow Execution** |
+| **Actual Latency Performance**| [UNVERIFIED ESTIMATE: 60 to 180+ min per 5s clip] | [UNVERIFIED ESTIMATE: 45 to 120+ min per 5s clip] | Severe CPU saturation & thermal drop | **Impractical for Interactive Use** |
+
+### 4.2 Definitive Architectural Classification:
+1. **Local Video Diffusion:** Classified as **Impractical on target hardware / Unsupported by selected local runtime**. Attempting to run local video diffusion on a 2-core i3-6100T with 12 GB RAM will induce heavy pagefile thrashing, thermal throttling, and unacceptable multi-hour wait times for short low-resolution clips.
+2. **Video Studio Autonomy:** The KAATYA Video Studio does **NOT** require local video diffusion. It delivers full script-to-video production via Piper speech synthesis, Whisper transcription, asset sourcing, programmatic FFmpeg CLI effects, and timeline interchange.
+3. **Frontier Video Gate:** Generative text-to-video clips are delegated to **authorized Online Video Providers** (e.g., Runway Gen-3, Luma Dream Machine, Kling AI) with mandatory per-clip cost and prompt approval.

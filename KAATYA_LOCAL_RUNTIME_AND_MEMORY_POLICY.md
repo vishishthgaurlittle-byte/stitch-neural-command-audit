@@ -48,30 +48,42 @@ flowchart TD
 
 ---
 
-## 3. Dynamic Memory Budget & Safety Margins
+## 3. Dynamic Memory Budget & Hardware Scheduling Thresholds
+
+### 3.1 Memory Math & Operating System Realities (12.0 GB Physical Budget)
+
+The target machine possesses **12.0 GB Physical RAM** ($12,288\text{ MiB}$ binary / $12.88\text{ GB}$ decimal, or $12.00\text{ GB}$ decimal if strictly bounded to $12 \times 10^9$ bytes).
 
 $$\begin{aligned}
-\text{Total Physical RAM} &= 12,288\text{ MB} (12.0\text{ GB}) \\
-\text{Committed Base System (OS + HD 530 + App Shell + Audio)} &= 4,105\text{ MB} \\
-\text{KAATYA Permanent Main AI (Qwen3-4B @ 4K Context)} &= 3,100\text{ MB} \\
+\text{Total Physical Memory} &= 12,288\text{ MiB} \quad (12.00\text{ GiB} \text{ / } 12.88\text{ GB}) \\
+\text{Windows 10 Base OS + DWM + System Services} &\approx 2,900\text{ MiB} \quad (~3.04\text{ GB}) \\
+\text{Intel HD 530 Dynamic Shared Memory (Idle UI)} &\approx 150\text{ MiB} \quad (~0.16\text{ GB}) \\
+\text{Tauri v2 App Shell + Microsoft WebView2} &\approx 220\text{ MiB} \quad (~0.23\text{ GB}) \\
+\text{Audio Engine (PortAudio + Piper Dual ONNX + Whisper)} &\approx 300\text{ MiB} \quad (~0.31\text{ GB}) \\
+\text{Local Database (SQLite + sqlite-vec Cache)} &\approx 80\text{ MiB} \quad (~0.08\text{ GB}) \\
+\text{KAATYA Permanent Main AI (Qwen3-4B @ 4K FP16 KV)} &\approx \mathbf{3,138\text{ MiB}} \quad (\mathbf{~3.29\text{ GB}}) \\
 \hline
-\mathbf{Total\ Permanent\ Baseline\ Commitment} &= \mathbf{7,205\text{ MB} (~7.2\text{ GB})} \\
-\mathbf{Theoretical\ Remaining\ RAM} &= \mathbf{5,083\text{ MB} (~5.0\text{ GB})} \\
-\text{Mandatory Windows OS Disk Cache & UI Safety Cushion} &= -2,500\text{ MB} \\
-\hline
-\mathbf{Safe\ Maximum\ Allocatable\ Budget\ for\ Local\ Worker} &= \mathbf{2,583\text{ MB} (~2.5\text{ GB})}
+\mathbf{Total\ Base\ Working\ Set\ Commitment} &\approx \mathbf{6,788\text{ MiB}} \quad (\mathbf{~7.12\text{ GB}}) \\
+\mathbf{Remaining\ Uncommitted\ Physical\ Memory} &\approx \mathbf{5,500\text{ MiB}} \quad (\mathbf{~5.76\text{ GB}})
 \end{aligned}$$
 
-### 3.1 Local Worker Feasibility Table
+*(Arithmetic Correction: If calculated on a strict decimal $12.00\text{ GB}$ baseline with a $7.20\text{ GB}$ committed footprint: $12.00 - 7.20 = \mathbf{4.80\text{ GB}}$ remaining, correcting previous reports that erroneously claimed ~5.0 GB).*
 
-| Local Candidate Model | Disk Size | Runtime Memory (4K Ctx) | Fits Within Safe 2.5 GB Budget? | Execution Status |
+### 3.2 Distinguishing Physical RAM, Committed Memory, and Working Sets
+1. **No Fixed Shared GPU Reservation:** Intel HD Graphics 530 uses Dynamic Video Memory Technology (DVMT). It does not hold a fixed 450 MB physical reservation; memory is allocated dynamically from system RAM when 3D or video surfaces are drawn and returned when idle.
+2. **Model File Size vs. Memory Footprint:** A 2.50 GB GGUF model file requires ~3,138 MiB working set because it includes memory-mapped weights (~2,382 MiB), KV-cache (~576 MiB for 4K context), and compute scratch buffers (~180 MiB).
+3. **No Unsupported Safety Guarantees:** The application cannot guarantee that Windows will never page memory under external system stress. Instead, the runtime enforces a **pre-flight scheduler threshold**: if `GlobalMemoryStatusEx` reports less than **2,048 MiB (~2.0 GB)** free physical memory, worker spawning is refused.
+
+### 3.3 Local Worker Feasibility Table
+
+| Local Candidate Model | Disk Size | Runtime Memory (4K Ctx) | Fits Within Headroom Threshold? | Execution Status |
 | :--- | :---: | :---: | :---: | :--- |
-| **`Qwen2.5-Coder-1.5B-Q3_K_M`** | 824 MB | **~1,050 MB** | **YES** (Leaves ~1.5 GB cushion) | **Approved Local Worker** |
-| **`SmolLM2-1.7B-Instruct-Q4_K_M`** | 1,055 MB | **~1,350 MB** | **YES** (Leaves ~1.2 GB cushion) | **Approved Local Worker** |
-| **`Qwen3-1.7B-Q3_K_M`** | 1,073 MB | **~1,250 MB** | **YES** (Leaves ~1.3 GB cushion) | **Approved Local Worker** |
-| **`qwen2.5-1.5b-instruct-q4_k_m`** | 1,117 MB | **~1,280 MB** | **YES** (Leaves ~1.3 GB cushion) | **Approved Local Worker** |
-| **`flux-2-klein-4b-q4_0` (DiT)** | 2,256 MB | **~7,360 MB** (Full pipeline) | **NO** (Demands 7.3 GB) | **Memory-Gated / Experimental** |
-| **`Nemotron-3.5-Bolt-E4B`** (Former) | 6,180 MB | **~7,200 MB** | **NO** (Demands 7.2 GB) | **Disqualified / Absent from Disk** |
+| **`Qwen2.5-Coder-1.5B-Q3_K_M`** | 824 MB (0.77 GiB) | **~1,000 MB** | **YES** (Leaves $>3.5\text{ GB}$ free) | **Approved Local Worker** |
+| **`SmolLM2-1.7B-Instruct-Q4_K_M`** | 1,055 MB (0.98 GiB) | **~1,350 MB** | **YES** (Leaves $>3.2\text{ GB}$ free) | **Approved Local Worker** |
+| **`Qwen3-1.7B-Q3_K_M`** | 1,073 MB (1.00 GiB) | **~1,250 MB** | **YES** (Leaves $>3.3\text{ GB}$ free) | **Approved Local Worker** |
+| **`qwen2.5-1.5b-instruct-q4_k_m`** | 1,117 MB (1.04 GiB) | **~1,280 MB** | **YES** (Leaves $>3.3\text{ GB}$ free) | **Approved Local Worker** |
+| **`flux-2-klein-4b-q4_0` (DiT)** | 2,256 MB (2.10 GiB) | **~7,500–8,500 MB** (Full pipeline) | **NO** (Exhausts target physical RAM) | **Memory-Gated / Experimental** |
+| **`Nemotron-3.5-Bolt-E4B`** (Former) | 6,180 MB | **~7,200 MB** | **NO** (Exceeds safe limits) | **Disqualified / Absent from Disk** |
 
 ---
 

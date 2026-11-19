@@ -15,20 +15,26 @@ An empirical, byte-level inspection and cryptographic hash audit was conducted a
 
 ---
 
-## 2. Complete Inventory of Confirmed Present Models (10/10)
+## 2. Complete Inventory of Confirmed Present Assets (10/10)
 
-| # | Exact Filename | Physical Size (Bytes) | Size (GiB) | SHA-256 Checksum | Base Architecture | Quantization | Parameter Count |
-| :---: | :--- | :---: | :---: | :--- | :--- | :--- | :---: |
-| **1** | `Qwen3-4B-Q4_K_M.gguf` | 2,497,280,256 B | 2.33 GiB | `7485fe6f11af29433bc51cab58009521f205840f5b4ae3a32fa7f92e8534fdf5` | `qwen3` | Q4_K_M | ~4.0B |
-| **2** | `Qwen3-1.7B-Q3_K_M.gguf` | 1,073,242,208 B | 1.00 GiB | `79af9a932c6659aabc06d6560b8404063c79f616b136953370f9c67853e162e0` | `qwen3` | Q3_K_M | ~1.7B |
-| **3** | `SmolLM2-1.7B-Instruct-Q4_K_M.gguf` | 1,055,609,824 B | 0.98 GiB | `77665ea4815999596525c636fbeb56ba8b080b46ae85efef4f0d986a139834d7` | `llama` | Q4_K_M (imatrix) | ~1.7B |
-| **4** | `Qwen2.5-Coder-1.5B-Instruct-Q3_K_M.gguf` | 824,178,784 B | 0.77 GiB | `0c292daeec7355c9d695abf3d7da336f3766a983762bd4b82fbdad6d7dbcac7e` | `qwen2` | Q3_K_M | ~1.5B |
-| **5** | `qwen2.5-1.5b-instruct-q4_k_m.gguf` | 1,117,320,736 B | 1.04 GiB | `6a1a2eb6d15622bf3c96857206351ba97e1af16c30d7a74ee38970e434e9407e` | `qwen2` | Q4_K_M | ~1.5B |
-| **6** | `flux-2-klein-4b-q4_0.gguf` | 2,256,889,280 B | 2.10 GiB | `9c5939d55e3ac76e3a700029770fcc5e1b873d12c2a6d22c6c3fec217488e718` | `flux` / DiT | Q4_0 | ~4.0B |
-| **7** | `qwen3-embedding-0.6b-q8_0.gguf` | 639,150,592 B | 0.60 GiB | `ee029816fb9615e361d9e444abc0059827322e665c3ed9e6bc0531efe20cddda` | `qwen3` | Q8_0 | ~0.59B |
-| **8** | `ggml-base.bin` | 147,951,465 B | 0.14 GiB | `60ed5bc3dd14eea856493d334349b405782ddcaf0028d4b5df4088345fba2efe` | `whisper` | FP16 GGML | ~74M |
-| **9** | `en_US-mike-medium.onnx` | 63,221,984 B | 0.06 GiB | `6876866e3dfadc7f044bc5e4fbac16c47b5a1e79eaec04e3bb0c2c6e9da8a857` | VITS (Piper) | FP32/FP16 ONNX | ~28M |
-| **10** | `hi_IN-rohan-medium.onnx` | 62,950,044 B | 0.06 GiB | `b65dc80fb34d9dcd1cf684cb297966a34983bbc93bb1696fe207f32b0b33a091` | VITS (Piper) | FP32/FP16 ONNX | ~28M |
+The 10 local files on `T:\ai creation` span multiple distinct model families and asset types (chat models, coding models, embedding models, image-generation DiT backbones, speech-recognition models, and TTS voice graphs). They must not be conflated under generic "language models".
+
+| # | Exact Filename | Category | Size (Bytes) | Binary (GiB) | Decimal (GB) | Local SHA-256 Checksum | Upstream Checksum Status |
+| :---: | :--- | :--- | :---: | :---: | :---: | :--- | :--- |
+| **1** | `Qwen3-4B-Q4_K_M.gguf` | **Chat Model** | 2,497,280,256 B | 2.326 GiB | 2.497 GB | `7485fe6fd60c1fb469a4c84eb632ea51dff6e1d52fe1f938b82ff63a890d96d7` | *Unavailable (Community GGUF)* |
+| **2** | `Qwen3-1.7B-Q3_K_M.gguf` | **Chat Model** | 1,073,242,208 B | 1.000 GiB | 1.073 GB | `79af9a93339ea49d034fa9fe81180b543fa0c98f80455dbd7e9f3b97b0a72ce9` | *Unavailable (Community GGUF)* |
+| **3** | `SmolLM2-1.7B-Instruct-Q4_K_M.gguf` | **Chat Model** | 1,055,609,824 B | 0.983 GiB | 1.056 GB | `77665ea41a2aeb049ffcceaececfd864190c102a9df2c2b7ba122d46e33bd3b4` | *Unavailable (bartowski / HF quant)* |
+| **4** | `Qwen2.5-Coder-1.5B-Instruct-Q3_K_M.gguf`| **Coding Model** | 824,178,784 B | 0.768 GiB | 0.824 GB | `0c292dae43e2e92cfae8bf668e1fb7fdf870f71933ba21fc2a297e28b28f8f2b` | *Unavailable (Community GGUF)* |
+| **5** | `qwen2.5-1.5b-instruct-q4_k_m.gguf` | **Chat Model** | 1,117,320,736 B | 1.041 GiB | 1.117 GB | `6a1a2eb67ea278d976077556a34ea3efadbc91d8bbd4c6227c244c77c6888f4b` | *Unavailable (Community GGUF)* |
+| **6** | `flux-2-klein-4b-q4_0.gguf` | **Image-Gen Model (DiT)**| 2,256,889,280 B | 2.102 GiB | 2.257 GB | `9c5939d564fa7454261d7a8e7e1cb5bf4d27192667ae967a5b39414da8846c10` | *Unavailable (Unsloth / HF quant)* |
+| **7** | `qwen3-embedding-0.6b-q8_0.gguf` | **Embedding Model** | 639,150,592 B | 0.595 GiB | 0.639 GB | `ee02981604efb343cb4620021cbe15a519fc6eec77e928236fb6c4839880f074` | *Unavailable (Community GGUF)* |
+| **8** | `ggml-base.bin` | **Speech-Recog (STT)**| 147,951,465 B | 0.138 GiB | 0.148 GB | `60ed5bc3dd14edd81339603a9ad24f7f5255470d06152a5ec6d0290538a719d2` | *Whisper.cpp ecosystem build* |
+| **9** | `en_US-mike-medium.onnx` | **TTS Voice Asset** | 63,221,984 B | 0.059 GiB | 0.063 GB | `6876866e4a2e5ee9352ef5a557b2ffeb7ee10fc05a9ea2ffbc6e67e3fa43df65` | *Rhasspy Piper voice build* |
+| **10**| `hi_IN-rohan-medium.onnx` | **TTS Voice Asset** | 62,950,044 B | 0.059 GiB | 0.063 GB | `b65dc80f33989c445a5078a0a75d5b7a14e18375e0ff05e61bf96956f1406e9d` | *Rhasspy Piper voice build* |
+
+> [!IMPORTANT]
+> **Integrity Verification vs. Upstream Authenticity:**
+> The SHA-256 checksums documented above represent exact empirical hashes calculated directly from the disk files on `T:\ai creation`. A locally calculated checksum guarantees internal bit-level consistency and tamper detection across project builds. However, for community-quantized weights where upstream publisher manifests are not officially signed, upstream authenticity cannot be claimed without published upstream checksums. Items marked *"Unavailable"* are verified locally for reproducibility but unverified against official upstream manifests.
 
 ---
 
@@ -94,11 +100,11 @@ An empirical, byte-level inspection and cryptographic hash audit was conducted a
 - **Directory:** `T:\ai creation\`
 - **Size:** 2,256,889,280 bytes (2.10 GiB / 2.26 GB)
 - **Architecture Details:** FLUX Diffusion Transformer (DiT) backbone, 149 tensors, Q4_0 quantization.
-- **Crucial Technical Reality:** This file contains **ONLY the DiT transformer weights**. It does NOT contain the text encoder (CLIP-L / T5-XXL) or VAE.
-- **Estimated Pipeline RAM:** Requires **~9.0 to 11.5 GB RAM** when paired with text encoders and VAE.
-- **Runtime Compatibility:** ComfyUI with `ComfyUI-GGUF` or `sd.cpp`.
-- **Coexistence Status:** **EXPERIMENTAL / MEMORY-GATED.** Running on CPU alongside KAATYA consumes nearly all 12 GB RAM. Cannot run simultaneously with other local workers.
-- **Assigned Role:** **Image Studio** (Agent 17 - Local Offline Mode).
+- **Crucial Technical Reality:** This file contains **ONLY the DiT transformer backbone weights** (149 tensors, 0 KV metadata entries). Unlike FLUX.1, FLUX.2 Klein departs from CLIP-L/T5-XXL and utilizes a **Qwen3 language model** text encoder (extracting layers 9, 18, and 27 to produce a 7860-dimensional conditioning vector) plus `flux2-vae.safetensors`. These companion weights are absent from disk.
+- **Estimated Pipeline RAM:** Requires **~7.5 to 10.5 GB RAM** when paired with companion text encoder, VAE, and latent buffers.
+- **Runtime Compatibility:** ComfyUI with `ComfyUI-GGUF` (or specialized `sd.cpp` FLUX.2 Klein branches).
+- **Coexistence Status:** **EXPERIMENTAL / MEMORY-GATED.** Running on CPU alongside KAATYA Main AI (~3.1 GB) risks pushing total system commit near or past the 12.0 GB physical limit. Local FLUX execution is strictly experimental pending real hardware benchmark validation.
+- **Assigned Role:** **Image Studio** (Agent 17 - Experimental Local Mode).
 
 ---
 
