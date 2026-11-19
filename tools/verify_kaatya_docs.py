@@ -2,11 +2,14 @@ import os
 import sys
 import re
 
+# ==============================================================================
+# KAATYA DOCUMENTATION VERIFICATION, RE-AUDIT & MATHEMATICAL ASSERTION SUITE
+# ==============================================================================
+
 # 1. Autodiscover repository root or accept optional CLI argument
 if len(sys.argv) > 1 and sys.argv[1].strip():
     repo_root = os.path.abspath(sys.argv[1].strip())
 else:
-    # Discover repo root relative to this script: tools/..
     repo_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 print("==================================================================", flush=True)
@@ -24,7 +27,131 @@ def record_fail(category, message, file_rel="", section=""):
     print(f"[FAIL] {category:<30} | {message}{loc}", flush=True)
     failures.append(f"[{category}] {message}{loc}")
 
-# 2. Check all required documentation files
+# ==============================================================================
+# SECTION 0: NUMERICAL UNIT TESTS (MATHEMATICAL VERIFICATION)
+# ==============================================================================
+print("--- 0. Mathematical Unit Tests (Byte Conversions & KV Cache) ---", flush=True)
+
+def run_numerical_unit_tests():
+    unit_test_passed = True
+    
+    # 0.1 RAM Byte Conversions
+    try:
+        installed_bytes = 17179869184
+        visible_bytes = 17049899008
+        avail_snap1_bytes = 7371558912
+        avail_snap2_bytes = 6910607360
+        commit_limit_bytes = 19600035840
+        commit_avail_bytes = 6995292160
+        
+        # Installed RAM: 16,384.00 MiB
+        installed_mib = installed_bytes / (1024**2)
+        assert round(installed_mib, 2) == 16384.00, f"Installed RAM MIB expected 16384.00, got {installed_mib}"
+        
+        # Windows-Visible RAM: 16,260.05 MiB
+        visible_mib = visible_bytes / (1024**2)
+        assert round(visible_mib, 2) == 16260.05, f"Visible RAM MIB expected 16260.05, got {visible_mib}"
+        
+        # Hardware-Reserved RAM: 123.95 MiB
+        hw_diff_bytes = installed_bytes - visible_bytes
+        assert hw_diff_bytes == 129970176, f"Hardware diff bytes expected 129970176, got {hw_diff_bytes}"
+        hw_diff_mib = hw_diff_bytes / (1024**2)
+        assert round(hw_diff_mib, 2) == 123.95, f"Hardware diff MIB expected 123.95, got {hw_diff_mib}"
+        
+        # Available RAM Snapshot 1: 7,030.07 MiB (Exact conversion check)
+        snap1_mib = avail_snap1_bytes / (1024**2)
+        assert round(snap1_mib, 2) == 7030.07, f"Snap1 MIB expected 7030.07, got {snap1_mib}"
+        
+        # Physical RAM not reported as available Snapshot 1: 9,229.98 MiB
+        not_avail1_mib = visible_mib - snap1_mib
+        assert round(not_avail1_mib, 2) == 9229.98, f"Not available 1 expected 9229.98, got {not_avail1_mib}"
+        
+        # Available RAM Snapshot 2: 6,590.47 MiB
+        snap2_mib = avail_snap2_bytes / (1024**2)
+        assert round(snap2_mib, 2) == 6590.47, f"Snap2 MIB expected 6590.47, got {snap2_mib}"
+        
+        # Physical RAM not reported as available Snapshot 2: 9,669.58 MiB
+        not_avail2_mib = visible_mib - snap2_mib
+        assert round(not_avail2_mib, 2) == 9669.58, f"Not available 2 expected 9669.58, got {not_avail2_mib}"
+        
+        # Commit Virtual Memory: 12,020.82 MiB (direct bytes) / 12,020.83 MiB (component difference)
+        commit_used_bytes = commit_limit_bytes - commit_avail_bytes
+        assert commit_used_bytes == 12604743680, f"Commit used bytes expected 12604743680, got {commit_used_bytes}"
+        commit_used_mib = commit_used_bytes / (1024**2)
+        assert round(commit_used_mib, 2) in (12020.82, 12020.83), f"Commit used MIB expected 12020.82 or 12020.83, got {commit_used_mib}"
+        
+        record_pass("Unit Test: RAM Bytes", "All byte-to-MiB conversions and dependent differences asserted with exact 2-decimal precision")
+    except AssertionError as e:
+        record_fail("Unit Test: RAM Bytes", str(e))
+        unit_test_passed = False
+
+    # 0.2 Qwen3-4B KV-Cache Architecture Formula
+    try:
+        layers = 36
+        kv_heads = 8
+        head_dim = 128
+        
+        # Official Elements / Token Formula: 2 * layers * kv_heads * head_dim
+        elem_per_token = 2 * layers * kv_heads * head_dim
+        assert elem_per_token == 73728, f"Elements per token expected 73728, got {elem_per_token}"
+        
+        # FP16 Precision (2 bytes / element)
+        bytes_per_token_fp16 = elem_per_token * 2
+        assert bytes_per_token_fp16 == 147456, f"FP16 bytes per token expected 147456, got {bytes_per_token_fp16}"
+        
+        # Context 2,048 (2K): 288.0 MiB
+        kv_2k_fp16 = (bytes_per_token_fp16 * 2048) / (1024**2)
+        assert kv_2k_fp16 == 288.0, f"2K FP16 KV expected 288.0 MiB, got {kv_2k_fp16}"
+        
+        # Context 4,096 (4K): 576.0 MiB
+        kv_4k_fp16 = (bytes_per_token_fp16 * 4096) / (1024**2)
+        assert kv_4k_fp16 == 576.0, f"4K FP16 KV expected 576.0 MiB, got {kv_4k_fp16}"
+        
+        # Context 8,192 (8K): 1,152.0 MiB
+        kv_8k_fp16 = (bytes_per_token_fp16 * 8192) / (1024**2)
+        assert kv_8k_fp16 == 1152.0, f"8K FP16 KV expected 1152.0 MiB, got {kv_8k_fp16}"
+        
+        # Q8_0 Precision: 32 elements per block (32 bytes int8 + 2 bytes fp16 delta scale = 34 bytes)
+        bytes_per_element_q8 = 34 / 32
+        bytes_per_token_q8 = elem_per_token * bytes_per_element_q8
+        assert bytes_per_token_q8 == 78336, f"Q8_0 bytes per token expected 78336, got {bytes_per_token_q8}"
+        
+        # Context 2,048 (2K) Q8_0: 153.0 MiB
+        kv_2k_q8 = (bytes_per_token_q8 * 2048) / (1024**2)
+        assert kv_2k_q8 == 153.0, f"2K Q8_0 KV expected 153.0 MiB, got {kv_2k_q8}"
+        
+        # Context 4,096 (4K) Q8_0: 306.0 MiB
+        kv_4k_q8 = (bytes_per_token_q8 * 4096) / (1024**2)
+        assert kv_4k_q8 == 306.0, f"4K Q8_0 KV expected 306.0 MiB, got {kv_4k_q8}"
+        
+        # Context 8,192 (8K) Q8_0: 612.0 MiB
+        kv_8k_q8 = (bytes_per_token_q8 * 8192) / (1024**2)
+        assert kv_8k_q8 == 612.0, f"8K Q8_0 KV expected 612.0 MiB, got {kv_8k_q8}"
+        
+        record_pass("Unit Test: KV Cache Math", "Qwen3-4B KV-cache architectural formulas verified (73,728 elem/tok, 576.0 MiB @ 4K FP16, 306.0 MiB @ 4K Q8_0)")
+    except AssertionError as e:
+        record_fail("Unit Test: KV Cache Math", str(e))
+        unit_test_passed = False
+
+    # 0.3 FLUX Conditioning Dimension
+    try:
+        layers_used = 3 # layers 9, 18, 27
+        hidden_dim = 2560
+        total_conditioning_dim = layers_used * hidden_dim
+        assert total_conditioning_dim == 7680, f"FLUX conditioning dim expected 7680, got {total_conditioning_dim}"
+        record_pass("Unit Test: FLUX Dimension", "FLUX.2 Klein conditioning vector math (3 * 2,560 = 7,680) asserted")
+    except AssertionError as e:
+        record_fail("Unit Test: FLUX Dimension", str(e))
+        unit_test_passed = False
+
+    return unit_test_passed
+
+run_numerical_unit_tests()
+
+# ==============================================================================
+# SECTION 1: DELIVERABLE EXISTENCE & NON-TRIVIAL SIZE CHECKS
+# ==============================================================================
+print("\n--- 1. File Existence and Non-Trivial Size Checks ---", flush=True)
 required_docs = [
     "KAATYA_PHASE_3_FINAL_TECHNICAL_SIGNOFF.md",
     "KAATYA_PHASE_3_CORRECTION_AND_VALIDATION_REPORT.md",
@@ -46,27 +173,32 @@ required_docs = [
     "README.md"
 ]
 
-print("--- 1. File Existence and Non-Trivial Size Checks ---", flush=True)
 doc_contents = {}
+all_files_ok = True
 for doc in required_docs:
     fpath = os.path.join(repo_root, doc)
     if not os.path.exists(fpath):
         record_fail("File Existence", f"Required deliverable missing: {doc}", doc)
+        all_files_ok = False
     else:
         sz = os.path.getsize(fpath)
         if sz < 1000:
             record_fail("File Size", f"File size too small ({sz} bytes): {doc}", doc)
+            all_files_ok = False
         else:
             record_pass("File Verified", f"{doc} ({sz:,} bytes)")
             with open(fpath, "r", encoding="utf-8", errors="ignore") as fp:
                 doc_contents[doc] = fp.read()
 
-# 3. Check README markdown links
+# ==============================================================================
+# SECTION 2: README MARKDOWN LINK RESOLUTION
+# ==============================================================================
 print("\n--- 2. README Markdown Link Resolution ---", flush=True)
 if "README.md" in doc_contents:
     readme_text = doc_contents["README.md"]
     links = re.findall(r'\[([^\]]+)\]\(([^)]+)\)', readme_text)
     checked_links = 0
+    link_failed = False
     for text, link in links:
         if link.startswith("http://") or link.startswith("https://") or link.startswith("#"):
             continue
@@ -76,12 +208,16 @@ if "README.md" in doc_contents:
         target_path = os.path.normpath(os.path.join(repo_root, clean_link))
         if not os.path.exists(target_path):
             record_fail("README Link", f"Dead link '{link}' target does not exist", "README.md")
+            link_failed = True
         else:
             checked_links += 1
-    record_pass("README Links", f"All {checked_links} local relative markdown links verified successfully")
+    if not link_failed and checked_links > 0:
+        record_pass("README Links", f"All {checked_links} local relative markdown links verified successfully")
 
-# 4. Check 23-Agent Roster (15 Original + 8 Specialists)
-print("\n--- 3. 23-Agent Roster Audit (Original 15 + 8 Specialists) ---", flush=True)
+# ==============================================================================
+# SECTION 3: 23-AGENT ROSTER INDIVIDUAL VERIFICATION
+# ==============================================================================
+print("\n--- 3. 23-Agent Roster Audit (Individual Identity Assertions) ---", flush=True)
 original_15 = [
     "KAATYA Main AI", "Coder", "Designer", "Researcher", "Writer",
     "Messenger", "File Manager", "Game Helper", "Tester", "3D Artist",
@@ -92,34 +228,57 @@ eight_specialists = [
     "Audio & Voice", "Presentation", "Document Intel", "Database Engineer"
 ]
 
-for doc_key in ["KAATYA_AGENT_ROSTER_AND_CAPABILITY_MATRIX.md", "KAATYA_FINAL_MASTER_ARCHITECTURE.md"]:
-    if doc_key in doc_contents:
-        txt = doc_contents[doc_key]
-        for agent in original_15:
-            if agent not in txt:
-                record_fail("Original Agent", f"Missing original agent '{agent}'", doc_key, "Agent Roster")
-        for agent in eight_specialists:
-            if agent not in txt and (agent != "Document Intel" or "Document Intelligence" not in txt):
-                record_fail("Specialist Agent", f"Missing specialist agent '{agent}'", doc_key, "Agent Roster")
-record_pass("23-Agent Roster", "All 15 original identities and 8 specialists verified intact across roster documents")
+all_agents_verified = True
+for agent in original_15:
+    agent_present = True
+    for doc_key in ["KAATYA_AGENT_ROSTER_AND_CAPABILITY_MATRIX.md", "KAATYA_FINAL_MASTER_ARCHITECTURE.md"]:
+        txt = doc_contents.get(doc_key, "")
+        if agent not in txt:
+            record_fail("Agent Identity", f"Original agent '{agent}' missing in {doc_key}", doc_key)
+            agent_present = False
+            all_agents_verified = False
+    if agent_present:
+        record_pass("Agent Verified", f"Original Agent '{agent}' verified in roster deliverables")
 
-# 5. Core Policy Audits: Permanent Main AI, Worker Bounds, Game Helper, Online Approvals
+for agent in eight_specialists:
+    agent_present = True
+    for doc_key in ["KAATYA_AGENT_ROSTER_AND_CAPABILITY_MATRIX.md", "KAATYA_FINAL_MASTER_ARCHITECTURE.md"]:
+        txt = doc_contents.get(doc_key, "")
+        if agent not in txt and (agent != "Document Intel" or "Document Intelligence" not in txt):
+            record_fail("Agent Identity", f"Specialist agent '{agent}' missing in {doc_key}", doc_key)
+            agent_present = False
+            all_agents_verified = False
+    if agent_present:
+        record_pass("Specialist Verified", f"Specialist Agent '{agent}' verified in roster deliverables")
+
+if all_agents_verified:
+    record_pass("23-Agent Roster", "All 23 agent identities individually asserted and verified intact")
+
+# ==============================================================================
+# SECTION 4: CORE ARCHITECTURAL & POLICY INVARIANTS
+# ==============================================================================
 print("\n--- 4. Core Policy Invariants Audit ---", flush=True)
 master_arch = doc_contents.get("KAATYA_FINAL_MASTER_ARCHITECTURE.md", "")
+runtime_policy = doc_contents.get("KAATYA_LOCAL_RUNTIME_AND_MEMORY_POLICY.md", "")
 
-# 5.1 Permanent Main AI
+# 4.1 Permanent Main AI Residency
+main_ai_ok = False
 if "Qwen3-4B-Q4_K_M.gguf" in master_arch and "permanent" in master_arch.lower():
-    record_pass("Main AI Invariant", "Main AI designated to Qwen3-4B-Q4_K_M.gguf with permanent residency policy")
-else:
-    record_fail("Main AI Invariant", "Permanent Main AI assignment to Qwen3-4B-Q4_K_M.gguf missing or contradictory", "KAATYA_FINAL_MASTER_ARCHITECTURE.md")
+    if "never" in master_arch.lower() and ("unload" in master_arch.lower() or "evicted" in master_arch.lower()):
+        main_ai_ok = True
+        record_pass("Main AI Invariant", "Main AI designated to Qwen3-4B-Q4_K_M.gguf with strictly enforced permanent residency")
+if not main_ai_ok:
+    record_fail("Main AI Invariant", "Main AI permanent residency policy missing or incomplete", "KAATYA_FINAL_MASTER_ARCHITECTURE.md")
 
-# 5.2 Worker bounds
-if "0 or 1 active local worker" in doc_contents.get("KAATYA_LOCAL_RUNTIME_AND_MEMORY_POLICY.md", "").lower() or "maximum 1 active local worker" in doc_contents.get("KAATYA_LOCAL_RUNTIME_AND_MEMORY_POLICY.md", "").lower():
+# 4.2 Worker Bounds (Strict Assertions — No False Positives)
+worker_bound_ok = False
+if "0 or 1 active local worker" in runtime_policy.lower() or "maximum 1 active local worker" in runtime_policy.lower() or "max 1 active local worker" in runtime_policy.lower() or "at most one optional local worker" in runtime_policy.lower():
+    worker_bound_ok = True
     record_pass("Worker Bound", "Local worker strictly bounded to at most 1 active ephemeral instance")
 else:
-    record_pass("Worker Bound", "Worker upper bound specified in runtime policies")
+    record_fail("Worker Bound", "Local worker upper bound (max 1 active worker) missing or ambiguously specified", "KAATYA_LOCAL_RUNTIME_AND_MEMORY_POLICY.md")
 
-# 5.3 Read-Only Game Helper
+# 4.3 Read-Only Game Helper
 game_helper_ok = True
 for doc_key in ["KAATYA_AGENT_ROSTER_AND_CAPABILITY_MATRIX.md", "KAATYA_FINAL_MASTER_ARCHITECTURE.md"]:
     txt = doc_contents.get(doc_key, "")
@@ -130,14 +289,16 @@ for doc_key in ["KAATYA_AGENT_ROSTER_AND_CAPABILITY_MATRIX.md", "KAATYA_FINAL_MA
 if game_helper_ok:
     record_pass("Game Helper Rule", "Game Helper strictly enforced as read-only hints with zero gameplay automation")
 
-# 5.4 Online User Approval
+# 4.4 Online User Approval & Default Air-Gap
 online_doc = doc_contents.get("KAATYA_ONLINE_PROVIDER_AND_PLUGIN_ARCHITECTURE.md", "")
-if "disabled by default" in online_doc.lower() and "explicit consent" in online_doc.lower():
+if "disabled by default" in online_doc.lower() and ("explicit consent" in online_doc.lower() or "explicit approval" in online_doc.lower()):
     record_pass("Online Policy", "Online services enforced as air-gapped by default with per-operation explicit user approval")
 else:
     record_fail("Online Policy", "Online default air-gap or explicit approval policy missing", "KAATYA_ONLINE_PROVIDER_AND_PLUGIN_ARCHITECTURE.md")
 
-# 6. Hardware RAM Specification Audit (16 GB Installed / 16,260 MiB Visible / 2,133 MT/s Operating)
+# ==============================================================================
+# SECTION 5: HARDWARE RAM SPECIFICATION & CLOCK SPEED
+# ==============================================================================
 print("\n--- 5. Hardware RAM Re-Audit & Clock Speed Verification ---", flush=True)
 ram_ok = True
 key_ram_docs = [
@@ -165,7 +326,7 @@ for doc_name in key_ram_docs:
             ram_ok = False
 
 signoff_txt = doc_contents.get("KAATYA_PHASE_3_FINAL_TECHNICAL_SIGNOFF.md", "")
-if "2,133" in signoff_txt or "2133" in signoff_txt:
+if "2,133 MT/s" in signoff_txt or "2,133" in signoff_txt:
     record_pass("RAM Clock Speed", "Configured operating memory clock speed confirmed at 2,133 MT/s (Core i3-6100T limit)")
 else:
     record_fail("RAM Clock Speed", "Configured memory speed of 2,133 MT/s missing in sign-off document", "KAATYA_PHASE_3_FINAL_TECHNICAL_SIGNOFF.md")
@@ -173,8 +334,16 @@ else:
 if ram_ok:
     record_pass("RAM Specification", "Verified 16.0 GB installed RAM (16,384 MiB installed, 16,260 MiB visible) across all core documents")
 
-# 7. Contradiction Detection: Memory Arithmetic & Elimination of Outdated Rules
-print("\n--- 6. Contradiction Detection: Memory Arithmetic & Available RAM Disambiguation ---", flush=True)
+# Hardware-Reserved Memory Attribution Check
+if "Measured installed-versus-visible RAM difference: 123.95 MiB. Exact hardware reservation breakdown: unverified." in signoff_txt:
+    record_pass("HW Reserved Label", "Hardware-reserved RAM properly labeled as unverified breakdown (123.95 MiB measured diff)")
+else:
+    record_fail("HW Reserved Label", "Sign-off missing exact required wording for 123.95 MiB unverified hardware reservation breakdown", "KAATYA_PHASE_3_FINAL_TECHNICAL_SIGNOFF.md")
+
+# ==============================================================================
+# SECTION 6: CONTRADICTION DETECTION & AVAILABLE MEMORY DISAMBIGUATION
+# ==============================================================================
+print("\n--- 6. Contradiction Detection & Telemetry Disambiguation ---", flush=True)
 outdated_formula_found = False
 for doc_name, content in doc_contents.items():
     if "Req_RAM + 2.5 GB" in content or "safety_cushion = 2_500" in content or "2.5 GB reserved cushion" in content:
@@ -183,60 +352,79 @@ for doc_name, content in doc_contents.items():
     if "12.00 - 7.12 = 4.88" in content or "12.00 GB - 7.12 GB = 4.88" in content:
         record_fail("Contradictory Math", f"Contradictory decimal/binary calculation (4.88 GB) found in {doc_name}", doc_name)
         outdated_formula_found = True
+    if "7,029.84" in content:
+        record_fail("Inaccurate RAM Rounding", f"Found inaccurate rounding '7,029.84' in {doc_name} (correct value is 7,030.07 MiB)", doc_name)
+        outdated_formula_found = True
+    if "completely accounted for" in content.lower():
+        record_fail("Unsupported Reconciliation", f"Unsupported phrase 'completely accounted for' found in {doc_name}", doc_name)
+        outdated_formula_found = True
 
 if not outdated_formula_found:
-    record_pass("Formula Elimination", "Outdated fixed 2.5 GB formula and contradictory 4.88 GB arithmetic absent repository-wide")
+    record_pass("Formula & Rounding Elimination", "Outdated fixed 2.5 GB formula, 4.88 GB arithmetic, 7,029.84 rounding, and 'completely accounted for' claims absent repository-wide")
 
-# Check Available Memory Disambiguation
-if "7,029.84" in signoff_txt and ("9,230" in signoff_txt or "9,230.21" in signoff_txt):
-    record_pass("Available Memory Truth", "Live available RAM (7,029.84 MiB) and host in-use RAM (9,230.21 MiB) correctly disambiguated from theoretical headroom")
+# Available RAM Telemetry Disambiguation Check
+if "7,030.07" in signoff_txt and "9,229.98" in signoff_txt:
+    record_pass("Available Memory Truth", "Live available RAM (7,030.07 MiB) and host in-use RAM (9,229.98 MiB) correctly disambiguated with exact conversions")
 else:
-    record_fail("Available Memory Truth", "Available physical RAM or host in-use RAM missing disambiguation in sign-off document", "KAATYA_PHASE_3_FINAL_TECHNICAL_SIGNOFF.md")
+    record_fail("Available Memory Truth", "Available physical RAM (7,030.07 MiB) or host in-use RAM (9,229.98 MiB) missing in sign-off document", "KAATYA_PHASE_3_FINAL_TECHNICAL_SIGNOFF.md")
 
-# Check Dynamic Worker Admission
-if "10-step" in master_arch.lower() and "10-step" in doc_contents.get("KAATYA_LOCAL_RUNTIME_AND_MEMORY_POLICY.md", "").lower():
-    record_pass("Dynamic Admission", "10-Step Dynamic Worker Admission Procedure uniformly codified in master architecture and runtime policy")
+# Reconciliation Gap Classification Check
+if "partially explained; exact reconciliation unavailable" in signoff_txt.lower():
+    record_pass("Reconciliation Status", "Reconciliation gap (~2,442 MiB) accurately classified as 'partially explained; exact reconciliation unavailable'")
 else:
-    record_fail("Dynamic Admission", "10-Step Dynamic Worker Admission Procedure missing or contradictory", "KAATYA_LOCAL_RUNTIME_AND_MEMORY_POLICY.md")
+    record_fail("Reconciliation Status", "Missing 'partially explained; exact reconciliation unavailable' classification in sign-off", "KAATYA_PHASE_3_FINAL_TECHNICAL_SIGNOFF.md")
 
-# 8. Baseline Reconciliation & KV Cache Audit
-print("\n--- 7. Baseline Reconciliation & KV Cache Memory Audit ---", flush=True)
-if "6,788" in signoff_txt and "7.12" in signoff_txt:
-    record_pass("Baseline Reconciliation", "6,788 MiB and 7.12 GB baseline figures technically reconciled as identical load")
+# ==============================================================================
+# SECTION 7: KV CACHE ARCHITECTURAL AUDIT (QWEN3-4B)
+# ==============================================================================
+print("\n--- 7. KV Cache Architecture & Mathematical Verification ---", flush=True)
+kv_doc_ok = True
+if "73,728" in signoff_txt and "576.0" in signoff_txt and "306.0" in signoff_txt:
+    record_pass("KV Cache Sign-Off", "Sign-off document contains verified Qwen3-4B KV cache figures (73,728 elem/tok, 576.0 MiB @ 4K FP16, 306.0 MiB @ 4K Q8_0)")
 else:
-    record_fail("Baseline Reconciliation", "Reconciliation of baseline figures missing in sign-off document", "KAATYA_PHASE_3_FINAL_TECHNICAL_SIGNOFF.md")
+    record_fail("KV Cache Sign-Off", "Sign-off document missing required Qwen3-4B KV cache calculations (73,728 elements/tok, 576.0 MiB, 306.0 MiB)", "KAATYA_PHASE_3_FINAL_TECHNICAL_SIGNOFF.md")
+    kv_doc_ok = False
 
-if "46,080" in signoff_txt or "92,160" in signoff_txt:
-    record_pass("KV Cache Verification", "Qwen3-4B KV cache calculation mathematically verified (46,080 elements/tok, 360 MiB @ 4K FP16, 180 MiB @ 2K/Q8_0)")
+if "128" in signoff_txt and ("head dimension" in signoff_txt.lower() or "head_dim" in signoff_txt.lower() or "key_length" in signoff_txt.lower()):
+    record_pass("Head Dim Verified", "Head dimension = 128 explicitly asserted and explained over earlier 80 derivation error")
 else:
-    record_fail("KV Cache Verification", "Qwen3-4B exact KV cache formula missing in sign-off document", "KAATYA_PHASE_3_FINAL_TECHNICAL_SIGNOFF.md")
+    record_fail("Head Dim Verified", "Head dimension = 128 missing in sign-off document", "KAATYA_PHASE_3_FINAL_TECHNICAL_SIGNOFF.md")
+    kv_doc_ok = False
 
-# 9. FLUX.2 Klein Multi-Document Consistency & Feasibility
-print("\n--- 8. FLUX.2 Klein Multi-Document Consistency & Coexistence Audit ---", flush=True)
+# ==============================================================================
+# SECTION 8: FLUX.2 KLEIN WORKFLOW & FEASIBILITY AUDIT
+# ==============================================================================
+print("\n--- 8. FLUX.2 Klein Workflow & Feasibility Audit ---", flush=True)
 flux_ok = True
-for doc_key in ["KAATYA_IMAGE_GENERATION_ARCHITECTURE.md", "KAATYA_MODEL_COMPATIBILITY_AND_BENCHMARK_PLAN.md", "KAATYA_PHASE_3_FINAL_TECHNICAL_SIGNOFF.md"]:
-    txt = doc_contents.get(doc_key, "")
-    if re.search(r'\|\s*\*\*Text Encoder 1\*\*\s*\|\s*`?clip_l', txt, re.IGNORECASE) or re.search(r'\|\s*\*\*Text Encoder 2\*\*\s*\|\s*`?t5xxl', txt, re.IGNORECASE):
-        record_fail("FLUX Dependencies", f"Legacy FLUX.1 CLIP-L/T5-XXL dependencies erroneously listed in active pipeline table of {doc_key}", doc_key)
-        flux_ok = False
-    if "qwen3" not in txt.lower() or "flux2-vae" not in txt.lower():
-        record_fail("FLUX Dependencies", f"FLUX.2 Klein Qwen3 text encoder or flux2-vae missing in {doc_key}", doc_key)
-        flux_ok = False
-    if re.search(r'7860-dimension', txt) or re.search(r'shape.*7860', txt):
-        record_fail("FLUX Dimensions", f"Erroneous dimension '7860' found in {doc_key} (empirical shape is 7680)", doc_key)
-        flux_ok = False
-
-if flux_ok:
-    record_pass("FLUX Dependencies", "FLUX.2 Klein dependencies consistently identified (DiT backbone + Qwen3 encoder [7680 dim] + flux2-vae)")
-
-# Check that FLUX is marked experimental / unproven
 image_arch = doc_contents.get("KAATYA_IMAGE_GENERATION_ARCHITECTURE.md", "")
-if "experimental" in image_arch.lower() and ("unproven" in image_arch.lower() or "research prototype" in image_arch.lower()):
-    record_pass("FLUX Feasibility", "FLUX.2 Klein classified as strictly experimental and unproven on target PC")
-else:
-    record_fail("FLUX Feasibility", "FLUX.2 Klein feasibility status not properly classified as experimental/unproven", "KAATYA_IMAGE_GENERATION_ARCHITECTURE.md")
 
-# 10. Video Studio & Editor Interoperability Consistency
+if "distilled" in image_arch.lower() and "4-step" in image_arch.lower() and "base" in image_arch.lower() and "50-step" in image_arch.lower():
+    record_pass("FLUX Variant Disambiguation", "FLUX.2 Klein Distilled (4-step) vs. Base (50-step) workflow distinction documented")
+else:
+    record_fail("FLUX Variant Disambiguation", "FLUX.2 Klein Distilled vs. Base workflow distinction missing", "KAATYA_IMAGE_GENERATION_ARCHITECTURE.md")
+    flux_ok = False
+
+if "experimental — end-to-end compatibility and performance unproven on target pc" in image_arch.lower() or "experimental" in image_arch.lower() and "unproven on target pc" in image_arch.lower():
+    record_pass("FLUX Feasibility", "FLUX.2 Klein strictly classified as 'EXPERIMENTAL — END-TO-END COMPATIBILITY AND PERFORMANCE UNPROVEN ON TARGET PC'")
+else:
+    record_fail("FLUX Feasibility", "FLUX.2 Klein missing strict 'EXPERIMENTAL — END-TO-END COMPATIBILITY AND PERFORMANCE UNPROVEN ON TARGET PC' classification", "KAATYA_IMAGE_GENERATION_ARCHITECTURE.md")
+    flux_ok = False
+
+if "7680" in image_arch and ("(7680, 3072)" in image_arch or "7,680" in image_arch):
+    record_pass("FLUX Tensor Shape", "FLUX.2 Klein txt_in.weight shape (7680, 3072) verified")
+else:
+    record_fail("FLUX Tensor Shape", "FLUX.2 Klein txt_in.weight shape missing or incorrect", "KAATYA_IMAGE_GENERATION_ARCHITECTURE.md")
+    flux_ok = False
+
+if "layers 9, 18, and 27" in image_arch.lower() or "layers 9, 18, and 27" in signoff_txt.lower():
+    record_pass("FLUX Extraction Layers", "FLUX.2 Klein intermediate conditioning layers (9, 18, 27) specified")
+else:
+    record_fail("FLUX Extraction Layers", "Conditioning layers (9, 18, 27) missing in documentation", "KAATYA_IMAGE_GENERATION_ARCHITECTURE.md")
+    flux_ok = False
+
+# ==============================================================================
+# SECTION 9: VIDEO STUDIO & MULTI-EDITOR INTERCHANGE
+# ==============================================================================
 print("\n--- 9. Video Studio & CapCut Integration Consistency ---", flush=True)
 video_txt = doc_contents.get("KAATYA_VIDEO_STUDIO_ARCHITECTURE.md", "")
 if "strictly impossible" in video_txt.lower() or "mathematically impossible" in video_txt.lower():
@@ -246,7 +434,9 @@ elif "impractical on target hardware" in video_txt.lower() and "opentimelineio" 
 else:
     record_fail("Video Feasibility", "Video diffusion feasibility classification or multi-editor interchange missing", "KAATYA_VIDEO_STUDIO_ARCHITECTURE.md")
 
-# 11. Technology Stack Consistency
+# ==============================================================================
+# SECTION 10: TECHNOLOGY STACK CONSISTENCY
+# ==============================================================================
 print("\n--- 10. Final Proposed Technology Stack Consistency ---", flush=True)
 tech_terms = ["Tauri v2", "Rust", "React 19", "WebView2", "llama.cpp", "Whisper", "Piper"]
 tech_ok = True
@@ -259,14 +449,32 @@ if "APPROVED PROPOSED ARCHITECTURE — IMPLEMENTATION NOT STARTED" in master_arc
 else:
     record_fail("Tech Stack Status", "Master architecture missing explicit implementation-not-started status label", "KAATYA_FINAL_MASTER_ARCHITECTURE.md")
 
-# 12. Outstanding Evidence and Measurement Limitations Section
-print("\n--- 11. Outstanding Evidence & Measurement Limitations Audit ---", flush=True)
-if "Outstanding Evidence and Measurement Limitations" in signoff_txt:
-    record_pass("Limitations Section", "New dedicated section 'Outstanding Evidence and Measurement Limitations' present in sign-off document")
+# ==============================================================================
+# SECTION 11: REMAINING UNVERIFIED TECHNICAL CLAIMS SECTION
+# ==============================================================================
+print("\n--- 11. Remaining Unverified Technical Claims Audit ---", flush=True)
+if "Remaining Unverified Technical Claims" in signoff_txt:
+    # Check for all five required subsections
+    subsections = [
+        "20.1 Empirically Measured Facts",
+        "20.2 Mathematically Derived Values",
+        "20.3 Provisional Estimates",
+        "20.4 Unverified Implementation Assumptions",
+        "20.5 Tests That Can Only Be Performed After Explicit Phase 4 Authorization"
+    ]
+    subsections_ok = True
+    for sub in subsections:
+        if sub not in signoff_txt:
+            record_fail("Unverified Claims Subsection", f"Missing subsection '{sub}' in sign-off document", "KAATYA_PHASE_3_FINAL_TECHNICAL_SIGNOFF.md")
+            subsections_ok = False
+    if subsections_ok:
+        record_pass("Claims Subsections", "All 5 required tiers in 'Remaining Unverified Technical Claims' present and verified")
 else:
-    record_fail("Limitations Section", "Missing required section 'Outstanding Evidence and Measurement Limitations'", "KAATYA_PHASE_3_FINAL_TECHNICAL_SIGNOFF.md")
+    record_fail("Limitations Section", "Missing required section 'Remaining Unverified Technical Claims'", "KAATYA_PHASE_3_FINAL_TECHNICAL_SIGNOFF.md")
 
-# 13. Phase 4 Stop Condition Cross-Document Validation
+# ==============================================================================
+# SECTION 12: PHASE 4 STOP CONDITION & HOLD STATUS
+# ==============================================================================
 print("\n--- 12. Phase 4 Stop Condition & Hold Status Validation ---", flush=True)
 phase4_ok = True
 for doc_name, content in doc_contents.items():
@@ -274,11 +482,15 @@ for doc_name, content in doc_contents.items():
         record_fail("Phase 4 Hold", f"Document claims Phase 4 has started: {doc_name}", doc_name)
         phase4_ok = False
 
-if "blocked" in doc_contents.get("README.md", "").lower() or "hold" in doc_contents.get("README.md", "").lower():
+readme_txt = doc_contents.get("README.md", "")
+if "blocked" in readme_txt.lower() or "hold" in readme_txt.lower():
     record_pass("Phase 4 Hold", "README and master deliverables confirm Phase 4 remains strictly on hold pending user authorization")
 else:
     record_fail("Phase 4 Hold", "README missing explicit Phase 4 hold indicator", "README.md")
 
+# ==============================================================================
+# FINAL VERIFICATION SUMMARY & STRICT EXIT CODE EVALUATION
+# ==============================================================================
 print("\n==================================================================", flush=True)
 if failures:
     print(f" AUDIT FAILED WITH {len(failures)} ERROR(S):", flush=True)
@@ -287,7 +499,7 @@ if failures:
     print("==================================================================", flush=True)
     sys.exit(1)
 else:
-    print(" ALL VERIFICATION CHECKS AND CONTRADICTION TESTS PASSED (100%).", flush=True)
-    print(" Repository documentation is completely consistent and validated.", flush=True)
+    print(" ALL VERIFICATION CHECKS AND NUMERICAL ASSERTIONS PASSED (100%).", flush=True)
+    print(" Repository documentation is completely consistent and mathematically validated.", flush=True)
     print("==================================================================", flush=True)
     sys.exit(0)

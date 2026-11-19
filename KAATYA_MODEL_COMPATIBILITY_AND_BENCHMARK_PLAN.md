@@ -70,7 +70,7 @@ Our direct binary header and tensor inspection revealed:
 5. **Runtime Comparison:**
    - *ComfyUI-GGUF:* Supports GGUF DiT backbones with custom FLUX.2 nodes, but requires dedicated text encoder and VAE files loaded in separate memory slots.
    - *stable-diffusion.cpp:* Experimental FLUX branches exist but lack mature out-of-the-box CPU support for FLUX.2 Klein multi-layer Qwen extraction.
-6. **Hardware Verdict:** Local FLUX generation remains **EXPERIMENTAL**. Companion files will not be fetched until a verified runtime is benchmarked on target hardware.
+6. **Hardware Verdict:** Local FLUX generation is classified as **EXPERIMENTAL — END-TO-END COMPATIBILITY AND PERFORMANCE UNPROVEN ON TARGET PC**. The workflow distinction between FLUX.2 Klein Distilled (4 steps) and Base (50 steps) must be benchmarked directly on target hardware. Companion files will not be fetched until a verified runtime is benchmarked on target hardware.
 
 ---
 

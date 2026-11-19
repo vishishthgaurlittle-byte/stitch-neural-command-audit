@@ -57,7 +57,7 @@ flowchart TD
 
 The target machine possesses **16.0 GB physically installed Physical RAM** across two dual-channel Samsung DDR4-2666 modules:
 - **Installed Physical Capacity:** $16\text{ GiB} = 16,384\text{ MiB} = 17,179,869,184\text{ bytes} \approx 17.18\text{ GB}$ decimal ($17,179,869,184 / 10^9$).
-- **Hardware-Reserved Memory:** $129,970,176\text{ bytes} \approx 123.95\text{ MiB} \approx 124\text{ MiB}$ (~0.13 GB), reserved by BIOS, APIC/PCIe, and Intel HD Graphics 530 DVMT.
+- **Hardware-Reserved Memory:** $129,970,176\text{ bytes} \approx 123.95\text{ MiB} \approx 124\text{ MiB}$ (~0.13 GB). Measured installed-versus-visible RAM difference: 123.95 MiB. Exact hardware reservation breakdown: unverified.
 - **Windows-Visible Physical Memory (`ullTotalPhys`):** $17,049,899,008\text{ bytes} = 15.8790\text{ GiB} = 16,260.05\text{ MiB} \approx 17.05\text{ GB}$ decimal ($17,049,899,008 / 10^9$).
 - **Mandatory Conversion Rules:**
   - $1\text{ GiB} = 1,024\text{ MiB} = 1,073,741,824\text{ bytes}$.
@@ -67,14 +67,14 @@ The target machine possesses **16.0 GB physically installed Physical RAM** acros
 
 #### Binary Calculations & Available Memory Disambiguation:
 $$\begin{aligned}
-\text{Total Visible Physical Memory (ullTotalPhys)} &= 16,260\text{ MiB} \quad (15.88\text{ GiB} \text{ / } 17.05\text{ GB}) \\
+\text{Total Visible Physical Memory (ullTotalPhys)} &= 16,260.05\text{ MiB} \quad (15.88\text{ GiB} \text{ / } 17.05\text{ GB}) \\
 \text{Projected Base Working Set Commitment} &\approx 6,788\text{ MiB} \quad (~6.63\text{ GiB} \text{ / } ~7.12\text{ GB}) \\
 \hline
-\text{Theoretical Idle Margin (Visible minus Baseline)} &\approx 9,472\text{ MiB} \quad (~9.25\text{ GiB} \text{ / } ~9.93\text{ GB}) \\
-\mathbf{Actual\ Measured\ Available\ Physical\ RAM\ (ullAvailPhys)} &= \mathbf{7,029.84\text{ MiB}} \quad (\mathbf{~6.87\text{ GiB}})
+\text{Theoretical Idle Margin (Visible minus Baseline)} &\approx 9,472.05\text{ MiB} \quad (~9.25\text{ GiB} \text{ / } ~9.93\text{ GB}) \\
+\mathbf{Actual\ Measured\ Available\ Physical\ RAM\ (ullAvailPhys)} &= \mathbf{7,030.07\text{ MiB}} \quad (\mathbf{~6.87\text{ GiB}})
 \end{aligned}$$
 
-*(Critical Distinction: $9,472\text{ MiB}$ is a theoretical calculation assuming an idle OS with Main AI resident. It is NOT measured available RAM. The actual live available RAM measured via `GlobalMemoryStatusEx.ullAvailPhys` is **$7,029.84\text{ MiB}$** at initial baseline capture and **$6,590.47\text{ MiB}$** during active multitasking. The host currently has $16,260.05 - 7,029.84 = \mathbf{9,230.21\text{ MiB}}$ in physical use. The ~2,442 MiB difference between the 6,788 MiB baseline and the 9,230 MiB host load is accounted for by active developer software [Chrome ~2.8 GB, Antigravity IDE ~1.2 GB], Windows Memory Compression [`MemCompression` ~1.1 GB], and kernel non-paged/paged pools [~1.23 GB], while KAATYA Main AI is not yet loaded).*
+*(Critical Distinction: $9,472.05\text{ MiB}$ is a theoretical calculation assuming an idle OS with Main AI resident. It is NOT measured available RAM. The actual live available RAM measured via `GlobalMemoryStatusEx.ullAvailPhys` is **$7,030.07\text{ MiB}$** ($7,371,558,912\text{ bytes} / 1,048,576 = 7,030.07\text{ MiB}$) at initial baseline capture and **$6,590.47\text{ MiB}$** during active multitasking. Physical RAM not currently reported as available is $16,260.05 - 7,030.07 = \mathbf{9,229.98\text{ MiB}}$. The ~2,442 MiB difference between the 6,788 MiB baseline and the 9,230 MiB host load is partially explained by active developer software [Chrome ~2.8 GB, Antigravity IDE ~1.2 GB], Windows Memory Compression [`MemCompression` ~1.1 GB], and kernel non-paged/paged pools [~1.23 GB], while KAATYA Main AI is not yet loaded; exact reconciliation is unavailable due to category overlap).*
 
 ### 3.2 Required Itemized Memory Accounting Table
 
@@ -85,11 +85,11 @@ $$\begin{aligned}
 | **KAATYA Desktop Shell** | ~220 MiB | PROVISIONAL ESTIMATE | Tauri v2 host binary + Edge WebView2 (unimplemented) |
 | **Audio Subsystem** | ~300 MiB | PROVISIONAL ESTIMATE | PortAudio stream, Piper dual ONNX, Whisper buffer (unimplemented) |
 | **Database Store** | ~80 MiB | PROVISIONAL ESTIMATE | SQLite 3 engine and `sqlite-vec` cache (unimplemented) |
-| **KAATYA Main AI** | ~3,138 MiB | THEORETICAL CALCULATION | `Qwen3-4B-Q4_K_M` weights (2,382 MiB) + 4K FP16 KV (360 MiB) + graph |
+| **KAATYA Main AI** | ~3,138 MiB | THEORETICAL CALCULATION | `Qwen3-4B-Q4_K_M` weights (2,382 MiB) + 4K FP16 KV (576 MiB) + graph/scratch (180 MiB) |
 | **Total Projected Baseline** | **~6,788 MiB** | **PROJECTED ESTIMATE** | **Sum of projected components — NOT AN OBSERVED RUNNING SYSTEM** |
 | **Live Host Visible RAM** | **16,260.05 MiB** | **EMPIRICALLY MEASURED** | Win32 API `GlobalMemoryStatusEx.ullTotalPhys` |
-| **Live Host Available RAM** | **7,029.84 MiB** | **EMPIRICALLY MEASURED** | Win32 API `GlobalMemoryStatusEx.ullAvailPhys` (Workload-dependent) |
-| **Live Host Commit Charge** | **12,020.83 MiB** | **EMPIRICALLY MEASURED** | Win32 API `ullTotalPageFile - ullAvailPageFile` (Virtual commit across all apps) |
+| **Live Host Available RAM** | **7,030.07 MiB** | **EMPIRICALLY MEASURED** | Win32 API `GlobalMemoryStatusEx.ullAvailPhys` (Workload-dependent) |
+| **Live Host Commit Charge** | **12,020.83 MiB** | **EMPIRICALLY MEASURED** | Win32 API `ullTotalPageFile - ullAvailPageFile` (Virtual commit across all apps; NOT physical RAM consumed) |
 
 ### 3.3 Memory Concepts & Distinctions
 1. **Installed Physical Memory:** 16.0 GB hardware module total across 2x8 GB Samsung DIMMs ($16,384\text{ MiB}$ binary / ~17.18 GB decimal).

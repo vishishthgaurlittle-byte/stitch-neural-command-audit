@@ -116,11 +116,11 @@ The target machine possesses **16.0 GB Physical RAM** ($16,384\text{ MiB}$ binar
 1. **Model File Size $\neq$ Memory Footprint:**
    A 2.50 GB GGUF model file does not consume merely 2.50 GB of RAM. The true process working set comprises:
    - Memory-mapped weights: ~2,382 MiB (2,497,280,256 bytes)
-   - KV Cache (4,096 context, FP16): $2 \times 36\text{ layers} \times 8\text{ KV heads} \times 80\text{ head\_dim} \times 4096\text{ tokens} \times 2\text{ bytes} = 360\text{ MiB}$ (or up to $576\text{ MiB}$ if padded to 128 head_dim by specific compute backends; ~180 MiB at 2,048 tokens or Q8_0).
-   - Compute scratch buffers (`ggml_gallocr`) & runtime context: ~396 MiB.
-   - **Total Active Main AI Process Working Set:** **~3,138 MiB (~3.29 GB)** (or ~2,850 MiB with Q8_0 KV quantization).
+   - KV Cache (4,096 context, FP16): $2 \times 36\text{ layers} \times 8\text{ KV heads} \times 128\text{ head\_dim} \times 4096\text{ tokens} \times 2\text{ bytes} = \mathbf{576.0\text{ MiB}}$ ($73,728\text{ elements/token}$; or $\mathbf{306.0\text{ MiB}}$ with Q8_0 KV quantization, $\mathbf{288.0\text{ MiB}}$ at 2,048 tokens FP16).
+   - Compute scratch buffers (`ggml_gallocr`) & runtime context: ~180 MiB.
+   - **Total Active Main AI Process Working Set:** **~3,138 MiB (~3.29 GB)** (or ~2,868 MiB with Q8_0 KV quantization).
 2. **Intel HD Graphics 530 Dynamic Shared Memory:**
-   Intel HD 530 uses Dynamic Video Memory Technology (DVMT). It has **0 dedicated VRAM** and dynamically allocates memory from system RAM on demand (typically ~100–180 MB working set for idle 2D desktop compositing and WebView2 rendering; initial BIOS/DVMT hardware pre-allocation is ~124 MiB).
+   Intel HD 530 uses Dynamic Video Memory Technology (DVMT). It has **0 dedicated VRAM** and dynamically allocates memory from system RAM on demand (typically ~100–180 MB working set for idle 2D desktop compositing and WebView2 rendering; measured installed-vs-visible RAM difference is 123.95 MiB, exact reservation breakdown unverified).
 3. **Realistic Application & WebView2 Working Sets:**
    Tauri v2 host binary + Microsoft Edge WebView2 (browser engine, render process, GPU compositor) consumes ~180–250 MiB under realistic multi-screen rendering.
 
@@ -136,11 +136,11 @@ $$\begin{aligned}
 \text{KAATYA Permanent Main AI (Qwen3-4B @ 4K FP16 KV)} &\approx \mathbf{3,138\text{ MiB}} \quad (\mathbf{~3.29\text{ GB}}) \\
 \hline
 \mathbf{Total\ Base\ Projected\ Baseline} &\approx \mathbf{6,788\text{ MiB}} \quad (\mathbf{~7.12\text{ GB}}) \\
-\text{Theoretical Idle Margin (Visible minus Baseline)} &\approx 9,472\text{ MiB} \quad (~9.25\text{ GiB} \text{ / } ~9.93\text{ GB}) \\
-\mathbf{Live\ Measured\ Available\ Physical\ RAM\ (ullAvailPhys)} &= \mathbf{7,029.84\text{ MiB}} \quad (\mathbf{~6.87\text{ GiB}})
+\text{Theoretical Idle Margin (Visible minus Baseline)} &\approx 9,472.05\text{ MiB} \quad (~9.25\text{ GiB} \text{ / } ~9.93\text{ GB}) \\
+\mathbf{Live\ Measured\ Available\ Physical\ RAM\ (ullAvailPhys)} &= \mathbf{7,030.07\text{ MiB}} \quad (\mathbf{~6.87\text{ GiB}})
 \end{aligned}$$
 
-*(Critical Distinction: $9,472\text{ MiB}$ is a theoretical calculation of uncommitted margin assuming an idle OS with Main AI resident. It is NOT measured available RAM. The actual live available RAM measured via `GlobalMemoryStatusEx.ullAvailPhys` is **$7,029.84\text{ MiB}$** at initial capture and fluctuates dynamically with host workload. The host physical RAM in active use is $16,260.05 - 7,029.84 = \mathbf{9,230.21\text{ MiB}}$. The ~2,442 MiB difference between the 6,788 MiB baseline and the 9,230 MiB host load is accounted for by active developer software [Chrome ~2.8 GB, Antigravity IDE ~1.2 GB], Windows Memory Compression [`MemCompression` ~1.1 GB], and kernel non-paged/paged pools [~1.23 GB], while KAATYA Main AI is not yet loaded).*
+*(Critical Distinction: $9,472.05\text{ MiB}$ is a theoretical calculation of uncommitted margin assuming an idle OS with Main AI resident. It is NOT measured available RAM. The actual live available RAM measured via `GlobalMemoryStatusEx.ullAvailPhys` is **$7,030.07\text{ MiB}$** ($7,371,558,912\text{ bytes} / 1,048,576 = 7,030.07\text{ MiB}$) at initial capture and fluctuates dynamically with host workload. Physical RAM not currently reported as available is $16,260.05 - 7,030.07 = \mathbf{9,229.98\text{ MiB}}$. The ~2,442 MiB difference between the 6,788 MiB baseline and the 9,230 MiB host load is partially explained by active developer software [Chrome ~2.8 GB, Antigravity IDE ~1.2 GB], Windows Memory Compression [`MemCompression` ~1.1 GB], and kernel non-paged/paged pools [~1.23 GB], while KAATYA Main AI is not yet loaded; exact reconciliation is unavailable due to category overlap).*
 
 #### Required Itemized Memory Accounting Table
 
@@ -151,11 +151,11 @@ $$\begin{aligned}
 | **KAATYA Desktop Shell** | ~220 MiB | PROVISIONAL ESTIMATE | Tauri v2 host binary + Edge WebView2 (unimplemented) |
 | **Audio Subsystem** | ~300 MiB | PROVISIONAL ESTIMATE | PortAudio stream, Piper dual ONNX, Whisper buffer (unimplemented) |
 | **Database Store** | ~80 MiB | PROVISIONAL ESTIMATE | SQLite 3 engine and `sqlite-vec` cache (unimplemented) |
-| **KAATYA Main AI** | ~3,138 MiB | THEORETICAL CALCULATION | `Qwen3-4B-Q4_K_M` weights (2,382 MiB) + 4K FP16 KV (360 MiB) + graph |
+| **KAATYA Main AI** | ~3,138 MiB | THEORETICAL CALCULATION | `Qwen3-4B-Q4_K_M` weights (2,382 MiB) + 4K FP16 KV (576 MiB) + graph/scratch (180 MiB) |
 | **Total Projected Baseline** | **~6,788 MiB** | **PROJECTED ESTIMATE** | **Sum of projected components — NOT AN OBSERVED RUNNING SYSTEM** |
 | **Live Host Visible RAM** | **16,260.05 MiB** | **EMPIRICALLY MEASURED** | Win32 API `GlobalMemoryStatusEx.ullTotalPhys` |
-| **Live Host Available RAM** | **7,029.84 MiB** | **EMPIRICALLY MEASURED** | Win32 API `GlobalMemoryStatusEx.ullAvailPhys` (Workload-dependent) |
-| **Live Host Commit Charge** | **12,020.83 MiB** | **EMPIRICALLY MEASURED** | Win32 API `ullTotalPageFile - ullAvailPageFile` (Virtual commit across all apps) |
+| **Live Host Available RAM** | **7,030.07 MiB** | **EMPIRICALLY MEASURED** | Win32 API `GlobalMemoryStatusEx.ullAvailPhys` (Workload-dependent) |
+| **Live Host Commit Charge** | **12,020.83 MiB** | **EMPIRICALLY MEASURED** | Win32 API `ullTotalPageFile - ullAvailPageFile` (Virtual commit across all apps; NOT physical RAM consumed) |
 
 ### 4.2 Dynamic Worker Admission Procedure
 Rather than enforcing an unsupported static safety-cushion formula, KAATYA executes a deterministic **10-Step Dynamic Worker Admission Procedure** before starting any optional specialist worker:

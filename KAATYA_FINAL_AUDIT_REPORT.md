@@ -44,11 +44,11 @@ $$\begin{aligned}
 \text{KAATYA Permanent Main AI (Qwen3-4B @ 4K FP16 KV)} &\approx \mathbf{3,138\text{ MiB}} \quad (\mathbf{~3.29\text{ GB}}) \\
 \hline
 \mathbf{Total\ Base\ Projected\ Baseline} &\approx \mathbf{6,788\text{ MiB}} \quad (\mathbf{~7.12\text{ GB}}) \\
-\text{Theoretical Idle Margin (Visible minus Baseline)} &\approx 9,472\text{ MiB} \quad (~9.25\text{ GiB} \text{ / } ~9.93\text{ GB}) \\
-\mathbf{Live\ Measured\ Available\ Physical\ RAM} &= \mathbf{7,029.84\text{ MiB}} \quad (\mathbf{~6.87\text{ GiB}})
+\text{Theoretical Idle Margin (Visible minus Baseline)} &\approx 9,472.05\text{ MiB} \quad (~9.25\text{ GiB} \text{ / } ~9.93\text{ GB}) \\
+\mathbf{Live\ Measured\ Available\ Physical\ RAM} &= \mathbf{7,030.07\text{ MiB}} \quad (\mathbf{~6.87\text{ GiB}})
 \end{aligned}$$
 
-*(Critical Note: $9,472\text{ MiB}$ is a theoretical calculation assuming an idle OS with Main AI resident; it is NOT measured available RAM. The actual live available RAM measured via `GlobalMemoryStatusEx.ullAvailPhys` is **$7,029.84\text{ MiB}$**, with active host physical usage at $16,260.05 - 7,029.84 = \mathbf{9,230.21\text{ MiB}}$ due to third-party developer software, Windows memory compression, and system cache while KAATYA is not running).*
+*(Critical Note: $9,472.05\text{ MiB}$ is a theoretical calculation assuming an idle OS with Main AI resident; it is NOT measured available RAM. The actual live available RAM measured via `GlobalMemoryStatusEx.ullAvailPhys` is **$7,030.07\text{ MiB}$** ($7,371,558,912\text{ bytes} / 1,048,576 = 7,030.07\text{ MiB}$), with physical RAM not currently reported as available at $16,260.05 - 7,030.07 = \mathbf{9,229.98\text{ MiB}}$. The ~2,442 MiB difference between the 6,788 MiB baseline and the 9,230 MiB host usage is partially explained by third-party developer software, Windows memory compression, and system cache while KAATYA is not running; exact reconciliation is unavailable due to category overlap).*
 
 - **Dynamic Worker Admission Procedure:** The outdated fixed 2.5 GB buffer rule has been eliminated. The runtime enforces a 10-step dynamic procedure querying `GlobalMemoryStatusEx`, verifying an initial 2,048 MiB floor, calculating exact model weights, KV cache, and graph scratch buffers, and applying a configurable margin.
 - **Permanent Residency Invariant:** KAATYA Main AI context remains continuously resident in memory and is never deallocated.

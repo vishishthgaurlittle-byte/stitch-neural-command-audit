@@ -24,8 +24,8 @@ To establish absolute mathematical rigor, binary gigabytes ($\text{GiB} = 2^{30}
 - **Installed Marketed Physical Capacity:** 16 GB ($16\text{ GiB} = 16,384\text{ MiB} = 17,179,869,184\text{ bytes} \approx 17.18\text{ GB}$ decimal).
 - **Windows-Visible Physical Memory (`ullTotalPhys`):** $17,049,899,008\text{ bytes} = 15.88\text{ GiB} = 16,260\text{ MiB} \approx 17.05\text{ GB}$ decimal.
 - **Provisional Baseline Working Set:** $6,788\text{ MiB} \approx 6.63\text{ GiB}$ (or ~7.12 GB decimal; projected sum of idle components).
-- **Theoretical Idle Margin:** $16,260\text{ MiB} - 6,788\text{ MiB} = \mathbf{9,472\text{ MiB}} \approx \mathbf{9.25\text{ GiB}}$ binary (or $9,472 \times 1,048,576 / 10^9 \approx \mathbf{9.93\text{ GB}}$ decimal). This is a theoretical calculation of uncommitted margin assuming an idle OS with Main AI resident. It is NOT measured available RAM.
-- **Actual Live Available RAM (`ullAvailPhys`):** **$7,029.84\text{ MiB}$** (and $6,590.47\text{ MiB}$ under multitasking). Host physical RAM in active use is $16,260.05 - 7,029.84 = \mathbf{9,230.21\text{ MiB}}$. The ~2,442 MiB difference between the 6,788 MiB baseline and the 9,230 MiB host usage is accounted for by third-party developer software (Chrome, IDE), Windows memory compression (`MemCompression` ~1.1 GB), and kernel memory pools.
+- **Theoretical Idle Margin:** $16,260.05\text{ MiB} - 6,788\text{ MiB} = \mathbf{9,472.05\text{ MiB}} \approx \mathbf{9.25\text{ GiB}}$ binary (or $9,472 \times 1,048,576 / 10^9 \approx \mathbf{9.93\text{ GB}}$ decimal). This is a theoretical calculation of uncommitted margin assuming an idle OS with Main AI resident. It is NOT measured available RAM.
+- **Actual Live Available RAM (`ullAvailPhys`):** **$7,030.07\text{ MiB}$** ($7,371,558,912\text{ bytes} / 1,048,576 = 7,030.07\text{ MiB}$, and $6,590.47\text{ MiB}$ under multitasking). Physical RAM not currently reported as available is $16,260.05 - 7,030.07 = \mathbf{9,229.98\text{ MiB}}$. The ~2,442 MiB difference between the 6,788 MiB baseline and the 9,230 MiB host usage is partially explained by third-party developer software (Chrome, IDE), Windows memory compression (`MemCompression` ~1.1 GB), and kernel memory pools; exact reconciliation is unavailable due to category overlap.
 - **Gross Headroom (Installed):** $16,384\text{ MiB} - 6,788\text{ MiB} = \mathbf{9,596\text{ MiB}} \approx \mathbf{9.37\text{ GiB}}$ binary (or $9,596 \times 1,048,576 / 10^9 \approx \mathbf{10.06\text{ GB}}$ decimal).
 - **Decimal Comparison:** In a pure decimal calculation, $16.00\text{ GB} - 7.12\text{ GB} = \mathbf{8.88\text{ GB}}$, or $16.00\text{ GB} - 7.20\text{ GB} = \mathbf{8.80\text{ GB}}$. Earlier contradictory calculations have been completely eliminated across all documents.
 
@@ -69,11 +69,11 @@ Measured empirically on Windows 10:
 | **KAATYA Desktop Shell** | ~220 MiB | PROVISIONAL ESTIMATE | Tauri v2 host binary + Edge WebView2 (unimplemented) |
 | **Audio Subsystem** | ~300 MiB | PROVISIONAL ESTIMATE | PortAudio stream, Piper dual ONNX, Whisper buffer (unimplemented) |
 | **Database Store** | ~80 MiB | PROVISIONAL ESTIMATE | SQLite 3 engine and `sqlite-vec` cache (unimplemented) |
-| **KAATYA Main AI** | ~3,138 MiB | THEORETICAL CALCULATION | `Qwen3-4B-Q4_K_M` weights (2,382 MiB) + 4K FP16 KV (360 MiB) + graph |
+| **KAATYA Main AI** | ~3,138 MiB | THEORETICAL CALCULATION | `Qwen3-4B-Q4_K_M` weights (2,382 MiB) + 4K FP16 KV (576 MiB) + graph/scratch (180 MiB) |
 | **Total Projected Baseline** | **~6,788 MiB** | **PROJECTED ESTIMATE** | **Sum of projected components — NOT AN OBSERVED RUNNING SYSTEM** |
 | **Live Host Visible RAM** | **16,260.05 MiB** | **EMPIRICALLY MEASURED** | Win32 API `GlobalMemoryStatusEx.ullTotalPhys` |
-| **Live Host Available RAM** | **7,029.84 MiB** | **EMPIRICALLY MEASURED** | Win32 API `GlobalMemoryStatusEx.ullAvailPhys` (Workload-dependent) |
-| **Live Host Commit Charge** | **12,020.83 MiB** | **EMPIRICALLY MEASURED** | Win32 API `ullTotalPageFile - ullAvailPageFile` (Virtual commit across all apps) |
+| **Live Host Available RAM** | **7,030.07 MiB** | **EMPIRICALLY MEASURED** | Win32 API `GlobalMemoryStatusEx.ullAvailPhys` (Workload-dependent) |
+| **Live Host Commit Charge** | **12,020.83 MiB** | **EMPIRICALLY MEASURED** | Win32 API `ullTotalPageFile - ullAvailPageFile` (Virtual commit across all apps; NOT physical RAM consumed) |
 
 *(Note: The process working-set figures above are strictly classified as PROVISIONAL THEORETICAL ESTIMATES because the KAATYA desktop application, WebView2 UI shell, and Main AI inference runtime have not yet been built or executed on the target computer).*
 

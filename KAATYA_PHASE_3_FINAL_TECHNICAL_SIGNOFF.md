@@ -60,9 +60,9 @@ The host machine was empirically measured using native Windows APIs and WMI/CIM 
 - **Total Physically Installed Capacity:** $8,589,934,592 \times 2 = \mathbf{17,179,869,184\text{ bytes}}$ ($16.00\text{ GiB} = 16,384\text{ MiB} \approx 17.18\text{ GB}$).
 - **GlobalMemoryStatusEx `ullTotalPhys` (Windows-Visible):** **17,049,899,008 bytes** ($15.8790\text{ GiB} = 16,260.05\text{ MiB} \approx 17.05\text{ GB}$).
 - **Win32_OperatingSystem `TotalVisibleMemorySize`:** **16,650,292 KB** ($17,049,899,008\text{ bytes}$).
-- **Hardware-Reserved Memory:** $17,179,869,184 - 17,049,899,008 = \mathbf{129,970,176\text{ bytes}}$ ($123.95\text{ MiB} \approx 124\text{ MiB}$), reserved by system BIOS, APIC/PCIe address mapping, and Intel HD 530 DVMT initial frame buffer.
-- **Currently Available Physical RAM (`ullAvailPhys`):** **7,371,558,912 bytes** ($7,029.84\text{ MiB} \approx 6.87\text{ GiB}$) at initial capture, and **6,910,607,360 bytes** ($6,590.47\text{ MiB} \approx 6.44\text{ GiB}$) at follow-up capture.
-- **Physical RAM In-Use by Host:** $17,049,899,008 - 7,371,558,912 = \mathbf{9,678,340,096\text{ bytes}}$ ($9,230.21\text{ MiB} \approx 9.01\text{ GiB}$).
+- **Hardware-Reserved Memory:** $17,179,869,184 - 17,049,899,008 = \mathbf{129,970,176\text{ bytes}}$ ($123.95\text{ MiB} \approx 124\text{ MiB}$). Measured installed-versus-visible RAM difference: 123.95 MiB. Exact hardware reservation breakdown: unverified.
+- **Currently Available Physical RAM (`ullAvailPhys`):** **7,371,558,912 bytes** ($7,030.07\text{ MiB} \approx 6.87\text{ GiB}$) at initial capture (2026-11-19T18:32:43), and **6,910,607,360 bytes** ($6,590.47\text{ MiB} \approx 6.44\text{ GiB}$) at follow-up capture.
+- **Physical RAM Not Currently Reported as Available:** $17,049,899,008 - 7,371,558,912 = \mathbf{9,678,340,096\text{ bytes}}$ ($9,229.98\text{ MiB} \approx 9.01\text{ GiB}$) at initial capture, and $17,049,899,008 - 6,910,607,360 = \mathbf{10,139,291,648\text{ bytes}}$ ($9,669.58\text{ MiB} \approx 9.44\text{ GiB}$) at follow-up capture.
 - **GlobalMemoryStatusEx `ullTotalPageFile` (Commit Limit):** **19,600,035,840 bytes** ($18.2540\text{ GiB} = 18,692.06\text{ MiB} \approx 19.60\text{ GB}$).
 - **GlobalMemoryStatusEx `ullAvailPageFile` (Available Commit):** **6,995,292,160 bytes** ($6.5149\text{ GiB} = 6,671.23\text{ MiB} \approx 7.00\text{ GB}$).
 - **Currently Committed Virtual Memory:** $19,600,035,840 - 6,995,292,160 = \mathbf{12,604,743,680\text{ bytes}}$ ($12,020.83\text{ MiB} \approx 11.74\text{ GiB}$). *(Note: This is total committed virtual memory across all processes, backed by RAM plus `pagefile.sys`, NOT physical RAM consumed).*
@@ -71,12 +71,13 @@ The host machine was empirically measured using native Windows APIs and WMI/CIM 
 
 | Classification Category | Exact Bytes | Binary (MiB / GiB) | Decimal (GB) | Measurement Source & Verification Method |
 | :--- | ---:| ---:| ---:| :--- |
-| **1. Physically Installed RAM** | 17,179,869,184 B | 16,384.00 MiB (16.00 GiB) | ~17.18 GB | WMI `Win32_PhysicalMemory` (2x Samsung 8 GB DDR4-2666 modules configured at 2133 MT/s) |
+| **1. Physically Installed RAM** | 17,179,869,184 B | 16,384.00 MiB (16.00 GiB) | ~17.18 GB | WMI `Win32_PhysicalMemory` (2x Samsung 8 GB DDR4-2666 modules configured at 2,133 MT/s) |
 | **2. Windows-Visible Physical RAM** | 17,049,899,008 B | 16,260.05 MiB (15.88 GiB) | ~17.05 GB | Win32 API `GlobalMemoryStatusEx.ullTotalPhys` / `TotalVisibleMemorySize` |
-| **3. Hardware-Reserved Memory** | 129,970,176 B | 123.95 MiB (~0.12 GiB) | ~0.13 GB | Difference: Installed RAM minus Windows-Visible RAM (BIOS/DVMT initial allocation) |
-| **4. Currently Available Physical RAM**| 7,371,558,912 B | 7,029.84 MiB (6.87 GiB) | ~7.37 GB | Win32 API `GlobalMemoryStatusEx.ullAvailPhys` (Captured 2026-11-19T18:32:43; workload-dependent) |
-| **5. Currently Committed Memory** | 12,604,743,680 B | 12,020.83 MiB (11.74 GiB) | ~12.02 GB | Win32 API `ullTotalPageFile - ullAvailPageFile` (Virtual commit backed by RAM + pagefile) |
-| **6. Total System Commit Limit** | 19,600,035,840 B | 18,692.06 MiB (18.25 GiB) | ~19.60 GB | Win32 API `GlobalMemoryStatusEx.ullTotalPageFile` (Physical RAM + pagefile.sys) |
+| **3. Hardware-Reserved Memory Difference** | 129,970,176 B | 123.95 MiB (~0.12 GiB) | ~0.13 GB | Difference: Installed RAM minus Windows-Visible RAM. Measured difference: 123.95 MiB. Exact hardware reservation breakdown: unverified. |
+| **4. Currently Available Physical RAM**| 7,371,558,912 B | 7,030.07 MiB (6.87 GiB) | ~7.37 GB | Win32 API `GlobalMemoryStatusEx.ullAvailPhys` (Captured 2026-11-19T18:32:43; workload-dependent) |
+| **5. Physical RAM Not Reported Available** | 9,678,340,096 B | 9,229.98 MiB (9.01 GiB) | ~9.68 GB | Difference: Visible RAM minus `ullAvailPhys` (Includes host processes, standby pages, kernel memory, modified cache) |
+| **6. Currently Committed Memory** | 12,604,743,680 B | 12,020.83 MiB (11.74 GiB) | ~12.02 GB | Win32 API `ullTotalPageFile - ullAvailPageFile` (Virtual commit backed by RAM + pagefile; NOT physical RAM consumed) |
+| **7. Total System Commit Limit** | 19,600,035,840 B | 18,692.06 MiB (18.25 GiB) | ~19.60 GB | Win32 API `GlobalMemoryStatusEx.ullTotalPageFile` (Physical RAM + pagefile.sys) |
 
 ---
 
@@ -85,27 +86,28 @@ The host machine was empirically measured using native Windows APIs and WMI/CIM 
 ### 3.1 Strict Separation of Memory Concepts
 To eliminate contradictions, KAATYA strictly distinguishes six discrete memory categories:
 1. **Installed Physical RAM:** The total hardware capacity of physical modules ($17,179,869,184\text{ bytes} = 16,384.00\text{ MiB} = 16.00\text{ GiB}$).
-2. **Windows-Visible Physical RAM:** Physical memory managed by the Windows kernel (`GlobalMemoryStatusEx.ullTotalPhys`: $17,049,899,008\text{ bytes} = 16,260.05\text{ MiB} = 15.88\text{ GiB}$). The remaining $123.95\text{ MiB}$ is hardware-reserved for BIOS and GPU DVMT.
-3. **Available Physical RAM:** Dynamic memory reported by `ullAvailPhys` ($7,029.84\text{ MiB}$ at measurement timestamp). This is memory immediately allocatable to processes without paging, comprising free, zeroed, and standby pages.
-4. **Process Working Sets:** The physical RAM pages currently resident for a specific process (e.g. resident GGUF weights, private heap, stack).
-5. **System Commit Charge:** The total virtual address space promised to all running processes backed by physical RAM plus `pagefile.sys` ($12,020.83\text{ MiB}$ committed at measurement). **Commit charge is NOT physical RAM consumed.**
-6. **System Commit Limit & Available Commit:** The maximum virtual allocation possible without growing the pagefile ($18,692.06\text{ MiB}$ limit; $6,671.23\text{ MiB}$ available commit).
+2. **Windows-Visible Physical RAM:** Physical memory managed by the Windows kernel (`GlobalMemoryStatusEx.ullTotalPhys`: $17,049,899,008\text{ bytes} = 16,260.05\text{ MiB} = 15.88\text{ GiB}$). Measured installed-versus-visible RAM difference: 123.95 MiB. Exact hardware reservation breakdown: unverified.
+3. **Available Physical RAM:** Dynamic memory reported by `ullAvailPhys` ($7,030.07\text{ MiB}$ at measurement timestamp; $6,590.47\text{ MiB}$ at secondary capture). This comprises free, zeroed, and standby pages that can be reclaimed immediately without disk paging.
+4. **Physical RAM Not Currently Reported as Available:** The mathematical difference between Windows-visible RAM and `ullAvailPhys` ($16,260.05 - 7,030.07 = 9,229.98\text{ MiB}$). This must **NOT** be described as memory purely consumed by application private working sets, as it includes standby page cache, modified pages, kernel allocations, and memory compression.
+5. **Process Working Sets:** The physical RAM pages currently resident for a specific process (e.g. resident GGUF weights, private heap, stack). Process working sets, standby pages, memory compression, and kernel pools are different categories and cannot be naively added together.
+6. **System Commit Charge vs. Commit Limit:** The total virtual address space promised to all running processes backed by physical RAM plus `pagefile.sys` ($12,020.83\text{ MiB}$ committed at measurement; $18,692.06\text{ MiB}$ commit limit; $6,671.23\text{ MiB}$ available commit). **Commit charge is NOT physical RAM consumed.**
 
 ### 3.2 Resolution of the Available-Memory and Headroom Discrepancy
 The previous report referenced a calculated figure of $9,472\text{ MiB}$ as "headroom". That figure was merely a theoretical subtraction:
 $$\text{Theoretical Idle Margin} = 16,260.05\text{ MiB (Visible)} - 6,788\text{ MiB (Projected Baseline)} = \mathbf{9,472.05\text{ MiB}}$$
 
 **Correction & Truth in Telemetry:**
-- $9,472\text{ MiB}$ is **NOT** the measured available physical RAM.
-- The actual measured available physical RAM at the measurement timestamp was **$7,029.84\text{ MiB}$** (and $6,590.47\text{ MiB}$ in subsequent re-tests). Available physical memory fluctuates dynamically with active host processes.
-- The host physical RAM in active use was:
-  $$\text{Actual Host In-Use Physical RAM} = 16,260.05\text{ MiB} - 7,029.84\text{ MiB} = \mathbf{9,230.21\text{ MiB}}$$
-- **Investigation of the ~2,442 MiB Difference ($9,230.21 - 6,788 \approx 2,442.21\text{ MiB}$):**
-  1. *Host Developer Workloads:* KAATYA is currently **not implemented or running**. Instead, the user's host is running developer applications: Google Chrome (multiple tabs consuming ~2,800 MiB working sets), Antigravity IDE (~1,200 MiB), language servers and Python processes (~400 MiB).
-  2. *Windows Memory Compression:* `MemCompression` process holds an active physical working set of **1,106.73 MiB** containing compressed inactive pages.
-  3. *Kernel & Driver Pools:* The Windows kernel maintains **511.73 MiB** Non-Paged Pool (locked in RAM for drivers/network) and **720.04 MiB** Paged Pool.
-  4. *Main AI Absence:* The $6,788\text{ MiB}$ baseline assumed that the Main AI (~3,138 MiB) was already resident alongside a pristine idle Windows OS (~2,900 MiB). In reality, the Main AI is not loaded, but third-party developer software occupies ~4.5–5.5 GB of RAM.
-  5. *Conclusion:* The figures reconcile without inventing data: $7,029.84\text{ MiB}$ is the live empirical available memory under current developer load, whereas $6,788\text{ MiB}$ is a projected model of a running KAATYA instance on an idle OS.
+- $9,472\text{ MiB}$ is **NOT** measured available physical RAM and must not be described as available headroom.
+- The actual measured available physical RAM at the measurement timestamp was **$7,030.07\text{ MiB}$** ($7,371,558,912\text{ bytes} / 1,048,576 = 7,030.071289...\text{ MiB}$, and $6,590.47\text{ MiB}$ in subsequent re-tests). Available physical memory fluctuates dynamically with active host processes.
+- The physical memory not currently reported as available was:
+  $$\text{Physical RAM Not Currently Reported as Available} = 16,260.05\text{ MiB} - 7,030.07\text{ MiB} = \mathbf{9,229.98\text{ MiB}}$$
+- **Investigation of the ~2,442 MiB Difference ($9,229.98 - 6,788 \approx 2,441.98\text{ MiB}$):**
+  - Status: **Partially explained; exact reconciliation unavailable.**
+  - Process working sets, standby pages, memory compression, and kernel memory pools overlap and cannot be naively summed.
+  - Active host developer processes captured at timestamp (Google Chrome at ~2,800 MiB, Antigravity IDE at ~1,200 MiB, language servers at ~400 MiB) alone exceed 4,400 MiB of virtual/resident working sets.
+  - Windows `MemCompression` process holds an active physical working set of **1,106.73 MiB** containing compressed inactive pages.
+  - The Windows kernel maintains **511.73 MiB** Non-Paged Pool (locked in RAM for drivers/network) and **720.04 MiB** Paged Pool.
+  - The $6,788\text{ MiB}$ baseline is an engineering projection of an idle Windows machine running KAATYA, whereas the $7,030.07\text{ MiB}$ available reading reflects a live developer workstation with heavy background tooling. Comparing these states demonstrates why live runtime querying is mandatory. Exact component reconciliation is mathematically impossible from snapshot aggregates without kernel ETW tracing.
 
 ---
 
@@ -126,11 +128,11 @@ The three historical figures refer to the same underlying projected load:
 | **KAATYA Desktop Shell** | ~220 MiB | PROVISIONAL ESTIMATE | Tauri v2 host binary + Edge WebView2 (unimplemented) |
 | **Audio Subsystem** | ~300 MiB | PROVISIONAL ESTIMATE | PortAudio stream, Piper dual ONNX, Whisper buffer (unimplemented) |
 | **Database Store** | ~80 MiB | PROVISIONAL ESTIMATE | SQLite 3 engine and `sqlite-vec` cache (unimplemented) |
-| **KAATYA Main AI** | ~3,138 MiB | THEORETICAL CALCULATION | `Qwen3-4B-Q4_K_M` weights (2,382 MiB) + 4K FP16 KV (360 MiB) + graph |
+| **KAATYA Main AI** | ~3,138 MiB | THEORETICAL CALCULATION | `Qwen3-4B-Q4_K_M` weights (2,382 MiB) + 4K FP16 KV (576 MiB) + graph/scratch (180 MiB) |
 | **Total Projected Baseline** | **~6,788 MiB** | **PROJECTED ESTIMATE** | **Sum of projected components — NOT AN OBSERVED RUNNING SYSTEM** |
 | **Live Host Visible RAM** | **16,260.05 MiB** | **EMPIRICALLY MEASURED** | Win32 API `GlobalMemoryStatusEx.ullTotalPhys` |
-| **Live Host Available RAM** | **7,029.84 MiB** | **EMPIRICALLY MEASURED** | Win32 API `GlobalMemoryStatusEx.ullAvailPhys` (Captured 2026-11-19T18:32:43) |
-| **Live Host Commit Charge** | **12,020.83 MiB** | **EMPIRICALLY MEASURED** | Win32 API `ullTotalPageFile - ullAvailPageFile` (Virtual commit across all apps) |
+| **Live Host Available RAM** | **7,030.07 MiB** | **EMPIRICALLY MEASURED** | Win32 API `GlobalMemoryStatusEx.ullAvailPhys` (Captured 2026-11-19T18:32:43; workload-dependent) |
+| **Live Host Commit Charge** | **12,020.83 MiB** | **EMPIRICALLY MEASURED** | Win32 API `ullTotalPageFile - ullAvailPageFile` (Virtual commit across all apps; NOT physical RAM consumed) |
 
 *(Note: Because KAATYA has not been implemented or compiled, a live measurement of KAATYA + Main AI running concurrently does not exist. It will be captured empirically during Phase 4 milestone 4.1).*
 
@@ -140,24 +142,32 @@ The three historical figures refer to the same underlying projected load:
 
 - **Designated Permanent Model:** `Qwen3-4B-Q4_K_M.gguf` (2,497,280,256 bytes / 2.326 GiB / 2.497 GB).
 - **Application-Level Invariant:** The KAATYA runtime guarantees that it will **NEVER** issue an `unload()`, `free()`, or model-destruction API call on the Main AI instance during application execution.
-- **Model Architectural Parameters (Audited from GGUF Binary):**
-  - Architecture: `qwen3`, 36 layers (`block_count = 36`), embedding length 2560 (`embedding_length = 2560`), 32 attention heads (`head_count = 32`), 8 KV heads (`head_count_kv = 8`).
-  - Nominal Head Dimension: $\text{head\_dim} = 2560 / 32 = 80$.
+- **Model Architectural Parameters (Audited from GGUF Binary & Official Architecture):**
+  - Architecture: `qwen3`
+  - Transformer Layers: 36 (`block_count = 36`)
+  - Embedding Length: 2560 (`embedding_length = 2560`)
+  - Attention Heads: 32 (`head_count = 32`)
+  - KV Heads: 8 (`head_count_kv = 8`)
+  - Key Length (Head Dimension): 128 (`key_length = 128`, verified via GGUF metadata and tensor shapes `blk.0.attn_k.weight` shape `(2560, 1024)` where $1024 = 8 \times 128$, and `blk.0.attn_q.weight` shape `(2560, 4096)` where $4096 = 32 \times 128$).
+  - Value Length: 128 (`value_length = 128`, matching `blk.0.attn_v.weight` shape `(2560, 1024)`).
+  - *Correction of Derivation Error:* An earlier calculation assumed $\text{head\_dim} = 2560 / 32 = 80$. This assumption is invalid for Qwen3-4B because Qwen3 uses an expanded query projection ($32 \times 128 = 4096$) rather than projecting to the hidden dimension (2560). The actual head dimension is definitively 128.
 - **KV Cache Memory Formula & Supported Context Profiles:**
-  $$\text{KV Cache Bytes} = 2 \times (\text{Layers} = 36) \times (\text{KV Heads} = 8) \times (\text{Head Dim} = 80) \times (\text{Context Tokens } N) \times (\text{Bytes Per Element})$$
-  - Elements per token across all layers: $2 \times 36 \times 8 \times 80 = 46,080\text{ elements/token}$.
-  - **FP16 Precision (2 bytes/element, default):** $92,160\text{ bytes/token}$ ($90.0\text{ KiB/token}$).
-    - At $N = 2,048\text{ tokens}$: $188,743,680\text{ bytes} = \mathbf{180.0\text{ MiB}}$ (reconciles earlier ~180-200 MiB figures).
-    - At $N = 4,096\text{ tokens}$: $377,487,360\text{ bytes} = \mathbf{360.0\text{ MiB}}$ (nominal 4K baseline).
-    - At $N = 8,192\text{ tokens}$: $754,974,720\text{ bytes} = \mathbf{720.0\text{ MiB}}$.
-    - *(Note: If a specific ggml kernel backend pads head_dim to 128, 4K FP16 KV expands to 576.0 MiB).*
-  - **Q8_0 Precision (1 byte/element, quantized KV):** $46,080\text{ bytes/token}$ ($45.0\text{ KiB/token}$).
-    - At $N = 4,096\text{ tokens}$: $188,743,680\text{ bytes} = \mathbf{180.0\text{ MiB}}$.
+  $$\text{KV Cache Elements per Token} = 2 \times (\text{Layers} = 36) \times (\text{KV Heads} = 8) \times (\text{Head Dim} = 128) = \mathbf{73,728\text{ elements/token}}$$
+  - **FP16 Precision (2 bytes/element):** $73,728 \times 2 = 147,456\text{ bytes/token}$ ($144.0\text{ KiB/token}$).
+    - At $N = 2,048\text{ tokens}$: $2,048 \times 147,456 = 301,989,888\text{ bytes} = \mathbf{288.0\text{ MiB}}$.
+    - At $N = 4,096\text{ tokens}$: $4,096 \times 147,456 = 603,979,776\text{ bytes} = \mathbf{576.0\text{ MiB}}$.
+    - At $N = 8,192\text{ tokens}$: $8,192 \times 147,456 = 1,207,959,552\text{ bytes} = \mathbf{1,152.0\text{ MiB}}$.
+  - **Q8_0 Precision (Quantized KV with Block Format & Metadata Overhead):**
+    - GGML Q8_0 quantizes in blocks of 32 elements. Each 32-element block comprises 32 bytes (int8 weights) + 2 bytes (`ggml_fp16_t` delta scale) = 34 bytes per 32 elements ($1.0625\text{ bytes/element}$).
+    - Bytes per token: $73,728 \times (34 / 32) = 78,336\text{ bytes/token}$ ($76.5\text{ KiB/token}$).
+    - At $N = 2,048\text{ tokens}$: $2,048 \times 78,336 = 160,432,128\text{ bytes} = \mathbf{153.0\text{ MiB}}$.
+    - At $N = 4,096\text{ tokens}$: $4,096 \times 78,336 = 320,864,256\text{ bytes} = \mathbf{306.0\text{ MiB}}$.
+    - At $N = 8,192\text{ tokens}$: $8,192 \times 78,336 = 641,728,512\text{ bytes} = \mathbf{612.0\text{ MiB}}$.
 - **Process Working Set Breakdown:**
-  - Memory-Mapped Weights: ~2,382 MiB (faulted into working set as accessed).
-  - Nominal 4K FP16 KV Cache: ~360 MiB.
-  - Compute Scratch & Graph Buffers (`ggml_gallocr`): ~396 MiB.
-  - Total Active Main AI Process Working Set: **~3,138 MiB** (~3.29 GB).
+  - Memory-Mapped Weights: $2,497,280,256\text{ bytes} = 2,381.60\text{ MiB} \approx \mathbf{2,382\text{ MiB}}$.
+  - Active 4K FP16 KV Cache: **576.0 MiB** (or **306.0 MiB** with Q8_0 KV cache).
+  - Compute Scratch & Graph Buffers (`ggml_gallocr`): **~180 MiB**.
+  - Total Active Main AI Process Working Set: **~3,138 MiB** (~3.14 GiB / 3.29 GB) under 4K FP16, or **~2,868 MiB** under 4K Q8_0.
 - **Residency Reality:** Clean memory-mapped file pages may be faulted in and out by the Windows Cache Manager under heavy I/O, but the model remains continuously active and referenced in application state. KAATYA will never unload Main AI to make room for any optional worker.
 
 ---
@@ -167,7 +177,7 @@ The three historical figures refer to the same underlying projected load:
 The former static safety-cushion formula has been permanently eliminated. All optional specialist local workers are admitted via the **10-Step Dynamic Worker Admission Procedure**:
 
 ### The 10-Step Admission Procedure
-1. **Query Available Memory:** Invoke Win32 `GlobalMemoryStatusEx` to obtain current `ullAvailPhys` (measured at $7,029.84\text{ MiB}$ at baseline).
+1. **Query Available Memory:** Invoke Win32 `GlobalMemoryStatusEx` to obtain current `ullAvailPhys` ($7,030.07\text{ MiB}$ at snapshot 1; $6,590.47\text{ MiB}$ at snapshot 2).
 2. **Initial Rejection Floor:** If `ullAvailPhys < 2,048\text{ MiB}`, reject immediately as an unsafe operating floor (passing this floor is an initial gate, not proof of safety).
 3. **Identify Target Model:** Determine the exact specialist model file requested.
 4. **Estimate Weight Residency:** Compute resident weight footprint from quantized tensor size.
@@ -176,9 +186,10 @@ The former static safety-cushion formula has been permanently eliminated. All op
 7. **Audit Main AI Observed Footprint:** Confirm Main AI working set remains intact and un-evicted.
 8. **Factor System Memory Pressure:** Read active system memory load percentage (`dwMemoryLoad`).
 9. **Calculate Dynamic Safety Margin:** Compute $S_{\text{dynamic}} = \max(1,200\text{ MiB},\, 0.12 \times M_{\text{total\_phys}} + M_{\text{transient}})$. On this 16 GB visible system ($16,260\text{ MiB}$), $S_{\text{dynamic}} \approx 2,151\text{ MiB}$.
+   - **Provisional Classification:** This 2,151 MiB margin is classified as **provisional**. The derived worker budget must NOT be treated as a validated permanent capacity, and worker loading must never be authorized based solely on a single historical snapshot.
 10. **Enforce Net Admission Budget:** Compare total worker requirement $M_{\text{worker}}$ against admissible budget:
     $$\text{Admissible Budget} = \text{ullAvailPhys} - S_{\text{dynamic}}$$
-    At current measured available RAM ($7,029.84\text{ MiB}$), the admissible budget is $\approx \mathbf{4,878.84\text{ MiB}}$.
+    At snapshot 1 measured available RAM ($7,030.07\text{ MiB}$), the admissible budget is $\approx \mathbf{4,879.07\text{ MiB}}$.
     - `SmolLM2-1.7B-Instruct` (~1,306 MiB total) $\le 4,879\text{ MiB} \rightarrow$ **ADMITTED**.
     - `Qwen2.5-Coder-1.5B-Instruct` (~1,044 MiB total) $\le 4,879\text{ MiB} \rightarrow$ **ADMITTED**.
     - Dedicated FLUX.2 Klein pipeline (~5,200 MiB) $> 4,879\text{ MiB} \rightarrow$ **REJECTED**.
@@ -221,20 +232,34 @@ Every model asset physically residing on `T:\ai creation` is categorized by func
 
 ## 9. FLUX.2 Klein Compatibility & Feasibility Assessment
 
+- **Variant Disambiguation (Distilled vs. Base):**
+  - **FLUX.2 Klein Distilled:** 4-step workflow utilizing rapid diffusion distillation.
+  - **FLUX.2 Klein Base:** Standard 50-step iterative denoising workflow.
+  - *Local Asset:* `flux-2-klein-4b-q4_0.gguf` (2,256,889,280 bytes / 2.102 GiB) represents the 4B Diffusion Transformer (DiT) weights. While the filename suggests a Klein distilled variant, model architecture and metadata alone do not prove step-budget tuning without empirical execution.
+- **Definitive Classification:** **EXPERIMENTAL — END-TO-END COMPATIBILITY AND PERFORMANCE UNPROVEN ON TARGET PC.**
 - **File Structure & Binary Verification:** `flux-2-klein-4b-q4_0.gguf` contains 149 tensors and 0 KV metadata entries, comprising exclusively the Diffusion Transformer (DiT) backbone weights. Binary metadata inspection was executed successfully via [`tools/inspect_model_metadata.py`](file:///T:/ai%20creation/STITCH_DESIGN_AUDIT/tools/inspect_model_metadata.py) with exit code 0, verifying `txt_in.weight` shape `(7680, 3072)`.
-- **True Conditioning Architecture:** Uses a **Qwen3 language model** feature extractor (concatenating hidden states from layers 9, 18, and 27; $3 \times 2,560 = 7,680$ dimensional conditioning vector directly matching the DiT's `txt_in.weight` shape `(7680, 3072)`).
-- **Required Companion Files:** Requires Qwen3 text encoder and `flux2-vae.safetensors` (~335 MiB, both currently absent from disk).
+- **True Conditioning Architecture & Extraction Pre-requisites:**
+  - Uses a **Qwen3 language model** feature extractor (concatenating hidden states from layers 9, 18, and 27; $3 \times 2,560 = 7,680$ dimensional conditioning vector directly matching the DiT's `txt_in.weight` shape `(7680, 3072)`).
+  - **Empirical Boundary:** A matching tensor dimension `(7680, 3072)` alone is **NOT** proof of compatible conditioning or runtime feasibility.
+  - Reusing the Main AI (`Qwen3-4B-Q4_K_M.gguf`) for feature extraction cannot be claimed as viable until an actual extraction test proves:
+    1. Correct tokenization matching FLUX prompt formatting.
+    2. Correct Qwen3 model weights and architecture.
+    3. Extraction of exact hidden states from layers 9, 18, and 27.
+    4. Correct normalization (RMSNorm) and tensor layout matching DiT expectations.
+    5. Valid, non-degraded conditioning output.
+    6. Acceptable memory usage during forward extraction.
+    7. Main AI remains continuously loaded, un-evicted, and available according to approved residency invariants.
+- **Required Companion Files:** Requires a standalone Qwen3 text encoder (if Main AI extraction is not used) and `flux2-vae.safetensors` (~335 MiB, both currently absent from disk).
 - **Technical Roadblocks to Main AI Feature Extraction:**
   - Standard `llama.cpp` evaluates tokens forward to produce output logits and immediately frees intermediate layer hidden activations.
   - Reusing `Qwen3-4B-Q4_K_M.gguf` for feature extraction requires custom C++ runtime patches to intercept intermediate tensor outputs from layers 9, 18, and 27 before memory reclamation.
   - Quantization noise in `Q4_K_M` text embeddings may degrade conditioning quality compared to FP8/BF16.
   - Concurrency lock: While extracting embeddings, the resident Main AI cannot service user conversational dialogue.
 - **Memory Feasibility & Admission Reality:**
-  - Dedicated Text Encoder Route (~5,200 MiB total worker demand): Exceeds the current live admissible worker budget ($7,029.84 - 2,151 = 4,879\text{ MiB}$) and is **REJECTED** by the dynamic admission controller.
-  - Main AI Extraction Route (~3,737 to 4,335 MiB peak with VAE decode scratch buffers): While mathematically within the 4,879 MiB budget, no validated software runtime currently exists on this machine that links GGUF DiT sampling to `llama.cpp` hidden layers on CPU.
+  - Dedicated Text Encoder Route (~5,200 MiB total worker demand): Exceeds the current live admissible worker budget ($7,030.07 - 2,151 = 4,879.07\text{ MiB}$) and is strictly **REJECTED** by the dynamic admission controller.
+  - Main AI Extraction Route (~3,737 to 4,335 MiB peak with VAE decode scratch buffers): While mathematically within the provisional 4,879 MiB budget, no validated software runtime currently exists on this machine that links GGUF DiT sampling to `llama.cpp` hidden layers on CPU.
   - VAE Decoding Peak Memory: Decoding a 16-channel $64 \times 64$ latent grid to an uncompressed $512 \times 512 \times 3$ RGB float image requires substantial intermediate scratch memory, inflating peak memory significantly above static weight sizes.
-- **Estimated Generation Latency:** **[UNVERIFIED THEORETICAL ESTIMATE]** Projected at 45–90 seconds per Euler step (15–30 minutes total for 20 steps) on 2 CPU cores (AVX2, 0 CUDA).
-- **Definitive Status:** **EXPERIMENTAL / UNPROVEN ON TARGET PC.** Feasibility will not be claimed until an end-to-end benchmark succeeds on the target hardware in Phase 4.
+- **Estimated Generation Latency:** **[UNVERIFIED THEORETICAL ESTIMATE]** Projected at 45–90 seconds per Euler step on 2 CPU cores (AVX2, 0 CUDA). For a 4-step distilled workflow, this yields ~3–6 minutes; for a 20-step workflow, ~15–30 minutes. All unmeasured CPU performance figures remain explicitly marked as unverified estimates.
 
 ---
 
@@ -384,45 +409,62 @@ Prior to beginning Phase 4 application implementation, three concrete decisions 
 
 ---
 
-## 20. Outstanding Evidence and Measurement Limitations
+## 20. Remaining Unverified Technical Claims
 
-To enforce rigorous scientific and engineering integrity, the current empirical status of all system metrics is categorized:
+### Outstanding Evidence and Measurement Limitations
 
-### 20.1 What Has Been Measured Empirically
-1. **Installed Hardware Modules:** Two Samsung 8 GB DDR4 modules (`M378A1K43DB2-CTD`) totaling 17,179,869,184 bytes (16,384.00 MiB / 16.00 GiB).
-2. **Configured Memory Operating Speed:** Operating clock speed is **2,133 MT/s** (confirmed via WMI `ConfiguredClockSpeed`), matching Core i3-6100T official processor limits.
-3. **Windows-Visible Physical RAM:** 17,049,899,008 bytes (16,260.05 MiB / 15.88 GiB) via `GlobalMemoryStatusEx.ullTotalPhys`.
-4. **Hardware-Reserved Memory:** 129,970,176 bytes (123.95 MiB) allocated to BIOS, APIC/PCIe, and Intel HD 530 DVMT frame buffer.
-5. **Live Available Physical RAM:** 7,371,558,912 bytes (7,029.84 MiB) captured at initial baseline (6,910,607,360 bytes at subsequent check); varies dynamically with running host software.
-6. **Live System Virtual Commit:** 12,604,743,680 bytes (12,020.83 MiB) committed across RAM and `pagefile.sys` under current developer tool load.
-7. **Model Binary Assets on Disk:** Exact byte counts and SHA-256 hashes of all 10 local model assets in `T:\ai creation`.
-8. **GGUF Binary Metadata & Tensor Shapes:** Verified via `tools/inspect_model_metadata.py` with exit code 0:
+To enforce rigorous scientific and engineering integrity, all system metrics, architectural assertions, and performance claims are categorized across five distinct evidence tiers:
+
+### 20.1 Empirically Measured Facts
+1. **Physically Installed RAM:** Two Samsung 8 GB DDR4 modules (`M378A1K43DB2-CTD`) totaling 17,179,869,184 bytes (16,384.00 MiB / 16.00 GiB) verified via WMI `Win32_PhysicalMemory`.
+2. **Configured Memory Operating Speed:** Operating clock speed is **2,133 MT/s** (confirmed via WMI `Win32_PhysicalMemory.ConfiguredClockSpeed`), matching Intel Core i3-6100T official processor maximum memory speed.
+3. **Windows-Visible Physical RAM:** 17,049,899,008 bytes (16,260.05 MiB / 15.88 GiB) via Win32 `GlobalMemoryStatusEx.ullTotalPhys` and WMI `Win32_OperatingSystem.TotalVisibleMemorySize` (16,650,292 KB).
+4. **Hardware-Reserved Memory Difference:** 129,970,176 bytes (123.95 MiB), measured as installed RAM minus Windows-visible RAM.
+5. **Live Available Physical RAM Snapshots:**
+   - Snapshot 1 (2026-11-19T18:32:43): 7,371,558,912 bytes ($7,030.07\text{ MiB} \approx 6.87\text{ GiB}$) via Win32 `GlobalMemoryStatusEx.ullAvailPhys`.
+   - Snapshot 2 (2026-11-19T18:54:14): 6,910,607,360 bytes ($6,590.47\text{ MiB} \approx 6.44\text{ GiB}$).
+6. **Live System Virtual Commit:** 12,604,743,680 bytes (12,020.83 MiB) committed across RAM and `pagefile.sys` against a 19,600,035,840-byte (18,692.06 MiB) commit limit. (Committed memory is virtual address allocation, NOT physical RAM consumed).
+7. **Model Binary Assets on Disk:** Exact byte counts and SHA-256 hashes of all 10 local model assets residing in `T:\ai creation`.
+8. **GGUF Binary Metadata & Architectural Parameters:** Verified via `tools/inspect_model_metadata.py` with exit code 0:
    - `flux-2-klein-4b-q4_0.gguf`: 149 tensors, 0 KV pairs, `txt_in.weight` shape `(7680, 3072)`.
-   - `Qwen3-4B-Q4_K_M.gguf`: 398 tensors, 28 KV pairs, 36 layers, 2560 embedding length, 32 attention heads, 8 KV heads.
+   - `Qwen3-4B-Q4_K_M.gguf`: 398 tensors, 28 KV pairs, 36 layers (`block_count`), 2560 embedding length, 32 attention heads (`head_count`), 8 KV heads (`head_count_kv`), key length 128 (`key_length`), value length 128 (`value_length`).
 
-### 20.2 What Has Been Calculated Theoretically
+### 20.2 Mathematically Derived Values
 1. **Theoretical Maximum Memory Bandwidth:** $2 \times 8\text{ bytes} \times 2,133,333,333\text{ Hz} = \mathbf{34.13\text{ GB/s}}$ (matching Intel ARK specification of 34.1 GB/s).
-2. **Qwen3-4B KV Cache Formula:** $46,080\text{ elements/token} \times 2\text{ bytes} = 92,160\text{ bytes/token}$ ($90.0\text{ KiB/token}$); yielding $180.0\text{ MiB}$ at 2K tokens and $360.0\text{ MiB}$ at 4K tokens FP16.
-3. **FLUX.2 Klein Conditioning Vector Dimension:** 3 layers (9, 18, 27) $\times 2,560\text{ dims} = \mathbf{7,680\text{ dimensions}}$ matching `txt_in.weight` shape `(7680, 3072)`.
-4. **Dynamic Safety Margin:** $S_{\text{dynamic}} = \max(1,200\text{ MiB},\, 0.12 \times 16,260\text{ MiB} + 200\text{ MiB}) \approx \mathbf{2,151\text{ MiB}}$.
-5. **Net Admissible Worker Budget:** $7,029.84\text{ MiB} - 2,151\text{ MiB} \approx \mathbf{4,879\text{ MiB}}$ under measured live conditions.
+2. **Qwen3-4B KV Cache Formula & Calculations:**
+   - KV elements per token: $2 \times 36 \times 8 \times 128 = \mathbf{73,728\text{ elements/token}}$.
+   - FP16 at 2K tokens ($N = 2,048$): $2,048 \times 73,728 \times 2 = 301,989,888\text{ bytes} = \mathbf{288.0\text{ MiB}}$.
+   - FP16 at 4K tokens ($N = 4,096$): $4,096 \times 73,728 \times 2 = 603,979,776\text{ bytes} = \mathbf{576.0\text{ MiB}}$.
+   - FP16 at 8K tokens ($N = 8,192$): $8,192 \times 73,728 \times 2 = 1,207,959,552\text{ bytes} = \mathbf{1,152.0\text{ MiB}}$.
+   - Q8_0 at 4K tokens (34 bytes / 32 elements): $4,096 \times 73,728 \times (34/32) = 320,864,256\text{ bytes} = \mathbf{306.0\text{ MiB}}$.
+3. **Physical Memory Not Reported as Available:**
+   - Snapshot 1: $16,260.05\text{ MiB} - 7,030.07\text{ MiB} = \mathbf{9,229.98\text{ MiB}}$.
+   - Snapshot 2: $16,260.05\text{ MiB} - 6,590.47\text{ MiB} = \mathbf{9,669.58\text{ MiB}}$.
+4. **FLUX.2 Klein Conditioning Dimension:** 3 layers (9, 18, 27) $\times 2,560\text{ dims} = \mathbf{7,680\text{ dimensions}}$ matching `txt_in.weight` shape `(7680, 3072)`.
 
-### 20.3 What Has Been Estimated Provisionally
-1. **Projected Application Base Components (Unimplemented):**
+### 20.3 Provisional Estimates
+1. **Dynamic Safety Margin ($S_{\text{dynamic}}$):** $S_{\text{dynamic}} \approx \mathbf{2,151\text{ MiB}}$ is a provisional formula ($0.12 \times M_{\text{total\_phys}} + 200\text{ MiB}$) intended to protect system stability. The derived worker budget ($4,879.07\text{ MiB}$) is a theoretical estimate under Snapshot 1 and must not be treated as a validated guaranteed capacity.
+2. **Projected Application Base Components (Unimplemented):**
    - Windows 10 clean idle OS: ~2,900 MiB.
    - Intel HD 530 dynamic UI surface: ~150 MiB.
    - Tauri v2 host shell + WebView2 renderer (15 screens): ~220 MiB.
    - Audio subsystem (PortAudio + Piper ONNX + Whisper): ~300 MiB.
    - SQLite 3 + sqlite-vec cache: ~80 MiB.
    - Total provisional baseline: **~6,788 MiB** (~6.63 GiB / ~7.12 GB decimal).
-2. **Diffusion Peak Memory Overheads:** VAE decoding scratch memory and latent grid allocations (~635–950 MiB).
+3. **Diffusion Peak Memory Overheads:** VAE decoding scratch memory and latent grid allocations (~635–950 MiB).
+4. **FLUX.2 Klein Generation Latency on CPU:** 45–90 seconds per Euler step (yielding ~3–6 minutes for 4-step distilled workflow, ~15–30 minutes for 20 steps) is an unverified theoretical estimate.
 
-### 20.4 What Remains Unverified (Awaiting Phase 4 Hardware Benchmarks)
-1. **Model Token Generation Throughput:** Projected 3.5–5.5 tok/s for Qwen3-4B and 8–14 tok/s for 1.5B–1.7B workers remain **unverified theoretical estimates** until measured via `llama-bench` on this exact Core i3-6100T.
-2. **Real-World Sustained Memory Bandwidth:** Estimated at ~22.0–25.5 GB/s; unverified until measured with a STREAM memory benchmark.
-3. **FLUX.2 Klein CPU Generation Latency:** Projected 45–90 seconds per step (15–30 minutes per image) remains an **unverified theoretical estimate**.
-4. **CPU Thermal Package Throttling:** Clock scaling behavior under 100% AVX2 loads on this specific chassis is unmeasured.
-5. **Video Diffusion Render Latency:** Projected multi-hour render times per clip on CPU remain an unverified estimate.
+### 20.4 Unverified Implementation Assumptions
+1. **Main AI Hidden State Extraction for FLUX:** Reusing `Qwen3-4B-Q4_K_M.gguf` for DiT text conditioning assumes custom C++ patches can extract layers 9, 18, and 27 without corrupting Main AI state or exceeding latency budgets. This is unverified in code.
+2. **Hardware-Reserved Memory Breakdown:** The exact breakdown of the 123.95 MiB hardware-reserved difference between BIOS, APIC/PCIe, and Intel HD 530 DVMT frame buffer remains unverified.
+3. **Host Memory Reconciliation:** The ~2,442 MiB difference between the projected 6,788 MiB clean baseline and the 9,229.98 MiB host memory not reported as available is partially explained by background developer tooling (Chrome, Antigravity, Python), memory compression (1,106.73 MiB), and kernel pools (1,231.77 MiB), but exact component-level reconciliation is unavailable.
+
+### 20.5 Tests That Can Only Be Performed After Explicit Phase 4 Authorization
+1. **Model Token Generation Throughput:** Physical measurement of token generation speeds (tok/s) for Qwen3-4B and secondary workers via `llama-bench` on AVX2 CPU.
+2. **Real-World Sustained Memory Bandwidth:** Measurement via a physical STREAM benchmark under active dual-channel load.
+3. **End-to-End FLUX.2 Klein Execution:** Actual generation of an image from prompt to PNG using `flux-2-klein-4b-q4_0.gguf` + VAE on target CPU.
+4. **Concurrent Runtime Working Set:** Live empirical measurement of Tauri v2 + WebView2 + Main AI running concurrently under Windows 10.
+5. **Video NLE Export & Audio Pipeline:** Real-time factor (RTF) measurement of Whisper STT and Piper TTS during active multi-track video assembly.
 
 ---
 
