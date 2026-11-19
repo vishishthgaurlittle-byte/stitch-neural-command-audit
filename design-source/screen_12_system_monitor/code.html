@@ -1,0 +1,791 @@
+<!DOCTYPE html><html class="dark" lang="en"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0" name="viewport"><meta content="web_dashboard" name="shell-type"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "surface-tint": "#40d7fd", "surface-container": "#1b2029", "secondary-container": "#0262e6", "on-tertiary-fixed-variant": "#5026b0", "surface-container-highest": "#31353f", "on-secondary-fixed-variant": "#00419e", "primary-fixed-dim": "#40d7fd", "on-primary": "#003642", "tertiary-fixed-dim": "#cebdff", "surface-container-low": "#171c25", "surface-container-lowest": "#0a0e17", "surface": "#0f131d", "on-secondary-container": "#e7ebff", "on-primary-fixed-variant": "#004e5e", "on-surface": "#dfe2f0", "on-primary-fixed": "#001f27", "background": "#0f131d", "tertiary-container": "#d0bfff", "error-container": "#93000a", "outline-variant": "#3c494d", "surface-dim": "#0f131d", "outline": "#869398", "primary-container": "#43d9ff", "surface-variant": "#31353f", "inverse-surface": "#dfe2f0", "secondary": "#b1c5ff", "on-secondary-fixed": "#001946", "error": "#ffb4ab", "on-tertiary-container": "#5e37be", "on-tertiary-fixed": "#21005e", "primary": "#b8edff", "tertiary": "#eae0ff", "secondary-fixed": "#dae2ff", "on-tertiary": "#390094", "inverse-primary": "#00677d", "on-background": "#dfe2f0", "on-error": "#690005", "on-secondary": "#002c70", "on-primary-container": "#005c6f", "inverse-on-surface": "#2c303b", "on-surface-variant": "#bbc9ce", "surface-bright": "#353944", "tertiary-fixed": "#e8ddff", "primary-fixed": "#b2ebff", "surface-container-high": "#262a34", "on-error-container": "#ffdad6", "secondary-fixed-dim": "#b1c5ff" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "space-xxl": "2rem", "space-lg": "1rem", "margin": "1.5rem", "space-xl": "1.5rem", "gutter-dense": "0.5rem", "space-sm": "0.5rem", "space-xs": "0.25rem", "space-md": "0.75rem", "gutter": "1rem", "margin-dense": "1rem" }, "fontFamily": { "headline-lg": [ "Manrope" ], "headline-sm": [ "Manrope" ], "body-sm": [ "Inter" ], "label-mono": [ "JetBrains Mono" ], "code-md": [ "JetBrains Mono" ], "headline-md": [ "Manrope" ], "display-lg": [ "Manrope" ], "label-md": [ "Inter" ], "body-md": [ "Inter" ], "body-lg": [ "Inter" ] }, "fontSize": { "headline-lg": [ "24px", { "lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "600" } ], "headline-sm": [ "16px", { "lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "600" } ], "body-sm": [ "12px", { "lineHeight": "16px", "letterSpacing": "0.005em", "fontWeight": "400" } ], "label-mono": [ "10px", { "lineHeight": "14px", "letterSpacing": "0.05em", "fontWeight": "500" } ], "code-md": [ "12px", { "lineHeight": "18px", "letterSpacing": "0em", "fontWeight": "400" } ], "headline-md": [ "20px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" } ], "display-lg": [ "32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" } ], "label-md": [ "11px", { "lineHeight": "14px", "letterSpacing": "0.02em", "fontWeight": "500" } ], "body-md": [ "13px", { "lineHeight": "18px", "letterSpacing": "0em", "fontWeight": "400" } ], "body-lg": [ "15px", { "lineHeight": "22px", "letterSpacing": "-0.005em", "fontWeight": "400" } ] } } } };</script></head><body class="bg-surface font-body-md text-body-md text-on-surface select-none antialiased min-h-screen"><header class="fixed top-0 left-0 right-0 h-14 bg-surface-container-lowest/90 backdrop-blur-md z-50 flex items-center justify-between px-space-lg shadow-[0_1px_8px_rgba(0,0,0,0.4)]"><div class="flex items-center gap-space-md"><img alt="Neural Orchestrator Emblem" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/ALJJyrDkwdFfa2ZbCR92YUYuBisOJanZ8ecfnNvhI9eXBT--hdx14MyRyg6qfpPnaiS3kIpRGkkX0PNVVtIwneXNiCoblHPpmqiGrQk2CkGEIKcqfD3gRNBMLWSXQEbGOivXgnv71LBNjxftYEsjJ8cw22e5EDAyHmGagINyRC1EEZmHBwkNLqwZmekoCt_AROtGMSmXq54KIdKK2SWARwX6UIilHqAqSfaykmHb1GzCTeU"><span class="px-space-sm py-space-xs rounded bg-surface-container-high text-primary font-label-mono text-label-mono uppercase tracking-wider font-semibold">[FINAL AI NAME]</span><div class="flex items-center gap-space-xs px-space-sm py-space-xs rounded bg-surface-container-low hover:bg-surface-container transition-colors cursor-pointer"><span class="font-label-md text-label-md text-on-surface-variant font-medium">Core Engine v2.4</span><span class="material-symbols-outlined text-[16px] text-on-surface-variant">expand_more</span></div></div><div class="hidden md:flex items-center gap-space-md bg-surface-container-lowest px-space-md py-space-xs rounded-lg shadow-inner"><div class="flex items-center gap-space-xs text-on-surface-variant font-code-md text-code-md"><span class="material-symbols-outlined text-[16px]">terminal</span><span>root</span><span class="text-outline">/</span><span class="text-primary font-medium">workspace</span></div><div class="h-3 w-[1px] bg-surface-container-highest"></div><div class="flex items-center gap-space-sm text-on-surface-variant font-label-md text-label-md"><span class="material-symbols-outlined text-[16px]">search</span><span>Search command buffer</span><kbd class="px-space-xs py-0.5 rounded bg-surface-container text-primary font-label-mono text-label-mono shadow-sm">Ctrl + K</kbd></div></div><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs px-space-sm py-0.5 rounded-full bg-surface-container-low"><span class="w-1.5 h-1.5 rounded-full bg-primary-container animate-pulse"></span><span class="font-label-mono text-label-mono text-primary-container font-semibold uppercase tracking-wider">LOCAL MODE: ACTIVE</span></div><div class="flex items-center gap-space-xs text-on-surface-variant"><button class="p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors" title="Voice Interface Ready"><span class="material-symbols-outlined text-[18px] text-primary-container">mic</span></button><button class="p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors" title="Encrypted &amp; Enforced"><span class="material-symbols-outlined text-[18px] text-primary">verified_user</span></button><button class="relative p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors" title="Telemetry Alerts"><span class="material-symbols-outlined text-[18px]">notifications</span><span class="absolute top-1 right-1 w-2 h-2 rounded-full bg-error"></span></button></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></header><aside class="fixed left-0 top-14 bottom-0 w-64 bg-surface-container-lowest z-40 flex flex-col justify-between py-space-sm shadow-[1px_0_12px_rgba(0,0,0,0.5)]"><nav class="flex-1 px-space-xs space-y-0.5 overflow-y-auto" data-active-classes="bg-secondary-container text-on-secondary-container font-semibold shadow-sm"><a class="flex items-center gap-space-md px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="command-center" href="#"><span class="material-symbols-outlined text-[20px]">dashboard</span><span class="font-body-md text-body-md truncate">Command Center</span></a><a class="flex items-center gap-space-md px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="conversation" href="#"><span class="material-symbols-outlined text-[20px]">chat</span><span class="font-body-md text-body-md truncate">Conversation</span></a><a class="flex items-center gap-space-md px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="3d-neural-core" href="#"><span class="material-symbols-outlined text-[20px]">view_in_ar</span><span class="font-body-md text-body-md truncate">3D Neural Core</span></a><a class="flex items-center gap-space-md px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="intelligence-models" href="#"><span class="material-symbols-outlined text-[20px]">psychology</span><span class="font-body-md text-body-md truncate">Intelligence &amp; Models</span></a><a class="flex items-center gap-space-md px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="plugin-center" href="#"><span class="material-symbols-outlined text-[20px]">extension</span><span class="font-body-md text-body-md truncate">Plugin Center</span></a><a class="flex items-center gap-space-md px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="agent-workspace" href="#"><span class="material-symbols-outlined text-[20px]">smart_toy</span><span class="font-body-md text-body-md truncate">Agent Workspace</span></a><a class="flex items-center gap-space-md px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="workflow-builder" href="#"><span class="material-symbols-outlined text-[20px]">account_tree</span><span class="font-body-md text-body-md truncate">Workflow Builder</span></a><a class="flex items-center gap-space-md px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="pc-control" href="#"><span class="material-symbols-outlined text-[20px]">desktop_windows</span><span class="font-body-md text-body-md truncate">PC Control</span></a><a class="flex items-center gap-space-md px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="memory-center" href="#"><span class="material-symbols-outlined text-[20px]">database</span><span class="font-body-md text-body-md truncate">Memory Center</span></a><a class="flex items-center gap-space-md px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="voice-studio" href="#"><span class="material-symbols-outlined text-[20px]">graphic_eq</span><span class="font-body-md text-body-md truncate">Voice Studio</span></a><a class="flex items-center gap-space-md px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="tasks-activity" href="#"><span class="material-symbols-outlined text-[20px]">task_alt</span><span class="font-body-md text-body-md truncate">Tasks &amp; Activity</span></a><a class="flex items-center gap-space-md px-space-sm py-space-xs rounded bg-secondary-container text-on-secondary-container font-semibold shadow-sm transition-colors" data-path="system-monitor" href="#"><span class="material-symbols-outlined text-[20px]">monitoring</span><span class="font-body-md text-body-md truncate">System Monitor</span></a><a class="flex items-center gap-space-md px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="security-permissions" href="#"><span class="material-symbols-outlined text-[20px]">security</span><span class="font-body-md text-body-md truncate">Security &amp; Permissions</span></a><a class="flex items-center gap-space-md px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="settings" href="#"><span class="material-symbols-outlined text-[20px]">settings</span><span class="font-body-md text-body-md truncate">Settings</span></a></nav><div class="pt-space-xs px-space-xs flex flex-col gap-1"><button class="w-full flex items-center justify-between px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors"><div class="flex items-center gap-space-md"><span class="material-symbols-outlined text-[18px] text-tertiary-fixed-dim">deployed_code</span><span class="font-label-md text-label-md uppercase tracking-wider font-semibold">HUD Mode</span></div><span class="font-label-mono text-label-mono text-on-surface-variant">F9</span></button><button class="w-full flex items-center justify-between px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors"><div class="flex items-center gap-space-md"><span class="material-symbols-outlined text-[18px]">dock_to_right</span><span class="font-label-md text-label-md uppercase tracking-wider font-semibold">Collapse Rail</span></div><span class="font-label-mono text-label-mono text-on-surface-variant">Ctrl+[</span></button></div></aside><div class="pl-64 flex flex-col min-h-screen"><main class="flex-1 pt-14 pb-20 w-full px-space-lg bg-surface"><div class="flex flex-col w-full gap-space-lg pb-10">
+<!-- Top System Telemetry Banner -->
+<section class="bg-surface-container-low rounded-xl p-space-lg shadow-xl relative overflow-hidden">
+<div class="absolute -right-20 -top-24 w-96 h-96 rounded-full bg-primary-container/5 blur-3xl pointer-events-none"></div>
+<div class="flex flex-col xl:flex-row xl:items-center justify-between gap-space-md relative z-10">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-space-sm">
+<span class="font-label-mono text-label-mono uppercase tracking-wider text-primary-container px-space-xs py-0.5 rounded bg-surface-container-highest">
+            HOST TELEMETRY &amp; HARDWARE RUNTIME // PART 15
+          </span>
+<span class="inline-flex items-center gap-1.5 px-space-xs py-0.5 rounded-full bg-surface-container text-primary font-label-mono text-label-mono">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container animate-ping"></span>
+            AIR-GAPPED RIGID LOOP
+          </span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight mt-1">System Monitor</h1>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-2xl">
+          Real-time resource allocation, quantization overhead, and thermal telemetry for Intel i3 low-spec desktop running strictly air-gapped local AI.
+        </p>
+</div>
+<div class="flex flex-wrap items-center gap-space-sm">
+<div class="px-space-md py-space-xs rounded-lg bg-surface-container flex items-center gap-space-sm shadow-inner">
+<span class="material-symbols-outlined text-[18px] text-primary">memory</span>
+<div class="flex flex-col">
+<span class="font-label-mono text-label-mono text-on-surface-variant uppercase">Hardware Spec Profile</span>
+<span class="font-code-md text-code-md text-primary font-semibold">INTEL CORE i3-6100T • 12 GB RAM • INTEL HD 530</span>
+</div>
+</div>
+<div class="relative">
+<select class="appearance-none bg-surface-container-high hover:bg-surface-bright text-on-surface font-label-md text-label-md pl-space-md pr-8 py-2.5 rounded-lg shadow-sm focus:outline-none focus:ring-1 focus:ring-primary-container cursor-pointer transition-colors" id="profileSelector">
+<option selected="" value="balanced">Profile: Low-Resource Balanced (Active)</option>
+<option value="efficiency">Profile: Max Efficiency (Thermal Guarded)</option>
+<option value="burst">Profile: High-Compute Burst (Priority LLM)</option>
+</select>
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant absolute right-2.5 top-2.5 pointer-events-none">expand_more</span>
+</div>
+<div class="flex items-center gap-1 bg-surface-container-lowest p-1 rounded-lg">
+<button class="px-space-sm py-1.5 rounded bg-surface-container hover:bg-surface-container-high text-on-surface text-label-md font-label-md flex items-center gap-1.5 transition-colors" id="cleanCacheBtn" title="Flush unreferenced KV buffers">
+<span class="material-symbols-outlined text-[16px] text-primary">cleaning_services</span>
+<span>Clear Buffers</span>
+</button>
+<button class="px-space-sm py-1.5 rounded bg-surface-container hover:bg-surface-container-high text-on-surface text-label-md font-label-md flex items-center gap-1.5 transition-colors" id="gcTriggerBtn" title="Force OS/Runtime garbage collection cycle">
+<span class="material-symbols-outlined text-[16px] text-tertiary">delete_sweep</span>
+<span>Trigger GC</span>
+</button>
+<button class="px-space-sm py-1.5 rounded bg-secondary-container hover:bg-primary-container text-on-secondary-container hover:text-on-primary-container text-label-md font-label-md font-semibold flex items-center gap-1.5 transition-colors" id="exportDiagBtn">
+<span class="material-symbols-outlined text-[16px]">file_download</span>
+<span>Export Report</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Primary System Resource Grid (4 High-Density Hardware Cards) -->
+<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-space-md">
+<!-- Card 1: CPU Architecture (Intel i3-6100T) -->
+<div class="bg-surface-container rounded-xl p-space-md shadow-md flex flex-col justify-between relative overflow-hidden group hover:shadow-xl transition-all duration-300">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-space-xs">
+<div class="p-2 rounded-lg bg-surface-container-low text-primary-container">
+<span class="material-symbols-outlined text-[20px]">developer_board</span>
+</div>
+<div>
+<span class="font-label-mono text-label-mono text-on-surface-variant block uppercase">Core Engine Proc</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">Intel i3-6100T</span>
+</div>
+</div>
+<span class="font-label-mono text-label-mono text-primary-container bg-surface-container-highest px-space-xs py-0.5 rounded">
+          2C / 4T
+        </span>
+</div>
+<div class="my-space-md flex items-end justify-between">
+<div>
+<div class="font-display-lg text-display-lg text-on-surface tracking-tight flex items-baseline gap-1">
+<span id="cpuUsageVal">42</span><span class="text-headline-md font-headline-md text-primary">%</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">Global Core Utilization</span>
+</div>
+<!-- Live Sparkline SVG: CPU Load History -->
+<div class="w-32 h-10">
+<svg class="w-full h-full text-primary-container" fill="none" viewBox="0 0 128 40">
+<path d="M0 28 L16 32 L32 20 L48 24 L64 12 L80 18 L96 8 L112 16 L128 14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+<path d="M0 28 L16 32 L32 20 L48 24 L64 12 L80 18 L96 8 L112 16 L128 14 L128 40 L0 40 Z" fill="currentColor" fill-opacity="0.1"></path>
+</svg>
+</div>
+</div>
+<div class="space-y-space-xs bg-surface-container-low p-space-sm rounded-lg">
+<div class="flex items-center justify-between font-label-mono text-label-mono">
+<span class="text-on-surface-variant">Core 0: <strong class="text-on-surface">48%</strong></span>
+<span class="text-on-surface-variant">Core 1: <strong class="text-on-surface">36%</strong></span>
+<span class="text-primary-container font-semibold">3.19 GHz</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container rounded-full overflow-hidden flex gap-0.5">
+<div class="bg-primary-container h-full" style="width: 48%;"></div>
+<div class="bg-secondary-container h-full" style="width: 36%;"></div>
+</div>
+<div class="flex items-center justify-between text-body-sm font-body-sm pt-1">
+<span class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[14px] text-tertiary">thermostat</span>
+<span>Package: 46°C</span>
+</span>
+<span class="text-primary font-label-mono text-label-mono uppercase tracking-wider font-semibold">AVX2: Active</span>
+</div>
+</div>
+<div class="mt-space-sm pt-space-xs flex items-center justify-between font-label-mono text-label-mono text-on-surface-variant/75">
+<span class="truncate">Mistral (2T) • DirectML (1T) • OS (1T)</span>
+</div>
+</div>
+<!-- Card 2: System Memory (12.0 GB DDR4) -->
+<div class="bg-surface-container rounded-xl p-space-md shadow-md flex flex-col justify-between relative overflow-hidden group hover:shadow-xl transition-all duration-300">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-space-xs">
+<div class="p-2 rounded-lg bg-surface-container-low text-tertiary-fixed-dim">
+<span class="material-symbols-outlined text-[20px]">memory_alt</span>
+</div>
+<div>
+<span class="font-label-mono text-label-mono text-on-surface-variant block uppercase">Physical Memory</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">12.0 GB DDR4</span>
+</div>
+</div>
+<span class="font-label-mono text-label-mono text-tertiary-fixed-dim bg-surface-container-highest px-space-xs py-0.5 rounded">
+          65% IN-USE
+        </span>
+</div>
+<div class="my-space-md flex items-end justify-between">
+<div>
+<div class="font-display-lg text-display-lg text-on-surface tracking-tight flex items-baseline gap-1">
+<span>7.8</span><span class="text-headline-md font-headline-md text-tertiary-fixed-dim">/ 12 GB</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">Committed Physical RAM</span>
+</div>
+<!-- Circular gauge donut mini -->
+<div class="w-11 h-11 relative flex items-center justify-center">
+<svg class="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
+<path class="text-surface-container-highest" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="4"></path>
+<path class="text-tertiary-container" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-dasharray="65, 100" stroke-linecap="round" stroke-width="4"></path>
+</svg>
+<span class="absolute font-label-mono text-[9px] font-bold text-on-surface">65%</span>
+</div>
+</div>
+<div class="space-y-space-xs bg-surface-container-low p-space-sm rounded-lg">
+<div class="flex items-center justify-between font-label-mono text-label-mono text-on-surface-variant">
+<span>Weights (4.2GB)</span>
+<span>Sys (1.4GB)</span>
+<span>Free (4.2GB)</span>
+</div>
+<div class="w-full h-2 bg-surface-container rounded-full overflow-hidden flex gap-0.5">
+<div class="bg-secondary-container h-full" style="width: 35%;" title="Model Weights (4.2 GB)"></div>
+<div class="bg-tertiary-container h-full" style="width: 12%;" title="System Buffers (1.4 GB)"></div>
+<div class="bg-surface-variant h-full" style="width: 18%;" title="Windows Core (2.2 GB)"></div>
+<div class="bg-surface-container-highest h-full" style="width: 35%;" title="Available Free (4.2 GB)"></div>
+</div>
+<div class="flex items-center justify-between text-body-sm font-body-sm pt-1">
+<span class="text-primary font-label-mono text-label-mono">PagedAttention: Active</span>
+<span class="font-label-mono text-label-mono text-on-surface-variant">Zero Thrashing</span>
+</div>
+</div>
+<div class="mt-space-sm pt-space-xs flex items-center gap-1 font-label-mono text-label-mono text-primary-container">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+<span class="truncate">Memory Guard: Stable Operating Envelope</span>
+</div>
+</div>
+<!-- Card 3: GPU & VRAM (Intel HD Graphics 530) -->
+<div class="bg-surface-container rounded-xl p-space-md shadow-md flex flex-col justify-between relative overflow-hidden group hover:shadow-xl transition-all duration-300">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-space-xs">
+<div class="p-2 rounded-lg bg-surface-container-low text-secondary-container">
+<span class="material-symbols-outlined text-[20px]">videogame_asset</span>
+</div>
+<div>
+<span class="font-label-mono text-label-mono text-on-surface-variant block uppercase">Integrated Silicon</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">Intel HD 530</span>
+</div>
+</div>
+<span class="font-label-mono text-label-mono text-secondary bg-surface-container-highest px-space-xs py-0.5 rounded">
+          DIRECTML
+        </span>
+</div>
+<div class="my-space-md flex items-end justify-between">
+<div>
+<div class="font-display-lg text-display-lg text-on-surface tracking-tight flex items-baseline gap-1">
+<span>1.8</span><span class="text-headline-md font-headline-md text-secondary">/ 6.0 GB</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">Shared Graphics Memory</span>
+</div>
+<!-- Mini Sparkline for GPU Engine Load -->
+<div class="w-28 h-10">
+<svg class="w-full h-full text-secondary" fill="none" viewBox="0 0 112 40">
+<path d="M0 32 L16 30 L32 26 L48 28 L64 22 L80 24 L96 20 L112 22" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+<path d="M0 32 L16 30 L32 26 L48 28 L64 22 L80 24 L96 20 L112 22 L112 40 L0 40 Z" fill="currentColor" fill-opacity="0.1"></path>
+</svg>
+</div>
+</div>
+<div class="space-y-space-xs bg-surface-container-low p-space-sm rounded-lg">
+<div class="flex items-center justify-between font-label-mono text-label-mono">
+<span class="text-on-surface-variant">3D Render Engine</span>
+<span class="text-on-surface font-semibold">14% Load</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container rounded-full overflow-hidden">
+<div class="bg-secondary-container h-full" style="width: 30%;"></div>
+</div>
+<div class="flex items-center justify-between text-body-sm font-body-sm pt-1">
+<span class="text-on-surface-variant">Neural Core 2.5D:</span>
+<span class="text-primary font-label-mono text-label-mono">60 FPS (Capped)</span>
+</div>
+</div>
+<div class="mt-space-sm pt-space-xs flex items-center justify-between font-label-mono text-label-mono text-on-surface-variant/75">
+<span>Whisper STT Acceleration: ON</span>
+<span class="text-primary-container">Shared Pool</span>
+</div>
+</div>
+<!-- Card 4: NVMe / Disk I/O & Model Cache -->
+<div class="bg-surface-container rounded-xl p-space-md shadow-md flex flex-col justify-between relative overflow-hidden group hover:shadow-xl transition-all duration-300">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-space-xs">
+<div class="p-2 rounded-lg bg-surface-container-low text-primary">
+<span class="material-symbols-outlined text-[20px]">save</span>
+</div>
+<div>
+<span class="font-label-mono text-label-mono text-on-surface-variant block uppercase">NVMe Storage Path</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">D:\AI_Models\GGUF</span>
+</div>
+</div>
+<span class="font-label-mono text-label-mono text-primary bg-surface-container-highest px-space-xs py-0.5 rounded">
+          GEN3 SSD
+        </span>
+</div>
+<div class="my-space-md flex items-end justify-between">
+<div>
+<div class="font-display-lg text-display-lg text-on-surface tracking-tight flex items-baseline gap-1">
+<span>24.2</span><span class="text-headline-md font-headline-md text-primary">MB/s</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">Throughput (Read / Stream)</span>
+</div>
+<div class="flex flex-col items-end font-label-mono text-label-mono text-on-surface-variant">
+<span class="flex items-center gap-1 text-primary-container">
+<span class="material-symbols-outlined text-[14px]">arrow_downward</span> 24.2 MB/s
+          </span>
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">arrow_upward</span> 0.1 MB/s
+          </span>
+</div>
+</div>
+<div class="space-y-space-xs bg-surface-container-low p-space-sm rounded-lg">
+<div class="flex items-center justify-between font-label-mono text-label-mono">
+<span class="text-on-surface-variant">Model Partition Capacity</span>
+<span class="text-on-surface">28.4 / 256 GB</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container rounded-full overflow-hidden">
+<div class="bg-primary h-full" style="width: 11.1%;"></div>
+</div>
+<div class="flex items-center justify-between text-body-sm font-body-sm pt-1">
+<span class="text-on-surface-variant">GGUF Quant Pool:</span>
+<span class="text-on-surface font-label-mono text-label-mono">4 Models Cached</span>
+</div>
+</div>
+<div class="mt-space-sm pt-space-xs flex items-center justify-between font-label-mono text-label-mono text-on-surface-variant/75">
+<span>Zero Latency Memmap</span>
+<span class="text-primary-container">I/O Normal</span>
+</div>
+</div>
+</section>
+<!-- Bottom Split View: Left Column (55% Process Table) + Right Column (45% Diagnostics & Safeguards) -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg">
+<!-- Left Column: AI Runtime Subsystem Processes (~55% -> lg:col-span-7) -->
+<div class="lg:col-span-7 flex flex-col gap-space-md">
+<div class="bg-surface-container rounded-xl p-space-md shadow-md flex flex-col flex-1">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between pb-space-md gap-space-sm">
+<div>
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[20px]">tune</span>
+<h2 class="font-headline-md text-headline-md text-on-surface">Active Subsystem Engine Processes</h2>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Isolated memory allocation, AVX2 thread assignation, and DirectML acceleration.</p>
+</div>
+<div class="flex items-center gap-space-xs">
+<span class="px-space-xs py-0.5 rounded font-label-mono text-label-mono bg-surface-container-low text-primary">
+              5 SUBSYSTEMS RUNNING
+            </span>
+</div>
+</div>
+<!-- High-density technical process table -->
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-lowest font-label-mono text-label-mono text-on-surface-variant uppercase tracking-wider">
+<th class="py-2.5 px-space-sm font-semibold rounded-l">Runtime Process Node</th>
+<th class="py-2.5 px-space-xs font-semibold">PID</th>
+<th class="py-2.5 px-space-xs font-semibold">Memory</th>
+<th class="py-2.5 px-space-xs font-semibold">CPU / Compute</th>
+<th class="py-2.5 px-space-xs font-semibold">Quant / Profile</th>
+<th class="py-2.5 px-space-sm font-semibold text-right rounded-r">Status</th>
+</tr>
+</thead>
+<tbody class="font-body-sm text-body-sm divide-y-0">
+<!-- Row 1: Mistral-7B -->
+<tr class="bg-surface-container hover:bg-surface-container-high transition-colors group">
+<td class="py-3 px-space-sm">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary-container shadow-[0_0_6px_#43D9FF]"></span>
+<div>
+<span class="font-semibold text-on-surface block font-body-md text-body-md">Mistral-7B-Instruct-v0.3</span>
+<span class="font-label-mono text-[10px] text-on-surface-variant">Primary LLM Context Orchestrator</span>
+</div>
+</div>
+</td>
+<td class="py-3 px-space-xs font-code-md text-code-md text-on-surface-variant">14022</td>
+<td class="py-3 px-space-xs font-code-md text-code-md text-primary font-medium">4.18 GB</td>
+<td class="py-3 px-space-xs">
+<div class="flex items-center gap-2">
+<span class="font-code-md text-code-md text-on-surface">24%</span>
+<span class="font-label-mono text-[9px] text-on-surface-variant">(2 Threads)</span>
+</div>
+</td>
+<td class="py-3 px-space-xs">
+<span class="px-space-xs py-0.5 rounded bg-surface-container-low font-label-mono text-[10px] text-primary">Q4_K_M (4.37 bpw)</span>
+</td>
+<td class="py-3 px-space-sm text-right">
+<span class="inline-flex items-center gap-1 px-space-xs py-0.5 rounded-full bg-surface-container-low text-primary-container font-label-mono text-[10px] font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container animate-pulse"></span>
+                    ACTIVE
+                  </span>
+</td>
+</tr>
+<!-- Row 2: DeepSeek-Coder -->
+<tr class="bg-surface-container-low hover:bg-surface-container-high transition-colors group">
+<td class="py-3 px-space-sm">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-secondary-container"></span>
+<div>
+<span class="font-semibold text-on-surface block font-body-md text-body-md">DeepSeek-Coder-6.7B</span>
+<span class="font-label-mono text-[10px] text-on-surface-variant">Code Synthesis Co-Processor</span>
+</div>
+</div>
+</td>
+<td class="py-3 px-space-xs font-code-md text-code-md text-on-surface-variant">14088</td>
+<td class="py-3 px-space-xs font-code-md text-code-md text-on-surface-variant">3.82 GB</td>
+<td class="py-3 px-space-xs font-code-md text-code-md text-on-surface-variant">0%</td>
+<td class="py-3 px-space-xs">
+<span class="px-space-xs py-0.5 rounded bg-surface-container font-label-mono text-[10px] text-on-surface-variant">Q4_K_M Paged</span>
+</td>
+<td class="py-3 px-space-sm text-right">
+<span class="inline-flex items-center gap-1 px-space-xs py-0.5 rounded bg-surface-container text-secondary font-label-mono text-[10px] font-medium">
+                    WARM STANDBY
+                  </span>
+</td>
+</tr>
+<!-- Row 3: Whisper-Base-IN -->
+<tr class="bg-surface-container hover:bg-surface-container-high transition-colors group">
+<td class="py-3 px-space-sm">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-tertiary-container shadow-[0_0_6px_#CEBDFF]"></span>
+<div>
+<span class="font-semibold text-on-surface block font-body-md text-body-md">Whisper-Base-IN</span>
+<span class="font-label-mono text-[10px] text-on-surface-variant">Audio Acoustic Transcription</span>
+</div>
+</div>
+</td>
+<td class="py-3 px-space-xs font-code-md text-code-md text-on-surface-variant">14102</td>
+<td class="py-3 px-space-xs font-code-md text-code-md text-tertiary font-medium">142 MB</td>
+<td class="py-3 px-space-xs">
+<div class="flex items-center gap-1">
+<span class="font-code-md text-code-md text-on-surface">14%</span>
+<span class="font-label-mono text-[9px] text-tertiary-fixed-dim">(DirectML)</span>
+</div>
+</td>
+<td class="py-3 px-space-xs">
+<span class="px-space-xs py-0.5 rounded bg-surface-container-low font-label-mono text-[10px] text-tertiary">FP16 DirectML</span>
+</td>
+<td class="py-3 px-space-sm text-right">
+<span class="inline-flex items-center gap-1 px-space-xs py-0.5 rounded bg-surface-container-low text-tertiary font-label-mono text-[10px] font-semibold">
+                    RUNNING
+                  </span>
+</td>
+</tr>
+<!-- Row 4: SQLite-VSS Vector Engine -->
+<tr class="bg-surface-container-low hover:bg-surface-container-high transition-colors group">
+<td class="py-3 px-space-sm">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<div>
+<span class="font-semibold text-on-surface block font-body-md text-body-md">SQLite-VSS Vector Engine</span>
+<span class="font-label-mono text-[10px] text-on-surface-variant">Hierarchical Semantic Embedding Index</span>
+</div>
+</div>
+</td>
+<td class="py-3 px-space-xs font-code-md text-code-md text-on-surface-variant">14115</td>
+<td class="py-3 px-space-xs font-code-md text-code-md text-on-surface">210 MB</td>
+<td class="py-3 px-space-xs">
+<span class="font-label-mono text-[10px] text-primary">Disk: 1.2 MB/s</span>
+</td>
+<td class="py-3 px-space-xs">
+<span class="px-space-xs py-0.5 rounded bg-surface-container font-label-mono text-[10px] text-on-surface-variant">Flat Index</span>
+</td>
+<td class="py-3 px-space-sm text-right">
+<span class="inline-flex items-center gap-1 px-space-xs py-0.5 rounded bg-surface-container text-primary font-label-mono text-[10px]">
+                    RUNNING
+                  </span>
+</td>
+</tr>
+<!-- Row 5: Neural Core 2.5D Renderer -->
+<tr class="bg-surface-container hover:bg-surface-container-high transition-colors group">
+<td class="py-3 px-space-sm">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-on-surface-variant"></span>
+<div>
+<span class="font-semibold text-on-surface block font-body-md text-body-md">Neural Core 2.5D Renderer</span>
+<span class="font-label-mono text-[10px] text-on-surface-variant">HUD Visualizer UI Compositor</span>
+</div>
+</div>
+</td>
+<td class="py-3 px-space-xs font-code-md text-code-md text-on-surface-variant">14140</td>
+<td class="py-3 px-space-xs font-code-md text-code-md text-on-surface-variant">85 MB</td>
+<td class="py-3 px-space-xs font-code-md text-code-md text-on-surface-variant">2%</td>
+<td class="py-3 px-space-xs">
+<span class="px-space-xs py-0.5 rounded bg-surface-container-low font-label-mono text-[10px] text-on-surface-variant">DirectX 12 Low</span>
+</td>
+<td class="py-3 px-space-sm text-right">
+<span class="inline-flex items-center gap-1 px-space-xs py-0.5 rounded bg-surface-container-low text-on-surface-variant font-label-mono text-[10px]">
+                    THROTTLED (60 FPS)
+                  </span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Subsystem Security & Health Flags Footer -->
+<div class="mt-space-md pt-space-sm bg-surface-container-low p-space-sm rounded-lg flex flex-wrap items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-md">
+<span class="flex items-center gap-1 font-label-mono text-label-mono text-primary">
+<span class="material-symbols-outlined text-[16px]">security</span>
+<span>Air-Gap Shield: Rigid 0 Egress</span>
+</span>
+<span class="flex items-center gap-1 font-label-mono text-label-mono text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px]">lock</span>
+<span>Process Isolation: AppContainer Ring 3</span>
+</span>
+</div>
+<span class="font-label-mono text-label-mono text-primary-container font-semibold">ALL RUNTIMES NORMAL</span>
+</div>
+</div>
+</div>
+<!-- Right Column: Diagnostic Logs & Hardware Safeguards (~45% -> lg:col-span-5) -->
+<div class="lg:col-span-5 flex flex-col gap-space-md">
+<!-- Hardware Safeguards Configuration Card -->
+<div class="bg-surface-container rounded-xl p-space-md shadow-md flex flex-col gap-space-sm">
+<div class="flex items-center justify-between pb-1">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-tertiary text-[20px]">shield</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Hardware Safeguards &amp; Throttling</h3>
+</div>
+<span class="font-label-mono text-label-mono text-primary uppercase">Active Enforcers</span>
+</div>
+<div class="space-y-space-sm mt-1">
+<!-- Safeguard 1: CPU Throttling Threshold -->
+<div class="bg-surface-container-low p-space-sm rounded-lg flex items-center justify-between">
+<div class="flex items-start gap-space-xs max-w-[78%]">
+<span class="material-symbols-outlined text-[18px] text-tertiary-fixed-dim mt-0.5">device_thermostat</span>
+<div>
+<span class="font-label-md text-label-md text-on-surface block font-semibold">CPU Throttling Threshold (75°C)</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Cap local LLM inference if CPU temp exceeds 75°C (Currently 46°C).</span>
+</div>
+</div>
+<!-- Toggle Switch ON -->
+<button class="w-8 h-4 rounded-full bg-primary-container p-0.5 flex items-center justify-end shadow-inner cursor-pointer" title="Toggle CPU Thermal Guard">
+<span class="w-3 h-3 rounded-full bg-on-primary-container"></span>
+</button>
+</div>
+<!-- Safeguard 2: VRAM Overflow Protection -->
+<div class="bg-surface-container-low p-space-sm rounded-lg flex items-center justify-between">
+<div class="flex items-start gap-space-xs max-w-[78%]">
+<span class="material-symbols-outlined text-[18px] text-primary mt-0.5">cyclone</span>
+<div>
+<span class="font-label-md text-label-md text-on-surface block font-semibold">VRAM / RAM Overflow Protection</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Auto-unload warm standby models if RAM free drops below 1.5 GB.</span>
+</div>
+</div>
+<!-- Toggle Switch ON -->
+<button class="w-8 h-4 rounded-full bg-primary-container p-0.5 flex items-center justify-end shadow-inner cursor-pointer" title="Toggle Memory Guard">
+<span class="w-3 h-3 rounded-full bg-on-primary-container"></span>
+</button>
+</div>
+<!-- Safeguard 3: Battery / Low Power Mode -->
+<div class="bg-surface-container-low p-space-sm rounded-lg flex items-center justify-between opacity-80">
+<div class="flex items-start gap-space-xs max-w-[78%]">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant mt-0.5">power</span>
+<div>
+<span class="font-label-md text-label-md text-on-surface block font-semibold">Battery / Low Power Mode</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Disabled (AC Powered Desktop Motherboard detected).</span>
+</div>
+</div>
+<!-- Toggle Switch OFF -->
+<button class="w-8 h-4 rounded-full bg-surface-container-highest p-0.5 flex items-center justify-start cursor-not-allowed" title="Disabled on AC Power">
+<span class="w-3 h-3 rounded-full bg-outline"></span>
+</button>
+</div>
+</div>
+</div>
+<!-- Real-Time Diagnostic Event Stream Terminal -->
+<div class="bg-surface-container rounded-xl p-space-md shadow-md flex-1 flex flex-col gap-space-sm border border-outline-variant/30"><!-- Benchmark Suite Header with Completed State -->
+  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-xs pb-space-xs border-b border-surface-container-highest/60">
+    <div class="flex flex-col">
+      <div class="flex items-center gap-space-xs">
+        <span class="material-symbols-outlined text-primary text-[20px]">verified</span>
+        <h3 class="font-headline-sm text-headline-sm text-on-surface">Active Hardware &amp; Inference Benchmark</h3>
+      </div>
+      <span class="font-label-mono text-[10px] text-on-surface-variant mt-0.5">Target: Intel i3-6100T Skylake • AVX2 • DirectML Intel HD 530</span>
+    </div>
+    <div class="flex items-center gap-1.5 px-space-sm py-0.5 rounded-full bg-surface-container-low border border-primary-container shadow-[0_0_8px_#43D9FF]">
+      <span class="material-symbols-outlined text-[14px] text-primary">check_circle</span>
+      <span class="font-label-mono text-[10px] text-primary font-semibold uppercase tracking-wider">BENCHMARK COMPLETE • PASS 3/3 (ALL SUITES PASSED)</span>
+    </div>
+  </div>
+
+  <!-- Preset Selector Pills with Completed Preset highlighted -->
+  <div class="flex flex-wrap items-center gap-1.5 pt-1">
+    <button class="px-space-xs py-1 rounded bg-secondary-container text-on-secondary-container font-label-mono text-[10px] font-semibold shadow-sm flex items-center gap-1.5 border border-primary-container/40">
+      <span class="material-symbols-outlined text-[12px] text-primary">check</span>
+      <span>Mistral-7B Q4_K_M TTFT &amp; Eval (Passed)</span>
+    </button>
+    <button class="px-space-xs py-1 rounded bg-surface-container-low hover:bg-surface-container-high text-on-surface-variant font-label-mono text-[10px] transition-colors">
+      DeepSeek-Coder Tokens/Sec
+    </button>
+    <button class="px-space-xs py-1 rounded bg-surface-container-low hover:bg-surface-container-high text-on-surface-variant font-label-mono text-[10px] transition-colors">
+      DirectML Whisper STT RTF
+    </button>
+    <button class="px-space-xs py-1 rounded bg-surface-container-low hover:bg-surface-container-high text-on-surface-variant font-label-mono text-[10px] transition-colors">
+      SQLite-VSS 1536-dim Latency
+    </button>
+  </div>
+
+  <!-- Benchmark Action Controls: Run New Benchmark, Export & Compare Baseline + 100% Progress -->
+  <div class="bg-surface-container-lowest/80 rounded-lg p-space-sm flex flex-col gap-space-xs">
+    <div class="flex flex-wrap items-center justify-between gap-space-xs">
+      <div class="flex flex-wrap items-center gap-1.5">
+        <button class="px-space-md py-1.5 rounded bg-primary-container text-on-primary-container hover:bg-primary font-label-mono text-label-mono font-semibold flex items-center gap-1.5 transition-all shadow-[0_0_8px_#43D9FF] cursor-pointer" id="runNewBenchmarkBtn">
+          <span class="material-symbols-outlined text-[16px]">play_arrow</span>
+          <span>Run New Benchmark (F5)</span>
+        </button>
+        <button class="px-space-sm py-1.5 rounded bg-surface-container hover:bg-surface-container-high text-on-surface font-label-mono text-[10px] flex items-center gap-1 transition-colors cursor-pointer">
+          <span class="material-symbols-outlined text-[14px] text-primary">file_download</span>
+          <span>Export Benchmark Report (.JSON/.CSV)</span>
+        </button>
+        <button class="px-space-sm py-1.5 rounded bg-surface-container hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface font-label-mono text-[10px] flex items-center gap-1 transition-colors cursor-pointer">
+          <span class="material-symbols-outlined text-[14px]">compare_arrows</span>
+          <span>Compare Baseline</span>
+        </button>
+      </div>
+      <span class="px-space-sm py-1 rounded bg-surface-container-high text-primary font-label-mono text-[10px] flex items-center gap-1">
+        <span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+        All Iterations Finalized
+      </span>
+    </div>
+    <div class="flex items-center justify-between font-label-mono text-[10px] text-on-surface-variant pt-1">
+      <span class="text-on-surface font-medium">Completed in 14.82s • 3 Passes • Deterministic Seed 42</span>
+      <span class="text-primary font-semibold">100% Verified</span>
+    </div>
+    <div class="w-full h-1.5 bg-surface-container rounded-full overflow-hidden flex">
+      <div class="bg-primary-container h-full rounded-full transition-all duration-300 shadow-[0_0_8px_#43D9FF]" style="width: 100%;"></div>
+    </div>
+  </div>
+
+  <!-- Live Real-Time Benchmark Metrics Grid: Completed Results -->
+  <div class="grid grid-cols-2 gap-space-xs pt-1">
+    <!-- Metric 1: TTFT Average 176.2 ms -->
+    <div class="bg-surface-container-low p-space-xs rounded-lg flex flex-col justify-between">
+      <div class="flex items-center justify-between text-on-surface-variant font-label-mono text-[10px]">
+        <span>TTFT (Time-To-First)</span>
+        <span class="text-primary font-semibold">FINAL VERIFIED</span>
+      </div>
+      <div class="my-1 flex items-baseline justify-between">
+        <div class="font-display-lg text-[20px] text-on-surface tracking-tight font-bold">
+          176.2 <span class="text-[12px] font-normal text-primary-container">ms</span>
+        </div>
+        <div class="w-16 h-5">
+          <svg class="w-full h-full text-primary-container" fill="none" viewBox="0 0 64 20">
+            <path d="M0 16 L12 12 L24 14 L36 8 L48 6 L64 6" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path>
+          </svg>
+        </div>
+      </div>
+      <span class="font-label-mono text-[9px] text-primary">Pass: Target &lt;200ms (-18.8ms vs baseline)</span>
+    </div>
+
+    <!-- Metric 2: Generation Throughput (15.4 tok/s steady-state) -->
+    <div class="bg-surface-container-low p-space-xs rounded-lg flex flex-col justify-between">
+      <div class="flex items-center justify-between text-on-surface-variant font-label-mono text-[10px]">
+        <span>Gen Throughput</span>
+        <span class="text-primary font-semibold">STEADY-STATE</span>
+      </div>
+      <div class="my-1 flex items-baseline justify-between">
+        <div class="font-display-lg text-[20px] text-on-surface tracking-tight font-bold flex items-baseline gap-1">
+          <span class="text-primary">15.4</span> <span class="text-[12px] font-normal text-tertiary-fixed-dim">tok/s</span>
+        </div>
+        <div class="w-16 h-5">
+          <svg class="w-full h-full text-primary" fill="none" viewBox="0 0 64 20">
+            <path d="M0 12 L10 14 L20 15 L30 15.2 L40 15.4 L50 15.4 L64 15.4" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path>
+          </svg>
+        </div>
+      </div>
+      <span class="font-label-mono text-[9px] text-primary">+28.3% over real-time 12.0 tok/s voice threshold</span>
+    </div>
+
+    <!-- Metric 3: Memory Bandwidth Saturation (Released to 72.4%) -->
+    <div class="bg-surface-container-low p-space-xs rounded-lg flex flex-col justify-between">
+      <div class="flex items-center justify-between text-on-surface-variant font-label-mono text-[10px]">
+        <span>RAM Saturation</span>
+        <span class="text-secondary font-semibold">0.00 Thrash Rate</span>
+      </div>
+      <div class="my-1 flex items-baseline justify-between">
+        <div class="font-display-lg text-[18px] text-on-surface tracking-tight font-bold">
+          72.4<span class="text-[11px] font-normal text-secondary">%</span>
+        </div>
+        <span class="font-label-mono text-[9px] text-primary">8.6 / 12 GB DDR4-2133</span>
+      </div>
+      <div class="w-full h-1 bg-surface-container rounded-full overflow-hidden">
+        <div class="bg-secondary-container h-full" style="width: 72.4%;"></div>
+      </div>
+    </div>
+
+    <!-- Metric 4: Thermal Delta & Temp Gauge (Settled at 48.2°C) -->
+    <div class="bg-surface-container-low p-space-xs rounded-lg flex flex-col justify-between">
+      <div class="flex items-center justify-between text-on-surface-variant font-label-mono text-[10px]">
+        <span>Thermal Delta Gauge</span>
+        <span class="text-primary font-semibold flex items-center gap-0.5">
+          <span class="material-symbols-outlined text-[12px]">trending_down</span>Cooling Down
+        </span>
+      </div>
+      <div class="my-1 flex items-baseline justify-between">
+        <div class="font-display-lg text-[18px] text-primary tracking-tight font-bold">
+          48.2 <span class="text-[11px] font-normal text-on-surface-variant">°C</span>
+        </div>
+        <span class="px-1 py-0.5 rounded bg-surface-container font-label-mono text-[9px] text-primary font-semibold">SAFE (≤75°C)</span>
+      </div>
+      <span class="font-label-mono text-[9px] text-on-surface-variant/75">Peak: 53.4°C • Well below 75°C throttle</span>
+    </div>
+  </div>
+
+  <!-- Live Streaming Terminal Feed with Final Summary -->
+  <div class="bg-surface-container-lowest rounded-lg p-space-sm font-code-md text-[11px] space-y-1.5 max-h-36 overflow-y-auto shadow-inner text-on-surface border border-outline-variant/20">
+    <div class="flex items-start gap-2 text-on-surface-variant">
+      <span class="px-1 rounded bg-secondary-container font-label-mono text-[9px] text-on-secondary-container font-semibold shrink-0">BENCH:01</span>
+      <span>Warmup pass: <strong class="text-primary">PASS</strong> (901.4 tok/s ingestion)</span>
+    </div>
+    <div class="flex items-start gap-2 text-on-surface-variant">
+      <span class="px-1 rounded bg-secondary-container font-label-mono text-[9px] text-on-secondary-container font-semibold shrink-0">BENCH:02</span>
+      <span>Iterative decoding 256 tokens: <strong class="text-primary">PASS</strong> (15.4 tok/s decode, KV hit=98.2%)</span>
+    </div>
+    <div class="flex items-start gap-2 text-on-surface-variant">
+      <span class="px-1 rounded bg-secondary-container font-label-mono text-[9px] text-on-secondary-container font-semibold shrink-0">BENCH:03</span>
+      <span>Stress test &amp; PagedAttention: <strong class="text-primary">PASS</strong> (0 OOM spills, 0 throttles)</span>
+    </div>
+    <div class="flex items-start gap-2 bg-surface-container-low px-1 py-0.5 rounded text-on-surface font-semibold border-l-2 border-primary-container">
+      <span class="px-1 rounded bg-primary-container font-label-mono text-[9px] text-on-primary-container font-semibold shrink-0">EVAL_SUMMARY</span>
+      <span class="truncate">MODEL: Mistral-7B-Instruct-v0.3 Q4_K_M • SCORE: <span class="text-primary font-bold">98.6/100</span> (LOW-SPEC CERTIFIED)</span>
+    </div>
+    <div class="flex items-center gap-1.5 pt-0.5 text-primary font-label-mono text-[10px]">
+      <span class="material-symbols-outlined text-[12px]">task_alt</span>
+      <span>[STATUS] Benchmark artifacts written to /telemetry/bench_run_042.json</span>
+    </div>
+  </div>
+
+  <!-- Suite Footer Controls with Completed Status -->
+  <div class="pt-space-xs flex items-center justify-between text-body-sm font-body-sm text-on-surface-variant border-t border-surface-container-highest/50">
+    <div class="flex items-center gap-1.5">
+      <span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+      <span class="font-label-mono text-[10px] text-primary">EPOCH RUNNER: DETERMINISTIC SEED 42 (EXECUTION COMPLETED)</span>
+    </div>
+    <div class="flex items-center gap-space-sm">
+      <button class="hover:text-primary transition-colors text-label-md font-label-md flex items-center gap-1 text-on-surface-variant">
+        <span class="material-symbols-outlined text-[14px]">history</span> Run History
+      </button>
+      <button class="hover:text-primary transition-colors text-label-md font-label-md flex items-center gap-1">
+        <span class="material-symbols-outlined text-[14px]">tune</span> Parameters
+      </button>
+    </div>
+  </div></div>
+</div>
+</div>
+<!-- Micro-Interactions and State Management Script -->
+<script>
+    (function initSystemMonitor() {
+      // Highlight sidebar 'System Monitor' item if matching nav element exists
+      const currentNav = document.querySelector('aside nav a[data-path="system-monitor"]');
+      if (currentNav) {
+        document.querySelectorAll('aside nav a').forEach(el => {
+          el.className = 'flex items-center gap-space-md px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors';
+        });
+        currentNav.className = 'flex items-center gap-space-md px-space-sm py-space-xs rounded bg-secondary-container text-on-secondary-container font-semibold shadow-sm transition-colors';
+      }
+
+      // Garbage Collection Action trigger
+      const gcBtn = document.getElementById('gcTriggerBtn');
+      const terminal = document.getElementById('diagnosticTerminal');
+      if (gcBtn && terminal) {
+        gcBtn.addEventListener('click', () => {
+          const originalText = gcBtn.innerHTML;
+          gcBtn.innerHTML = '<span class="material-symbols-outlined text-[16px] animate-spin text-tertiary">sync</span><span>Reclaiming...</span>';
+          gcBtn.classList.add('pointer-events-none', 'opacity-75');
+
+          setTimeout(() => {
+            const now = new Date();
+            const timeStr = [now.getHours(), now.getMinutes(), now.getSeconds()]
+              .map(v => String(v).padStart(2, '0'))
+              .join(':');
+            
+            const logEntry = document.createElement('div');
+            logEntry.className = 'flex items-start gap-2 bg-surface-container-high p-1 rounded animate-fade-in';
+            logEntry.innerHTML = `
+              <span class="font-label-mono text-label-mono text-primary">${timeStr}</span>
+              <span class="px-1 rounded bg-secondary-container font-label-mono text-[9px] text-on-secondary-container font-semibold">GC_FORCE</span>
+              <span class="text-on-surface font-semibold">Garbage collection executed. 182 MB stale KV memory purged.</span>
+            `;
+            terminal.insertBefore(logEntry, terminal.firstChild);
+
+            gcBtn.innerHTML = originalText;
+            gcBtn.classList.remove('pointer-events-none', 'opacity-75');
+          }, 850);
+        });
+      }
+
+      // Clear Buffer Button Action
+      const cleanBtn = document.getElementById('cleanCacheBtn');
+      if (cleanBtn && terminal) {
+        cleanBtn.addEventListener('click', () => {
+          cleanBtn.classList.add('bg-surface-container-highest');
+          setTimeout(() => cleanBtn.classList.remove('bg-surface-container-highest'), 300);
+
+          const now = new Date();
+          const timeStr = [now.getHours(), now.getMinutes(), now.getSeconds()]
+            .map(v => String(v).padStart(2, '0'))
+            .join(':');
+
+          const logEntry = document.createElement('div');
+          logEntry.className = 'flex items-start gap-2 text-primary-container';
+          logEntry.innerHTML = `
+            <span class="font-label-mono text-label-mono">${timeStr}</span>
+            <span class="px-1 rounded bg-surface-container-high font-label-mono text-[9px] text-primary font-semibold">FLUSH</span>
+            <span class="text-on-surface">D:\\AI_Models\\GGUF swap buffers verified clean. Zero dangling locks.</span>
+          `;
+          terminal.insertBefore(logEntry, terminal.firstChild);
+        });
+      }
+
+      // Clear logs terminal button
+      const clearLogsBtn = document.getElementById('clearLogsBtn');
+      if (clearLogsBtn && terminal) {
+        clearLogsBtn.addEventListener('click', () => {
+          terminal.innerHTML = `
+            <div class="flex items-start gap-2 text-on-surface-variant font-label-mono text-label-mono">
+              <span>-- Console cleared. Telemetry ring restarted. --</span>
+            </div>
+          `;
+        });
+      }
+
+      // Export Diagnostic Report
+      const exportDiagBtn = document.getElementById('exportDiagBtn');
+      if (exportDiagBtn) {
+        exportDiagBtn.addEventListener('click', () => {
+          const reportPayload = {
+            system: "Intel Core i3-6100T (2C/4T @ 3.20GHz)",
+            ram: "12.0 GB DDR4 (7.8 GB used, 65%)",
+            gpu: "Intel HD Graphics 530 (1.8 GB shared VRAM)",
+            storage: "D:\\AI_Models\\GGUF (28.4 GB / 256 GB)",
+            processes: [
+              { name: "Mistral-7B-Instruct-v0.3", pid: 14022, memory: "4.18 GB", state: "ACTIVE" },
+              { name: "DeepSeek-Coder-6.7B", pid: 14088, memory: "3.82 GB", state: "WARM STANDBY" },
+              { name: "Whisper-Base-IN", pid: 14102, memory: "142 MB", state: "RUNNING" }
+            ],
+            airgapped: true,
+            timestamp: new Date().toISOString()
+          };
+          const blob = new Blob([JSON.stringify(reportPayload, null, 2)], { type: 'application/json' });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = `system_diagnostic_report_${Date.now()}.json`;
+          a.click();
+          URL.revokeObjectURL(url);
+        });
+      }
+    })();
+  </script>
+</div></main></div><div class="fixed bottom-space-md left-72 right-space-lg z-40 max-w-4xl mx-auto"><div class="bg-surface-container-lowest/95 backdrop-blur-xl rounded-xl px-space-md py-space-xs shadow-[0_8px_32px_rgba(0,0,0,0.6)] flex items-center gap-space-md"><div class="flex items-center gap-space-xs px-space-sm py-space-xs rounded-lg bg-surface-container"><span class="w-2 h-2 rounded-full bg-primary-container shadow-[0_0_8px_#43D9FF]"></span><span class="font-label-mono text-label-mono text-primary font-semibold">IDLE</span></div><div class="flex-1 flex items-center gap-space-sm bg-surface-container-low px-space-md py-space-xs rounded-lg"><input class="bg-transparent flex-1 focus:outline-none text-on-surface font-body-md text-body-md placeholder:text-on-surface-variant/50" placeholder="Instruct neural orchestrator or input quick prompt..." type="text"><button class="p-1 rounded text-on-surface-variant hover:text-primary transition-colors" title="Attach context or file payload"><span class="material-symbols-outlined text-[18px]">attach_file</span></button><button class="p-1 rounded text-on-surface-variant hover:text-primary transition-colors" title="Toggle audio transcription"><span class="material-symbols-outlined text-[18px]">mic</span></button></div><div class="flex items-center gap-space-xs font-label-mono text-label-mono text-on-surface-variant"><kbd class="px-space-xs py-0.5 rounded bg-surface-container text-on-surface-variant">Enter</kbd><span class="text-[10px]">Run</span></div></div></div>
+
+</body></html>

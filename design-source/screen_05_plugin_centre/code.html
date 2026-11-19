@@ -1,0 +1,639 @@
+<!DOCTYPE html><html class="dark" lang="en"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0" name="viewport"><meta content="web_dashboard" name="shell-type"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "surface-tint": "#40d7fd", "surface-container": "#1b2029", "secondary-container": "#0262e6", "on-tertiary-fixed-variant": "#5026b0", "surface-container-highest": "#31353f", "on-secondary-fixed-variant": "#00419e", "primary-fixed-dim": "#40d7fd", "on-primary": "#003642", "tertiary-fixed-dim": "#cebdff", "surface-container-low": "#171c25", "surface-container-lowest": "#0a0e17", "surface": "#0f131d", "on-secondary-container": "#e7ebff", "on-primary-fixed-variant": "#004e5e", "on-surface": "#dfe2f0", "on-primary-fixed": "#001f27", "background": "#0f131d", "tertiary-container": "#d0bfff", "error-container": "#93000a", "outline-variant": "#3c494d", "surface-dim": "#0f131d", "outline": "#869398", "primary-container": "#43d9ff", "surface-variant": "#31353f", "inverse-surface": "#dfe2f0", "secondary": "#b1c5ff", "on-secondary-fixed": "#001946", "error": "#ffb4ab", "on-tertiary-container": "#5e37be", "on-tertiary-fixed": "#21005e", "primary": "#b8edff", "tertiary": "#eae0ff", "secondary-fixed": "#dae2ff", "on-tertiary": "#390094", "inverse-primary": "#00677d", "on-background": "#dfe2f0", "on-error": "#690005", "on-secondary": "#002c70", "on-primary-container": "#005c6f", "inverse-on-surface": "#2c303b", "on-surface-variant": "#bbc9ce", "surface-bright": "#353944", "tertiary-fixed": "#e8ddff", "primary-fixed": "#b2ebff", "surface-container-high": "#262a34", "on-error-container": "#ffdad6", "secondary-fixed-dim": "#b1c5ff" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "space-xxl": "2rem", "space-lg": "1rem", "margin": "1.5rem", "space-xl": "1.5rem", "gutter-dense": "0.5rem", "space-sm": "0.5rem", "space-xs": "0.25rem", "space-md": "0.75rem", "gutter": "1rem", "margin-dense": "1rem" }, "fontFamily": { "headline-lg": [ "Manrope" ], "headline-sm": [ "Manrope" ], "body-sm": [ "Inter" ], "label-mono": [ "JetBrains Mono" ], "code-md": [ "JetBrains Mono" ], "headline-md": [ "Manrope" ], "display-lg": [ "Manrope" ], "label-md": [ "Inter" ], "body-md": [ "Inter" ], "body-lg": [ "Inter" ] }, "fontSize": { "headline-lg": [ "24px", { "lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "600" } ], "headline-sm": [ "16px", { "lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "600" } ], "body-sm": [ "12px", { "lineHeight": "16px", "letterSpacing": "0.005em", "fontWeight": "400" } ], "label-mono": [ "10px", { "lineHeight": "14px", "letterSpacing": "0.05em", "fontWeight": "500" } ], "code-md": [ "12px", { "lineHeight": "18px", "letterSpacing": "0em", "fontWeight": "400" } ], "headline-md": [ "20px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" } ], "display-lg": [ "32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" } ], "label-md": [ "11px", { "lineHeight": "14px", "letterSpacing": "0.02em", "fontWeight": "500" } ], "body-md": [ "13px", { "lineHeight": "18px", "letterSpacing": "0em", "fontWeight": "400" } ], "body-lg": [ "15px", { "lineHeight": "22px", "letterSpacing": "-0.005em", "fontWeight": "400" } ] } } } };</script></head><body class="bg-surface font-body-md text-body-md text-on-surface select-none antialiased min-h-screen"><header class="fixed top-0 left-0 right-0 h-14 bg-surface-container-lowest/90 backdrop-blur-md z-50 flex items-center justify-between px-space-lg shadow-[0_1px_8px_rgba(0,0,0,0.4)]"><div class="flex items-center gap-space-md"><img alt="Neural Orchestrator Emblem" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/ALJJyrDkwdFfa2ZbCR92YUYuBisOJanZ8ecfnNvhI9eXBT--hdx14MyRyg6qfpPnaiS3kIpRGkkX0PNVVtIwneXNiCoblHPpmqiGrQk2CkGEIKcqfD3gRNBMLWSXQEbGOivXgnv71LBNjxftYEsjJ8cw22e5EDAyHmGagINyRC1EEZmHBwkNLqwZmekoCt_AROtGMSmXq54KIdKK2SWARwX6UIilHqAqSfaykmHb1GzCTeU"><span class="px-space-sm py-space-xs rounded bg-surface-container-high text-primary font-label-mono text-label-mono uppercase tracking-wider font-semibold">[FINAL AI NAME]</span><div class="flex items-center gap-space-xs px-space-sm py-space-xs rounded bg-surface-container-low hover:bg-surface-container transition-colors cursor-pointer"><span class="font-label-md text-label-md text-on-surface-variant font-medium">Core Engine v2.4</span><span class="material-symbols-outlined text-[16px] text-on-surface-variant">expand_more</span></div></div><div class="hidden md:flex items-center gap-space-md bg-surface-container-lowest px-space-md py-space-xs rounded-lg shadow-inner"><div class="flex items-center gap-space-xs text-on-surface-variant font-code-md text-code-md"><span class="material-symbols-outlined text-[16px]">terminal</span><span>root</span><span class="text-outline">/</span><span class="text-primary font-medium">workspace</span></div><div class="h-3 w-[1px] bg-surface-container-highest"></div><div class="flex items-center gap-space-sm text-on-surface-variant font-label-md text-label-md"><span class="material-symbols-outlined text-[16px]">search</span><span>Search command buffer</span><kbd class="px-space-xs py-0.5 rounded bg-surface-container text-primary font-label-mono text-label-mono shadow-sm">Ctrl + K</kbd></div></div><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs px-space-sm py-0.5 rounded-full bg-surface-container-low"><span class="w-1.5 h-1.5 rounded-full bg-primary-container animate-pulse"></span><span class="font-label-mono text-label-mono text-primary-container font-semibold uppercase tracking-wider">LOCAL MODE: ACTIVE</span></div><div class="flex items-center gap-space-xs text-on-surface-variant"><button class="p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors" title="Voice Interface Ready"><span class="material-symbols-outlined text-[18px] text-primary-container">mic</span></button><button class="p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors" title="Encrypted &amp; Enforced"><span class="material-symbols-outlined text-[18px] text-primary">verified_user</span></button><button class="relative p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors" title="Telemetry Alerts"><span class="material-symbols-outlined text-[18px]">notifications</span><span class="absolute top-1 right-1 w-2 h-2 rounded-full bg-error"></span></button></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></header><aside class="fixed left-0 top-14 bottom-0 w-64 bg-surface-container-lowest z-40 flex flex-col justify-between py-space-sm shadow-[1px_0_12px_rgba(0,0,0,0.5)]"><nav class="flex-1 px-space-xs space-y-0.5 overflow-y-auto" data-active-classes="bg-secondary-container text-on-secondary-container font-semibold shadow-sm"><a class="flex items-center gap-space-md px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="command-center" href="#"><span class="material-symbols-outlined text-[20px]">dashboard</span><span class="font-body-md text-body-md truncate">Command Center</span></a><a class="flex items-center gap-space-md px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="conversation" href="#"><span class="material-symbols-outlined text-[20px]">chat</span><span class="font-body-md text-body-md truncate">Conversation</span></a><a class="flex items-center gap-space-md px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="3d-neural-core" href="#"><span class="material-symbols-outlined text-[20px]">view_in_ar</span><span class="font-body-md text-body-md truncate">3D Neural Core</span></a><a class="flex items-center gap-space-md px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="intelligence-models" href="#"><span class="material-symbols-outlined text-[20px]">psychology</span><span class="font-body-md text-body-md truncate">Intelligence &amp; Models</span></a><a class="flex items-center gap-space-md px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="plugin-center" href="#"><span class="material-symbols-outlined text-[20px]">extension</span><span class="font-body-md text-body-md truncate">Plugin Center</span></a><a class="flex items-center gap-space-md px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="agent-workspace" href="#"><span class="material-symbols-outlined text-[20px]">smart_toy</span><span class="font-body-md text-body-md truncate">Agent Workspace</span></a><a class="flex items-center gap-space-md px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="workflow-builder" href="#"><span class="material-symbols-outlined text-[20px]">account_tree</span><span class="font-body-md text-body-md truncate">Workflow Builder</span></a><a class="flex items-center gap-space-md px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="pc-control" href="#"><span class="material-symbols-outlined text-[20px]">desktop_windows</span><span class="font-body-md text-body-md truncate">PC Control</span></a><a class="flex items-center gap-space-md px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="memory-center" href="#"><span class="material-symbols-outlined text-[20px]">database</span><span class="font-body-md text-body-md truncate">Memory Center</span></a><a class="flex items-center gap-space-md px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="voice-studio" href="#"><span class="material-symbols-outlined text-[20px]">graphic_eq</span><span class="font-body-md text-body-md truncate">Voice Studio</span></a><a class="flex items-center gap-space-md px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="tasks-activity" href="#"><span class="material-symbols-outlined text-[20px]">task_alt</span><span class="font-body-md text-body-md truncate">Tasks &amp; Activity</span></a><a class="flex items-center gap-space-md px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="system-monitor" href="#"><span class="material-symbols-outlined text-[20px]">monitoring</span><span class="font-body-md text-body-md truncate">System Monitor</span></a><a class="flex items-center gap-space-md px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="security-permissions" href="#"><span class="material-symbols-outlined text-[20px]">security</span><span class="font-body-md text-body-md truncate">Security &amp; Permissions</span></a><a class="flex items-center gap-space-md px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="settings" href="#"><span class="material-symbols-outlined text-[20px]">settings</span><span class="font-body-md text-body-md truncate">Settings</span></a></nav><div class="pt-space-xs px-space-xs flex flex-col gap-1"><button class="w-full flex items-center justify-between px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors"><div class="flex items-center gap-space-md"><span class="material-symbols-outlined text-[18px] text-tertiary-fixed-dim">deployed_code</span><span class="font-label-md text-label-md uppercase tracking-wider font-semibold">HUD Mode</span></div><span class="font-label-mono text-label-mono text-on-surface-variant">F9</span></button><button class="w-full flex items-center justify-between px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors"><div class="flex items-center gap-space-md"><span class="material-symbols-outlined text-[18px]">dock_to_right</span><span class="font-label-md text-label-md uppercase tracking-wider font-semibold">Collapse Rail</span></div><span class="font-label-mono text-label-mono text-on-surface-variant">Ctrl+[</span></button></div></aside><div class="pl-64 flex flex-col min-h-screen"><main class="flex-1 pt-14 pb-20 w-full px-space-lg bg-surface"><div class="flex flex-col w-full">
+<!-- Command Banner / Control Header -->
+<header class="flex flex-col gap-space-md mb-space-lg">
+<div class="flex flex-wrap items-center justify-between gap-space-md">
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs mb-1">
+<span class="font-label-mono text-label-mono text-primary uppercase tracking-widest">Tooling &amp; Interop Layer</span>
+<span class="text-outline text-label-mono">/</span>
+<span class="font-label-mono text-label-mono text-on-surface-variant">Sandbox v3.8.1-airgap</span>
+</div>
+<div class="flex items-baseline gap-space-md">
+<h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">Plugin Centre</h1>
+<span class="font-body-sm text-body-sm text-on-surface-variant hidden sm:inline">Manage modular runtime capabilities, system interfaces, and agent toolkits.</span>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="flex items-center gap-space-xs">
+<button class="flex items-center gap-space-xs px-space-md py-space-xs rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface transition-all shadow-sm" id="btn-scan">
+<span class="material-symbols-outlined text-[16px] text-surface-tint">sync</span>
+<span class="font-label-md text-label-md font-medium">Scan Directory</span>
+</button>
+<button class="flex items-center gap-space-xs px-space-md py-space-xs rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface transition-all shadow-sm" id="btn-audit">
+<span class="material-symbols-outlined text-[16px] text-tertiary-fixed-dim">verified_user</span>
+<span class="font-label-md text-label-md font-medium">Audit Permissions</span>
+</button>
+<button class="flex items-center gap-space-xs px-space-md py-space-xs rounded-lg bg-secondary-container hover:bg-primary-container text-on-secondary-container hover:text-on-primary-container transition-all shadow-md font-medium">
+<span class="material-symbols-outlined text-[18px]">add_box</span>
+<span class="font-label-md text-label-md font-semibold">+ Add Custom Local Plugin</span>
+</button>
+</div>
+</div>
+<!-- Security & Telemetry Ribbon -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-space-xs">
+<div class="flex items-center justify-between px-space-md py-space-xs rounded-lg bg-surface-container-low shadow-sm">
+<div class="flex items-center gap-space-sm">
+<span class="w-2 h-2 rounded-full bg-primary-container animate-pulse"></span>
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider font-semibold">Active Runtimes</span>
+</div>
+<span class="font-label-mono text-label-mono text-primary font-bold">8 OF 9 MOUNTED</span>
+</div>
+<div class="flex items-center justify-between px-space-md py-space-xs rounded-lg bg-surface-container-low shadow-sm">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-[16px] text-primary">security</span>
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider font-semibold">Security Enclave</span>
+</div>
+<span class="px-space-xs py-0.5 rounded bg-surface-container-highest text-primary text-[10px] font-label-mono font-medium">STRICT SANDBOX</span>
+</div>
+<div class="flex items-center justify-between px-space-md py-space-xs rounded-lg bg-surface-container-low shadow-sm">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-[16px] text-error">public_off</span>
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider font-semibold">Network Egress</span>
+</div>
+<span class="px-space-xs py-0.5 rounded bg-error-container text-on-error-container text-[10px] font-label-mono font-medium">BLOCKED (AIR-GAP)</span>
+</div>
+<div class="flex items-center justify-between px-space-md py-space-xs rounded-lg bg-surface-container-low shadow-sm">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-[16px] text-tertiary">memory</span>
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider font-semibold">Heap Allocated</span>
+</div>
+<span class="font-label-mono text-label-mono text-tertiary font-bold">148.4 MB / 1.0 GB</span>
+</div>
+</div>
+</header>
+<!-- Search, Filter Bar & Tab Strip -->
+<div class="flex flex-col gap-space-sm mb-space-lg">
+<!-- Main Tabs -->
+<div class="flex items-center justify-between bg-surface-container-lowest p-space-xs rounded-xl shadow-sm">
+<nav class="flex items-center gap-1 overflow-x-auto">
+<button class="tab-btn px-space-md py-space-xs rounded-lg bg-secondary-container text-on-secondary-container font-label-md text-label-md font-semibold shadow-sm transition-all" data-tab="overview">
+          Overview &amp; Store
+        </button>
+<button class="tab-btn px-space-md py-space-xs rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container font-label-md text-label-md font-medium transition-all" data-tab="connected">
+          Connected Plugins <span class="ml-1 px-1.5 py-0.2 rounded-full bg-surface-container-high text-primary font-label-mono text-[9px]">8</span>
+</button>
+<button class="tab-btn px-space-md py-space-xs rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container font-label-md text-label-md font-medium transition-all" data-tab="permissions">
+          Granular Permissions
+        </button>
+<button class="tab-btn px-space-md py-space-xs rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container font-label-md text-label-md font-medium transition-all" data-tab="logs">
+          Audit &amp; Execution Logs
+        </button>
+<button class="tab-btn px-space-md py-space-xs rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container font-label-md text-label-md font-medium transition-all" data-tab="workflows">
+          Workflow Integrations
+        </button>
+</nav>
+<div class="hidden lg:flex items-center gap-space-xs text-on-surface-variant font-label-mono text-label-mono px-space-sm">
+<span>STORE REPO:</span>
+<span class="text-primary font-medium">local-manifest.json</span>
+</div>
+</div>
+<!-- Search + Filter Chips Row -->
+<div class="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-space-sm">
+<div class="relative flex-1 max-w-xl">
+<span class="material-symbols-outlined absolute left-space-md top-1/2 -translate-y-1/2 text-[18px] text-outline">search</span>
+<input class="w-full pl-10 pr-space-md py-space-xs bg-surface-container rounded-lg font-body-md text-body-md text-on-surface placeholder:text-outline focus:outline-none focus:bg-surface-container-high shadow-inner" id="plugin-search" placeholder="Search 48+ plugins, tools, or local integrations (press '/' to focus)..." type="text">
+</div>
+<div class="flex items-center gap-space-xs overflow-x-auto pb-1 md:pb-0">
+<button class="filter-pill px-space-sm py-space-xs rounded-full bg-surface-container-high text-primary font-label-md text-label-md font-semibold whitespace-nowrap shadow-sm" data-category="all">All Tools</button>
+<button class="filter-pill px-space-sm py-space-xs rounded-full bg-surface-container-low hover:bg-surface-container text-on-surface-variant font-label-md text-label-md whitespace-nowrap transition-colors" data-category="developer">Developer</button>
+<button class="filter-pill px-space-sm py-space-xs rounded-full bg-surface-container-low hover:bg-surface-container text-on-surface-variant font-label-md text-label-md whitespace-nowrap transition-colors" data-category="files">Files &amp; I/O</button>
+<button class="filter-pill px-space-sm py-space-xs rounded-full bg-surface-container-low hover:bg-surface-container text-on-surface-variant font-label-md text-label-md whitespace-nowrap transition-colors" data-category="automation">PC Automation</button>
+<button class="filter-pill px-space-sm py-space-xs rounded-full bg-surface-container-low hover:bg-surface-container text-on-surface-variant font-label-md text-label-md whitespace-nowrap transition-colors" data-category="memory">Research &amp; Vault</button>
+<button class="filter-pill px-space-sm py-space-xs rounded-full bg-surface-container-low hover:bg-surface-container text-on-surface-variant font-label-md text-label-md whitespace-nowrap transition-colors" data-category="media">Speech &amp; Media</button>
+</div>
+</div>
+</div>
+<!-- Primary Workspace: Fluid Master / Detail Splitting -->
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-space-lg items-start">
+<!-- Left/Center Master Grid: Plugin Marketplace & Installed Stack (Col 7 on 12) -->
+<div class="xl:col-span-7 flex flex-col gap-space-md">
+<!-- Section Label -->
+<div class="flex items-center justify-between px-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-sm text-headline-sm text-on-surface">Installed &amp; Available Toolkits</span>
+<span class="px-space-xs py-0.5 rounded bg-surface-container text-outline font-label-mono text-label-mono">8 Mounted</span>
+</div>
+<div class="flex items-center gap-space-xs text-on-surface-variant font-label-md text-label-md">
+<span>Sort by:</span>
+<span class="text-primary cursor-pointer hover:underline">Execution Rank</span>
+</div>
+</div>
+<!-- Plugin Cards Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md" id="cards-container">
+<!-- Card 1: Local File System Sandbox (Active / Selected) -->
+<article class="plugin-card cursor-pointer group flex flex-col justify-between p-space-md rounded-xl bg-surface-container-high transition-all shadow-md" data-plugin-id="fs-sandbox">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-primary-container shadow-inner">
+<span class="material-symbols-outlined text-[24px]">folder_managed</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors">FS Local Sandbox</h3>
+<p class="font-label-md text-label-md text-on-surface-variant">Core Engine Built-in • v2.4.0</p>
+</div>
+</div>
+<span class="px-space-xs py-0.5 rounded bg-surface-container-lowest text-primary-container font-label-mono text-label-mono flex items-center gap-1 shadow-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span> ACTIVE
+              </span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2 mt-1">
+              Zero-trust path-scoped directory interface. Grants tokenized stream reading and atomic diff write commits within strict boundary.
+            </p>
+<div class="flex flex-wrap gap-1 mt-space-xs">
+<span class="px-space-xs py-0.5 rounded bg-surface-container text-on-surface-variant font-label-mono text-[10px]">DIR: ~/workspace</span>
+<span class="px-space-xs py-0.5 rounded bg-surface-container text-on-surface-variant font-label-mono text-[10px]">R/W ATOMIC</span>
+<span class="px-space-xs py-0.5 rounded bg-surface-container text-primary font-label-mono text-[10px]">Coder, FileManager</span>
+</div>
+</div>
+<div class="flex items-center justify-between mt-space-md pt-space-xs">
+<span class="font-label-mono text-label-mono text-outline">Invoked 12s ago</span>
+<div class="flex items-center gap-1">
+<button class="px-space-sm py-0.5 rounded bg-surface-container hover:bg-surface-container-highest text-primary font-label-md text-label-md transition-colors">Inspect</button>
+<button class="px-space-sm py-0.5 rounded bg-primary-container/20 text-primary-container font-label-md text-label-md font-semibold border border-primary-container/40 transition-colors">Config</button>
+</div>
+</div>
+</article>
+<!-- Card 2: Obsidian Local Vault Connector -->
+<article class="plugin-card cursor-pointer group flex flex-col justify-between p-space-md rounded-xl bg-surface-container hover:bg-surface-container-high transition-all shadow-sm" data-plugin-id="obsidian-vault">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center text-tertiary-fixed-dim shadow-inner">
+<span class="material-symbols-outlined text-[24px]">dataset</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors">Obsidian Vault Sync</h3>
+<p class="font-label-md text-label-md text-on-surface-variant">Obsidian Bridge • v1.9.2</p>
+</div>
+</div>
+<span class="px-space-xs py-0.5 rounded bg-surface-container-lowest text-primary font-label-mono text-label-mono flex items-center gap-1 shadow-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-surface-tint"></span> SYNCED
+              </span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2 mt-1">
+              Direct Markdown parser and SQLite vector embeddings engine for semantic recall without network leakage.
+            </p>
+<div class="flex flex-wrap gap-1 mt-space-xs">
+<span class="px-space-xs py-0.5 rounded bg-surface-container-low text-on-surface-variant font-label-mono text-[10px]">VECTOR: 1,536 dim</span>
+<span class="px-space-xs py-0.5 rounded bg-surface-container-low text-on-surface-variant font-label-mono text-[10px]">READ ONLY</span>
+<span class="px-space-xs py-0.5 rounded bg-surface-container-low text-tertiary font-label-mono text-[10px]">Memory, Research</span>
+</div>
+</div>
+<div class="flex items-center justify-between mt-space-md pt-space-xs">
+<span class="font-label-mono text-label-mono text-outline">Invoked 3m ago</span>
+<div class="flex items-center gap-1">
+<button class="px-space-sm py-0.5 rounded bg-surface-container-low hover:bg-surface-container-highest text-primary font-label-md text-label-md transition-colors">Inspect</button>
+<button class="px-space-sm py-0.5 rounded bg-surface-container-low hover:bg-surface-container-highest text-on-surface-variant font-label-md text-label-md transition-colors">Config</button>
+</div>
+</div>
+</article>
+<!-- Card 3: Brave Local Search Indexer -->
+<article class="plugin-card cursor-pointer group flex flex-col justify-between p-space-md rounded-xl bg-surface-container hover:bg-surface-container-high transition-all shadow-sm" data-plugin-id="brave-indexer">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center text-secondary shadow-inner">
+<span class="material-symbols-outlined text-[24px]">travel_explore</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors">Brave Local Indexer</h3>
+<p class="font-label-md text-label-md text-on-surface-variant">Brave Software • v0.9.8</p>
+</div>
+</div>
+<span class="px-space-xs py-0.5 rounded bg-surface-container-lowest text-secondary font-label-mono text-label-mono flex items-center gap-1 shadow-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span> CACHED
+              </span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2 mt-1">
+              Private offline SERP snapshot index. Query cached web vectors locally without leaking queries to external networks.
+            </p>
+<div class="flex flex-wrap gap-1 mt-space-xs">
+<span class="px-space-xs py-0.5 rounded bg-surface-container-low text-on-surface-variant font-label-mono text-[10px]">CACHE: 820MB</span>
+<span class="px-space-xs py-0.5 rounded bg-surface-container-low text-on-surface-variant font-label-mono text-[10px]">RATE LIMITED</span>
+<span class="px-space-xs py-0.5 rounded bg-surface-container-low text-secondary font-label-mono text-[10px]">Researcher</span>
+</div>
+</div>
+<div class="flex items-center justify-between mt-space-md pt-space-xs">
+<span class="font-label-mono text-label-mono text-outline">Invoked 18m ago</span>
+<div class="flex items-center gap-1">
+<button class="px-space-sm py-0.5 rounded bg-surface-container-low hover:bg-surface-container-highest text-primary font-label-md text-label-md transition-colors">Inspect</button>
+<button class="px-space-sm py-0.5 rounded bg-surface-container-low hover:bg-surface-container-highest text-on-surface-variant font-label-md text-label-md transition-colors">Config</button>
+</div>
+</div>
+</article>
+<!-- Card 4: Git & AST Analysis Toolkit -->
+<article class="plugin-card cursor-pointer group flex flex-col justify-between p-space-md rounded-xl bg-surface-container hover:bg-surface-container-high transition-all shadow-sm" data-plugin-id="git-ast">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center text-primary-container shadow-inner">
+<span class="material-symbols-outlined text-[24px]">source</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors">Git &amp; AST Engine</h3>
+<p class="font-label-md text-label-md text-on-surface-variant">Tree-sitter Labs • v4.1.0</p>
+</div>
+</div>
+<span class="px-space-xs py-0.5 rounded bg-surface-container-lowest text-primary font-label-mono text-label-mono flex items-center gap-1 shadow-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span> ACTIVE
+              </span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2 mt-1">
+              Fast syntax tree generation and semantic diffing for Rust, Python, Go, and TypeScript. In-memory execution.
+            </p>
+<div class="flex flex-wrap gap-1 mt-space-xs">
+<span class="px-space-xs py-0.5 rounded bg-surface-container-low text-on-surface-variant font-label-mono text-[10px]">TREE-SITTER</span>
+<span class="px-space-xs py-0.5 rounded bg-surface-container-low text-on-surface-variant font-label-mono text-[10px]">NATIVE C++</span>
+<span class="px-space-xs py-0.5 rounded bg-surface-container-low text-primary font-label-mono text-[10px]">Coder, CodeReview</span>
+</div>
+</div>
+<div class="flex items-center justify-between mt-space-md pt-space-xs">
+<span class="font-label-mono text-label-mono text-outline">Invoked 41s ago</span>
+<div class="flex items-center gap-1">
+<button class="px-space-sm py-0.5 rounded bg-surface-container-low hover:bg-surface-container-highest text-primary font-label-md text-label-md transition-colors">Inspect</button>
+<button class="px-space-sm py-0.5 rounded bg-surface-container-low hover:bg-surface-container-highest text-on-surface-variant font-label-md text-label-md transition-colors">Config</button>
+</div>
+</div>
+</article>
+<!-- Card 5: Terminal Execution Sandbox -->
+<article class="plugin-card cursor-pointer group flex flex-col justify-between p-space-md rounded-xl bg-surface-container hover:bg-surface-container-high transition-all shadow-sm" data-plugin-id="term-exec">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center text-error shadow-inner">
+<span class="material-symbols-outlined text-[24px]">terminal</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors">Terminal Exec Enclave</h3>
+<p class="font-label-md text-label-md text-on-surface-variant">System Kernel Bridge • v1.2</p>
+</div>
+</div>
+<span class="px-space-xs py-0.5 rounded bg-surface-container-lowest text-error font-label-mono text-label-mono flex items-center gap-1 shadow-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-error"></span> GATE LOCKED
+              </span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2 mt-1">
+              Low-privilege container for powershell/bash CLI execution. Requires Level 3 biometric or hardware PIN confirmation.
+            </p>
+<div class="flex flex-wrap gap-1 mt-space-xs">
+<span class="px-space-xs py-0.5 rounded bg-surface-container-low text-on-surface-variant font-label-mono text-[10px]">RING 3 ENCLAVE</span>
+<span class="px-space-xs py-0.5 rounded bg-surface-container-low text-error font-label-mono text-[10px]">PIN REQ</span>
+<span class="px-space-xs py-0.5 rounded bg-surface-container-low text-on-surface-variant font-label-mono text-[10px]">Automator, PC Control</span>
+</div>
+</div>
+<div class="flex items-center justify-between mt-space-md pt-space-xs">
+<span class="font-label-mono text-label-mono text-outline">Invoked 2h ago</span>
+<div class="flex items-center gap-1">
+<button class="px-space-sm py-0.5 rounded bg-surface-container-low hover:bg-surface-container-highest text-primary font-label-md text-label-md transition-colors">Inspect</button>
+<button class="px-space-sm py-0.5 rounded bg-surface-container-low hover:bg-surface-container-highest text-on-surface-variant font-label-md text-label-md transition-colors">Config</button>
+</div>
+</div>
+</article>
+<!-- Card 6: PostgreSQL & SQLite Inspector -->
+<article class="plugin-card cursor-pointer group flex flex-col justify-between p-space-md rounded-xl bg-surface-container hover:bg-surface-container-high transition-all shadow-sm" data-plugin-id="sql-inspector">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center text-primary-fixed-dim shadow-inner">
+<span class="material-symbols-outlined text-[24px]">table_chart</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors">Database Inspector</h3>
+<p class="font-label-md text-label-md text-on-surface-variant">Data Fabric Systems • v3.0.4</p>
+</div>
+</div>
+<span class="px-space-xs py-0.5 rounded bg-surface-container-lowest text-primary font-label-mono text-label-mono flex items-center gap-1 shadow-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span> READ ONLY
+              </span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2 mt-1">
+              Strict read-only schema inspector, SQL execution planner, and data sanitization filter for agent queries.
+            </p>
+<div class="flex flex-wrap gap-1 mt-space-xs">
+<span class="px-space-xs py-0.5 rounded bg-surface-container-low text-on-surface-variant font-label-mono text-[10px]">SQLITE + PG</span>
+<span class="px-space-xs py-0.5 rounded bg-surface-container-low text-on-surface-variant font-label-mono text-[10px]">NO WRITE</span>
+<span class="px-space-xs py-0.5 rounded bg-surface-container-low text-secondary font-label-mono text-[10px]">Data Analyst</span>
+</div>
+</div>
+<div class="flex items-center justify-between mt-space-md pt-space-xs">
+<span class="font-label-mono text-label-mono text-outline">Invoked 14m ago</span>
+<div class="flex items-center gap-1">
+<button class="px-space-sm py-0.5 rounded bg-surface-container-low hover:bg-surface-container-highest text-primary font-label-md text-label-md transition-colors">Inspect</button>
+<button class="px-space-sm py-0.5 rounded bg-surface-container-low hover:bg-surface-container-highest text-on-surface-variant font-label-md text-label-md transition-colors">Config</button>
+</div>
+</div>
+</article>
+<!-- Card 7: Audio & Whisper Streamer -->
+<article class="plugin-card cursor-pointer group flex flex-col justify-between p-space-md rounded-xl bg-surface-container hover:bg-surface-container-high transition-all shadow-sm" data-plugin-id="whisper-stream">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center text-primary-container shadow-inner">
+<span class="material-symbols-outlined text-[24px]">graphic_eq</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors">Whisper Stream DirectML</h3>
+<p class="font-label-md text-label-md text-on-surface-variant">Microsoft DirectML • v2.1.0</p>
+</div>
+</div>
+<span class="px-space-xs py-0.5 rounded bg-surface-container-lowest text-primary font-label-mono text-label-mono flex items-center gap-1 shadow-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span> GPU READY
+              </span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2 mt-1">
+              Ultra-low latency audio buffer streaming and local transcription powered by DirectML GPU tensors.
+            </p>
+<div class="flex flex-wrap gap-1 mt-space-xs">
+<span class="px-space-xs py-0.5 rounded bg-surface-container-low text-on-surface-variant font-label-mono text-[10px]">16kHz PCM</span>
+<span class="px-space-xs py-0.5 rounded bg-surface-container-low text-on-surface-variant font-label-mono text-[10px]">LATENCY &lt; 38ms</span>
+<span class="px-space-xs py-0.5 rounded bg-surface-container-low text-primary font-label-mono text-[10px]">Voice Studio</span>
+</div>
+</div>
+<div class="flex items-center justify-between mt-space-md pt-space-xs">
+<span class="font-label-mono text-label-mono text-outline">Invoked 1m ago</span>
+<div class="flex items-center gap-1">
+<button class="px-space-sm py-0.5 rounded bg-surface-container-low hover:bg-surface-container-highest text-primary font-label-md text-label-md transition-colors">Inspect</button>
+<button class="px-space-sm py-0.5 rounded bg-surface-container-low hover:bg-surface-container-highest text-on-surface-variant font-label-md text-label-md transition-colors">Config</button>
+</div>
+</div>
+</article>
+<!-- Card 8: Telegram Gateway (Not Installed / Available) -->
+<article class="plugin-card cursor-pointer group flex flex-col justify-between p-space-md rounded-xl bg-surface-container-lowest hover:bg-surface-container opacity-85 hover:opacity-100 transition-all shadow-sm" data-plugin-id="telegram-gateway">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-outline shadow-inner">
+<span class="material-symbols-outlined text-[24px]">send</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors">Telegram Bot Gateway</h3>
+<p class="font-label-md text-label-md text-on-surface-variant">Community Relays • v0.4.1</p>
+</div>
+</div>
+<span class="px-space-xs py-0.5 rounded bg-surface-container-high text-on-surface-variant font-label-mono text-label-mono flex items-center gap-1 shadow-sm">
+                OFFLINE
+              </span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2 mt-1">
+              Outbound notifications relay. Disabled by default due to strict Air-Gap firewall enforcement policy.
+            </p>
+<div class="flex flex-wrap gap-1 mt-space-xs">
+<span class="px-space-xs py-0.5 rounded bg-surface-container text-on-surface-variant font-label-mono text-[10px]">CLOUD RELAY</span>
+<span class="px-space-xs py-0.5 rounded bg-surface-container text-error font-label-mono text-[10px]">UNSECURED EGRESS</span>
+</div>
+</div>
+<div class="flex items-center justify-between mt-space-md pt-space-xs">
+<span class="font-label-mono text-label-mono text-outline">Never Installed</span>
+<button class="px-space-sm py-0.5 rounded bg-surface-container-high hover:bg-secondary-container hover:text-on-secondary-container text-primary font-label-md text-label-md transition-all">Install Plugin</button>
+</div>
+</article>
+</div>
+</div>
+<!-- Right Detail / Security Inspector Panel (Col 5 on 12) -->
+<div class="xl:col-span-5 flex flex-col gap-space-md">
+<!-- Inspector Container -->
+<section class="bg-surface-container-low rounded-2xl p-space-md shadow-xl flex flex-col gap-space-md">
+<!-- Panel Head -->
+<div class="flex items-start justify-between pb-space-xs">
+<div class="flex items-center gap-space-sm">
+<div class="w-12 h-12 rounded-xl bg-surface-container-high flex items-center justify-center text-primary-container shadow-md">
+<span class="material-symbols-outlined text-[28px]">folder_managed</span>
+</div>
+<div>
+<div class="flex items-center gap-space-xs">
+<h2 class="font-headline-md text-headline-md text-on-surface">Local FS Sandbox</h2>
+<span class="px-space-xs py-0.5 rounded bg-primary-container/20 text-primary-container font-label-mono text-[10px] font-bold">SYSTEM</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Core process plugin: io.orchestrator.vfs</p>
+</div>
+</div>
+<div class="flex items-center gap-space-xs">
+<span class="w-2.5 h-2.5 rounded-full bg-primary-container"></span>
+<span class="font-label-mono text-label-mono text-primary font-semibold">ONLINE</span>
+</div>
+</div>
+<!-- Capability Visualizer Chart (Inline SVG Metric) -->
+<div class="bg-surface-container rounded-xl p-space-sm flex items-center justify-between shadow-inner">
+<div class="flex flex-col gap-0.5">
+<span class="font-label-mono text-label-mono text-outline uppercase tracking-wider">Operational Health</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">99.98% Integrity</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">0 unhandled violations in 72h</span>
+</div>
+<div class="w-28 h-12 flex items-end">
+<!-- Inline Mini Sparkline Chart -->
+<svg class="w-full h-10 text-primary" fill="none" viewBox="0 0 120 40">
+<path d="M0 32 L20 28 L40 30 L60 14 L80 18 L100 8 L120 12" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+<path d="M0 32 L20 28 L40 30 L60 14 L80 18 L100 8 L120 12 L120 40 L0 40 Z" fill="currentColor" fill-opacity="0.12"></path>
+</svg>
+</div>
+</div>
+<!-- Granular Permissions Matrix -->
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md font-semibold text-on-surface uppercase tracking-wider">Granular System Permissions</span>
+<span class="font-label-mono text-label-mono text-tertiary">Policy: Enforced Strict</span>
+</div>
+<div class="flex flex-col gap-1 rounded-xl bg-surface-container-lowest p-space-xs">
+<!-- Permission 1 -->
+<label class="flex items-center justify-between p-space-xs rounded-lg hover:bg-surface-container transition-colors cursor-pointer">
+<div class="flex items-center gap-space-sm">
+<input checked="" class="w-4 h-4 rounded bg-surface-container-high text-secondary-container focus:ring-0 cursor-pointer" type="checkbox">
+<div class="flex flex-col">
+<span class="font-body-sm text-body-sm text-on-surface font-medium">Read Files &amp; Metadata</span>
+<span class="font-label-mono text-label-mono text-on-surface-variant">Scope: C:/workspace/** only</span>
+</div>
+</div>
+<span class="px-space-xs py-0.5 rounded bg-surface-container-high text-primary font-label-mono text-[10px]">GRANTED</span>
+</label>
+<!-- Permission 2 -->
+<label class="flex items-center justify-between p-space-xs rounded-lg hover:bg-surface-container transition-colors cursor-pointer">
+<div class="flex items-center gap-space-sm">
+<input checked="" class="w-4 h-4 rounded bg-surface-container-high text-secondary-container focus:ring-0 cursor-pointer" type="checkbox">
+<div class="flex flex-col">
+<span class="font-body-sm text-body-sm text-on-surface font-medium">Write Files &amp; Patches</span>
+<span class="font-label-mono text-label-mono text-on-surface-variant">Atomic staging diff confirmation</span>
+</div>
+</div>
+<span class="px-space-xs py-0.5 rounded bg-surface-container-high text-primary-fixed-dim font-label-mono text-[10px]">APPROVAL REQ</span>
+</label>
+<!-- Permission 3 -->
+<label class="flex items-center justify-between p-space-xs rounded-lg hover:bg-surface-container transition-colors cursor-pointer">
+<div class="flex items-center gap-space-sm">
+<input class="w-4 h-4 rounded bg-surface-container-high text-error focus:ring-0 opacity-50 cursor-not-allowed" disabled="" type="checkbox">
+<div class="flex flex-col">
+<span class="font-body-sm text-body-sm text-on-surface-variant font-medium">Hard Deletion / Unlink</span>
+<span class="font-label-mono text-label-mono text-outline">Blocked by host sandbox policy</span>
+</div>
+</div>
+<span class="px-space-xs py-0.5 rounded bg-error-container text-on-error-container font-label-mono text-[10px]">ADMIN PIN</span>
+</label>
+<!-- Permission 4 -->
+<label class="flex items-center justify-between p-space-xs rounded-lg hover:bg-surface-container transition-colors cursor-pointer">
+<div class="flex items-center gap-space-sm">
+<input class="w-4 h-4 rounded bg-surface-container-high text-error focus:ring-0 opacity-50 cursor-not-allowed" disabled="" type="checkbox">
+<div class="flex flex-col">
+<span class="font-body-sm text-body-sm text-on-surface-variant font-medium">Outbound Network Sockets</span>
+<span class="font-label-mono text-label-mono text-outline">Air-Gap hardware isolation active</span>
+</div>
+</div>
+<span class="px-space-xs py-0.5 rounded bg-error-container text-on-error-container font-label-mono text-[10px]">DISABLED</span>
+</label>
+</div>
+</div>
+<!-- Agent Access Control Grid -->
+<div class="flex flex-col gap-space-xs">
+<span class="font-label-md text-label-md font-semibold text-on-surface uppercase tracking-wider">Agent Access Authorization</span>
+<div class="grid grid-cols-2 gap-space-xs">
+<div class="flex items-center justify-between p-space-xs rounded-lg bg-surface-container">
+<div class="flex items-center gap-1.5 truncate">
+<span class="material-symbols-outlined text-[16px] text-primary">psychology</span>
+<span class="font-body-sm text-body-sm text-on-surface truncate">Central Engine</span>
+</div>
+<span class="font-label-mono text-[10px] text-primary font-semibold">FULL</span>
+</div>
+<div class="flex items-center justify-between p-space-xs rounded-lg bg-surface-container">
+<div class="flex items-center gap-1.5 truncate">
+<span class="material-symbols-outlined text-[16px] text-primary-container">code</span>
+<span class="font-body-sm text-body-sm text-on-surface truncate">Coder Agent</span>
+</div>
+<span class="font-label-mono text-[10px] text-primary font-semibold">SCOPED</span>
+</div>
+<div class="flex items-center justify-between p-space-xs rounded-lg bg-surface-container">
+<div class="flex items-center gap-1.5 truncate">
+<span class="material-symbols-outlined text-[16px] text-secondary">folder_open</span>
+<span class="font-body-sm text-body-sm text-on-surface truncate">File Manager</span>
+</div>
+<span class="font-label-mono text-[10px] text-primary font-semibold">SCOPED</span>
+</div>
+<div class="flex items-center justify-between p-space-xs rounded-lg bg-surface-container opacity-60">
+<div class="flex items-center gap-1.5 truncate">
+<span class="material-symbols-outlined text-[16px] text-outline">view_in_ar</span>
+<span class="font-body-sm text-body-sm text-on-surface truncate">3D Artist</span>
+</div>
+<span class="font-label-mono text-[10px] text-outline font-semibold">OFF</span>
+</div>
+</div>
+</div>
+<!-- Recent Plugin Event Telemetry Feed -->
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md font-semibold text-on-surface uppercase tracking-wider">Realtime Invocation Log</span>
+<span class="font-label-mono text-label-mono text-outline">Buffer: 400 events</span>
+</div>
+<div class="flex flex-col gap-1 rounded-xl bg-surface-container-lowest p-space-xs font-code-md text-code-md">
+<div class="flex items-center justify-between py-1 px-space-xs rounded hover:bg-surface-container transition-colors">
+<div class="flex items-center gap-2 truncate">
+<span class="text-primary font-label-mono text-[10px]">14:28:12</span>
+<span class="text-on-surface truncate">read_manifest("build.gradle")</span>
+</div>
+<div class="flex items-center gap-2 font-label-mono text-[10px] text-outline shrink-0">
+<span class="text-primary">1.8ms</span>
+<span>42KB</span>
+</div>
+</div>
+<div class="flex items-center justify-between py-1 px-space-xs rounded hover:bg-surface-container transition-colors">
+<div class="flex items-center gap-2 truncate">
+<span class="text-primary font-label-mono text-[10px]">14:27:55</span>
+<span class="text-on-surface truncate">list_dir("~/workspace/src")</span>
+</div>
+<div class="flex items-center gap-2 font-label-mono text-[10px] text-outline shrink-0">
+<span class="text-primary">0.9ms</span>
+<span>18KB</span>
+</div>
+</div>
+<div class="flex items-center justify-between py-1 px-space-xs rounded hover:bg-surface-container transition-colors">
+<div class="flex items-center gap-2 truncate">
+<span class="text-primary font-label-mono text-[10px]">14:26:01</span>
+<span class="text-on-surface truncate">atomic_patch("config.ts")</span>
+</div>
+<div class="flex items-center gap-2 font-label-mono text-[10px] text-outline shrink-0">
+<span class="text-primary-fixed-dim">14.2ms</span>
+<span>128KB</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Inspector Action Buttons -->
+<div class="flex items-center gap-space-xs pt-space-xs">
+<button class="flex-1 py-space-xs rounded-lg bg-surface-container hover:bg-surface-container-highest text-on-surface font-label-md text-label-md font-semibold transition-colors shadow-sm">
+            Edit Path Sandbox
+          </button>
+<button class="flex-1 py-space-xs rounded-lg bg-surface-container hover:bg-surface-container-highest text-primary font-label-md text-label-md font-semibold transition-colors shadow-sm">
+            Flush Buffer Cache
+          </button>
+<button class="p-space-xs rounded-lg bg-surface-container hover:bg-error-container hover:text-on-error-container text-error transition-colors" title="Emergency Disable Plugin">
+<span class="material-symbols-outlined text-[18px]">power_settings_new</span>
+</button>
+</div>
+</section>
+<!-- Security Advisory Banner Card -->
+<div class="p-space-md rounded-2xl bg-surface-container-high/40 flex items-start gap-space-md shadow-sm">
+<span class="material-symbols-outlined text-[24px] text-tertiary-fixed-dim shrink-0">verified</span>
+<div class="flex flex-col gap-0.5">
+<h4 class="font-headline-sm text-headline-sm text-on-surface">Deterministic Sandbox Guarantees</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            Plugins are executed via WebAssembly and direct isolated Windows AppContainer instances. Direct file system escapes and unsanctioned socket requests are intercepted at the hypervisor driver boundary.
+          </p>
+</div>
+</div>
+</div>
+</div>
+<!-- Micro-interactions Script -->
+<script>
+    (function initPluginCentre() {
+      // Tab switching
+      const tabs = document.querySelectorAll('.tab-btn');
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          tabs.forEach(t => {
+            t.classList.remove('bg-secondary-container', 'text-on-secondary-container', 'font-semibold');
+            t.classList.add('text-on-surface-variant', 'font-medium');
+          });
+          tab.classList.add('bg-secondary-container', 'text-on-secondary-container', 'font-semibold');
+          tab.classList.remove('text-on-surface-variant', 'font-medium');
+        });
+      });
+
+      // Filter pills
+      const filterPills = document.querySelectorAll('.filter-pill');
+      filterPills.forEach(pill => {
+        pill.addEventListener('click', () => {
+          filterPills.forEach(p => {
+            p.classList.remove('bg-surface-container-high', 'text-primary', 'font-semibold');
+            p.classList.add('bg-surface-container-low', 'text-on-surface-variant');
+          });
+          pill.classList.add('bg-surface-container-high', 'text-primary', 'font-semibold');
+          pill.classList.remove('bg-surface-container-low', 'text-on-surface-variant');
+        });
+      });
+
+      // Plugin card click selection
+      const cards = document.querySelectorAll('.plugin-card');
+      cards.forEach(card => {
+        card.addEventListener('click', () => {
+          cards.forEach(c => {
+            c.classList.remove('bg-surface-container-high');
+            c.classList.add('bg-surface-container');
+          });
+          card.classList.remove('bg-surface-container');
+          card.classList.add('bg-surface-container-high');
+        });
+      });
+
+      // Quick key listener for search input
+      window.addEventListener('keydown', (e) => {
+        if (e.key === '/' && document.activeElement.tagName !== 'INPUT') {
+          e.preventDefault();
+          const search = document.getElementById('plugin-search');
+          if (search) search.focus();
+        }
+      });
+    })();
+  </script>
+</div></main></div><div class="fixed bottom-space-md left-72 right-space-lg z-40 max-w-4xl mx-auto"><div class="bg-surface-container-lowest/95 backdrop-blur-xl rounded-xl px-space-md py-space-xs shadow-[0_8px_32px_rgba(0,0,0,0.6)] flex items-center gap-space-md"><div class="flex items-center gap-space-xs px-space-sm py-space-xs rounded-lg bg-surface-container"><span class="w-2 h-2 rounded-full bg-primary-container shadow-[0_0_8px_#43D9FF]"></span><span class="font-label-mono text-label-mono text-primary font-semibold">IDLE</span></div><div class="flex-1 flex items-center gap-space-sm bg-surface-container-low px-space-md py-space-xs rounded-lg"><input class="bg-transparent flex-1 focus:outline-none text-on-surface font-body-md text-body-md placeholder:text-on-surface-variant/50" placeholder="Instruct neural orchestrator or input quick prompt..." type="text"><button class="p-1 rounded text-on-surface-variant hover:text-primary transition-colors" title="Attach context or file payload"><span class="material-symbols-outlined text-[18px]">attach_file</span></button><button class="p-1 rounded text-on-surface-variant hover:text-primary transition-colors" title="Toggle audio transcription"><span class="material-symbols-outlined text-[18px]">mic</span></button></div><div class="flex items-center gap-space-xs font-label-mono text-label-mono text-on-surface-variant"><kbd class="px-space-xs py-0.5 rounded bg-surface-container text-on-surface-variant">Enter</kbd><span class="text-[10px]">Run</span></div></div></div>
+
+<div id="plugin-config-modal-overlay" class="fixed inset-0 z-50 flex items-center justify-center p-space-md bg-surface-container-lowest/80 backdrop-blur-md"><div role="dialog" aria-modal="true" aria-labelledby="modal-dialog-title" class="relative w-full max-w-4xl max-h-[90vh] flex flex-col bg-surface-container-low border border-outline-variant/40 rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.8)] overflow-hidden animate-in fade-in zoom-in-95"><div class="flex items-center justify-between px-space-lg py-space-md border-b border-outline-variant/30 bg-surface-container"><div class="flex items-center gap-space-sm"><div class="w-10 h-10 rounded-xl bg-surface-container-high flex items-center justify-center text-primary-container shadow-inner"><span class="material-symbols-outlined text-[24px]">folder_managed</span></div><div><div class="flex items-center gap-space-xs"><h2 id="modal-dialog-title" class="font-headline-sm text-headline-sm text-on-surface font-semibold">Configure Plugin — Local FS Sandbox v2.4.0</h2><span class="px-space-xs py-0.5 rounded bg-primary-container/20 text-primary-container font-label-mono text-[10px] font-bold tracking-wider">ACTIVE SANDBOX</span></div><p class="font-body-sm text-body-sm text-on-surface-variant">Zero-trust path-scoped boundary &amp; kernel VFS interceptor policy</p></div></div><div class="flex items-center gap-space-xs"><kbd class="hidden sm:inline px-space-xs py-0.5 rounded bg-surface-container-lowest text-outline font-label-mono text-label-mono border border-outline-variant/30">ESC</kbd><button onclick="document.getElementById('plugin-config-modal-overlay').remove()" class="w-8 h-8 rounded-lg flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-colors" title="Close modal"><span class="material-symbols-outlined text-[20px]">close</span></button></div></div><div class="flex items-center gap-1 px-space-lg pt-space-xs border-b border-outline-variant/30 bg-surface-container-lowest/60 overflow-x-auto"><button class="px-space-md py-space-xs font-label-md text-label-md font-semibold text-primary border-b-2 border-primary transition-all">Security &amp; Scope</button><button class="px-space-md py-space-xs font-label-md text-label-md font-medium text-on-surface-variant hover:text-on-surface hover:bg-surface-container/50 rounded-t-lg transition-all">IPC Channels</button><button class="px-space-md py-space-xs font-label-md text-label-md font-medium text-on-surface-variant hover:text-on-surface hover:bg-surface-container/50 rounded-t-lg transition-all">Resource Limits</button><button class="px-space-md py-space-xs font-label-md text-label-md font-medium text-on-surface-variant hover:text-on-surface hover:bg-surface-container/50 rounded-t-lg transition-all">Audit Triggers</button></div><div class="flex-1 overflow-y-auto p-space-lg flex flex-col gap-space-lg"><section class="flex flex-col gap-space-xs"><div class="flex items-center justify-between"><label class="font-label-md text-label-md font-semibold uppercase tracking-wider text-on-surface">Mount Path Isolation (VFS Jail Root)</label><span class="font-label-mono text-[10px] text-primary flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-primary-container animate-pulse"></span>JAIL LOCK ENFORCED</span></div><div class="flex items-center gap-space-xs"><div class="relative flex-1"><span class="material-symbols-outlined absolute left-space-md top-1/2 -translate-y-1/2 text-[18px] text-outline">folder</span><input type="text" readonly="" value="C:/workspace/sandbox_v3" class="w-full pl-10 pr-space-md py-space-xs bg-surface-container-lowest border border-outline-variant/40 rounded-lg font-code-md text-code-md text-primary font-medium focus:outline-none shadow-inner"></div><button class="px-space-md py-space-xs rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md text-label-md font-medium border border-outline-variant/40 transition-colors shadow-sm">Browse Root</button><button class="px-space-md py-space-xs rounded-lg bg-surface-container-high hover:bg-surface-container-highest text-surface-tint font-label-md text-label-md font-semibold border border-primary-container/30 transition-colors flex items-center gap-1 shadow-sm"><span class="material-symbols-outlined text-[16px]">verified</span>Verify VFS Jail</button></div></section><section class="flex flex-col gap-space-xs"><div class="flex items-center justify-between"><label class="font-label-md text-label-md font-semibold uppercase tracking-wider text-on-surface">Path Restrictions &amp; Whitelist</label><button class="text-primary hover:underline font-label-md text-label-md flex items-center gap-0.5"><span class="material-symbols-outlined text-[14px]">add</span>+ Add Path Rule</button></div><div class="grid grid-cols-1 md:grid-cols-2 gap-space-xs rounded-xl bg-surface-container-lowest p-space-sm border border-outline-variant/30"><div class="flex items-center justify-between px-space-sm py-1 rounded bg-surface-container text-body-sm font-code-md"><span class="text-primary font-medium">src/**</span><span class="px-space-xs py-0.2 rounded bg-surface-container-high text-on-surface-variant text-[10px]">RECURSIVE READ/WRITE</span></div><div class="flex items-center justify-between px-space-sm py-1 rounded bg-surface-container text-body-sm font-code-md"><span class="text-primary font-medium">tests/**</span><span class="px-space-xs py-0.2 rounded bg-surface-container-high text-on-surface-variant text-[10px]">READ/WRITE</span></div><div class="flex items-center justify-between px-space-sm py-1 rounded bg-surface-container text-body-sm font-code-md"><span class="text-error font-medium">!*.env</span><span class="px-space-xs py-0.2 rounded bg-error-container text-on-error-container text-[10px]">DENY SHADOW</span></div><div class="flex items-center justify-between px-space-sm py-1 rounded bg-surface-container text-body-sm font-code-md"><span class="text-error font-medium">!id_rsa*</span><span class="px-space-xs py-0.2 rounded bg-error-container text-on-error-container text-[10px]">HARD BLOCK</span></div></div></section><section class="flex flex-col gap-space-xs"><label class="font-label-md text-label-md font-semibold uppercase tracking-wider text-on-surface">Syscall &amp; Capability Toggles</label><div class="flex flex-col gap-1 rounded-xl bg-surface-container-lowest p-space-xs border border-outline-variant/30"><label class="flex items-center justify-between p-space-xs rounded-lg hover:bg-surface-container transition-colors cursor-pointer"><div class="flex items-center gap-space-sm"><input type="checkbox" checked="" class="w-4 h-4 rounded bg-surface-container-high text-secondary-container focus:ring-0 cursor-pointer"><div class="flex flex-col"><span class="font-body-sm text-body-sm text-on-surface font-medium">Read File &amp; Metadata</span><span class="font-label-mono text-label-mono text-on-surface-variant">Allowed inside isolated VFS boundary</span></div></div><span class="px-space-xs py-0.5 rounded bg-surface-container-high text-primary font-label-mono text-[10px]">ALLOWED</span></label><label class="flex items-center justify-between p-space-xs rounded-lg hover:bg-surface-container transition-colors cursor-pointer"><div class="flex items-center gap-space-sm"><input type="checkbox" checked="" class="w-4 h-4 rounded bg-surface-container-high text-secondary-container focus:ring-0 cursor-pointer"><div class="flex flex-col"><span class="font-body-sm text-body-sm text-on-surface font-medium">Atomic Write with Diff Staging</span><span class="font-label-mono text-label-mono text-on-surface-variant">Requires Human-In-The-Loop confirmation</span></div></div><span class="px-space-xs py-0.5 rounded bg-surface-container-high text-primary-fixed-dim font-label-mono text-[10px]">REQUIRES HITL</span></label><label class="flex items-center justify-between p-space-xs rounded-lg opacity-70 cursor-not-allowed"><div class="flex items-center gap-space-sm"><input type="checkbox" disabled="" class="w-4 h-4 rounded bg-surface-container-high text-error focus:ring-0 cursor-not-allowed"><div class="flex flex-col"><span class="font-body-sm text-body-sm text-on-surface-variant font-medium">Hard Deletion / Unlink</span><span class="font-label-mono text-label-mono text-outline">Disabled by default — Admin PIN required</span></div></div><span class="px-space-xs py-0.5 rounded bg-error-container text-on-error-container font-label-mono text-[10px]">ADMIN PIN</span></label><label class="flex items-center justify-between p-space-xs rounded-lg opacity-70 cursor-not-allowed"><div class="flex items-center gap-space-sm"><input type="checkbox" disabled="" class="w-4 h-4 rounded bg-surface-container-high text-error focus:ring-0 cursor-not-allowed"><div class="flex flex-col"><span class="font-body-sm text-body-sm text-on-surface-variant font-medium">Outbound Network Sockets</span><span class="font-label-mono text-label-mono text-outline">Air-gap hardware isolation active (blocked at kernel)</span></div></div><span class="px-space-xs py-0.5 rounded bg-error-container text-on-error-container font-label-mono text-[10px]">BLOCKED</span></label></div></section><section class="flex flex-col gap-space-xs"><label class="font-label-md text-label-md font-semibold uppercase tracking-wider text-on-surface">Memory &amp; Execution Quota</label><div class="grid grid-cols-1 md:grid-cols-3 gap-space-sm"><div class="p-space-sm rounded-xl bg-surface-container-lowest border border-outline-variant/30 flex flex-col gap-1"><div class="flex items-center justify-between font-label-mono text-label-mono text-outline"><span>Max Memory Heap</span><span class="text-primary font-bold">512 MB</span></div><input type="range" min="128" max="2048" value="512" class="w-full accent-primary-container cursor-pointer"><span class="font-label-mono text-[10px] text-on-surface-variant">Cap: 2048 MB Host Pool</span></div><div class="p-space-sm rounded-xl bg-surface-container-lowest border border-outline-variant/30 flex flex-col justify-between"><span class="font-label-mono text-label-mono text-outline">CPU Core Affinity</span><div class="flex items-center gap-1 mt-1"><span class="px-space-xs py-0.5 rounded bg-surface-container text-primary font-code-md text-[11px] font-semibold">Core 0-2</span><span class="text-on-surface-variant font-body-sm text-[11px]">(Dedicated Worker)</span></div><span class="font-label-mono text-[10px] text-primary mt-1">Isolated hyper-thread affinity</span></div><div class="p-space-sm rounded-xl bg-surface-container-lowest border border-outline-variant/30 flex flex-col justify-between"><span class="font-label-mono text-label-mono text-outline">Max File Descriptor Ceiling</span><div class="flex items-center gap-1 mt-1"><span class="font-headline-sm text-headline-sm text-on-surface font-semibold">1024</span><span class="text-on-surface-variant font-label-mono text-label-mono">handles</span></div><span class="font-label-mono text-[10px] text-surface-tint mt-1">Auto-recycled stale streams</span></div></div></section></div><div class="flex flex-wrap items-center justify-between gap-space-sm px-space-lg py-space-md border-t border-outline-variant/30 bg-surface-container"><button class="text-error hover:text-on-error-container font-label-md text-label-md font-medium transition-colors">Reset to Enclave Defaults</button><div class="flex items-center gap-space-xs"><button class="px-space-md py-space-xs rounded-lg bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-label-md text-label-md font-medium border border-outline-variant/40 transition-colors shadow-sm">Test Path Containment</button><button onclick="document.getElementById('plugin-config-modal-overlay').remove()" class="px-space-md py-space-xs rounded-lg bg-secondary-container hover:bg-primary-container text-on-secondary-container hover:text-on-primary-container font-label-md text-label-md font-semibold transition-all shadow-[0_0_12px_#43D9FF] border border-primary-container">Save Configuration &amp; Reload Plugin</button></div></div></div></div></body></html>

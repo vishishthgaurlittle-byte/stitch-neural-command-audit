@@ -1,0 +1,860 @@
+<!DOCTYPE html><html class="dark" lang="en"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0" name="viewport"><meta content="web_dashboard" name="shell-type"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "surface-tint": "#40d7fd", "surface-container": "#1b2029", "secondary-container": "#0262e6", "on-tertiary-fixed-variant": "#5026b0", "surface-container-highest": "#31353f", "on-secondary-fixed-variant": "#00419e", "primary-fixed-dim": "#40d7fd", "on-primary": "#003642", "tertiary-fixed-dim": "#cebdff", "surface-container-low": "#171c25", "surface-container-lowest": "#0a0e17", "surface": "#0f131d", "on-secondary-container": "#e7ebff", "on-primary-fixed-variant": "#004e5e", "on-surface": "#dfe2f0", "on-primary-fixed": "#001f27", "background": "#0f131d", "tertiary-container": "#d0bfff", "error-container": "#93000a", "outline-variant": "#3c494d", "surface-dim": "#0f131d", "outline": "#869398", "primary-container": "#43d9ff", "surface-variant": "#31353f", "inverse-surface": "#dfe2f0", "secondary": "#b1c5ff", "on-secondary-fixed": "#001946", "error": "#ffb4ab", "on-tertiary-container": "#5e37be", "on-tertiary-fixed": "#21005e", "primary": "#b8edff", "tertiary": "#eae0ff", "secondary-fixed": "#dae2ff", "on-tertiary": "#390094", "inverse-primary": "#00677d", "on-background": "#dfe2f0", "on-error": "#690005", "on-secondary": "#002c70", "on-primary-container": "#005c6f", "inverse-on-surface": "#2c303b", "on-surface-variant": "#bbc9ce", "surface-bright": "#353944", "tertiary-fixed": "#e8ddff", "primary-fixed": "#b2ebff", "surface-container-high": "#262a34", "on-error-container": "#ffdad6", "secondary-fixed-dim": "#b1c5ff" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "space-xxl": "2rem", "space-lg": "1rem", "margin": "1.5rem", "space-xl": "1.5rem", "gutter-dense": "0.5rem", "space-sm": "0.5rem", "space-xs": "0.25rem", "space-md": "0.75rem", "gutter": "1rem", "margin-dense": "1rem" }, "fontFamily": { "headline-lg": [ "Manrope" ], "headline-sm": [ "Manrope" ], "body-sm": [ "Inter" ], "label-mono": [ "JetBrains Mono" ], "code-md": [ "JetBrains Mono" ], "headline-md": [ "Manrope" ], "display-lg": [ "Manrope" ], "label-md": [ "Inter" ], "body-md": [ "Inter" ], "body-lg": [ "Inter" ] }, "fontSize": { "headline-lg": [ "24px", { "lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "600" } ], "headline-sm": [ "16px", { "lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "600" } ], "body-sm": [ "12px", { "lineHeight": "16px", "letterSpacing": "0.005em", "fontWeight": "400" } ], "label-mono": [ "10px", { "lineHeight": "14px", "letterSpacing": "0.05em", "fontWeight": "500" } ], "code-md": [ "12px", { "lineHeight": "18px", "letterSpacing": "0em", "fontWeight": "400" } ], "headline-md": [ "20px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" } ], "display-lg": [ "32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" } ], "label-md": [ "11px", { "lineHeight": "14px", "letterSpacing": "0.02em", "fontWeight": "500" } ], "body-md": [ "13px", { "lineHeight": "18px", "letterSpacing": "0em", "fontWeight": "400" } ], "body-lg": [ "15px", { "lineHeight": "22px", "letterSpacing": "-0.005em", "fontWeight": "400" } ] } } } };</script></head><body class="bg-surface font-body-md text-body-md text-on-surface select-none antialiased min-h-screen"><header class="fixed top-0 left-0 right-0 h-14 bg-surface-container-lowest/90 backdrop-blur-md z-50 flex items-center justify-between px-space-lg shadow-[0_1px_8px_rgba(0,0,0,0.4)]"><div class="flex items-center gap-space-md"><img alt="Neural Orchestrator Emblem" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/ALJJyrDkwdFfa2ZbCR92YUYuBisOJanZ8ecfnNvhI9eXBT--hdx14MyRyg6qfpPnaiS3kIpRGkkX0PNVVtIwneXNiCoblHPpmqiGrQk2CkGEIKcqfD3gRNBMLWSXQEbGOivXgnv71LBNjxftYEsjJ8cw22e5EDAyHmGagINyRC1EEZmHBwkNLqwZmekoCt_AROtGMSmXq54KIdKK2SWARwX6UIilHqAqSfaykmHb1GzCTeU"><span class="px-space-sm py-space-xs rounded bg-surface-container-high text-primary font-label-mono text-label-mono uppercase tracking-wider font-semibold">[FINAL AI NAME]</span><div class="flex items-center gap-space-xs px-space-sm py-space-xs rounded bg-surface-container-low hover:bg-surface-container transition-colors cursor-pointer"><span class="font-label-md text-label-md text-on-surface-variant font-medium">Core Engine v2.4</span><span class="material-symbols-outlined text-[16px] text-on-surface-variant">expand_more</span></div></div><div class="hidden md:flex items-center gap-space-md bg-surface-container-lowest px-space-md py-space-xs rounded-lg shadow-inner"><div class="flex items-center gap-space-xs text-on-surface-variant font-code-md text-code-md"><span class="material-symbols-outlined text-[16px]">terminal</span><span>root</span><span class="text-outline">/</span><span class="text-primary font-medium">workspace</span></div><div class="h-3 w-[1px] bg-surface-container-highest"></div><div class="flex items-center gap-space-sm text-on-surface-variant font-label-md text-label-md"><span class="material-symbols-outlined text-[16px]">search</span><span>Search command buffer</span><kbd class="px-space-xs py-0.5 rounded bg-surface-container text-primary font-label-mono text-label-mono shadow-sm">Ctrl + K</kbd></div></div><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs px-space-sm py-0.5 rounded-full bg-surface-container-low"><span class="w-1.5 h-1.5 rounded-full bg-primary-container animate-pulse"></span><span class="font-label-mono text-label-mono text-primary-container font-semibold uppercase tracking-wider">LOCAL MODE: ACTIVE</span></div><div class="flex items-center gap-space-xs text-on-surface-variant"><button class="p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors" title="Voice Interface Ready"><span class="material-symbols-outlined text-[18px] text-primary-container">mic</span></button><button class="p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors" title="Encrypted &amp; Enforced"><span class="material-symbols-outlined text-[18px] text-primary">verified_user</span></button><button class="relative p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors" title="Telemetry Alerts"><span class="material-symbols-outlined text-[18px]">notifications</span><span class="absolute top-1 right-1 w-2 h-2 rounded-full bg-error"></span></button></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></header><aside class="fixed left-0 top-14 bottom-0 w-64 bg-surface-container-lowest z-40 flex flex-col justify-between py-space-sm shadow-[1px_0_12px_rgba(0,0,0,0.5)]"><nav class="flex-1 px-space-xs space-y-0.5 overflow-y-auto" data-active-classes="bg-secondary-container text-on-secondary-container font-semibold shadow-sm"><a class="flex items-center gap-space-md px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="command-center" href="#"><span class="material-symbols-outlined text-[20px]">dashboard</span><span class="font-body-md text-body-md truncate">Command Center</span></a><a class="flex items-center gap-space-md px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="conversation" href="#"><span class="material-symbols-outlined text-[20px]">chat</span><span class="font-body-md text-body-md truncate">Conversation</span></a><a class="flex items-center gap-space-md px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="3d-neural-core" href="#"><span class="material-symbols-outlined text-[20px]">view_in_ar</span><span class="font-body-md text-body-md truncate">3D Neural Core</span></a><a class="flex items-center gap-space-md px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="intelligence-models" href="#"><span class="material-symbols-outlined text-[20px]">psychology</span><span class="font-body-md text-body-md truncate">Intelligence &amp; Models</span></a><a class="flex items-center gap-space-md px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="plugin-center" href="#"><span class="material-symbols-outlined text-[20px]">extension</span><span class="font-body-md text-body-md truncate">Plugin Center</span></a><a class="flex items-center gap-space-md px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="agent-workspace" href="#"><span class="material-symbols-outlined text-[20px]">smart_toy</span><span class="font-body-md text-body-md truncate">Agent Workspace</span></a><a class="flex items-center gap-space-md px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="workflow-builder" href="#"><span class="material-symbols-outlined text-[20px]">account_tree</span><span class="font-body-md text-body-md truncate">Workflow Builder</span></a><a class="flex items-center gap-space-md px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="pc-control" href="#"><span class="material-symbols-outlined text-[20px]">desktop_windows</span><span class="font-body-md text-body-md truncate">PC Control</span></a><a class="flex items-center gap-space-md px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="memory-center" href="#"><span class="material-symbols-outlined text-[20px]">database</span><span class="font-body-md text-body-md truncate">Memory Center</span></a><a class="flex items-center gap-space-md px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="voice-studio" href="#"><span class="material-symbols-outlined text-[20px]">graphic_eq</span><span class="font-body-md text-body-md truncate">Voice Studio</span></a><a class="flex items-center gap-space-md px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="tasks-activity" href="#"><span class="material-symbols-outlined text-[20px]">task_alt</span><span class="font-body-md text-body-md truncate">Tasks &amp; Activity</span></a><a class="flex items-center gap-space-md px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="system-monitor" href="#"><span class="material-symbols-outlined text-[20px]">monitoring</span><span class="font-body-md text-body-md truncate">System Monitor</span></a><a class="flex items-center gap-space-md px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="security-permissions" href="#"><span class="material-symbols-outlined text-[20px]">security</span><span class="font-body-md text-body-md truncate">Security &amp; Permissions</span></a><a class="flex items-center gap-space-md px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="settings" href="#"><span class="material-symbols-outlined text-[20px]">settings</span><span class="font-body-md text-body-md truncate">Settings</span></a></nav><div class="pt-space-xs px-space-xs flex flex-col gap-1"><button class="w-full flex items-center justify-between px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors"><div class="flex items-center gap-space-md"><span class="material-symbols-outlined text-[18px] text-tertiary-fixed-dim">deployed_code</span><span class="font-label-md text-label-md uppercase tracking-wider font-semibold">HUD Mode</span></div><span class="font-label-mono text-label-mono text-on-surface-variant">F9</span></button><button class="w-full flex items-center justify-between px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors"><div class="flex items-center gap-space-md"><span class="material-symbols-outlined text-[18px]">dock_to_right</span><span class="font-label-md text-label-md uppercase tracking-wider font-semibold">Collapse Rail</span></div><span class="font-label-mono text-label-mono text-on-surface-variant">Ctrl+[</span></button></div></aside><div class="pl-64 flex flex-col min-h-screen"><main class="flex-1 pt-14 pb-20 w-full px-space-lg bg-surface"><div class="flex flex-col w-full">
+<!-- Top Command Region & Identity -->
+<div class="flex flex-col gap-space-lg mb-space-xl">
+<!-- Breadcrumb & Control Bar -->
+<div class="flex flex-wrap items-center justify-between gap-space-md">
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-sm mb-1">
+<span class="font-label-mono text-label-mono text-primary tracking-widest uppercase bg-surface-container-high px-space-xs py-0.5 rounded">Core-09 // Subsystem</span>
+<span class="text-outline text-label-mono">•</span>
+<span class="font-label-mono text-label-mono text-on-surface-variant">SQLite-VSS Local Runtime</span>
+</div>
+<h1 class="font-display-lg text-display-lg text-on-surface tracking-tight">Memory Centre</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-0.5">
+          Long-term episodic recall, vector embeddings, and Obsidian-compatible knowledge graph.
+        </p>
+</div>
+<!-- Global Actions Palette -->
+<div class="flex flex-wrap items-center gap-space-sm">
+<button class="flex items-center gap-space-xs px-space-md py-space-xs rounded-lg bg-secondary-container text-on-secondary-container hover:bg-primary hover:text-on-primary transition-all duration-150 shadow-md" id="btn-manual-mem">
+<span class="material-symbols-outlined text-[18px]">add_circle</span>
+<span class="font-label-md text-label-md font-semibold tracking-wide">Add Manual Memory</span>
+</button>
+<button class="flex items-center gap-space-xs px-space-md py-space-xs rounded-lg bg-surface-container-high text-on-surface hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined text-[18px] text-tertiary-fixed-dim">folder_special</span>
+<span class="font-label-md text-label-md font-medium">Import Vault</span>
+</button>
+<button class="flex items-center gap-space-xs px-space-md py-space-xs rounded-lg bg-surface-container-high text-on-surface hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined text-[18px]">archive</span>
+<span class="font-label-md text-label-md font-medium">Export Archive</span>
+</button>
+<button class="flex items-center gap-space-xs px-space-md py-space-xs rounded-lg bg-error-container/40 text-error hover:bg-error-container/70 transition-colors" id="btn-purge-open">
+<span class="material-symbols-outlined text-[18px]">delete_sweep</span>
+<span class="font-label-md text-label-md font-semibold">Purge Store</span>
+</button>
+</div>
+</div>
+<!-- View Switcher Tabs -->
+<div class="flex items-center justify-between border-b-0">
+<div class="flex items-center p-1 bg-surface-container-lowest rounded-xl gap-1">
+<button class="flex items-center gap-space-xs px-space-lg py-space-xs rounded-lg bg-secondary-container text-on-secondary-container shadow-sm font-label-md text-label-md font-semibold tracking-wide">
+<span class="material-symbols-outlined text-[18px]">library_books</span>
+<span>Memory Library</span>
+<span class="px-1.5 py-0.2 rounded-full bg-surface-container-lowest text-primary font-label-mono text-[9px]">1,420</span>
+</button>
+<button class="flex items-center gap-space-xs px-space-lg py-space-xs rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low transition-colors font-label-md text-label-md font-medium">
+<span class="material-symbols-outlined text-[18px] text-tertiary">hub</span>
+<span>Knowledge Graph (Obsidian Engine)</span>
+</button>
+<button class="flex items-center gap-space-xs px-space-lg py-space-xs rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low transition-colors font-label-md text-label-md font-medium">
+<span class="material-symbols-outlined text-[18px]">workspaces</span>
+<span>Projects &amp; Context</span>
+</button>
+</div>
+<!-- Quick Session Indicator -->
+<div class="hidden lg:flex items-center gap-space-md text-on-surface-variant font-label-mono text-label-mono">
+<span class="flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+          Vector Core Sync: Verified
+        </span>
+<span class="text-outline">|</span>
+<span>Obsidian v1.6.7 Linked</span>
+</div>
+</div>
+<!-- Memory Status Banner (Telemetry Telemetry Deck) -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md p-space-md bg-surface-container-low rounded-xl shadow-inner">
+<div class="flex items-center gap-space-md p-space-sm rounded-lg bg-surface-container">
+<div class="w-10 h-10 rounded-lg bg-surface-container-highest flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-[22px]">grain</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-mono text-label-mono uppercase tracking-wider text-on-surface-variant">Active Embeddings</span>
+<span class="font-headline-sm text-headline-sm text-on-surface truncate">54,120</span>
+<span class="font-label-mono text-[10px] text-primary">1536-dim • Cosine (VSS)</span>
+</div>
+</div>
+<div class="flex items-center gap-space-md p-space-sm rounded-lg bg-surface-container">
+<div class="w-10 h-10 rounded-lg bg-surface-container-highest flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[22px]">database</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-mono text-label-mono uppercase tracking-wider text-on-surface-variant">Storage Engine</span>
+<span class="font-headline-sm text-headline-sm text-on-surface truncate">SQLite-VSS Local</span>
+<span class="font-label-mono text-[10px] text-on-surface-variant">HNSW Flat Quantized</span>
+</div>
+</div>
+<div class="flex items-center gap-space-md p-space-sm rounded-lg bg-surface-container">
+<div class="w-10 h-10 rounded-lg bg-surface-container-highest flex items-center justify-center text-primary-fixed-dim">
+<span class="material-symbols-outlined text-[22px]">bolt</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-mono text-label-mono uppercase tracking-wider text-on-surface-variant">Episodic Latency</span>
+<div class="flex items-baseline gap-1">
+<span class="font-headline-sm text-headline-sm text-primary">3.2</span>
+<span class="font-label-mono text-[11px] text-on-surface">ms avg</span>
+</div>
+<span class="font-label-mono text-[10px] text-on-surface-variant">99th percentile: 6.8ms</span>
+</div>
+</div>
+<div class="flex items-center gap-space-md p-space-sm rounded-lg bg-surface-container">
+<div class="w-10 h-10 rounded-lg bg-surface-container-highest flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[22px]" style="font-variation-settings: 'FILL' 1;">security</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-mono text-label-mono uppercase tracking-wider text-on-surface-variant">Air-Gap Status</span>
+<span class="font-headline-sm text-headline-sm text-primary-container truncate">100% Local</span>
+<span class="font-label-mono text-[10px] text-on-surface-variant">Zero Cloud Relay</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Main Workspace: 3-Zone Architecture -->
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-space-lg items-start">
+<!-- LEFT ZONE: Categories, Vaults & Semantic Filters (Cols 1-3) -->
+<section class="xl:col-span-3 flex flex-col gap-space-md bg-surface-container-low p-space-md rounded-xl">
+<!-- Search Vectors Input -->
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-mono text-label-mono text-on-surface-variant uppercase tracking-wider">Semantic Query Buffer</label>
+<div class="relative flex items-center bg-surface-container-lowest rounded-lg px-space-sm py-space-xs group focus-within:shadow-[0_0_12px_rgba(67,217,255,0.2)]">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant group-focus-within:text-primary">travel_explore</span>
+<input class="bg-transparent flex-1 px-space-xs text-on-surface font-body-sm text-body-sm focus:outline-none placeholder:text-on-surface-variant/40" id="vector-search-input" placeholder="Query vectors or semantic tag..." type="text">
+<kbd class="px-1.5 py-0.5 rounded bg-surface-container-high font-label-mono text-[10px] text-primary">Press /</kbd>
+</div>
+</div>
+<!-- Categories & Counts List -->
+<div class="flex flex-col gap-1">
+<div class="flex items-center justify-between py-1">
+<span class="font-label-mono text-label-mono text-on-surface-variant uppercase tracking-wider">Classification Taxonomy</span>
+<button class="font-label-mono text-[10px] text-primary hover:underline">Re-index</button>
+</div>
+<nav class="flex flex-col gap-0.5 font-label-md text-label-md">
+<button class="flex items-center justify-between px-space-sm py-2 rounded-lg bg-secondary-container text-on-secondary-container font-semibold transition-colors">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[16px]">folder_copy</span>
+<span>All Memories</span>
+</div>
+<span class="px-space-xs py-0.5 rounded bg-surface-container-lowest font-label-mono text-[10px] text-primary">1,420</span>
+</button>
+<button class="flex items-center justify-between px-space-sm py-2 rounded-lg text-on-surface hover:bg-surface-container transition-colors">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[16px] text-primary">tune</span>
+<span class="truncate">User Preferences &amp; Principles</span>
+</div>
+<span class="px-space-xs py-0.5 rounded bg-surface-container font-label-mono text-[10px] text-on-surface-variant">84</span>
+</button>
+<button class="flex items-center justify-between px-space-sm py-2 rounded-lg text-on-surface hover:bg-surface-container transition-colors">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[16px] text-secondary">source_notes</span>
+<span class="truncate">Project Context</span>
+</div>
+<span class="px-space-xs py-0.5 rounded bg-surface-container font-label-mono text-[10px] text-on-surface-variant">612</span>
+</button>
+<button class="flex items-center justify-between px-space-sm py-2 rounded-lg text-on-surface hover:bg-surface-container transition-colors">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[16px] text-tertiary-fixed-dim">architecture</span>
+<span class="truncate">Technical Decisions &amp; AST</span>
+</div>
+<span class="px-space-xs py-0.5 rounded bg-surface-container font-label-mono text-[10px] text-on-surface-variant">340</span>
+</button>
+<button class="flex items-center justify-between px-space-sm py-2 rounded-lg text-on-surface hover:bg-surface-container transition-colors">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[16px] text-primary-container">code</span>
+<span class="truncate">Code Snippets &amp; ASTs</span>
+</div>
+<span class="px-space-xs py-0.5 rounded bg-surface-container font-label-mono text-[10px] text-on-surface-variant">214</span>
+</button>
+<button class="flex items-center justify-between px-space-sm py-2 rounded-lg text-on-surface hover:bg-surface-container transition-colors">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">groups</span>
+<span class="truncate">People &amp; Roles</span>
+</div>
+<span class="px-space-xs py-0.5 rounded bg-surface-container font-label-mono text-[10px] text-on-surface-variant">45</span>
+</button>
+<button class="flex items-center justify-between px-space-sm py-2 rounded-lg text-on-surface hover:bg-surface-container transition-colors">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">forum</span>
+<span class="truncate">Past Conversations</span>
+</div>
+<span class="px-space-xs py-0.5 rounded bg-surface-container font-label-mono text-[10px] text-on-surface-variant">125</span>
+</button>
+</nav>
+</div>
+<!-- Linked Obsidian Vault Deck -->
+<div class="p-space-sm rounded-lg bg-surface-container flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[16px] text-tertiary">diamond</span>
+<span class="font-label-mono text-label-mono text-tertiary uppercase tracking-wider font-semibold">Obsidian Vault</span>
+</div>
+<span class="px-1.5 py-0.5 rounded bg-surface-container-highest font-label-mono text-[9px] text-primary uppercase">Read-Only</span>
+</div>
+<p class="font-code-md text-code-md text-on-surface truncate">Obsidian_Vault_Primary</p>
+<span class="font-label-mono text-[10px] text-on-surface-variant truncate">C:/Users/Local/Vaults/Engineering</span>
+<div class="flex items-center justify-between pt-1 font-label-mono text-[10px] text-on-surface-variant">
+<span class="flex items-center gap-1 text-primary">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container animate-pulse"></span>
+            Sync: Realtime
+          </span>
+<span>482 Markdown Notes</span>
+</div>
+</div>
+<!-- Privacy & Retention Switches -->
+<div class="flex flex-col gap-space-sm pt-space-xs border-t-0">
+<span class="font-label-mono text-label-mono text-on-surface-variant uppercase tracking-wider">Privacy Engine Controls</span>
+<!-- Toggle Item 1 -->
+<label class="flex items-center justify-between p-space-xs rounded bg-surface-container cursor-pointer select-none">
+<div class="flex flex-col pr-space-xs">
+<span class="font-body-sm text-body-sm text-on-surface font-medium">Auto-Index Chat Stream</span>
+<span class="font-label-mono text-[10px] text-on-surface-variant">Ingests completed turns into vector space</span>
+</div>
+<div class="relative inline-flex items-center">
+<input checked="" class="sr-only peer" type="checkbox">
+<div class="w-9 h-5 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-surface-container peer-checked:bg-secondary-container after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-on-surface after:rounded-full after:h-4 after:w-4 after:transition-all"></div>
+</div>
+</label>
+<!-- Toggle Item 2 -->
+<label class="flex items-center justify-between p-space-xs rounded bg-surface-container cursor-pointer select-none">
+<div class="flex flex-col pr-space-xs">
+<span class="font-body-sm text-body-sm text-on-surface font-medium">Air-Gap Anonymization</span>
+<span class="font-label-mono text-[10px] text-on-surface-variant">Scrub PII and API hashes on disk write</span>
+</div>
+<div class="relative inline-flex items-center">
+<input checked="" class="sr-only peer" type="checkbox">
+<div class="w-9 h-5 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-surface-container peer-checked:bg-secondary-container after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-on-surface after:rounded-full after:h-4 after:w-4 after:transition-all"></div>
+</div>
+</label>
+</div>
+<!-- Quick Storage Footprint Sparkline -->
+<div class="p-space-sm rounded-lg bg-surface-container flex flex-col gap-1.5">
+<div class="flex justify-between items-center font-label-mono text-[10px] text-on-surface-variant">
+<span>VECTOR DISK BUDGET</span>
+<span class="text-primary font-semibold">184.2 MB / 1.0 GB</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-primary-container rounded-full" style="width: 18.4%;"></div>
+</div>
+</div>
+</section>
+<!-- CENTER ZONE: Memory Cards & Knowledge Stream (Cols 4-8) -->
+<section class="xl:col-span-5 flex flex-col gap-space-md">
+<!-- Stream Sub-header & Filtering Actions -->
+<div class="flex items-center justify-between bg-surface-container-low px-space-md py-space-xs rounded-xl">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[18px] text-primary">view_stream</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">Ranked Memory Stream</span>
+</div>
+<div class="flex items-center gap-space-xs font-label-mono text-[11px]">
+<span class="text-on-surface-variant">Sort:</span>
+<select class="bg-surface-container text-on-surface px-space-xs py-0.5 rounded text-[11px] focus:outline-none cursor-pointer">
+<option>Cosine Relevance (High -&gt; Low)</option>
+<option>Last Recalled Timestamp</option>
+<option>Access Frequency</option>
+</select>
+</div>
+</div>
+<!-- Cards Stack -->
+<div class="flex flex-col gap-space-sm">
+<!-- CARD 1 (Pinned & High Priority) -->
+<article class="p-space-md rounded-xl bg-surface-container hover:bg-surface-container-high transition-all shadow-md flex flex-col gap-space-sm group">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-center gap-space-xs">
+<span class="px-space-xs py-0.5 rounded bg-primary-container text-on-primary font-label-mono text-[9px] font-bold uppercase tracking-wider flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">push_pin</span> PINNED
+              </span>
+<span class="px-space-xs py-0.5 rounded bg-surface-container-highest text-tertiary-fixed-dim font-label-mono text-[10px]">Technical Decisions</span>
+<span class="font-label-mono text-[10px] text-on-surface-variant">•</span>
+<span class="font-label-mono text-[10px] text-on-surface-variant">Core Engine v2.4</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="px-1.5 py-0.5 rounded bg-primary/10 text-primary font-label-mono text-[10px] font-semibold">98.4% Match</span>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<h2 class="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors">
+              Core Coding Architecture: Rust + WebAssembly + Zero-Copy Shared Memory
+            </h2>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-2">
+              Primary computational pipeline binds native Rust kernels via shared IPC ring-buffers. Prohibits JSON serialization in hot inference loops to preserve &lt;5ms budget.
+            </p>
+</div>
+<div class="flex flex-wrap items-center justify-between gap-space-xs pt-space-xs border-t-0 font-label-mono text-[10px] text-on-surface-variant">
+<div class="flex items-center gap-space-md">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">history</span>
+                Recalled 14m ago
+              </span>
+<span class="flex items-center gap-1 text-primary">
+<span class="material-symbols-outlined text-[14px]">hub</span>
+                6 Linked Nodes
+              </span>
+</div>
+<div class="flex items-center gap-1 opacity-90">
+<button class="px-2 py-1 rounded bg-surface-container-highest hover:bg-secondary-container hover:text-on-secondary-container transition-colors flex items-center gap-1" title="Inspect Vector Dimensions">
+<span class="material-symbols-outlined text-[14px]">analytics</span>
+<span>Inspect</span>
+</button>
+<button class="px-2 py-1 rounded bg-surface-container-highest hover:bg-surface-bright text-on-surface transition-colors" title="Edit Memory">
+<span class="material-symbols-outlined text-[14px]">edit</span>
+</button>
+<button class="px-2 py-1 rounded bg-surface-container-highest hover:bg-error hover:text-on-error transition-colors" onclick="openForgetModal('Core Coding Architecture: Rust + WebAssembly')" title="Purge Record">
+<span class="material-symbols-outlined text-[14px]">delete</span>
+</button>
+</div>
+</div>
+</article>
+<!-- CARD 2 -->
+<article class="p-space-md rounded-xl bg-surface-container hover:bg-surface-container-high transition-all shadow-sm flex flex-col gap-space-sm group">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-center gap-space-xs">
+<span class="px-space-xs py-0.5 rounded bg-surface-container-highest text-primary font-label-mono text-[10px]">User Preferences</span>
+<span class="font-label-mono text-[10px] text-on-surface-variant">•</span>
+<span class="font-label-mono text-[10px] text-on-surface-variant">Interface Directive</span>
+</div>
+<span class="px-1.5 py-0.5 rounded bg-primary/10 text-primary font-label-mono text-[10px] font-semibold">96.1% Match</span>
+</div>
+<div class="flex flex-col gap-1">
+<h2 class="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors">
+              User UI Preference: High-density desktop layouts with Manrope font and dark slate palette
+            </h2>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-2">
+              Operator requires maximum information density with 28px telemetry rows, strictly avoiding arbitrary borders in favor of deep surface tiering (#070B14 to #101A2B).
+            </p>
+</div>
+<div class="flex flex-wrap items-center justify-between gap-space-xs pt-space-xs font-label-mono text-[10px] text-on-surface-variant">
+<div class="flex items-center gap-space-md">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">history</span>
+                Recalled 1h ago
+              </span>
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">link</span>
+                3 Associations
+              </span>
+</div>
+<div class="flex items-center gap-1">
+<button class="px-2 py-1 rounded bg-surface-container-highest hover:bg-secondary-container hover:text-on-secondary-container transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">analytics</span>
+<span>Inspect</span>
+</button>
+<button class="px-2 py-1 rounded bg-surface-container-highest hover:bg-error hover:text-on-error transition-colors" onclick="openForgetModal('User UI Preference: High-density desktop')">
+<span class="material-symbols-outlined text-[14px]">delete</span>
+</button>
+</div>
+</div>
+</article>
+<!-- CARD 3 -->
+<article class="p-space-md rounded-xl bg-surface-container hover:bg-surface-container-high transition-all shadow-sm flex flex-col gap-space-sm group">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-center gap-space-xs">
+<span class="px-space-xs py-0.5 rounded bg-surface-container-highest text-primary-fixed-dim font-label-mono text-[10px]">Principles</span>
+<span class="font-label-mono text-[10px] text-on-surface-variant">•</span>
+<span class="font-label-mono text-[10px] text-on-surface-variant">Cryptographic Boundary</span>
+</div>
+<span class="px-1.5 py-0.5 rounded bg-primary/10 text-primary font-label-mono text-[10px] font-semibold">94.7% Match</span>
+</div>
+<div class="flex flex-col gap-1">
+<h2 class="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors">
+              Security Boundary: Air-gap strictly enforced on Windows DPAPI credentials &amp; API keys
+            </h2>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-2">
+              All credentials must stay resident within hardware enclave. Zero remote token verification. Local fallback keys stored under user master key in win32-crypt vault.
+            </p>
+</div>
+<div class="flex flex-wrap items-center justify-between gap-space-xs pt-space-xs font-label-mono text-[10px] text-on-surface-variant">
+<div class="flex items-center gap-space-md">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">history</span>
+                Recalled yesterday
+              </span>
+<span class="flex items-center gap-1 text-primary-container">
+<span class="material-symbols-outlined text-[14px]">verified_user</span>
+                System Protected
+              </span>
+</div>
+<div class="flex items-center gap-1">
+<button class="px-2 py-1 rounded bg-surface-container-highest hover:bg-secondary-container hover:text-on-secondary-container transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">analytics</span>
+<span>Inspect</span>
+</button>
+<button class="px-2 py-1 rounded bg-surface-container-highest hover:bg-error hover:text-on-error transition-colors" onclick="openForgetModal('Security Boundary: Air-gap strictly enforced')">
+<span class="material-symbols-outlined text-[14px]">delete</span>
+</button>
+</div>
+</div>
+</article>
+<!-- CARD 4 -->
+<article class="p-space-md rounded-xl bg-surface-container hover:bg-surface-container-high transition-all shadow-sm flex flex-col gap-space-sm group">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-center gap-space-xs">
+<span class="px-space-xs py-0.5 rounded bg-surface-container-highest text-secondary-fixed font-label-mono text-[10px]">Hardware Context</span>
+<span class="font-label-mono text-[10px] text-on-surface-variant">•</span>
+<span class="font-label-mono text-[10px] text-on-surface-variant">Host Rig VRAM Profile</span>
+</div>
+<span class="px-1.5 py-0.5 rounded bg-primary/10 text-primary font-label-mono text-[10px] font-semibold">91.2% Match</span>
+</div>
+<div class="flex flex-col gap-1">
+<h2 class="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors">
+              Local Model Quantization Strategy: Favor Q4_K_M for Mistral-7B to fit within 6GB VRAM on Intel i3
+            </h2>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-2">
+              K-quant medium matrix retains 98.2% perplexity score of FP16 while fitting 4.1GB weights safely within Intel Iris + dedicated VRAM footprint without page swaps.
+            </p>
+</div>
+<div class="flex flex-wrap items-center justify-between gap-space-xs pt-space-xs font-label-mono text-[10px] text-on-surface-variant">
+<div class="flex items-center gap-space-md">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">history</span>
+                Recalled 3d ago
+              </span>
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">memory</span>
+                VRAM Optimized
+              </span>
+</div>
+<div class="flex items-center gap-1">
+<button class="px-2 py-1 rounded bg-surface-container-highest hover:bg-secondary-container hover:text-on-secondary-container transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">analytics</span>
+<span>Inspect</span>
+</button>
+<button class="px-2 py-1 rounded bg-surface-container-highest hover:bg-error hover:text-on-error transition-colors" onclick="openForgetModal('Local Model Quantization Strategy')">
+<span class="material-symbols-outlined text-[14px]">delete</span>
+</button>
+</div>
+</div>
+</article>
+</div>
+</section>
+<!-- RIGHT ZONE: Connected Knowledge Graph Preview & Context Inspector (Cols 9-12) -->
+<section class="xl:col-span-4 flex flex-col gap-space-md"><!-- Interactive Obsidian-Style Knowledge Graph Visual Tile -->
+<div class="flex flex-col bg-surface-container-low rounded-xl p-space-md overflow-hidden relative shadow-lg gap-space-sm">
+  <div class="flex flex-wrap items-center justify-between gap-space-xs">
+    <div class="flex items-center gap-space-xs">
+      <span class="material-symbols-outlined text-[18px] text-primary-container animate-pulse">bubble_chart</span>
+      <span class="font-label-mono text-label-mono text-on-surface font-semibold uppercase tracking-wider">Active Graph Topology</span>
+      <span class="px-1.5 py-0.2 rounded bg-surface-container font-label-mono text-[9px] text-primary font-bold">PROBE: ACTIVE</span>
+    </div>
+    <div class="flex items-center gap-1">
+      <button class="px-2 py-0.5 rounded bg-primary-container/20 hover:bg-primary-container text-primary hover:text-on-primary transition-all flex items-center gap-1 font-label-mono text-[10px] font-semibold shadow-sm" title="Simulate vector proximity pulse">
+        <span class="material-symbols-outlined text-[13px]">sensors</span>
+        <span>Trace Pulse</span>
+      </button>
+      <button class="p-1 rounded bg-surface-container hover:bg-surface-container-high text-on-surface-variant" title="Zoom In">
+        <span class="material-symbols-outlined text-[14px]">add</span>
+      </button>
+      <button class="p-1 rounded bg-surface-container hover:bg-surface-container-high text-on-surface-variant" title="Zoom Out">
+        <span class="material-symbols-outlined text-[14px]">remove</span>
+      </button>
+      <button class="p-1 rounded bg-surface-container hover:bg-surface-container-high text-on-surface-variant" title="Recenter Graph">
+        <span class="material-symbols-outlined text-[14px]">filter_center_focus</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Graph Control Filters & Proximity Toggles -->
+  <div class="flex flex-wrap items-center justify-between gap-1 p-space-xs rounded-lg bg-surface-container font-label-mono text-[10px]">
+    <div class="flex items-center gap-1">
+      <span class="text-on-surface-variant">Depth:</span>
+      <span class="px-1.5 py-0.5 rounded bg-surface-container-highest text-primary font-semibold">2 Hops</span>
+    </div>
+    <div class="w-[1px] h-3 bg-surface-container-highest"></div>
+    <div class="flex items-center gap-1">
+      <span class="text-on-surface-variant">K-NN:</span>
+      <span class="px-1.5 py-0.5 rounded bg-surface-container-highest text-primary font-semibold">k=5</span>
+    </div>
+    <div class="w-[1px] h-3 bg-surface-container-highest"></div>
+    <div class="flex items-center gap-1">
+      <span class="text-on-surface-variant">Min Cosine:</span>
+      <span class="px-1.5 py-0.5 rounded bg-primary-container/20 text-primary-container font-semibold">≥ 0.850</span>
+    </div>
+    <div class="w-[1px] h-3 bg-surface-container-highest"></div>
+    <div class="flex items-center gap-1 text-on-surface-variant">
+      <span class="w-1.5 h-1.5 rounded-full bg-primary-container animate-pulse"></span>
+      <span>VSS Filtered</span>
+    </div>
+  </div>
+
+  <!-- Inline Visual Graph Canvas (Obsidian Aesthetic + Pulse Halo + Labeled Edges) -->
+  <div class="w-full h-64 rounded-lg bg-surface-container-lowest relative overflow-hidden flex items-center justify-center border-t-0">
+    <svg class="w-full h-full select-none" fill="none" viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="haloGrad" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#43D9FF" stop-opacity="0.4"></stop>
+          <stop offset="70%" stop-color="#43D9FF" stop-opacity="0.08"></stop>
+          <stop offset="100%" stop-color="#43D9FF" stop-opacity="0"></stop>
+        </radialGradient>
+        <radialGradient id="clusterGrad" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#367BFF" stop-opacity="0.1"></stop>
+          <stop offset="100%" stop-color="#367BFF" stop-opacity="0"></stop>
+        </radialGradient>
+      </defs>
+
+      <!-- Cluster Boundary Halo Ring -->
+      <ellipse cx="195" cy="90" rx="140" ry="75" fill="url(#clusterGrad)" stroke="#43D9FF" stroke-dasharray="4 4" stroke-opacity="0.2" stroke-width="1"></ellipse>
+      <text x="72" y="32" fill="#869398" font-family="JetBrains Mono" font-size="8" letter-spacing="0.05em">CLUSTER // LOW-LATENCY IPC</text>
+
+      <!-- Interconnecting Paths with Edge Weight Badges -->
+      <path class="text-primary-container/40" d="M75 115 L195 90" stroke="currentColor" stroke-dasharray="3 3" stroke-width="1.5"></path>
+      <path class="text-primary" d="M195 90 L315 70" stroke="currentColor" stroke-width="2.2"></path>
+      <path class="text-secondary/50" d="M195 90 L225 180" stroke="currentColor" stroke-width="1.8"></path>
+      <path class="text-outline-variant/60" d="M75 115 L125 185" stroke="currentColor" stroke-width="1.2"></path>
+      <path class="text-primary-container/40" d="M125 185 L225 180" stroke="currentColor" stroke-width="1.5"></path>
+      <path class="text-primary/40" d="M315 70 L345 155" stroke="currentColor" stroke-width="1.5"></path>
+      <path class="text-secondary-fixed/40" d="M225 180 L345 155" stroke="currentColor" stroke-width="1.5"></path>
+
+      <!-- Labeled Edge Similarity Scores -->
+      <g font-family="JetBrains Mono" font-size="8" font-weight="600">
+        <!-- Edge 1: Anchor to Mistral -->
+        <rect x="244" y="69" width="28" height="12" rx="2" fill="#171C25" stroke="#43D9FF" stroke-opacity="0.4" stroke-width="0.5"></rect>
+        <text x="258" y="78" fill="#43D9FF" text-anchor="middle">0.984</text>
+
+        <!-- Edge 2: Anchor to Engine v2.4 -->
+        <rect x="212" y="128" width="28" height="12" rx="2" fill="#171C25" stroke="#869398" stroke-opacity="0.4" stroke-width="0.5"></rect>
+        <text x="226" y="137" fill="#DFE2F0" text-anchor="middle">0.947</text>
+
+        <!-- Edge 3: Anchor to Preferences -->
+        <rect x="116" y="94" width="28" height="12" rx="2" fill="#171C25" stroke="#869398" stroke-opacity="0.4" stroke-width="0.5"></rect>
+        <text x="130" y="103" fill="#BBC9CE" text-anchor="middle">0.912</text>
+      </g>
+
+      <!-- Anchor Node Halo Wave -->
+      <circle cx="195" cy="90" r="32" fill="url(#haloGrad)" class="animate-pulse"></circle>
+
+      <!-- Node 1: ACTIVE ANCHOR NODE (Rust Core Arch) -->
+      <g class="cursor-pointer group">
+        <circle cx="195" cy="90" r="17" fill="#0F131D" stroke="#43D9FF" stroke-width="2.5" class="shadow-[0_0_12px_#43D9FF]"></circle>
+        <circle cx="195" cy="90" r="7" fill="#43D9FF" class="animate-ping" opacity="0.6"></circle>
+        <circle cx="195" cy="90" r="8" fill="#43D9FF"></circle>
+        <text x="195" y="62" fill="#B8EDFF" font-family="Manrope" font-size="10" font-weight="700" text-anchor="middle">Rust Core Arch</text>
+        <text x="195" y="51" fill="#43D9FF" font-family="JetBrains Mono" font-size="8" font-weight="500" text-anchor="middle">[ANCHOR PROBE]</text>
+      </g>
+
+      <!-- Node 2: 1st Degree Hop (Mistral-7B Q4) -->
+      <g class="cursor-pointer">
+        <circle cx="315" cy="70" r="13" fill="#171C25" stroke="#367BFF" stroke-width="2"></circle>
+        <circle cx="315" cy="70" r="5.5" fill="#367BFF"></circle>
+        <text x="315" y="50" fill="#BBC9CE" font-family="Inter" font-size="9" font-weight="500" text-anchor="middle">Mistral-7B Q4</text>
+      </g>
+
+      <!-- Node 3: 1st Degree Hop (UI Preferences) -->
+      <g class="cursor-pointer">
+        <circle cx="75" cy="115" r="13" fill="#171C25" stroke="#40D7FD" stroke-width="1.8"></circle>
+        <circle cx="75" cy="115" r="5" fill="#40D7FD"></circle>
+        <text x="75" y="96" fill="#BBC9CE" font-family="Inter" font-size="9" text-anchor="middle">UI Preferences</text>
+      </g>
+
+      <!-- Node 4: 1st Degree Hop (Core Engine v2.4) -->
+      <g class="cursor-pointer">
+        <circle cx="225" cy="180" r="14" fill="#171C25" stroke="#CEBDFF" stroke-width="1.8"></circle>
+        <circle cx="225" cy="180" r="6" fill="#CEBDFF"></circle>
+        <text x="225" y="206" fill="#DFE2F0" font-family="Inter" font-size="9" text-anchor="middle">Core Engine v2.4</text>
+      </g>
+
+      <!-- Node 5: 2nd Degree Hop (SharedMem) -->
+      <g class="cursor-pointer">
+        <circle cx="125" cy="185" r="8" fill="#101A2B" stroke="#869398" stroke-width="1.2"></circle>
+        <circle cx="125" cy="185" r="3" fill="#869398"></circle>
+        <text x="125" y="204" fill="#869398" font-family="Inter" font-size="8" text-anchor="middle">SharedMem</text>
+      </g>
+
+      <!-- Node 6: 2nd Degree Hop (DPAPI Boundary) -->
+      <g class="cursor-pointer">
+        <circle cx="345" cy="155" r="9" fill="#101A2B" stroke="#43D9FF" stroke-opacity="0.7" stroke-width="1.2"></circle>
+        <circle cx="345" cy="155" r="3.5" fill="#43D9FF"></circle>
+        <text x="345" y="174" fill="#869398" font-family="Inter" font-size="8" text-anchor="middle">DPAPI</text>
+      </g>
+    </svg>
+
+    <!-- Graph Legend / Status Overlay -->
+    <div class="absolute bottom-2 left-2 flex items-center gap-1.5 px-2 py-1 rounded bg-surface-container-lowest/90 backdrop-blur font-label-mono text-[9px] text-on-surface-variant border-t-0 shadow-sm">
+      <span class="w-1.5 h-1.5 rounded-full bg-primary-container animate-pulse"></span>
+      <span>Target: mem_0x8F9C2</span>
+      <span class="text-outline">|</span>
+      <span class="text-primary font-semibold">Cosine: 0.984</span>
+    </div>
+    <div class="absolute top-2 right-2 flex items-center gap-1 px-1.5 py-0.5 rounded bg-surface-container/80 backdrop-blur font-label-mono text-[9px] text-on-surface-variant">
+      <span class="w-1.5 h-1.5 rounded-full bg-primary"></span> 1st Hop
+      <span class="w-1.5 h-1.5 rounded-full bg-outline ml-1"></span> 2nd Hop
+    </div>
+  </div>
+</div>
+
+<!-- Selected Memory Vector Inspector Panel -->
+<div class="flex flex-col gap-space-sm bg-surface-container-low rounded-xl p-space-md shadow-lg">
+  <div class="flex items-center justify-between">
+    <div class="flex items-center gap-space-xs">
+      <span class="material-symbols-outlined text-[18px] text-primary-container">troubleshoot</span>
+      <span class="font-headline-sm text-headline-sm text-on-surface">Vector Inspector</span>
+    </div>
+    <div class="flex items-center gap-1">
+      <span class="font-label-mono text-[10px] text-primary bg-surface-container px-space-xs py-0.5 rounded">ID: mem_0x8F9C2</span>
+    </div>
+  </div>
+
+  <!-- Live Query Vector Probe & Dimensional Breakdown -->
+  <div class="flex flex-col gap-1.5 p-space-sm rounded-lg bg-surface-container">
+    <div class="flex justify-between items-center">
+      <span class="font-label-mono text-[10px] text-primary font-semibold uppercase tracking-wider flex items-center gap-1">
+        <span class="w-1.5 h-1.5 rounded-full bg-primary-container animate-pulse"></span> Live Probe &amp; Dimensional Slice
+      </span>
+      <span class="font-label-mono text-[9px] text-on-surface-variant">dim 0..7 / 1536</span>
+    </div>
+    <div class="font-code-md text-[11px] text-on-surface-variant bg-surface-container-lowest px-space-xs py-1 rounded flex flex-wrap gap-x-2 gap-y-0.5 text-label-mono">
+      <span>[0]: <span class="text-primary">+0.142</span></span>
+      <span>[1]: <span class="text-error">-0.088</span></span>
+      <span>[2]: <span class="text-primary">+0.312</span></span>
+      <span>[3]: <span class="text-primary">+0.054</span></span>
+      <span>[4]: <span class="text-error">-0.191</span></span>
+      <span>[5]: <span class="text-primary">+0.420</span></span>
+      <span>[6]: <span class="text-primary">+0.108</span></span>
+      <span>[7]: <span class="text-error">-0.035</span></span>
+    </div>
+    <!-- 8-bar sparkline for slice -->
+    <div class="h-5 flex items-end gap-1 pt-1">
+      <div class="flex-1 bg-primary-container rounded-t h-[65%]" title="dim 0: +0.142"></div>
+      <div class="flex-1 bg-error rounded-t h-[40%]" title="dim 1: -0.088"></div>
+      <div class="flex-1 bg-primary rounded-t h-[90%]" title="dim 2: +0.312"></div>
+      <div class="flex-1 bg-primary/60 rounded-t h-[30%]" title="dim 3: +0.054"></div>
+      <div class="flex-1 bg-error rounded-t h-[70%]" title="dim 4: -0.191"></div>
+      <div class="flex-1 bg-primary-container rounded-t h-[100%]" title="dim 5: +0.420"></div>
+      <div class="flex-1 bg-primary/70 rounded-t h-[50%]" title="dim 6: +0.108"></div>
+      <div class="flex-1 bg-error rounded-t h-[20%]" title="dim 7: -0.035"></div>
+    </div>
+  </div>
+
+  <!-- Distance Metric Switcher -->
+  <div class="flex flex-col gap-1 p-space-xs rounded-lg bg-surface-container">
+    <div class="flex items-center justify-between">
+      <span class="font-label-mono text-[9px] text-on-surface-variant uppercase tracking-wider">Distance Metric Switcher</span>
+      <span class="font-label-mono text-[9px] text-primary">Realtime Recompute</span>
+    </div>
+    <div class="grid grid-cols-3 gap-1">
+      <button class="px-1.5 py-1 rounded bg-secondary-container text-on-secondary-container font-label-mono text-[10px] font-semibold text-center shadow-sm">
+        Cosine (0.984)
+      </button>
+      <button class="px-1.5 py-1 rounded bg-surface-container-highest hover:bg-surface-bright text-on-surface font-label-mono text-[10px] text-center transition-colors">
+        Dot (14.28)
+      </button>
+      <button class="px-1.5 py-1 rounded bg-surface-container-highest hover:bg-surface-bright text-on-surface font-label-mono text-[10px] text-center transition-colors">
+        L2 (0.179)
+      </button>
+    </div>
+  </div>
+
+  <!-- Explain Nearest Neighbors Breakdown -->
+  <div class="flex flex-col gap-1 p-space-sm rounded-lg bg-surface-container">
+    <div class="flex items-center justify-between">
+      <span class="font-label-mono text-[10px] text-on-surface-variant uppercase tracking-wider flex items-center gap-1">
+        <span class="material-symbols-outlined text-[14px] text-tertiary">lightbulb</span> Explain Nearest Neighbors
+      </span>
+      <span class="font-label-mono text-[9px] text-primary">3 Lexical Attributions</span>
+    </div>
+    <div class="flex flex-col gap-1 pt-0.5">
+      <div class="flex items-center justify-between text-[11px] font-label-mono">
+        <span class="text-on-surface truncate">• "Rust IPC ring-buffers"</span>
+        <span class="text-primary font-semibold">+42% gain</span>
+      </div>
+      <div class="w-full h-1 bg-surface-container-highest rounded-full overflow-hidden">
+        <div class="h-full bg-primary-container rounded-full" style="width: 42%;"></div>
+      </div>
+      <div class="flex items-center justify-between text-[11px] font-label-mono pt-0.5">
+        <span class="text-on-surface truncate">• "zero-copy shared memory"</span>
+        <span class="text-primary font-semibold">+38% gain</span>
+      </div>
+      <div class="w-full h-1 bg-surface-container-highest rounded-full overflow-hidden">
+        <div class="h-full bg-primary rounded-full" style="width: 38%;"></div>
+      </div>
+      <div class="flex items-center justify-between text-[11px] font-label-mono pt-0.5">
+        <span class="text-on-surface truncate">• "air-gap enclaves &amp; bindings"</span>
+        <span class="text-primary font-semibold">+29% gain</span>
+      </div>
+      <div class="w-full h-1 bg-surface-container-highest rounded-full overflow-hidden">
+        <div class="h-full bg-secondary rounded-full" style="width: 29%;"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Raw Text Semantic Extract -->
+  <div class="flex flex-col gap-1 p-space-sm rounded-lg bg-surface-container">
+    <span class="font-label-mono text-[10px] text-on-surface-variant uppercase tracking-wider">Extracted Semantic Summary</span>
+    <p class="font-body-sm text-body-sm text-on-surface">
+      "Core high-performance execution loop utilizing Rust FFI bindings, zero-copy IPC messaging queues, and WebAssembly sandboxing for untrusted plugins."
+    </p>
+  </div>
+
+  <!-- Linked File Bindings -->
+  <div class="flex flex-col gap-1">
+    <span class="font-label-mono text-label-mono text-on-surface-variant uppercase tracking-wider">Verified File Bindings</span>
+    <div class="flex flex-col gap-1">
+      <div class="flex items-center justify-between p-space-xs rounded bg-surface-container hover:bg-surface-container-high transition-colors cursor-pointer">
+        <div class="flex items-center gap-space-xs truncate">
+          <span class="material-symbols-outlined text-[15px] text-primary">description</span>
+          <span class="font-code-md text-code-md text-on-surface truncate">crates/auth/src/token_handler.rs</span>
+        </div>
+        <span class="font-label-mono text-[9px] text-on-surface-variant">L:14-88</span>
+      </div>
+      <div class="flex items-center justify-between p-space-xs rounded bg-surface-container hover:bg-surface-container-high transition-colors cursor-pointer">
+        <div class="flex items-center gap-space-xs truncate">
+          <span class="material-symbols-outlined text-[15px] text-tertiary">article</span>
+          <span class="font-code-md text-code-md text-on-surface truncate">architecture.md</span>
+        </div>
+        <span class="font-label-mono text-[9px] text-on-surface-variant">Vault Note</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick Action Buttons: Re-compute & Isolate Subgraph -->
+  <div class="grid grid-cols-2 gap-space-xs pt-space-xs">
+    <button class="flex items-center justify-center gap-1 px-space-sm py-space-xs rounded-lg bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-label-md text-label-md font-medium transition-colors">
+      <span class="material-symbols-outlined text-[16px] text-primary">sync</span>
+      <span>Re-compute Vector</span>
+    </button>
+    <button class="flex items-center justify-center gap-1 px-space-sm py-space-xs rounded-lg bg-secondary-container hover:bg-primary text-on-secondary-container hover:text-on-primary font-label-md text-label-md font-semibold transition-colors">
+      <span class="material-symbols-outlined text-[16px]">filter_center_focus</span>
+      <span>Isolate Subgraph</span>
+    </button>
+  </div>
+</div></section>
+</div>
+<!-- Safety Modal: Forget / Discard Confirmation Dialog (Hidden by Default) -->
+<div class="fixed inset-0 z-50 bg-surface-container-lowest/80 backdrop-blur-sm hidden items-center justify-center p-space-md" id="forget-modal">
+<div class="w-full max-w-md bg-surface-container-low rounded-2xl p-space-lg shadow-2xl flex flex-col gap-space-md">
+<div class="flex items-center gap-space-sm text-error">
+<div class="w-10 h-10 rounded-full bg-error-container/40 flex items-center justify-center">
+<span class="material-symbols-outlined text-[24px]">warning</span>
+</div>
+<div class="flex flex-col">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Confirm Irreversible Forget</h3>
+<span class="font-label-mono text-label-mono text-error uppercase">Operator Privilege Required</span>
+</div>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">
+        You are about to purge this entry from the local SQLite-VSS vector index. Associated embeddings and Obsidian bidirectional links will be permanently unlinked:
+      </p>
+<div class="p-space-sm rounded-lg bg-surface-container font-code-md text-code-md text-on-surface truncate" id="forget-target-title">
+        Target memory reference...
+      </div>
+<div class="p-space-xs rounded bg-surface-container-lowest flex items-center gap-space-xs font-label-mono text-[11px] text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px] text-tertiary">info</span>
+<span>Local deletion takes effect in 3.2ms. No cloud restore exists.</span>
+</div>
+<div class="flex items-center justify-end gap-space-sm pt-space-xs">
+<button class="px-space-md py-space-xs rounded-lg bg-surface-container text-on-surface hover:bg-surface-container-high transition-colors font-label-md text-label-md" onclick="closeForgetModal()">
+          Cancel
+        </button>
+<button class="px-space-md py-space-xs rounded-lg bg-error-container text-error hover:bg-error hover:text-on-error transition-colors font-label-md text-label-md font-semibold flex items-center gap-1" onclick="confirmForget()">
+<span class="material-symbols-outlined text-[16px]">delete_forever</span>
+          Confirm &amp; Evict Vector
+        </button>
+</div>
+</div>
+</div>
+<!-- Manual Memory Creation Drawer / Modal (Hidden by Default) -->
+<div class="fixed inset-0 z-50 bg-surface-container-lowest/80 backdrop-blur-sm hidden items-center justify-center p-space-md" id="manual-mem-modal">
+<div class="w-full max-w-xl bg-surface-container-low rounded-2xl p-space-lg shadow-2xl flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[22px] text-primary">post_add</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Inject Manual Memory Vector</h3>
+</div>
+<button class="p-1 rounded text-on-surface-variant hover:text-on-surface" onclick="closeManualMemModal()">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<div class="flex flex-col gap-space-sm">
+<div class="flex flex-col gap-1">
+<label class="font-label-mono text-[10px] text-on-surface-variant uppercase tracking-wider">Memory Title / Assertion</label>
+<input class="px-space-sm py-2 rounded-lg bg-surface-container-lowest text-on-surface font-body-sm text-body-sm focus:outline-none" placeholder="e.g., Default to strict type checking in Rust workspace..." type="text">
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-mono text-[10px] text-on-surface-variant uppercase tracking-wider">Classification Taxonomy</label>
+<select class="px-space-sm py-2 rounded-lg bg-surface-container-lowest text-on-surface font-body-sm text-body-sm focus:outline-none">
+<option>User Preferences &amp; Principles</option>
+<option>Technical Decisions &amp; Architecture</option>
+<option>Project Context</option>
+<option>Code Snippets &amp; ASTs</option>
+</select>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-mono text-[10px] text-on-surface-variant uppercase tracking-wider">Full Context &amp; Knowledge Payload</label>
+<textarea class="px-space-sm py-2 rounded-lg bg-surface-container-lowest text-on-surface font-body-sm text-body-sm focus:outline-none resize-none" placeholder="Enter dense semantic payload for SQLite-VSS embedding calculation..." rows="4"></textarea>
+</div>
+</div>
+<div class="flex items-center justify-between pt-space-xs font-label-mono text-[10px] text-on-surface-variant">
+<span>Embedding Dim: 1536 (Local)</span>
+<div class="flex items-center gap-space-sm">
+<button class="px-space-md py-space-xs rounded-lg bg-surface-container text-on-surface font-label-md text-label-md" onclick="closeManualMemModal()">Cancel</button>
+<button class="px-space-md py-space-xs rounded-lg bg-secondary-container text-on-secondary-container font-label-md text-label-md font-semibold" onclick="closeManualMemModal()">Compute &amp; Store</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Interactive Client-side Script for Hotkeys & Modal Control -->
+<script>
+    // Hotkey listener for '/' search trigger
+    document.addEventListener('keydown', function(e) {
+      if (e.key === '/' && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
+        e.preventDefault();
+        const searchInput = document.getElementById('vector-search-input');
+        if (searchInput) {
+          searchInput.focus();
+          searchInput.select();
+        }
+      }
+    });
+
+    // Forget Modal Logic
+    function openForgetModal(targetTitle) {
+      const modal = document.getElementById('forget-modal');
+      const targetText = document.getElementById('forget-target-title');
+      if (modal && targetText) {
+        targetText.textContent = targetTitle;
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+      }
+    }
+
+    function closeForgetModal() {
+      const modal = document.getElementById('forget-modal');
+      if (modal) {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      }
+    }
+
+    function confirmForget() {
+      closeForgetModal();
+    }
+
+    // Manual Memory Modal Logic
+    const btnManual = document.getElementById('btn-manual-mem');
+    const manualModal = document.getElementById('manual-mem-modal');
+
+    if (btnManual && manualModal) {
+      btnManual.addEventListener('click', () => {
+        manualModal.classList.remove('hidden');
+        manualModal.classList.add('flex');
+      });
+    }
+
+    function closeManualMemModal() {
+      if (manualModal) {
+        manualModal.classList.add('hidden');
+        manualModal.classList.remove('flex');
+      }
+    }
+
+    // Purge Store Button Shortcut Trigger
+    const btnPurge = document.getElementById('btn-purge-open');
+    if (btnPurge) {
+      btnPurge.addEventListener('click', () => {
+        openForgetModal('ENTIRE LOCAL STORE (54,120 Embeddings)');
+      });
+    }
+  </script>
+</div></main></div><div class="fixed bottom-space-md left-72 right-space-lg z-40 max-w-4xl mx-auto"><div class="bg-surface-container-lowest/95 backdrop-blur-xl rounded-xl px-space-md py-space-xs shadow-[0_8px_32px_rgba(0,0,0,0.6)] flex items-center gap-space-md"><div class="flex items-center gap-space-xs px-space-sm py-space-xs rounded-lg bg-surface-container"><span class="w-2 h-2 rounded-full bg-primary-container shadow-[0_0_8px_#43D9FF]"></span><span class="font-label-mono text-label-mono text-primary font-semibold">IDLE</span></div><div class="flex-1 flex items-center gap-space-sm bg-surface-container-low px-space-md py-space-xs rounded-lg"><input class="bg-transparent flex-1 focus:outline-none text-on-surface font-body-md text-body-md placeholder:text-on-surface-variant/50" placeholder="Instruct neural orchestrator or input quick prompt..." type="text"><button class="p-1 rounded text-on-surface-variant hover:text-primary transition-colors" title="Attach context or file payload"><span class="material-symbols-outlined text-[18px]">attach_file</span></button><button class="p-1 rounded text-on-surface-variant hover:text-primary transition-colors" title="Toggle audio transcription"><span class="material-symbols-outlined text-[18px]">mic</span></button></div><div class="flex items-center gap-space-xs font-label-mono text-label-mono text-on-surface-variant"><kbd class="px-space-xs py-0.5 rounded bg-surface-container text-on-surface-variant">Enter</kbd><span class="text-[10px]">Run</span></div></div></div>
+
+</body></html>

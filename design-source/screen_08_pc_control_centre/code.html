@@ -1,0 +1,471 @@
+<!DOCTYPE html><html class="dark" lang="en"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0" name="viewport"><meta content="web_dashboard" name="shell-type"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "surface-tint": "#40d7fd", "surface-container": "#1b2029", "secondary-container": "#0262e6", "on-tertiary-fixed-variant": "#5026b0", "surface-container-highest": "#31353f", "on-secondary-fixed-variant": "#00419e", "primary-fixed-dim": "#40d7fd", "on-primary": "#003642", "tertiary-fixed-dim": "#cebdff", "surface-container-low": "#171c25", "surface-container-lowest": "#0a0e17", "surface": "#0f131d", "on-secondary-container": "#e7ebff", "on-primary-fixed-variant": "#004e5e", "on-surface": "#dfe2f0", "on-primary-fixed": "#001f27", "background": "#0f131d", "tertiary-container": "#d0bfff", "error-container": "#93000a", "outline-variant": "#3c494d", "surface-dim": "#0f131d", "outline": "#869398", "primary-container": "#43d9ff", "surface-variant": "#31353f", "inverse-surface": "#dfe2f0", "secondary": "#b1c5ff", "on-secondary-fixed": "#001946", "error": "#ffb4ab", "on-tertiary-container": "#5e37be", "on-tertiary-fixed": "#21005e", "primary": "#b8edff", "tertiary": "#eae0ff", "secondary-fixed": "#dae2ff", "on-tertiary": "#390094", "inverse-primary": "#00677d", "on-background": "#dfe2f0", "on-error": "#690005", "on-secondary": "#002c70", "on-primary-container": "#005c6f", "inverse-on-surface": "#2c303b", "on-surface-variant": "#bbc9ce", "surface-bright": "#353944", "tertiary-fixed": "#e8ddff", "primary-fixed": "#b2ebff", "surface-container-high": "#262a34", "on-error-container": "#ffdad6", "secondary-fixed-dim": "#b1c5ff" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "space-xxl": "2rem", "space-lg": "1rem", "margin": "1.5rem", "space-xl": "1.5rem", "gutter-dense": "0.5rem", "space-sm": "0.5rem", "space-xs": "0.25rem", "space-md": "0.75rem", "gutter": "1rem", "margin-dense": "1rem" }, "fontFamily": { "headline-lg": [ "Manrope" ], "headline-sm": [ "Manrope" ], "body-sm": [ "Inter" ], "label-mono": [ "JetBrains Mono" ], "code-md": [ "JetBrains Mono" ], "headline-md": [ "Manrope" ], "display-lg": [ "Manrope" ], "label-md": [ "Inter" ], "body-md": [ "Inter" ], "body-lg": [ "Inter" ] }, "fontSize": { "headline-lg": [ "24px", { "lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "600" } ], "headline-sm": [ "16px", { "lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "600" } ], "body-sm": [ "12px", { "lineHeight": "16px", "letterSpacing": "0.005em", "fontWeight": "400" } ], "label-mono": [ "10px", { "lineHeight": "14px", "letterSpacing": "0.05em", "fontWeight": "500" } ], "code-md": [ "12px", { "lineHeight": "18px", "letterSpacing": "0em", "fontWeight": "400" } ], "headline-md": [ "20px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" } ], "display-lg": [ "32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" } ], "label-md": [ "11px", { "lineHeight": "14px", "letterSpacing": "0.02em", "fontWeight": "500" } ], "body-md": [ "13px", { "lineHeight": "18px", "letterSpacing": "0em", "fontWeight": "400" } ], "body-lg": [ "15px", { "lineHeight": "22px", "letterSpacing": "-0.005em", "fontWeight": "400" } ] } } } };</script></head><body class="bg-surface font-body-md text-body-md text-on-surface select-none antialiased min-h-screen"><header class="fixed top-0 left-0 right-0 h-14 bg-surface-container-lowest/90 backdrop-blur-md z-50 flex items-center justify-between px-space-lg shadow-[0_1px_8px_rgba(0,0,0,0.4)]"><div class="flex items-center gap-space-md"><img alt="Neural Orchestrator Emblem" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/ALJJyrDkwdFfa2ZbCR92YUYuBisOJanZ8ecfnNvhI9eXBT--hdx14MyRyg6qfpPnaiS3kIpRGkkX0PNVVtIwneXNiCoblHPpmqiGrQk2CkGEIKcqfD3gRNBMLWSXQEbGOivXgnv71LBNjxftYEsjJ8cw22e5EDAyHmGagINyRC1EEZmHBwkNLqwZmekoCt_AROtGMSmXq54KIdKK2SWARwX6UIilHqAqSfaykmHb1GzCTeU"><span class="px-space-sm py-space-xs rounded bg-surface-container-high text-primary font-label-mono text-label-mono uppercase tracking-wider font-semibold">[FINAL AI NAME]</span><div class="flex items-center gap-space-xs px-space-sm py-space-xs rounded bg-surface-container-low hover:bg-surface-container transition-colors cursor-pointer"><span class="font-label-md text-label-md text-on-surface-variant font-medium">Core Engine v2.4</span><span class="material-symbols-outlined text-[16px] text-on-surface-variant">expand_more</span></div></div><div class="hidden md:flex items-center gap-space-md bg-surface-container-lowest px-space-md py-space-xs rounded-lg shadow-inner"><div class="flex items-center gap-space-xs text-on-surface-variant font-code-md text-code-md"><span class="material-symbols-outlined text-[16px]">terminal</span><span>root</span><span class="text-outline">/</span><span class="text-primary font-medium">workspace</span></div><div class="h-3 w-[1px] bg-surface-container-highest"></div><div class="flex items-center gap-space-sm text-on-surface-variant font-label-md text-label-md"><span class="material-symbols-outlined text-[16px]">search</span><span>Search command buffer</span><kbd class="px-space-xs py-0.5 rounded bg-surface-container text-primary font-label-mono text-label-mono shadow-sm">Ctrl + K</kbd></div></div><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs px-space-sm py-0.5 rounded-full bg-surface-container-low"><span class="w-1.5 h-1.5 rounded-full bg-primary-container animate-pulse"></span><span class="font-label-mono text-label-mono text-primary-container font-semibold uppercase tracking-wider">LOCAL MODE: ACTIVE</span></div><div class="flex items-center gap-space-xs text-on-surface-variant"><button class="p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors" title="Voice Interface Ready"><span class="material-symbols-outlined text-[18px] text-primary-container">mic</span></button><button class="p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors" title="Encrypted &amp; Enforced"><span class="material-symbols-outlined text-[18px] text-primary">verified_user</span></button><button class="relative p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors" title="Telemetry Alerts"><span class="material-symbols-outlined text-[18px]">notifications</span><span class="absolute top-1 right-1 w-2 h-2 rounded-full bg-error"></span></button></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></header><aside class="fixed left-0 top-14 bottom-0 w-64 bg-surface-container-lowest z-40 flex flex-col justify-between py-space-sm shadow-[1px_0_12px_rgba(0,0,0,0.5)]"><nav class="flex-1 px-space-xs space-y-0.5 overflow-y-auto" data-active-classes="bg-secondary-container text-on-secondary-container font-semibold shadow-sm"><a class="flex items-center gap-space-md px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="command-center" href="#"><span class="material-symbols-outlined text-[20px]">dashboard</span><span class="font-body-md text-body-md truncate">Command Center</span></a><a class="flex items-center gap-space-md px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="conversation" href="#"><span class="material-symbols-outlined text-[20px]">chat</span><span class="font-body-md text-body-md truncate">Conversation</span></a><a class="flex items-center gap-space-md px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="3d-neural-core" href="#"><span class="material-symbols-outlined text-[20px]">view_in_ar</span><span class="font-body-md text-body-md truncate">3D Neural Core</span></a><a class="flex items-center gap-space-md px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="intelligence-models" href="#"><span class="material-symbols-outlined text-[20px]">psychology</span><span class="font-body-md text-body-md truncate">Intelligence &amp; Models</span></a><a class="flex items-center gap-space-md px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="plugin-center" href="#"><span class="material-symbols-outlined text-[20px]">extension</span><span class="font-body-md text-body-md truncate">Plugin Center</span></a><a class="flex items-center gap-space-md px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="agent-workspace" href="#"><span class="material-symbols-outlined text-[20px]">smart_toy</span><span class="font-body-md text-body-md truncate">Agent Workspace</span></a><a class="flex items-center gap-space-md px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="workflow-builder" href="#"><span class="material-symbols-outlined text-[20px]">account_tree</span><span class="font-body-md text-body-md truncate">Workflow Builder</span></a><a class="flex items-center gap-space-md px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="pc-control" href="#"><span class="material-symbols-outlined text-[20px]">desktop_windows</span><span class="font-body-md text-body-md truncate">PC Control</span></a><a class="flex items-center gap-space-md px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="memory-center" href="#"><span class="material-symbols-outlined text-[20px]">database</span><span class="font-body-md text-body-md truncate">Memory Center</span></a><a class="flex items-center gap-space-md px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="voice-studio" href="#"><span class="material-symbols-outlined text-[20px]">graphic_eq</span><span class="font-body-md text-body-md truncate">Voice Studio</span></a><a class="flex items-center gap-space-md px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="tasks-activity" href="#"><span class="material-symbols-outlined text-[20px]">task_alt</span><span class="font-body-md text-body-md truncate">Tasks &amp; Activity</span></a><a class="flex items-center gap-space-md px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="system-monitor" href="#"><span class="material-symbols-outlined text-[20px]">monitoring</span><span class="font-body-md text-body-md truncate">System Monitor</span></a><a class="flex items-center gap-space-md px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="security-permissions" href="#"><span class="material-symbols-outlined text-[20px]">security</span><span class="font-body-md text-body-md truncate">Security &amp; Permissions</span></a><a class="flex items-center gap-space-md px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="settings" href="#"><span class="material-symbols-outlined text-[20px]">settings</span><span class="font-body-md text-body-md truncate">Settings</span></a></nav><div class="pt-space-xs px-space-xs flex flex-col gap-1"><button class="w-full flex items-center justify-between px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors"><div class="flex items-center gap-space-md"><span class="material-symbols-outlined text-[18px] text-tertiary-fixed-dim">deployed_code</span><span class="font-label-md text-label-md uppercase tracking-wider font-semibold">HUD Mode</span></div><span class="font-label-mono text-label-mono text-on-surface-variant">F9</span></button><button class="w-full flex items-center justify-between px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors"><div class="flex items-center gap-space-md"><span class="material-symbols-outlined text-[18px]">dock_to_right</span><span class="font-label-md text-label-md uppercase tracking-wider font-semibold">Collapse Rail</span></div><span class="font-label-mono text-label-mono text-on-surface-variant">Ctrl+[</span></button></div></aside><div class="pl-64 flex flex-col min-h-screen"><main class="flex-1 pt-14 pb-20 w-full px-space-lg bg-surface"><div class="flex flex-col w-full">
+<!-- Top Command Strip -->
+<section class="w-full flex flex-col xl:flex-row items-start xl:items-center justify-between gap-space-md p-space-md rounded-xl bg-surface-container-low shadow-xl relative overflow-hidden mb-space-md">
+<div class="absolute -right-16 -top-16 w-80 h-80 bg-primary/5 rounded-full blur-3xl pointer-events-none"></div>
+<div class="flex flex-col gap-0.5 z-10">
+<div class="flex items-center gap-space-sm">
+<span class="px-space-xs py-0.5 rounded bg-surface-container font-label-mono text-label-mono text-primary-container tracking-wider uppercase">OS Hook L4</span>
+<h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">PC Control Centre</h1>
+<div class="flex items-center gap-1.5 px-space-xs py-0.5 rounded-full bg-surface-container-highest">
+<span class="w-2 h-2 rounded-full bg-primary-container animate-ping"></span>
+<span class="font-label-mono text-label-mono text-primary font-semibold">LINK ENGAGED</span>
+</div>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">Supervised desktop automation &amp; peripheral execution with strict human approval gates.</p>
+</div>
+<!-- Central & Emergency Action Controls -->
+<div class="flex flex-wrap items-center gap-space-md z-10 w-full xl:w-auto justify-between xl:justify-end">
+<!-- Human Approval Mode Lock -->
+<div class="flex items-center gap-space-sm bg-surface-container px-space-md py-space-xs rounded-lg shadow-inner">
+<span class="material-symbols-outlined text-[18px] text-tertiary-fixed-dim" style="font-variation-settings: 'FILL' 1;">shield_with_heart</span>
+<div class="flex flex-col">
+<span class="font-label-mono text-label-mono text-on-surface-variant uppercase tracking-wider">SUPERVISION ENFORCEMENT</span>
+<span class="font-label-md text-label-md text-primary font-semibold">Strict Human Approval Active</span>
+</div>
+<div class="ml-space-xs w-8 h-4 rounded-full bg-secondary-container relative flex items-center px-0.5">
+<div class="w-3 h-3 rounded-full bg-on-secondary-container ml-auto shadow-sm"></div>
+</div>
+</div>
+<!-- Telemetry Pills -->
+<div class="hidden 2xl:flex items-center gap-space-xs">
+<div class="px-space-sm py-space-xs rounded-lg bg-surface-container flex flex-col">
+<span class="font-label-mono text-label-mono text-on-surface-variant">CAPTURE FREQ</span>
+<span class="font-code-md text-code-md text-on-surface font-medium">15 FPS DWM</span>
+</div>
+<div class="px-space-sm py-space-xs rounded-lg bg-surface-container flex flex-col">
+<span class="font-label-mono text-label-mono text-on-surface-variant">VIRTUAL HOOKS</span>
+<span class="font-code-md text-code-md text-primary-container font-medium">KB/M Mapped</span>
+</div>
+</div>
+<!-- Emergency Stop Button -->
+<button class="flex items-center gap-space-sm bg-error-container hover:bg-error px-space-md py-space-xs rounded-lg text-on-error-container hover:text-on-error transition-all shadow-[0_0_24px_rgba(255,99,122,0.35)] active:scale-95 group" id="emergency-halt-btn">
+<span class="material-symbols-outlined text-[20px] text-error group-hover:text-on-error transition-colors animate-pulse" style="font-variation-settings: 'FILL' 1;">emergency</span>
+<div class="flex flex-col text-left">
+<span class="font-headline-sm text-headline-sm tracking-wide font-bold uppercase leading-none">Emergency Stop</span>
+<span class="font-label-mono text-label-mono text-on-error-container/80 group-hover:text-on-error uppercase font-medium">Esc x2 Kill Switch</span>
+</div>
+</button>
+</div>
+</section>
+<!-- 3-Column Main Workspace -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-md w-full items-start">
+<!-- LEFT COLUMN: Peripheral & App Targets (Col Span 3) -->
+<div class="lg:col-span-12 xl:col-span-3 flex flex-col gap-space-md">
+<!-- Screen Awareness & Target Inspector -->
+<div class="bg-surface-container-low p-space-md rounded-xl shadow-md flex flex-col gap-space-sm"><div class="bg-surface-container px-space-md py-space-xs flex items-center justify-between border-b border-outline-variant/20"><div class="flex items-center gap-2"><span class="material-symbols-outlined text-[16px] text-secondary">terminal</span><div class="flex items-center gap-1.5"><span class="font-label-md text-label-md text-on-surface font-semibold">zsh / dev-subsystem</span><span class="px-1.5 py-0.5 rounded bg-primary-container/10 text-primary-container font-label-mono text-[10px] font-semibold uppercase">ONLINE (PID: 49201)</span></div></div><div class="flex items-center gap-2"><span class="font-label-mono text-label-mono text-on-surface-variant text-[10px]">0.2ms latency</span><button class="px-1.5 py-0.5 rounded hover:bg-surface-container-high text-on-surface-variant text-[11px] font-label-mono transition-colors" title="Clear terminal buffer">Clear</button></div></div><div class="p-space-sm bg-surface-container-lowest font-code-md text-code-md flex flex-col gap-1.5 h-64 overflow-y-auto leading-relaxed select-text"><div class="text-on-surface-variant flex items-center gap-1"><span class="text-secondary font-mono">admin@obsidian-node</span><span class="text-outline">:</span><span class="text-primary font-mono">~</span><span class="text-outline">#</span><span class="text-on-surface ml-1">init-subsystem --strict</span></div><div class="text-primary-container font-mono text-[11px] flex items-start gap-1"><span class="text-outline/70">[14:22:01.890]</span><span class="text-primary font-semibold">[ORCHESTRATOR]</span><span>Initializing subprocess vfs_interceptor v3.1...</span></div><div class="text-[#4ade80] font-mono text-[11px] flex items-start gap-1"><span class="text-outline/70">[14:22:02.102]</span><span class="text-[#4ade80] font-semibold">[SANDBOX:PASS]</span><span>Memory invariant verify strict: OK (alloc=14.2MB)</span></div><div class="text-[#facc15] font-mono text-[11px] flex items-start gap-1"><span class="text-outline/70">[14:22:02.215]</span><span class="text-[#facc15] font-semibold">[AUDIT:GATE]</span><span>Intercepted raw syscall: openat(O_RDWR | O_CREAT) -&gt; re-routed to COW overlay</span></div><div class="text-tertiary-fixed font-mono text-[11px] flex items-start gap-1"><span class="text-outline/70">[14:22:02.408]</span><span class="text-tertiary-fixed font-semibold">[IPC:ATTACH]</span><span>DWM frame hook mapped: PID 14022 (Visual Studio Code)</span></div><div class="text-on-surface-variant flex items-center gap-1 mt-1 font-mono text-[11px]"><span class="text-secondary font-mono">admin@obsidian-node</span><span class="text-outline">:</span><span class="text-primary font-mono">~</span><span class="text-outline">#</span><span class="text-primary-container font-mono ml-1">stream-watch --scope=vfs_interceptor --filter=strict</span><span class="w-1.5 h-3 bg-primary animate-pulse inline-block ml-0.5"></span></div></div><div class="bg-surface-container-low px-space-sm py-1 border-t border-outline-variant/30 flex items-center justify-between font-label-mono text-label-mono text-[10px] text-on-surface-variant"><div class="flex items-center gap-2"><span class="flex items-center gap-1 text-primary-container font-medium"><span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>Auto-scroll [ON]</span><span class="text-outline/40">•</span><span>ANSI [ON]</span><span class="text-outline/40">•</span><span>Timestamp [ON]</span></div><button class="px-1.5 py-0.5 rounded bg-surface-container hover:bg-surface-container-high text-on-surface transition-colors flex items-center gap-1 font-semibold"><span class="material-symbols-outlined text-[12px]">content_copy</span><span>Copy Logs</span></button></div></div>
+<!-- Scoped Applications Registry -->
+<div class="bg-surface-container-low p-space-md rounded-xl shadow-md flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[18px] text-primary">apps</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Monitored Apps</h2>
+</div>
+<span class="font-label-mono text-label-mono text-on-surface-variant">5 Bound</span>
+</div>
+<div class="flex flex-col gap-1.5">
+<!-- Item 1: VS Code -->
+<div class="flex items-center justify-between p-space-xs px-space-sm rounded-lg bg-surface-container hover:bg-surface-container-high transition-colors cursor-pointer">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-[18px] text-primary-container">code_blocks</span>
+<div class="flex flex-col">
+<span class="font-body-md text-body-md text-on-surface font-medium">Visual Studio Code</span>
+<span class="font-label-mono text-label-mono text-on-surface-variant">WinID: 0x00412B • Interactivity: Read/Write</span>
+</div>
+</div>
+<span class="px-space-xs py-0.5 rounded bg-primary-container/10 text-primary-container font-label-mono text-label-mono uppercase">TARGET</span>
+</div>
+<!-- Item 2: Windows Terminal -->
+<div class="flex items-center justify-between p-space-xs px-space-sm rounded-lg bg-surface-container hover:bg-surface-container-high transition-colors cursor-pointer">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-[18px] text-secondary">terminal</span>
+<div class="flex flex-col">
+<span class="font-body-md text-body-md text-on-surface font-medium">Windows Terminal</span>
+<span class="font-label-mono text-label-mono text-on-surface-variant">WinID: 0x00318C • Interactivity: Gated</span>
+</div>
+</div>
+<span class="px-space-xs py-0.5 rounded bg-surface-container-highest text-on-surface-variant font-label-mono text-label-mono">RING 3</span>
+</div>
+<!-- Item 3: File Explorer -->
+<div class="flex items-center justify-between p-space-xs px-space-sm rounded-lg bg-surface-container hover:bg-surface-container-high transition-colors cursor-pointer">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-[18px] text-tertiary-fixed-dim">folder_open</span>
+<div class="flex flex-col">
+<span class="font-body-md text-body-md text-on-surface font-medium">File Explorer</span>
+<span class="font-label-mono text-label-mono text-on-surface-variant">WinID: 0x009941 • Scoped to /workspace</span>
+</div>
+</div>
+<span class="px-space-xs py-0.5 rounded bg-surface-container-highest text-on-surface-variant font-label-mono text-label-mono">ISOLATED</span>
+</div>
+<!-- Item 4: Chrome -->
+<div class="flex items-center justify-between p-space-xs px-space-sm rounded-lg bg-surface-container hover:bg-surface-container-high transition-colors cursor-pointer">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant">travel_explore</span>
+<div class="flex flex-col">
+<span class="font-body-md text-body-md text-on-surface font-medium">Google Chrome</span>
+<span class="font-label-mono text-label-mono text-on-surface-variant">WinID: 0x0012A0 • Incognito / DevTools</span>
+</div>
+</div>
+<span class="px-space-xs py-0.5 rounded bg-surface-container-highest text-on-surface-variant font-label-mono text-label-mono">SANDBOX</span>
+</div>
+<!-- Item 5: Spotify -->
+<div class="flex items-center justify-between p-space-xs px-space-sm rounded-lg bg-surface-container hover:bg-surface-container-high transition-colors cursor-pointer opacity-70">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant">music_note</span>
+<div class="flex flex-col">
+<span class="font-body-md text-body-md text-on-surface font-medium">Spotify Windows</span>
+<span class="font-label-mono text-label-mono text-on-surface-variant">Background Media Hook</span>
+</div>
+</div>
+<span class="px-space-xs py-0.5 rounded bg-surface-container-highest text-on-surface-variant font-label-mono text-label-mono">PASSIVE</span>
+</div>
+</div>
+</div>
+<!-- Scoped Sandbox Rules Card -->
+<div class="bg-surface-container-low p-space-md rounded-xl shadow-md flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Sandbox Rules</h2>
+<span class="material-symbols-outlined text-[18px] text-primary">policy</span>
+</div>
+<div class="flex flex-col gap-2">
+<div class="flex items-center justify-between py-1 px-space-xs rounded bg-surface-container">
+<span class="font-body-sm text-body-sm text-on-surface">Clipboard Isolation</span>
+<span class="px-space-xs py-0.5 rounded bg-primary-container/10 font-label-mono text-label-mono text-primary font-semibold">RESTRICTED</span>
+</div>
+<div class="flex items-center justify-between py-1 px-space-xs rounded bg-surface-container">
+<span class="font-body-sm text-body-sm text-on-surface">Macro Recording</span>
+<span class="px-space-xs py-0.5 rounded bg-primary-container/10 font-label-mono text-label-mono text-primary font-semibold">SYNCHRONIZED</span>
+</div>
+<div class="flex items-center justify-between py-1 px-space-xs rounded bg-surface-container">
+<span class="font-body-sm text-body-sm text-on-surface">Admin Privilege Elevation</span>
+<span class="px-space-xs py-0.5 rounded bg-error/10 font-label-mono text-label-mono text-error font-semibold">HARD BLOCKED</span>
+</div>
+</div>
+</div>
+</div>
+<!-- CENTER COLUMN: Visual Stream & Execution Sequence (Col Span 6) -->
+<div class="lg:col-span-12 xl:col-span-6 flex flex-col gap-space-md">
+<!-- Live Desktop Viewport Frame -->
+<div class="bg-surface-container-low rounded-xl overflow-hidden shadow-xl flex flex-col">
+<!-- Frame Bar -->
+<div class="bg-surface-container px-space-md py-space-xs flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-[18px] text-primary-container">screenshot_monitor</span>
+<span class="font-label-md text-label-md text-on-surface font-semibold">DISPLAY 1: DWM MIRROR STREAM</span>
+</div>
+<div class="flex items-center gap-space-sm">
+<div class="flex items-center gap-1 font-label-mono text-label-mono text-on-surface-variant">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+<span>CURSOR: [1420, 680]</span>
+</div>
+<span class="px-space-xs py-0.5 rounded bg-surface-container-high font-label-mono text-label-mono text-on-surface">REC</span>
+</div>
+</div>
+<!-- Desktop Stream Screen Mockup with Real Visual Canvas Elements -->
+<div class="relative w-full aspect-video bg-surface-container-lowest overflow-hidden flex flex-col justify-between p-space-md">
+<!-- Monitored Workspace Backdrop Image with Bounding Boxes -->
+<div class="absolute inset-0 bg-cover bg-center opacity-30 mix-blend-screen" data-alt="Technical workspace screen capture showing modern code editor with side-by-side terminal tabs and git diff viewer rendered in deep dark midnight blue palette with cyan interface highlights." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAvfwzOgGSRz-glAzHYXi13XRnIj5FTGvgMfe_8CuOqlkapNleH0q82dKszw1J6VIGGJ-O_nfcSzyrPQZLotSarl4xkZs5vsrlyV3aPQOlPEB4LZaqzgDeYQvThrfD0mncCI7Kor7LUaRAaDA1YtBxmo3hOOe9oNfsdkIr8rT7ir7yj2M0jwDaPGM8lRv2Xg22V-Cp6tnR1aJySdeeSCYYGlMu_HkZF1ERVEIMIdQ')"></div>
+<!-- Interactive Bounding Boxes Overlay on Desktop -->
+<div class="relative z-10 w-full h-full flex flex-col justify-between">
+<!-- Simulated Target 1 (VS Code Git Action Area) -->
+<div class="absolute top-8 left-12 w-64 h-36 bg-primary-container/5 rounded-lg p-space-xs shadow-lg transition-transform">
+<div class="flex items-center justify-between">
+<span class="font-label-mono text-label-mono bg-primary-container text-on-primary-container px-1 rounded font-bold">TARGET 01</span>
+<span class="font-label-mono text-label-mono text-primary-container">98.4% Confidence</span>
+</div>
+<div class="mt-2 text-on-surface font-code-md text-code-md">
+                git.stageAllChanges()<br>
+<span class="text-on-surface-variant">Scope: git_workbench</span>
+</div>
+</div>
+<!-- Simulated Target 2 (Terminal Prompt Area) -->
+<div class="absolute bottom-10 right-8 w-80 h-32 bg-secondary-container/10 rounded-lg p-space-xs shadow-lg">
+<div class="flex items-center justify-between">
+<span class="font-label-mono text-label-mono bg-secondary-container text-on-secondary-container px-1 rounded font-bold">TERMINAL HOOK</span>
+<span class="font-label-mono text-label-mono text-secondary">Awaiting keystroke</span>
+</div>
+<div class="mt-2 font-code-md text-code-md text-primary-container">
+                ~/projects/core-engine $ _
+              </div>
+</div>
+<!-- Virtual Mouse Cursor Overlay -->
+<div class="absolute top-[42%] left-[45%] flex items-center gap-2 pointer-events-none transform -translate-x-1/2 -translate-y-1/2">
+<svg class="text-primary-container drop-shadow-[0_0_8px_rgba(67,217,255,0.8)]" fill="none" height="22" viewBox="0 0 24 24" width="22">
+<path d="M4 2L20 9L13 13L9 20L4 2Z" fill="currentColor"></path>
+</svg>
+<div class="px-space-xs py-0.5 rounded bg-surface-container-highest/90 backdrop-blur-sm text-on-surface font-label-mono text-label-mono shadow-md">
+                X: 1420 Y: 680
+              </div>
+</div>
+</div>
+<!-- Bottom Viewport Info Bar -->
+<div class="relative z-10 w-full flex items-center justify-between bg-surface-container/80 backdrop-blur-md px-space-sm py-1 rounded">
+<span class="font-label-mono text-label-mono text-on-surface-variant">WINDOW AT POINTER: <span class="text-primary">Visual Studio Code (1.92.1)</span></span>
+<span class="font-label-mono text-label-mono text-primary-container">LATENCY: 8ms</span>
+</div>
+</div>
+</div>
+<!-- APPROVAL GATE BANNER (Strict Human Confirmation) -->
+<div class="bg-surface-container-low p-space-md rounded-xl shadow-2xl relative overflow-hidden flex flex-col gap-space-sm border border-outline-variant/40">
+  <!-- Header of the Gate & Diff Panel -->
+  <div class="flex flex-col gap-space-xs">
+    <div class="flex flex-wrap items-center justify-between gap-space-sm">
+      <div class="flex items-center gap-space-sm">
+        <div class="w-8 h-8 rounded-lg bg-surface-container-highest flex items-center justify-center text-tertiary-fixed-dim shadow-inner">
+          <span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">difference</span>
+        </div>
+        <div class="flex flex-col">
+          <div class="flex items-center gap-2">
+            <span class="font-label-mono text-label-mono text-tertiary-fixed uppercase tracking-wider font-semibold">APPROVAL GATE #4409</span>
+            <span class="px-space-xs py-0.5 rounded bg-error/10 text-error font-label-mono text-label-mono font-bold tracking-wide uppercase border border-error/30 shadow-[0_0_8px_rgba(255,180,171,0.2)]">CRITICAL RISK • REVERSIBLE SANDBOX</span>
+          </div>
+          <h3 class="font-headline-sm text-headline-sm text-on-surface flex items-center gap-2">
+            <span>Live Code Diff &amp; FS Modification</span>
+            <span class="font-code-md text-code-md text-on-surface-variant font-normal">src/orchestrator/dispatch.ts</span>
+          </h3>
+        </div>
+      </div>
+      <!-- Stats pill & Timeout badge -->
+      <div class="flex items-center gap-2">
+        <div class="flex items-center gap-1.5 px-space-sm py-0.5 rounded-full bg-surface-container text-on-surface-variant font-label-mono text-label-mono border border-outline-variant/30">
+          <span class="text-primary-container font-semibold">+28</span>
+          <span class="text-outline">/</span>
+          <span class="text-error font-semibold">-12</span>
+          <span class="text-on-surface-variant/80 ml-1">• 18 files impacted</span>
+        </div>
+        <div class="flex items-center gap-1 px-space-sm py-0.5 rounded bg-error-container/30 text-error font-label-mono text-label-mono border border-error/40">
+          <span class="material-symbols-outlined text-[14px] animate-pulse">timer</span>
+          <span>Auto-Reject in 34s</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mode Switch & Checkbox Options Strip -->
+    <div class="flex flex-wrap items-center justify-between gap-space-sm pt-1 border-t border-outline-variant/20">
+      <!-- Diff Mode Switch Tabs -->
+      <div class="flex items-center gap-1 bg-surface-container-lowest p-0.5 rounded-lg border border-outline-variant/30 font-label-mono text-label-mono"><button class="py-1 px-2.5 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">view_column</span><span>Unified Diff</span></button><button class="py-1 px-2.5 rounded bg-secondary-container text-on-secondary-container font-semibold shadow-sm flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">splitscreen</span><span>Split Diff</span></button><button class="py-1 px-2.5 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">account_tree</span><span>Raw AST</span></button></div>
+
+      <!-- Checkbox Options -->
+      <div class="flex items-center gap-space-md font-label-mono text-label-mono text-on-surface-variant">
+        <label class="flex items-center gap-1.5 cursor-pointer hover:text-on-surface transition-colors">
+          <span class="material-symbols-outlined text-[16px] text-primary-container">check_box</span>
+          <span>Snapshot VSS volume</span>
+        </label>
+        <label class="flex items-center gap-1.5 cursor-pointer hover:text-on-surface transition-colors">
+          <span class="material-symbols-outlined text-[16px] text-primary-container">check_box</span>
+          <span>Strict human sign-off</span>
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <!-- Live Code Diff Viewer Box -->
+  <div class="rounded-lg border border-outline-variant/50 bg-[#0a0e17] overflow-hidden shadow-inner font-code-md text-code-md"><div class="bg-surface-container-lowest px-space-sm py-1 border-b border-outline-variant/30 flex items-center justify-between font-label-mono text-label-mono text-on-surface-variant"><div class="flex items-center gap-2"><span class="material-symbols-outlined text-[14px] text-primary">code</span><span class="text-on-surface font-medium">src/orchestrator/dispatch.ts</span><span class="text-outline">→</span><span class="text-primary-container font-semibold">dist/artifacts.bin [ATOMIC WRITE]</span></div><div class="flex items-center gap-2"><span class="px-1.5 py-0.5 rounded bg-error/10 text-error text-[10px] uppercase font-bold">-4 removals</span><span class="px-1.5 py-0.5 rounded bg-primary-container/15 text-primary-container text-[10px] uppercase font-bold">+5 additions</span><span class="text-[11px] text-on-surface-variant/80 ml-1">Lines 142 - 152</span></div></div><div class="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-outline-variant/30 bg-[#0a0e17]"><div class="flex flex-col"><div class="bg-surface-container-low/70 px-space-sm py-1 border-b border-outline-variant/20 flex items-center justify-between font-label-mono text-label-mono text-[11px]"><span class="text-error font-semibold flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-error"></span>ORIGINAL (v2.1.8-dirty)</span><span class="text-on-surface-variant/70">Unsafe direct I/O</span></div><div class="p-1.5 flex flex-col font-code-md text-code-md leading-relaxed select-text"><div class="flex items-center gap-2 px-1.5 py-0.5 text-on-surface-variant/70 hover:bg-surface-container-low/40 rounded transition-colors"><span class="font-label-mono text-label-mono text-outline/50 w-7 text-right select-none">142</span><span class="w-2 select-none text-outline/30"> </span><span class="text-on-surface-variant font-normal">const oldRunner = new SyncExecProcess();</span></div><div class="flex items-center gap-2 px-1.5 py-0.5 rounded bg-[rgba(239,68,68,0.15)] text-[#f87171] border-l-2 border-error my-0.5"><span class="font-label-mono text-label-mono text-error/60 w-7 text-right select-none">143</span><span class="w-2 select-none font-bold text-error">-</span><span class="font-mono">let execRes = execSync(`cargo build --release -p core_engine`);</span></div><div class="flex items-center gap-2 px-1.5 py-0.5 rounded bg-[rgba(239,68,68,0.15)] text-[#f87171] border-l-2 border-error mb-0.5"><span class="font-label-mono text-label-mono text-error/60 w-7 text-right select-none">144</span><span class="w-2 select-none font-bold text-error">-</span><span class="font-mono">if (execRes.status !== 0) throw new BuildErr();</span></div><div class="flex items-center gap-2 px-1.5 py-0.5 rounded bg-[rgba(239,68,68,0.15)] text-[#f87171] border-l-2 border-error mb-0.5"><span class="font-label-mono text-label-mono text-error/60 w-7 text-right select-none">145</span><span class="w-2 select-none font-bold text-error">-</span><span class="font-mono">fs.rmSync(distArtifactPath, { recursive: true, force: true });</span></div><div class="flex items-center gap-2 px-1.5 py-0.5 rounded bg-[rgba(239,68,68,0.15)] text-[#f87171] border-l-2 border-error mb-0.5"><span class="font-label-mono text-label-mono text-error/60 w-7 text-right select-none">146</span><span class="w-2 select-none font-bold text-error">-</span><span class="font-mono">fs.copyFileSync(builtBin, distArtifactPath);</span></div><div class="flex items-center gap-2 px-1.5 py-0.5 text-on-surface-variant/70 hover:bg-surface-container-low/40 rounded transition-colors"><span class="font-label-mono text-label-mono text-outline/50 w-7 text-right select-none">147</span><span class="w-2 select-none text-outline/30"> </span><span class="text-on-surface-variant font-normal">broadcastUpdate({ event: 'BUILT_OK' });</span></div><div class="h-12"></div></div></div><div class="flex flex-col"><div class="bg-surface-container-low/70 px-space-sm py-1 border-b border-outline-variant/20 flex items-center justify-between font-label-mono text-label-mono text-[11px]"><span class="text-primary-container font-semibold flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>MODIFIED (SANDBOXED PROPOSAL)</span><span class="text-primary-container/80">Atomic Transactional</span></div><div class="p-1.5 flex flex-col font-code-md text-code-md leading-relaxed select-text"><div class="flex items-center gap-2 px-1.5 py-0.5 text-on-surface-variant/70 hover:bg-surface-container-low/40 rounded transition-colors"><span class="font-label-mono text-label-mono text-outline/50 w-7 text-right select-none">142</span><span class="w-2 select-none text-outline/30"> </span><span class="text-on-surface-variant font-normal">const oldRunner = new SyncExecProcess();</span></div><div class="flex items-center gap-2 px-1.5 py-0.5 rounded bg-[rgba(67,217,255,0.15)] text-primary-container border-l-2 border-primary-container mb-0.5"><span class="font-label-mono text-label-mono text-primary-container/70 w-7 text-right select-none">143</span><span class="w-2 select-none font-bold text-primary-container">+</span><span class="font-mono font-medium">const vfsScope = await atomicVfs.beginTransaction(Scope::Dist);</span></div><div class="flex items-center gap-2 px-1.5 py-0.5 rounded bg-[rgba(67,217,255,0.15)] text-primary-container border-l-2 border-primary-container mb-0.5"><span class="font-label-mono text-label-mono text-primary-container/70 w-7 text-right select-none">144</span><span class="w-2 select-none font-bold text-primary-container">+</span><span class="font-mono font-medium">const sandboxLock = await securityGateway.enforcePolicy(TokenScope::SANDBOX);</span></div><div class="flex items-center gap-2 px-1.5 py-0.5 rounded bg-[rgba(67,217,255,0.15)] text-primary-container border-l-2 border-primary-container mb-0.5"><span class="font-label-mono text-label-mono text-primary-container/70 w-7 text-right select-none">145</span><span class="w-2 select-none font-bold text-primary-container">+</span><span class="font-mono font-medium">const stageResult = await stageArtifactReplacement(vfsScope, builtBin);</span></div><div class="flex items-center gap-2 px-1.5 py-0.5 rounded bg-[rgba(67,217,255,0.15)] text-primary-container border-l-2 border-primary-container mb-0.5"><span class="font-label-mono text-label-mono text-primary-container/70 w-7 text-right select-none">146</span><span class="w-2 select-none font-bold text-primary-container">+</span><span class="font-mono font-medium">await vfsScope.commitTransactionalSnapshot('SS_VSS_940182');</span></div><div class="flex items-center gap-2 px-1.5 py-0.5 rounded bg-[rgba(67,217,255,0.15)] text-primary-container border-l-2 border-primary-container mb-0.5"><span class="font-label-mono text-label-mono text-primary-container/70 w-7 text-right select-none">147</span><span class="w-2 select-none font-bold text-primary-container">+</span><span class="font-mono font-medium">securityAuditLogger.emitTamperProofLog(stageResult.hash);</span></div><div class="flex items-center gap-2 px-1.5 py-0.5 text-on-surface-variant/70 hover:bg-surface-container-low/40 rounded transition-colors"><span class="font-label-mono text-label-mono text-outline/50 w-7 text-right select-none">148</span><span class="w-2 select-none text-outline/30"> </span><span class="text-on-surface-variant font-normal">broadcastUpdate({ event: 'BUILT_OK' });</span></div></div></div></div><div class="bg-surface-container-lowest px-space-sm py-1 border-t border-outline-variant/30 flex flex-wrap items-center justify-between font-label-mono text-label-mono text-on-surface-variant"><div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-primary-container animate-pulse"></span><span>Tree-sitter AST: <span class="text-primary-container font-semibold">Valid</span></span><span class="text-outline">•</span><span>Sandbox Invariant Check: <span class="text-primary-container font-semibold">PASSED (0.4ms)</span></span></div><div class="flex items-center gap-1 text-[10px] text-on-surface-variant/70"><span class="material-symbols-outlined text-[13px] text-tertiary-fixed">lock_clock</span><span>Rollback Snapshot: SS_VSS_940182</span></div></div></div>
+
+  <!-- Action Controls & Approval Strip -->
+  <div class="flex flex-wrap items-center justify-between gap-space-sm pt-space-xs">
+    <button class="px-space-md py-space-xs rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md text-label-md transition-colors flex items-center gap-1 border border-outline-variant/30">
+      <span class="material-symbols-outlined text-[16px] text-secondary">account_tree</span>
+      <span>Inspect AST Tree</span>
+    </button>
+    <div class="flex items-center gap-space-sm">
+      <button class="px-space-md py-space-xs rounded-lg bg-surface-container-low hover:bg-error-container text-error hover:text-on-error font-label-md text-label-md transition-colors flex items-center gap-1 border border-error/40 hover:border-transparent active:scale-95">
+        <span class="material-symbols-outlined text-[16px]">block</span>
+        <span>Reject &amp; Rollback (Esc)</span>
+      </button>
+      <button class="px-space-md py-space-xs rounded-lg bg-primary hover:bg-primary-container text-on-primary font-label-md text-label-md font-semibold transition-all shadow-[0_0_16px_rgba(67,217,255,0.4)] flex items-center gap-1.5 active:scale-95">
+        <span class="material-symbols-outlined text-[18px]">check_circle</span>
+        <span>Approve &amp; Apply Diff (Enter)</span>
+      </button>
+    </div>
+  </div>
+</div>
+<!-- Action Queue / Sequence Timeline -->
+<div class="bg-surface-container-low p-space-md rounded-xl shadow-md flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[18px] text-primary">queue_play_next</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Execution Sequence Plan</h2>
+</div>
+<!-- Sequence Control Buttons -->
+<div class="flex items-center gap-space-xs">
+<button class="p-1 px-2 rounded bg-surface-container hover:bg-surface-container-high text-on-surface font-label-mono text-label-mono flex items-center gap-1 transition-colors">
+<span class="material-symbols-outlined text-[14px]">step</span>
+<span>Step</span>
+</button>
+<button class="p-1 px-2 rounded bg-surface-container hover:bg-surface-container-high text-on-surface font-label-mono text-label-mono flex items-center gap-1 transition-colors">
+<span class="material-symbols-outlined text-[14px]">pause</span>
+<span>Pause</span>
+</button>
+<button class="p-1 px-2 rounded bg-surface-container hover:bg-surface-container-high text-error font-label-mono text-label-mono flex items-center gap-1 transition-colors">
+<span class="material-symbols-outlined text-[14px]">stop</span>
+<span>Abort</span>
+</button>
+</div>
+</div>
+<!-- Sequential Steps -->
+<div class="flex flex-col gap-2">
+<!-- Step 1 (Completed) -->
+<div class="flex items-center justify-between p-space-xs px-space-sm rounded-lg bg-surface-container">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-[18px] text-primary-container">check_circle</span>
+<div class="flex flex-col">
+<span class="font-body-md text-body-md text-on-surface font-medium">Focus Window: Visual Studio Code</span>
+<span class="font-label-mono text-label-mono text-on-surface-variant">HWND: 0x00412B • SetForegroundWindow()</span>
+</div>
+</div>
+<div class="flex items-center gap-space-sm">
+<span class="font-label-mono text-label-mono text-on-surface-variant">120ms</span>
+<span class="px-space-xs py-0.5 rounded bg-surface-container-high text-primary-container font-label-mono text-label-mono uppercase font-medium">COMPLETED</span>
+</div>
+</div>
+<!-- Step 2 (Completed) -->
+<div class="flex items-center justify-between p-space-xs px-space-sm rounded-lg bg-surface-container">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-[18px] text-primary-container">check_circle</span>
+<div class="flex flex-col">
+<span class="font-body-md text-body-md text-on-surface font-medium">Keyboard Macro: [Ctrl + Shift + P]</span>
+<span class="font-label-mono text-label-mono text-on-surface-variant">VK_CONTROL down, VK_SHIFT down, VK_P, release</span>
+</div>
+</div>
+<div class="flex items-center gap-space-sm">
+<span class="font-label-mono text-label-mono text-on-surface-variant">45ms</span>
+<span class="px-space-xs py-0.5 rounded bg-surface-container-high text-primary-container font-label-mono text-label-mono uppercase font-medium">COMPLETED</span>
+</div>
+</div>
+<!-- Step 3 (Pending Operator Confirmation) -->
+<div class="flex items-center justify-between p-space-xs px-space-sm rounded-lg bg-surface-container-high shadow-inner">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-[18px] text-tertiary-fixed animate-spin">sync</span>
+<div class="flex flex-col">
+<span class="font-body-md text-body-md text-on-surface font-semibold">Execute: Git: Stage All Changes</span>
+<span class="font-label-mono text-label-mono text-on-surface-variant">Input text stream buffer into active search box</span>
+</div>
+</div>
+<div class="flex items-center gap-space-sm">
+<span class="px-space-sm py-0.5 rounded bg-surface-container-lowest text-tertiary-fixed font-label-mono text-label-mono uppercase font-semibold">AWAITING APPROVAL</span>
+</div>
+</div>
+<!-- Step 4 (Queued) -->
+<div class="flex items-center justify-between p-space-xs px-space-sm rounded-lg bg-surface-container opacity-50">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant">pending</span>
+<div class="flex flex-col">
+<span class="font-body-md text-body-md text-on-surface">Commit &amp; Push Branch [feat/dual-engine-rpc]</span>
+<span class="font-label-mono text-label-mono text-on-surface-variant">Pending prior confirmation</span>
+</div>
+</div>
+<span class="px-space-xs py-0.5 rounded bg-surface-container-high text-on-surface-variant font-label-mono text-label-mono uppercase">QUEUED</span>
+</div>
+</div>
+</div>
+</div>
+<!-- RIGHT COLUMN: Supervised Terminal & Keystroke Telemetry (Col Span 3) -->
+<div class="lg:col-span-12 xl:col-span-3 flex flex-col gap-space-md">
+<!-- Supervised Terminal Window -->
+<div class="bg-surface-container-low rounded-xl overflow-hidden shadow-md flex flex-col"><div class="bg-surface-container px-space-md py-space-xs flex items-center justify-between border-b border-outline-variant/20"><div class="flex items-center gap-2"><span class="material-symbols-outlined text-[16px] text-secondary">terminal</span><div class="flex items-center gap-1.5"><span class="font-label-md text-label-md text-on-surface font-semibold">zsh / dev-subsystem</span><span class="px-1.5 py-0.5 rounded bg-primary-container/10 text-primary-container font-label-mono text-[10px] font-semibold uppercase">ONLINE (PID: 49201)</span></div></div><div class="flex items-center gap-2"><span class="font-label-mono text-label-mono text-on-surface-variant text-[10px]">0.2ms latency</span><button class="px-1.5 py-0.5 rounded hover:bg-surface-container-high text-on-surface-variant text-[11px] font-label-mono transition-colors" title="Clear terminal buffer">Clear</button></div></div><div class="p-space-sm bg-surface-container-lowest font-code-md text-code-md flex flex-col gap-1.5 h-64 overflow-y-auto leading-relaxed select-text"><div class="text-on-surface-variant flex items-center gap-1"><span class="text-secondary font-mono">admin@obsidian-node</span><span class="text-outline">:</span><span class="text-primary font-mono">~</span><span class="text-outline">#</span><span class="text-on-surface ml-1">init-subsystem --strict</span></div><div class="text-primary-container font-mono text-[11px] flex items-start gap-1"><span class="text-outline/70">[14:22:01.890]</span><span class="text-primary font-semibold">[ORCHESTRATOR]</span><span>Initializing subprocess vfs_interceptor v3.1...</span></div><div class="text-[#4ade80] font-mono text-[11px] flex items-start gap-1"><span class="text-outline/70">[14:22:02.102]</span><span class="text-[#4ade80] font-semibold">[SANDBOX:PASS]</span><span>Memory invariant verify strict: OK (alloc=14.2MB)</span></div><div class="text-[#facc15] font-mono text-[11px] flex items-start gap-1"><span class="text-outline/70">[14:22:02.215]</span><span class="text-[#facc15] font-semibold">[AUDIT:GATE]</span><span>Intercepted raw syscall: openat(O_RDWR | O_CREAT) -&gt; re-routed to COW overlay</span></div><div class="text-tertiary-fixed font-mono text-[11px] flex items-start gap-1"><span class="text-outline/70">[14:22:02.408]</span><span class="text-tertiary-fixed font-semibold">[IPC:ATTACH]</span><span>DWM frame hook mapped: PID 14022 (Visual Studio Code)</span></div><div class="text-on-surface-variant flex items-center gap-1 mt-1 font-mono text-[11px]"><span class="text-secondary font-mono">admin@obsidian-node</span><span class="text-outline">:</span><span class="text-primary font-mono">~</span><span class="text-outline">#</span><span class="text-primary-container font-mono ml-1">stream-watch --scope=vfs_interceptor --filter=strict</span><span class="w-1.5 h-3 bg-primary animate-pulse inline-block ml-0.5"></span></div></div><div class="bg-surface-container-low px-space-sm py-1 border-t border-outline-variant/30 flex items-center justify-between font-label-mono text-label-mono text-[10px] text-on-surface-variant"><div class="flex items-center gap-2"><span class="flex items-center gap-1 text-primary-container font-medium"><span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>Auto-scroll [ON]</span><span class="text-outline/40">•</span><span>ANSI [ON]</span><span class="text-outline/40">•</span><span>Timestamp [ON]</span></div><button class="px-1.5 py-0.5 rounded bg-surface-container hover:bg-surface-container-high text-on-surface transition-colors flex items-center gap-1 font-semibold"><span class="material-symbols-outlined text-[12px]">content_copy</span><span>Copy Logs</span></button></div></div>
+<!-- Keystroke & Mouse Telemetry Log -->
+<div class="bg-surface-container-low p-space-md rounded-xl shadow-md flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[18px] text-primary">keyboard</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Input Telemetry</h2>
+</div>
+<span class="font-label-mono text-label-mono text-on-surface-variant">Sanitized</span>
+</div>
+<!-- Realtime Telemetry Grid -->
+<div class="flex flex-col gap-1 font-label-mono text-label-mono">
+<div class="flex items-center justify-between p-1 rounded bg-surface-container">
+<span class="text-on-surface-variant">14:02:18.102</span>
+<span class="text-primary-container">MOUSE_MOVE</span>
+<span class="text-on-surface">[X: 1410, Y: 672]</span>
+</div>
+<div class="flex items-center justify-between p-1 rounded bg-surface-container">
+<span class="text-on-surface-variant">14:02:18.140</span>
+<span class="text-primary-container">MOUSE_CLICK</span>
+<span class="text-on-surface">LEFT_DOWN</span>
+</div>
+<div class="flex items-center justify-between p-1 rounded bg-surface-container">
+<span class="text-on-surface-variant">14:02:18.220</span>
+<span class="text-secondary">KEY_DISPATCH</span>
+<span class="text-on-surface">&lt;Ctrl&gt;</span>
+</div>
+<div class="flex items-center justify-between p-1 rounded bg-surface-container">
+<span class="text-on-surface-variant">14:02:18.242</span>
+<span class="text-secondary">KEY_DISPATCH</span>
+<span class="text-on-surface">&lt;Shift&gt; + P</span>
+</div>
+<div class="flex items-center justify-between p-1 rounded bg-surface-container">
+<span class="text-on-surface-variant">14:02:18.310</span>
+<span class="text-tertiary-fixed">HOOK_INTERCEPT</span>
+<span class="text-on-surface">Gate #4409 Triggered</span>
+</div>
+</div>
+</div>
+<!-- Hard-coded Security Policies Summary -->
+<div class="bg-surface-container-low p-space-md rounded-xl shadow-md flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[18px] text-primary">security</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Security Policy Matrix</h2>
+</div>
+<span class="font-label-mono text-label-mono px-space-xs py-0.5 rounded bg-surface-container-high text-primary-container font-medium">6 GATES</span>
+</div>
+<!-- 6 Hard-Coded Approval Gates -->
+<ul class="flex flex-col gap-1.5 font-body-sm text-body-sm">
+<li class="flex items-center justify-between p-1 px-space-xs rounded bg-surface-container">
+<span class="text-on-surface">1. File Deletion / Overwrite</span>
+<span class="font-label-mono text-label-mono text-tertiary-fixed uppercase font-semibold">GATE 1</span>
+</li>
+<li class="flex items-center justify-between p-1 px-space-xs rounded bg-surface-container">
+<span class="text-on-surface">2. External Messaging Dispatch</span>
+<span class="font-label-mono text-label-mono text-tertiary-fixed uppercase font-semibold">GATE 2</span>
+</li>
+<li class="flex items-center justify-between p-1 px-space-xs rounded bg-surface-container">
+<span class="text-on-surface">3. Software / Package Install</span>
+<span class="font-label-mono text-label-mono text-tertiary-fixed uppercase font-semibold">GATE 3</span>
+</li>
+<li class="flex items-center justify-between p-1 px-space-xs rounded bg-surface-container">
+<span class="text-on-surface">4. Windows Registry Edits</span>
+<span class="font-label-mono text-label-mono text-error uppercase font-semibold">BLOCKED</span>
+</li>
+<li class="flex items-center justify-between p-1 px-space-xs rounded bg-surface-container">
+<span class="text-on-surface">5. Admin Privilege (UAC)</span>
+<span class="font-label-mono text-label-mono text-error uppercase font-semibold">BLOCKED</span>
+</li>
+<li class="flex items-center justify-between p-1 px-space-xs rounded bg-surface-container">
+<span class="text-on-surface">6. Shell Script Execution</span>
+<span class="font-label-mono text-label-mono text-tertiary-fixed uppercase font-semibold">GATE 6</span>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<script>
+  // Emergency stop interaction & Escape x2 key handler
+  let lastEscTime = 0;
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      const now = Date.now();
+      if (now - lastEscTime < 400) {
+        triggerEmergencyHalt();
+      }
+      lastEscTime = now;
+    }
+  });
+
+  const haltBtn = document.getElementById('emergency-halt-btn');
+  if (haltBtn) {
+    haltBtn.addEventListener('click', triggerEmergencyHalt);
+  }
+
+  function triggerEmergencyHalt() {
+    alert('EMERGENCY STOP EXECUTED: All peripheral input simulation hooks instantly unhooked. Active subroutines frozen.');
+  }
+</script></main></div><div class="fixed bottom-space-md left-72 right-space-lg z-40 max-w-4xl mx-auto"><div class="bg-surface-container-lowest/95 backdrop-blur-xl rounded-xl px-space-md py-space-xs shadow-[0_8px_32px_rgba(0,0,0,0.6)] flex items-center gap-space-md"><div class="flex items-center gap-space-xs px-space-sm py-space-xs rounded-lg bg-surface-container"><span class="w-2 h-2 rounded-full bg-primary-container shadow-[0_0_8px_#43D9FF]"></span><span class="font-label-mono text-label-mono text-primary font-semibold">IDLE</span></div><div class="flex-1 flex items-center gap-space-sm bg-surface-container-low px-space-md py-space-xs rounded-lg"><input class="bg-transparent flex-1 focus:outline-none text-on-surface font-body-md text-body-md placeholder:text-on-surface-variant/50" placeholder="Instruct neural orchestrator or input quick prompt..." type="text"><button class="p-1 rounded text-on-surface-variant hover:text-primary transition-colors" title="Attach context or file payload"><span class="material-symbols-outlined text-[18px]">attach_file</span></button><button class="p-1 rounded text-on-surface-variant hover:text-primary transition-colors" title="Toggle audio transcription"><span class="material-symbols-outlined text-[18px]">mic</span></button></div><div class="flex items-center gap-space-xs font-label-mono text-label-mono text-on-surface-variant"><kbd class="px-space-xs py-0.5 rounded bg-surface-container text-on-surface-variant">Enter</kbd><span class="text-[10px]">Run</span></div></div></div>
+
+</body></html>
