@@ -11,7 +11,7 @@ An empirical, byte-level inspection and cryptographic hash audit was conducted a
 1. **10 Models Confirmed Present:** Exactly 10 model files exist physically on disk (6 GGUF LLMs/DiT, 1 GGUF Embedding, 1 GGML Whisper, and 2 Piper ONNX voices).
 2. **Former Heavyweight Model Removed:** `Nemotron-3.5-Bolt-E4B-Q4_K_M.gguf` (6.18 GB) was deleted/removed from disk to free storage space for the newly downloaded models. It is **CONFIRMED ABSENT**.
 3. **Four Historical References Confirmed Absent:** `qwen-image-2.1`, `qwen2.5-coder-3b`, `qwen2.5-coder-1.5b-q4_k_m`, and `nomic-embed-text` are **ABSENT** and exist only as historical references in earlier notes.
-4. **Permanent Main AI Confirmed:** `Qwen3-4B-Q4_K_M.gguf` is physically intact, verified by SHA-256, and designated as the permanent core for **KAATYA**.
+4. **Permanent Main AI Confirmed:** `Qwen3-4B-Q4_K_M.gguf` is physically present on disk, verified by local SHA-256 and has passed implemented GGUF structural validation checks, and is designated as the permanent core for **KAATYA** (runtime compatibility, text inference, and target-PC performance remain unverified pending Phase 4 execution testing).
 
 ---
 
@@ -45,7 +45,11 @@ The 10 local files on `T:\ai creation` span multiple distinct model families and
 - **Size:** 2,497,280,256 bytes (2.326 GiB / 2.497 GB)
 - **Architecture Details:** 36 blocks, 2,560 embedding length, 32 attention heads (8 KV heads, 4:1 GQA ratio), native context 40,960 tokens. Vocab: 151,936 tokens.
 - **Estimated Runtime RAM:** **~3,138 MiB** (with 4,096 working context, FP16 KV cache, and compute graph buffers).
-- **Runtime Compatibility:** Native `llama.cpp` AVX2 backend.
+- **Four-Stage Verification Status:**
+  - **1. GGUF Structural Validation:** **PASSED** (Passed implemented GGUF structural validation checks: 398 tensor headers parsed, 28 KV metadata entries verified, monotonic offsets, block dimensions conform to quantization block sizes, header alignment padding 24 bytes, zero inter-tensor gaps, exact container byte accounting difference 0 bytes. Structural consistency confirms header formatting, alignment, and boundary accounting; it does NOT prove upstream authenticity, full payload integrity, runtime compatibility, or successful inference).
+  - **2. Runtime Compatibility:** **UNVERIFIED / PENDING PHASE 4** (Supported in upstream `llama.cpp` architecture specifications for `qwen3`; however, no compiled runtime binary has been executed on this host machine to load the model. Neither runtime compatibility nor inference is marked as passed because an actual execution test has not been completed and preserved).
+  - **3. Successful Text Inference:** **UNVERIFIED / PENDING PHASE 4** (No prompt evaluation, text token generation, context handling, or tokenization test has been executed on this hardware; text inference has not been performed).
+  - **4. Measured Target-Hardware Performance:** **UNVERIFIED / PENDING PHASE 4** (Tokens per second [tok/s] generation speed, prompt processing throughput, and resident memory footprint on the Intel Core i3-6100T CPU with 16 GB DDR4-2133 RAM are theoretical calculations [~3,138 MiB baseline]; empirical performance on target hardware remains unmeasured).
 - **Coexistence Status:** **PERMANENT MAIN AI.** Never unloaded by application policy.
 - **Assigned Role:** **KAATYA Main AI Controller** (Agent 1) & supervisor of all logical roles.
 
@@ -56,7 +60,7 @@ The 10 local files on `T:\ai creation` span multiple distinct model families and
 - **Size:** 1,073,242,208 bytes (1.000 GiB / 1.073 GB)
 - **Architecture Details:** `qwen3` architecture, 28 blocks, 2,048 embedding length, 16 heads (8 KV heads, 2:1 GQA ratio), native context 40,960 tokens.
 - **Estimated Runtime RAM:** **~1,250 MB** (with 4,096 working context).
-- **Runtime Compatibility:** Native `llama.cpp` AVX2 backend.
+- **Runtime Compatibility:** Supported in upstream `llama.cpp` architecture; local runtime binary loading and inference on target PC remain UNVERIFIED / PENDING PHASE 4.
 - **Coexistence Status:** **DYNAMIC LOCAL WORKER.** Admitted on demand via the 10-step admission check.
 - **Assigned Role:** **Writer** (Agent 5), **Social Media** (Agent 19), **Presentation** (Agent 21).
 
@@ -67,7 +71,7 @@ The 10 local files on `T:\ai creation` span multiple distinct model families and
 - **Size:** 1,055,609,824 bytes (0.983 GiB / 1.056 GB)
 - **Architecture Details:** `llama` architecture, 24 blocks, 2,048 embedding length, 32 heads (32 KV heads, MHA), native context 8,192 tokens. Calibrated with custom imatrix. Vocab: 49,152 tokens.
 - **Estimated Runtime RAM:** **~1,350 MB** (with 4,096 working context).
-- **Runtime Compatibility:** Native `llama.cpp` AVX2 backend.
+- **Runtime Compatibility:** Supported in upstream `llama.cpp` architecture; local runtime binary loading and inference on target PC remain UNVERIFIED / PENDING PHASE 4.
 - **Coexistence Status:** **DYNAMIC LOCAL WORKER.** Admitted on demand via the 10-step admission check.
 - **Assigned Role:** **Grammar & Language** (Agent 18 - English benchmark candidate), **Assistant** (Agent 15), **Messenger** (Agent 6).
 
@@ -78,7 +82,7 @@ The 10 local files on `T:\ai creation` span multiple distinct model families and
 - **Size:** 824,178,784 bytes (0.768 GiB / 0.824 GB)
 - **Architecture Details:** `qwen2` architecture, 28 blocks, 1,536 embedding length, 12 heads (2 KV heads, 6:1 GQA ratio), native context 32,768 tokens.
 - **Estimated Runtime RAM:** **~1,050 MB** (with 4,096 working context).
-- **Runtime Compatibility:** Native `llama.cpp` AVX2 backend.
+- **Runtime Compatibility:** Supported in upstream `llama.cpp` architecture; local runtime binary loading and inference on target PC remain UNVERIFIED / PENDING PHASE 4.
 - **Coexistence Status:** **DYNAMIC LOCAL WORKER.** Admitted on demand via the 10-step admission check.
 - **Assigned Role:** **Coder** (Agent 2), **Database Engineer** (Agent 23), **Tester** (Agent 9).
 
@@ -89,7 +93,7 @@ The 10 local files on `T:\ai creation` span multiple distinct model families and
 - **Size:** 1,117,320,736 bytes (1.041 GiB / 1.117 GB)
 - **Architecture Details:** `qwen2` architecture, 28 blocks, 1,536 embedding length, 12 heads (2 KV heads), context 32,768 tokens.
 - **Estimated Runtime RAM:** **~1,280 MB** (with 4,096 context).
-- **Runtime Compatibility:** Native `llama.cpp` AVX2 backend.
+- **Runtime Compatibility:** Supported in upstream `llama.cpp` architecture; local runtime binary loading and inference on target PC remain UNVERIFIED / PENDING PHASE 4.
 - **Coexistence Status:** **DYNAMIC LOCAL WORKER.** Admitted on demand via the 10-step admission check.
 - **Assigned Role:** **Document Intelligence** (Agent 22), **Data Analyst** (Agent 13).
 
@@ -101,10 +105,11 @@ The 10 local files on `T:\ai creation` span multiple distinct model families and
 - **SHA-256 Checksum:** `9c5939d55e3ac76e3a700029770fcc5e1b873d12c2a6d22c6c3fec217488e718`
 - **Upstream Source:** Community Hugging Face GGUF repository (unverified upstream signed manifest).
 - **Architecture Details:** GGUF v3, 149 tensors, **0 KV metadata entries** (architecture reported as `unknown` due to missing `general.architecture`). Empirical audit of all 149 tensor headers confirms: 83 tensors of standard `Q4_0` (raw numeric type ID 2, 0.5625 bytes/element) for transformer projection blocks, and 66 tensors of `BF16` (raw numeric type ID 30, 2.0 bytes/element) for input/output projections, timesteps, and normalization layers. Zero tensors of Type 31 (unresolved historical mapping, formerly associated in draft forks with `Q4_0_4_4`) exist in this file. The input projection `txt_in.weight` has observed shape `(7680, 3072)` and byte length $47,185,920\text{ bytes}$, proving it is stored unquantized in `BF16`. CPU instruction set support (such as AVX2) alone does NOT establish inference compatibility without dedicated runtime kernel implementations.
-- **Binary Boundary Validation:** Verified via `tools/inspect_model_metadata.py` (Exit code 0). Tensor offsets are monotonically ascending and all 149 tensor payloads fall strictly within the 2,256,889,280-byte file boundary with exact container byte accounting: header & metadata table ($10,682\text{ bytes}$) + header alignment padding ($6\text{ bytes}$) + 83 Q4_0 payloads ($2,149,908,480\text{ bytes}$, divisible by 18) + 66 BF16 payloads ($106,970,112\text{ bytes}$, divisible by 2) + inter-tensor padding ($0\text{ bytes}$) + trailing padding ($0\text{ bytes}$) = $2,256,889,280\text{ bytes}$ (difference = 0 bytes). Passing container boundary validation proves container structural integrity on disk, but does NOT prove model authenticity, training validity, correct architecture, or runtime inference success.
-- **Crucial Technical Reality:** This file contains **ONLY the DiT transformer backbone weights** (149 tensors). The tensor `txt_in.weight` has an observed shape of `(7680, 3072)`. A community hypothesis proposes that this 7,680-dimension corresponds to three concatenated hidden layers (9, 18, 27) of a Qwen3 model ($3 \times 2,560 = 7,680$). However, without architecture metadata in the container or official upstream documentation, this remains an unproven theoretical conjecture, NOT a confirmed three-part conditioning implementation. Companion weights (text encoder and `flux2-vae.safetensors`) are absent from disk.
-- **Estimated Pipeline RAM:** Requires **~3.7 to 4.3 GB RAM** (Main AI extraction route) or **~5.2 to 6.1 GB RAM** (dedicated encoder route) when paired with companion text encoder, VAE, and latent scratch buffers.
-- **Runtime Compatibility:** Intended runtimes are `ComfyUI-GGUF` or `stable-diffusion.cpp` (`sd.cpp`). Neither runtime has been demonstrated on this PC to support 0-metadata DiT containers without hyperparameter configuration. Runtime compatibility remains explicitly **UNVERIFIED**.
+- **Four-Stage Verification Status:**
+  - **1. GGUF Structural Validation:** **PASSED** (Passed implemented GGUF structural validation checks: 149 tensor headers parsed, 0 KV entries, monotonic offsets, block dimensions conform to Q4_0 and BF16 block sizes, header alignment padding 6 bytes, zero inter-tensor gaps, exact container byte accounting difference 0 bytes. Structural consistency confirms header formatting, alignment, and boundary accounting; it does NOT prove upstream authenticity, full payload integrity, runtime compatibility, or successful inference).
+  - **2. Runtime Compatibility:** **UNVERIFIED / PENDING PHASE 4** (Intended runtimes are `ComfyUI-GGUF` or `stable-diffusion.cpp` [`sd.cpp`]. Neither runtime binary on this PC has been demonstrated to load 0-metadata DiT containers without hyperparameter configuration).
+  - **3. Successful Inference (Image Generation):** **UNVERIFIED / PENDING PHASE 4** (No multi-component diffusion pipeline [tokenization, text encoder, DiT, VAE] has been executed; no image has been generated).
+  - **4. Measured Target-Hardware Performance:** **UNVERIFIED / PENDING PHASE 4** (Step generation latencies [e.g. theoretical 45–90s/step] and peak memory footprint on Intel Core i3-6100T CPU with 16 GB DDR4-2133 RAM are unmeasured theoretical estimates).
 - **Coexistence Status:** **EXPERIMENTAL — END-TO-END COMPATIBILITY AND PERFORMANCE UNPROVEN ON TARGET PC.** Under live available RAM ($7,030.07\text{ MiB}$ at Snapshot 1, fluctuating dynamically between ~6,590 and 7,082 MiB across measurements) and dynamic safety margin (~2,151 MiB), the provisional net admissible worker budget under Snapshot 1 is $\approx 4,879.07\text{ MiB}$. The dedicated encoder route (~5,200 MiB) exceeds this budget and is strictly rejected by the dynamic admission controller. The Main AI extraction route (~3,737–4,335 MiB peak) lacks a verified CPU C++ implementation for extracting intermediate hidden states. In addition, a distinction exists between FLUX.2 Klein Distilled (4-step workflow) and FLUX.2 Klein Base (50-step workflow); while the local GGUF is titled `flux-2-klein-4b-q4_0.gguf`, step-budget compatibility is unverified on this hardware. Generation latency is an **[UNVERIFIED THEORETICAL ESTIMATE]** of 45–90s per step (~3–6 minutes for 4 steps, ~15–30 minutes for 20 steps). Feasibility will not be claimed until an end-to-end benchmark succeeds in Phase 4.
 - **Assigned Role:** **Image Studio** (Agent 17 - Experimental Local Mode).
 

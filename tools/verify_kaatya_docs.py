@@ -676,6 +676,53 @@ else:
     record_fail("Phase 4 Hold", "README missing explicit Phase 4 hold indicator", "README.md")
 
 # ==============================================================================
+# SECTION 13: FOUR-STAGE MODEL VERIFICATION & CLAIMS PRECISION AUDIT
+# ==============================================================================
+print("\n--- 13. Four-Stage Model Verification & Claims Precision Audit ---", flush=True)
+
+# 13.1 Qwen3-4B Four-Stage Verification Status
+inv_txt = doc_contents.get("KAATYA_FINAL_MODEL_INVENTORY.md", "")
+qwen3_stages_ok = True
+for stage_kw in ["GGUF Structural Validation", "Runtime Compatibility", "Successful Text Inference", "Measured Target-Hardware Performance"]:
+    if stage_kw.lower() not in inv_txt.lower() or stage_kw.lower() not in signoff_txt.lower():
+        record_fail("Qwen3 Four-Stage Status", f"Stage '{stage_kw}' missing in Qwen3-4B status", "KAATYA_FINAL_MODEL_INVENTORY.md")
+        qwen3_stages_ok = False
+
+if qwen3_stages_ok:
+    record_pass("Qwen3 Four-Stage Status", "Qwen3-4B-Q4_K_M verified with separate four-stage status (structural validation, runtime compatibility, text inference, hardware performance)")
+
+# 13.2 Precise Wording Assertions: 'Passed implemented GGUF structural validation checks'
+if "passed implemented gguf structural validation checks" in inv_txt.lower() and "passed implemented gguf structural validation checks" in signoff_txt.lower():
+    record_pass("Structural Check Precision", "Precise wording 'Passed implemented GGUF structural validation checks' verified in model inventory and sign-off")
+else:
+    record_fail("Structural Check Precision", "Missing required precise wording 'Passed implemented GGUF structural validation checks'", "KAATYA_FINAL_MODEL_INVENTORY.md")
+
+# 13.3 Distinction from Upstream Authenticity, Payload Integrity, and Inference
+if "upstream authenticity, full payload integrity" in inv_txt.lower() and "upstream authenticity, full payload integrity" in signoff_txt.lower():
+    record_pass("Integrity Distinction", "Structural consistency explicitly distinguished from upstream authenticity, full payload integrity, and inference")
+else:
+    record_fail("Integrity Distinction", "Missing distinction between structural consistency, upstream authenticity, full payload integrity, and inference", "KAATYA_FINAL_MODEL_INVENTORY.md")
+
+# 13.4 Git Commit Wording Check
+if "successfully pushed to origin/main; local and remote commit hashes match. cryptographic commit signing is not configured" in signoff_txt.lower():
+    record_pass("Git Commit Terminology", "Git push and hash parity verified with exact required non-cryptographic signing statement")
+else:
+    record_fail("Git Commit Terminology", "Sign-off missing exact required Git push and signature clarification wording", "KAATYA_PHASE_3_FINAL_TECHNICAL_SIGNOFF.md")
+
+# 13.5 Check for Overstated Claims: 'zero corrupted headers' or 'complete model integrity'
+overstated_claims = False
+for doc_name, content in doc_contents.items():
+    if "zero corrupted headers" in content.lower():
+        record_fail("Overstated Claim", f"'zero corrupted headers' found in {doc_name}", doc_name)
+        overstated_claims = True
+    if "complete model integrity" in content.lower():
+        record_fail("Overstated Claim", f"'complete model integrity' found in {doc_name}", doc_name)
+        overstated_claims = True
+
+if not overstated_claims:
+    record_pass("Claim Boundary Enforcement", "Absence of overstated 'zero corrupted headers' and 'complete model integrity' claims verified across all documents")
+
+# ==============================================================================
 # FINAL VERIFICATION SUMMARY & STRICT EXIT CODE EVALUATION
 # ==============================================================================
 print("\n==================================================================", flush=True)

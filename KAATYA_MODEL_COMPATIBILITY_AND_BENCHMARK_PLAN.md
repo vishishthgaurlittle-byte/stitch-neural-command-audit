@@ -21,6 +21,13 @@ graph TD
     Ephemeral_Workers -->|Returns Result for Verification| KAATYA
 ```
 
+### 1.0 Four-Stage Model Verification Protocol
+To prevent conflating container structure with functional execution, all local model assets are evaluated through four distinct, non-overlapping verification stages:
+1. **GGUF Structural Validation:** Verification of container format, header layout, alignment padding, block dimensions, and boundary compliance. *Passed implemented GGUF structural validation checks confirm container consistency; they do NOT prove upstream authenticity, full payload integrity, runtime compatibility, or successful inference.*
+2. **Runtime Compatibility:** Verification that the compiled local runtime binary (`llama.cpp`, `ComfyUI`, `sd.cpp`) successfully initializes and loads the model into memory on Windows 10 without errors. *Unverified until execution testing occurs in Phase 4.*
+3. **Successful Inference:** Verification of actual end-to-end token generation (for LLMs) or image synthesis (for DiT). *Neither runtime compatibility nor inference is marked as passed unless an actual execution test has been completed and its evidence is preserved.*
+4. **Measured Target-Hardware Performance:** Direct physical measurement of tokens per second, prompt throughput, step generation latency, and real-world memory footprint under hardware load on the Intel Core i3-6100T PC.
+
 ### 1.1 Comparative Capability Matrix (1.5B – 1.7B Models)
 
 The table below delineates **recommended baseline assignments** versus **benchmark-dependent assignments**. Benchmark-dependent assignments must be empirically validated during Phase 4 hardware testing rather than assumed beforehand.
