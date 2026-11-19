@@ -55,8 +55,9 @@ To maintain absolute technical truthfulness, all project metrics are categorized
 - **Base Committed Working Set:** ~3.65 GB (Windows 10 base ~3.0 GB + dynamic Intel HD 530 idle UI ~0.16 GB + Tauri/WebView2 shell/audio ~0.50 GB).
 - **KAATYA Main AI Resident Working Set:** ~3.14 GB (2.50 GB weights + 576 MB 4K FP16 KV cache + compute graph buffers).
 - **Total Base Active Working Set:** ~6.79 to 7.12 GB.
-- **Physical Headroom:** $12.00\text{ GB} - 7.12\text{ GB} = \mathbf{4.88\text{ GB}}$ (or $12.0 - 7.2 = \mathbf{4.80\text{ GB}}$ decimal, correcting earlier reports that claimed 5.0 GB).
-- **Safe Working Budget for Local Workers:** $\le 1,400\text{ MB RAM}$ (enforcing a minimum 2.0 GB free memory scheduler threshold via `GlobalMemoryStatusEx`).
+- **Physical Headroom:** $12,288\text{ MiB} - 6,788\text{ MiB} = \mathbf{5,500\text{ MiB}}$ (~5.37 GiB binary / ~5.77 GB decimal).
+- **Dynamic Worker Admission:** Evaluated on demand via the 10-step procedure (enforcing a minimum 2,048 MiB system floor before calculating model weights, KV cache, and runtime buffers).
+
 
 ### 2.3 Untested Items (Classified as [UNVERIFIED] Pending Phase 4 Benchmarking)
 - Real-world tokens/second throughput of `Qwen3-4B` on 3 threads.
@@ -76,7 +77,7 @@ The following three architectural decisions are presented for final user and Cha
   - *Candidate A:* `Qwen2.5-Coder-1.5B-Instruct-Q3_K_M.gguf` (824 MB file, ~1.05 GB RAM) -> Focused on rapid code snippets, debugging, and SQL queries.
   - *Candidate B:* `SmolLM2-1.7B-Instruct-Q4_K_M.gguf` (1.06 GB file, ~1.35 GB RAM) -> Focused on ultra-fast English grammar, proofreading, and conversational assistance.
   - *Candidate C:* `Qwen3-1.7B-Q3_K_M.gguf` (1.07 GB file, ~1.25 GB RAM) -> Focused on multilingual writing (English, Hindi, Hinglish) and social posts.
-- **Recommendation:** **Keep all three models on disk and allow KAATYA to dispatch dynamically.** Because each takes only ~1 GB of storage and all fit within the ~2.5 GB safe memory budget, KAATYA can load whichever worker is needed for the active subtask and evict it immediately upon completion.
+- **Recommendation:** **Keep all three models on disk and allow KAATYA to dispatch dynamically.** Because each takes only ~1 GB of storage and fits comfortably within available physical headroom under the 10-step admission check, KAATYA can load whichever worker is needed for the active subtask and evict it immediately upon completion.
 
 ---
 

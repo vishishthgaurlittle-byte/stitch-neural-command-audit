@@ -61,9 +61,9 @@ The local disk already holds `Qwen3-4B-Q4_K_M.gguf`. Could this file double as t
 - **stable-diffusion.cpp (`sd.cpp`):** Lightweight C++ implementation without Python overhead. However, native support for the FLUX.2 Klein multi-layer Qwen3 extraction pipeline is currently experimental and unverified on Windows AVX2.
 
 ### 2.5 Hardware Execution Reality on Intel Core i3-6100T
-- **No CUDA Cores:** Compute executes entirely across 4 CPU threads via AVX2.
-- **Estimated Latency:** [UNVERIFIED THEORETICAL ESTIMATE: 8 to 25 minutes per 512x512 image on CPU].
-- **Memory Footprint:** Loading DiT (2.26 GB) + Qwen text encoder (~2.0 GB) + VAE (~0.35 GB) + diffusion scratch buffers requires **~6.5 to 8.5 GB RAM**. Concurrent execution alongside Windows (~3.1 GB) and KAATYA Main AI (~3.1 GB) pushes total memory close to the 12.0 GB ceiling.
+- **No CUDA Cores:** Compute executes entirely across CPU threads via AVX2 (Intel HD 530 has no dedicated CUDA cores).
+- **Execution Latency:** **UNVERIFIED.** End-to-end CPU diffusion latency for FLUX.2 Klein has not been physically measured on this Intel Core i3-6100T machine. No speculative performance figures (e.g. 8–25 minutes) are assumed prior to an actual empirical Phase 4 hardware benchmark.
+- **Memory Footprint:** Loading DiT (2.26 GB) + Qwen text encoder (~2.0 GB) + VAE (~0.35 GB) + diffusion scratch buffers requires substantial RAM, making local concurrent execution alongside Windows and Main AI high-risk for paging.
 - **Architectural Directive:**
   - **Local FLUX generation is strictly EXPERIMENTAL.**
   - **Do NOT download companion files** until an end-to-end runtime implementation is empirically tested and approved.

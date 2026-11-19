@@ -55,11 +55,14 @@ flowchart TD
 
 ## 3. Windows DPAPI Credential Security Vault
 
-A paramount security rule:
-> **Zero plaintext API keys on disk. Zero secrets in logs, UI inputs, or git repositories.**
+### Status: PROPOSED SECURITY SPECIFICATION — IMPLEMENTATION NOT STARTED
 
-### 3.1 DPAPI Encryption Implementation
-On Windows 10, all credentials, API keys, and OAuth refresh tokens are encrypted using the native **Windows Data Protection API (`CryptProtectData`)** via the Rust `windows-rs` crate:
+A paramount architectural principle:
+> **Zero plaintext API keys on disk. Zero secrets in logs, UI inputs, or git repositories.**
+*(Note: DPAPI encryption is an architectural design specification for implementation in Phase 4; it is not yet operational code).*
+
+### 3.1 Proposed DPAPI Encryption Architecture
+On Windows 10, all credentials, API keys, and OAuth refresh tokens are planned to be encrypted using the native **Windows Data Protection API (`CryptProtectData`)** via the Rust `windows-rs` crate:
 
 ```rust
 // Native DPAPI Encryption in KAATYA Rust Core

@@ -144,9 +144,9 @@ Rather than binding exclusively to one proprietary editor, KAATYA exports standa
 | **Runtime Memory** | Min 8–10 GB VRAM; 16–32 GB system RAM | Min 8–12 GB VRAM; 32 GB system RAM | Host has 12.0 GB physical RAM | **Severe Memory Exhaustion** |
 | **GPU Requirements** | Dedicated NVIDIA tensor cores (RTX 3060/4060+) | Dedicated NVIDIA GPU (RTX 3060/4060 Ti+) | Integrated Intel HD 530 (0 CUDA) | **Unsupported by GPU** |
 | **CPU Fallback Availability**| Technical PyTorch CPU fallback exists | Technical CPU fallback exists | 2 cores / 4 threads @ 35W TDP | **Extremely Slow Execution** |
-| **Actual Latency Performance**| [UNVERIFIED ESTIMATE: 60 to 180+ min per 5s clip] | [UNVERIFIED ESTIMATE: 45 to 120+ min per 5s clip] | Severe CPU saturation & thermal drop | **Impractical for Interactive Use** |
+| **Actual Latency Performance**| **UNVERIFIED** (No physical CPU benchmark) | **UNVERIFIED** (No physical CPU benchmark) | CPU diffusion on 2C/4T Skylake is unmeasured | **Impractical on target hardware** |
 
 ### 4.2 Definitive Architectural Classification:
-1. **Local Video Diffusion:** Classified as **Impractical on target hardware / Unsupported by selected local runtime**. Attempting to run local video diffusion on a 2-core i3-6100T with 12 GB RAM will induce heavy pagefile thrashing, thermal throttling, and unacceptable multi-hour wait times for short low-resolution clips.
+1. **Local Video Diffusion (Wan 2.1 / LTX-Video):** Classified as **Impractical on target hardware / Unsupported by selected local runtime**. Attempting to run local video diffusion on a 2-core i3-6100T with 12 GB RAM induces severe pagefile thrashing, high thermal load, and unviable processing delays.
 2. **Video Studio Autonomy:** The KAATYA Video Studio does **NOT** require local video diffusion. It delivers full script-to-video production via Piper speech synthesis, Whisper transcription, asset sourcing, programmatic FFmpeg CLI effects, and timeline interchange.
 3. **Frontier Video Gate:** Generative text-to-video clips are delegated to **authorized Online Video Providers** (e.g., Runway Gen-3, Luma Dream Machine, Kling AI) with mandatory per-clip cost and prompt approval.

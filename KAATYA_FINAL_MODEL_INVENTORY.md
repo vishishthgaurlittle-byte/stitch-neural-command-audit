@@ -42,63 +42,62 @@ The 10 local files on `T:\ai creation` span multiple distinct model families and
 
 ### 1. `Qwen3-4B-Q4_K_M.gguf` (KAATYA Permanent Main AI)
 - **Directory:** `T:\ai creation\`
-- **Size:** 2,497,280,256 bytes (2.33 GiB / 2.50 GB)
+- **Size:** 2,497,280,256 bytes (2.326 GiB / 2.497 GB)
 - **Architecture Details:** 36 blocks, 2,560 embedding length, 32 attention heads (8 KV heads, 4:1 GQA ratio), native context 40,960 tokens. Vocab: 151,936 tokens.
-- **Estimated Runtime RAM:** **~3,100 MB** (with 4,096 working context).
+- **Estimated Runtime RAM:** **~3,138 MiB** (with 4,096 working context, FP16 KV cache, and compute graph buffers).
 - **Runtime Compatibility:** Native `llama.cpp` AVX2 backend.
-- **Coexistence Status:** **PERMANENT MAIN AI.** Never unloaded.
+- **Coexistence Status:** **PERMANENT MAIN AI.** Never unloaded by application policy.
 - **Assigned Role:** **KAATYA Main AI Controller** (Agent 1) & supervisor of all logical roles.
 
 ---
 
 ### 2. `Qwen3-1.7B-Q3_K_M.gguf` (Compact Language & Writing Specialist)
 - **Directory:** `T:\ai creation\`
-- **Size:** 1,073,242,208 bytes (1.00 GiB / 1.07 GB)
+- **Size:** 1,073,242,208 bytes (1.000 GiB / 1.073 GB)
 - **Architecture Details:** `qwen3` architecture, 28 blocks, 2,048 embedding length, 16 heads (8 KV heads, 2:1 GQA ratio), native context 40,960 tokens.
 - **Estimated Runtime RAM:** **~1,250 MB** (with 4,096 working context).
 - **Runtime Compatibility:** Native `llama.cpp` AVX2 backend.
-- **Coexistence Status:** **SAFELY COEXISTS AS LOCAL WORKER.**
-  $$\text{Base System + KAATYA} (7.2\text{ GB}) + \text{Qwen3-1.7B} (1.25\text{ GB}) = \mathbf{8.45\text{ GB}} \le \mathbf{12.0\text{ GB}}$$
+- **Coexistence Status:** **DYNAMIC LOCAL WORKER.** Admitted on demand via the 10-step admission check.
 - **Assigned Role:** **Writer** (Agent 5), **Social Media** (Agent 19), **Presentation** (Agent 21).
 
 ---
 
 ### 3. `SmolLM2-1.7B-Instruct-Q4_K_M.gguf` (Fast English & Grammar Specialist)
 - **Directory:** `T:\ai creation\`
-- **Size:** 1,055,609,824 bytes (0.98 GiB / 1.06 GB)
+- **Size:** 1,055,609,824 bytes (0.983 GiB / 1.056 GB)
 - **Architecture Details:** `llama` architecture, 24 blocks, 2,048 embedding length, 32 heads (32 KV heads, MHA), native context 8,192 tokens. Calibrated with custom imatrix. Vocab: 49,152 tokens.
 - **Estimated Runtime RAM:** **~1,350 MB** (with 4,096 working context).
 - **Runtime Compatibility:** Native `llama.cpp` AVX2 backend.
-- **Coexistence Status:** **SAFELY COEXISTS AS LOCAL WORKER.** ($7.2\text{ GB} + 1.35\text{ GB} = \mathbf{8.55\text{ GB}} \le 12.0\text{ GB}$).
-- **Assigned Role:** **Grammar & Language** (Agent 18), **Assistant** (Agent 15), **Messenger** (Agent 6).
+- **Coexistence Status:** **DYNAMIC LOCAL WORKER.** Admitted on demand via the 10-step admission check.
+- **Assigned Role:** **Grammar & Language** (Agent 18 - English benchmark candidate), **Assistant** (Agent 15), **Messenger** (Agent 6).
 
 ---
 
 ### 4. `Qwen2.5-Coder-1.5B-Instruct-Q3_K_M.gguf` (Dedicated Local Coding Helper)
 - **Directory:** `T:\ai creation\`
-- **Size:** 824,178,784 bytes (0.77 GiB / 0.82 GB)
+- **Size:** 824,178,784 bytes (0.768 GiB / 0.824 GB)
 - **Architecture Details:** `qwen2` architecture, 28 blocks, 1,536 embedding length, 12 heads (2 KV heads, 6:1 GQA ratio), native context 32,768 tokens.
 - **Estimated Runtime RAM:** **~1,050 MB** (with 4,096 working context).
 - **Runtime Compatibility:** Native `llama.cpp` AVX2 backend.
-- **Coexistence Status:** **SAFELY COEXISTS AS LOCAL WORKER.** ($7.2\text{ GB} + 1.05\text{ GB} = \mathbf{8.25\text{ GB}} \le 12.0\text{ GB}$).
+- **Coexistence Status:** **DYNAMIC LOCAL WORKER.** Admitted on demand via the 10-step admission check.
 - **Assigned Role:** **Coder** (Agent 2), **Database Engineer** (Agent 23), **Tester** (Agent 9).
 
 ---
 
 ### 5. `qwen2.5-1.5b-instruct-q4_k_m.gguf` (General Multilingual Small Assistant)
 - **Directory:** `T:\ai creation\`
-- **Size:** 1,117,320,736 bytes (1.04 GiB / 1.12 GB)
+- **Size:** 1,117,320,736 bytes (1.041 GiB / 1.117 GB)
 - **Architecture Details:** `qwen2` architecture, 28 blocks, 1,536 embedding length, 12 heads (2 KV heads), context 32,768 tokens.
 - **Estimated Runtime RAM:** **~1,280 MB** (with 4,096 context).
 - **Runtime Compatibility:** Native `llama.cpp` AVX2 backend.
-- **Coexistence Status:** **SAFELY COEXISTS AS LOCAL WORKER.**
+- **Coexistence Status:** **DYNAMIC LOCAL WORKER.** Admitted on demand via the 10-step admission check.
 - **Assigned Role:** **Document Intelligence** (Agent 22), **Data Analyst** (Agent 13).
 
 ---
 
 ### 6. `flux-2-klein-4b-q4_0.gguf` (Diffusion Transformer Backbone)
 - **Directory:** `T:\ai creation\`
-- **Size:** 2,256,889,280 bytes (2.10 GiB / 2.26 GB)
+- **Size:** 2,256,889,280 bytes (2.102 GiB / 2.257 GB)
 - **Architecture Details:** FLUX Diffusion Transformer (DiT) backbone, 149 tensors, Q4_0 quantization.
 - **Crucial Technical Reality:** This file contains **ONLY the DiT transformer backbone weights** (149 tensors, 0 KV metadata entries). Unlike FLUX.1, FLUX.2 Klein departs from CLIP-L/T5-XXL and utilizes a **Qwen3 language model** text encoder (extracting layers 9, 18, and 27 to produce a 7860-dimensional conditioning vector) plus `flux2-vae.safetensors`. These companion weights are absent from disk.
 - **Estimated Pipeline RAM:** Requires **~7.5 to 10.5 GB RAM** when paired with companion text encoder, VAE, and latent buffers.
@@ -110,7 +109,7 @@ The 10 local files on `T:\ai creation` span multiple distinct model families and
 
 ### 7. `qwen3-embedding-0.6b-q8_0.gguf` (Local Semantic Memory Embedding Engine)
 - **Directory:** `T:\ai creation\`
-- **Size:** 639,150,592 bytes (0.60 GiB / 0.64 GB)
+- **Size:** 639,150,592 bytes (0.595 GiB / 0.639 GB)
 - **Architecture Details:** `qwen3` architecture, 28 blocks, 1,024 embedding dimension, 16 heads (8 KV heads), mean pooling.
 - **Estimated Runtime RAM:** **~750 MB**.
 - **Coexistence Status:** **SAFELY COEXISTS.** Runs as an embedded feature within the SQLite vector pipeline.
@@ -120,7 +119,7 @@ The 10 local files on `T:\ai creation` span multiple distinct model families and
 
 ### 8. `ggml-base.bin` (Speech-to-Text Transcription Engine)
 - **Directory:** `T:\ai creation\`
-- **Size:** 147,951,465 bytes (0.14 GiB / 0.15 GB)
+- **Size:** 147,951,465 bytes (0.138 GiB / 0.148 GB)
 - **Architecture Details:** Whisper Base multilingual encoder-decoder transformer (74M parameters).
 - **Estimated Runtime RAM:** **~220 MB**.
 - **Assigned Role:** **Audio & Voice** (Agent 20) & Global Voice Input.
@@ -129,7 +128,7 @@ The 10 local files on `T:\ai creation` span multiple distinct model families and
 
 ### 9. `en_US-mike-medium.onnx` & 10. `hi_IN-rohan-medium.onnx` (Piper Neural Voices)
 - **Directory:** `T:\ai creation\english voice onnx + jons\` & `T:\ai creation\hindi voice onnx + jon\`
-- **Sizes:** 63,221,984 bytes & 62,950,044 bytes (~60 MB each).
+- **Sizes:** 63,221,984 bytes (0.059 GiB / 0.063 GB) & 62,950,044 bytes (0.059 GiB / 0.063 GB).
 - **Architecture Details:** VITS ONNX neural speech synthesis.
 - **Estimated Runtime RAM:** **~140 MB total** (both sessions loaded).
 - **Assigned Role:** **Global Desktop Text-to-Speech Output (English, Hindi & Hinglish)**.

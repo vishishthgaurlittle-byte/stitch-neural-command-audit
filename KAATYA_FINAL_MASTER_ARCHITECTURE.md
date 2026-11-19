@@ -139,13 +139,34 @@ $$\begin{aligned}
 \mathbf{Uncommitted\ Physical\ Memory\ Headroom} &\approx \mathbf{5,500\text{ MiB}} \quad (\mathbf{~5.76\text{ GB}})
 \end{aligned}$$
 
-*(Note: On a strict $12.00\text{ GB}$ decimal ceiling: $12.00\text{ GB} - 7.12\text{ GB} = \mathbf{4.88\text{ GB}}$ remaining; if calculated as $12.0 - 7.2\text{ GB}$, the exact remainder is $\mathbf{4.80\text{ GB}}$, correcting earlier reports that incorrectly claimed 5.0 GB).*
+*(Note: In decimal conversion, the $5,500\text{ MiB}$ remainder equals $5,500 \times 1,048,576 / 10^9 \approx \mathbf{5.77\text{ GB}}$. Earlier contradictory calculations mixing marketed 12.00 decimal GB with binary-derived gigabytes have been removed).*
 
-### 4.2 Dynamic Worker Policy & Absence of Guaranteed Buffers
-- **No Guaranteed Safety Buffer:** The application **cannot guarantee** a persistent 2.5 GB physical RAM safety cushion because Windows VMM dynamically schedules memory based on all active system processes.
-- **Dynamic Scheduling Enforcement:** Rather than relying on an unsupported static guarantee, KAATYA executes a dynamic pre-flight check via Win32 `GlobalMemoryStatusEx` before spawning any local worker.
-- **Threshold Rule:** If reported `ullAvailPhys` is $< 2,048\text{ MiB}$ (~2.0 GB), the local worker request is rejected, queued, or routed to the resident Main AI, preventing system-wide swapping.
-- **Safe Worker Budget:** Local worker models are strictly constrained to $\le 1,400\text{ MiB}$ working set (e.g. `Qwen2.5-Coder-1.5B` @ ~1,000 MiB or `SmolLM2-1.7B` @ ~1,350 MiB). Heavy models ($>2.5\text{ GB}$) are barred from local concurrent execution.
+#### Required Itemized Memory Accounting Table
+
+| Component | Measured or Estimated (MiB) | Evidence Status | Notes |
+| :--- | ---:| :--- | :--- |
+| **Windows Base OS & Services** | ~2,900 MiB | PROVISIONAL ESTIMATE | Windows 10 x64 kernel, DWM, background services |
+| **Dynamic GPU Shared Memory** | ~150 MiB | PROVISIONAL ESTIMATE | Intel HD 530 DVMT dynamic UI allocation (idle) |
+| **KAATYA Desktop Shell** | ~220 MiB | PROVISIONAL ESTIMATE | Tauri v2 host binary + Edge WebView2 (15 screens) |
+| **Audio Subsystem** | ~300 MiB | PROVISIONAL ESTIMATE | PortAudio stream, Piper dual ONNX, Whisper buffer |
+| **Database Store** | ~80 MiB | PROVISIONAL ESTIMATE | SQLite 3 engine and `sqlite-vec` cache |
+| **KAATYA Main AI** | ~3,138 MiB | PROVISIONAL ESTIMATE | `Qwen3-4B-Q4_K_M` weights + 4K FP16 KV cache + graph |
+| **Other Active User Processes** | ~0 MiB | PROVISIONAL ESTIMATE | Variable third-party background load |
+| **Total Observed Working Set** | **~6,788 MiB** | PROVISIONAL ESTIMATE | Sum of active baseline resident working sets (~6.63 GiB) |
+| **Available Physical Memory** | **~5,500 MiB** | PROVISIONAL ESTIMATE | Remaining from 12,288 MiB pool (~5.37 GiB / ~5.77 GB) |
+
+### 4.2 Dynamic Worker Admission Procedure
+Rather than enforcing an unsupported static safety-cushion formula, KAATYA executes a deterministic **10-Step Dynamic Worker Admission Procedure** before starting any optional specialist worker:
+1. **Query Available Memory:** Query Win32 `GlobalMemoryStatusEx` for current `ullAvailPhys`.
+2. **Initial Rejection Floor:** If `ullAvailPhys < 2,048\text{ MiB}`, reject immediately as an unsafe operating floor (passing this floor is an initial gate, not proof of safety).
+3. **Identify Worker Model:** Determine the requested model file and target task.
+4. **Estimate Weight Residency:** Compute resident weight footprint from quantized tensor size.
+5. **Estimate Context & KV-Cache:** Calculate required KV cache based on target context length ($N$) and precision.
+6. **Estimate Compute Buffers:** Calculate forward graph scratch buffer demand (`ggml_gallocr`).
+7. **Audit Main AI Observed Footprint:** Confirm Main AI working set remains intact and un-evicted.
+8. **Factor System Memory Pressure:** Read active system memory load percentage (`dwMemoryLoad`).
+9. **Apply Configurable Test Margin:** Apply a dynamic safety margin derived from empirical testing.
+10. **Log & Enforce Decision:** If total projected demand exceeds `ullAvailPhys`, reject or defer worker loading, log the diagnostic reason in `.assistant/logs/scheduler.log`, and route the task to the resident Main AI or cloud fallback.
 
 ---
 
@@ -237,10 +258,12 @@ The application shell preserves **100% of the approved 15 Google Stitch screens*
 
 ## 9. Definitive Technology Stack
 
-To ensure complete architectural consistency across all documents, the core technology stack is formally fixed:
-- **Desktop Application Shell:** **Tauri v2** (Rust host process, memory footprint ~25–40 MiB).
-- **Frontend Presentation Layer:** **React 19 + TypeScript + Tailwind CSS** running inside the native Windows **Microsoft Edge WebView2** runtime (~180–220 MiB working set).
-- **Local LLM Engine:** Native **`llama.cpp` AVX2 backend** linked via direct C-FFI bindings into the Rust core.
-- **Local Audio Engine:** **Piper ONNX** (via ONNX Runtime CPU) + **Whisper.cpp** (`ggml-base.bin`).
-- **Local Data & Vector Store:** Embedded **SQLite 3 + `sqlite-vec` extension** for sub-millisecond local vector retrieval.
+### Status: APPROVED PROPOSED ARCHITECTURE — IMPLEMENTATION NOT STARTED
+
+To ensure complete architectural consistency across all documents, the core technology stack is formally unified:
+- **Desktop Application Shell:** **Tauri v2** (Native backend: Rust host process, memory footprint ~25–40 MiB).
+- **Frontend Presentation Layer:** **React 19, TypeScript and Tailwind CSS** running inside the native Windows **Microsoft Edge WebView2** runtime (~180–220 MiB working set).
+- **Local LLM Inference Engine:** Native **`llama.cpp` AVX2 backend** linked via direct C-FFI bindings into the Rust core.
+- **Audio Subsystem:** **Whisper.cpp** (`ggml-base.bin`) for speech-to-text + **Piper ONNX** (via ONNX Runtime CPU) for speech synthesis.
+- **Local Storage & Vector Retrieval:** Embedded **SQLite 3** engine with optional **`sqlite-vec` extension** for sub-millisecond local vector retrieval.
 - **Operating System Platform:** Strictly hosted on **Windows 10 64-bit**.

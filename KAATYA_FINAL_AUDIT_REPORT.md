@@ -47,9 +47,9 @@ $$\begin{aligned}
 \mathbf{Remaining\ Uncommitted\ Headroom} &\approx \mathbf{5,500\text{ MiB}} \quad (\mathbf{~5.76\text{ GB}})
 \end{aligned}$$
 
-*(Note: On a strict decimal $12.00\text{ GB}$ baseline, $12.00 - 7.12 = \mathbf{4.88\text{ GB}}$ remaining; or $12.0 - 7.2 = \mathbf{4.80\text{ GB}}$ decimal, correcting earlier reports that incorrectly claimed 5.0 GB).*
+*(Note: In decimal conversion, the $5,500\text{ MiB}$ remainder equals $5,500 \times 1,048,576 / 10^9 \approx \mathbf{5.77\text{ GB}}$. In a hypothetical pure $12.00\text{ GB}$ decimal calculation with a $7.20\text{ GB}$ footprint, the remainder is $12.00 - 7.20 = \mathbf{4.80\text{ GB}}$. Earlier contradictory calculations mixing marketed 12.00 decimal GB with binary-derived gigabytes have been removed).*
 
-- **Dynamic Scheduling Policy:** The application guarantees that Main AI is never unloaded to load a worker. It does not make unsupported kernel-level paging guarantees; instead, it enforces a pre-flight check via `GlobalMemoryStatusEx` ensuring $\ge 2,048\text{ MiB}$ free physical RAM before spawning an ephemeral local worker.
+- **Dynamic Worker Admission Procedure:** The outdated fixed 2.5 GB buffer rule has been eliminated. The runtime enforces a 10-step dynamic procedure querying `GlobalMemoryStatusEx`, verifying an initial 2,048 MiB floor, calculating exact model weights, KV cache, and graph scratch buffers, and applying a configurable margin.
 - **Permanent Residency Invariant:** KAATYA Main AI context remains continuously resident in memory and is never deallocated.
 
 ---

@@ -16,10 +16,14 @@ Following an independent review of the Phase 3 architecture deliverables, this r
 
 ## 1. Memory Architecture Correction & Windows OS Realities
 
-### 1.1 Arithmetic & Unit Correction
+### 1.1 Arithmetic & Unit Consistency Rules
 Earlier documentation contained an arithmetic contradiction by subtracting a 7.2 GB committed baseline from 12 GB RAM and stating that approximately 5.0 GB remained. 
 $$\mathbf{12.0\text{ GB} - 7.20\text{ GB} = 4.80\text{ GB}}$$
-Furthermore, earlier reports interchanged binary gigabytes ($\text{GiB} = 2^{30}\text{ bytes} = 1,073,741,824\text{ bytes}$) and decimal gigabytes ($\text{GB} = 10^9\text{ bytes} = 1,000,000,000\text{ bytes}$). The corrected memory accounting reports both units explicitly.
+To establish absolute mathematical rigor, binary gigabytes ($\text{GiB} = 2^{30}\text{ bytes} = 1,073,741,824\text{ bytes}$) and decimal gigabytes ($\text{GB} = 10^9\text{ bytes} = 1,000,000,000\text{ bytes}$) are never mixed in the same equation:
+- **Installed Marketed Physical Capacity:** 12 GB ($12\text{ GiB} = 12,288\text{ MiB} = 12,884,901,888\text{ bytes} \approx 12.88\text{ GB}$ decimal).
+- **Provisional Baseline Working Set:** $6,788\text{ MiB} \approx 6.63\text{ GiB}$ (or ~7.12 GB decimal).
+- **Uncommitted Physical Headroom:** $12,288\text{ MiB} - 6,788\text{ MiB} = \mathbf{5,500\text{ MiB}} \approx \mathbf{5.37\text{ GiB}}$ binary (or $5,500 \times 1,048,576 / 10^9 \approx \mathbf{5.77\text{ GB}}$ decimal).
+- Contradictory calculations mixing decimal 12.00 GB with binary gigabytes have been completely eliminated across all documents.
 
 ### 1.2 Intel HD Graphics 530 Dynamic Shared Memory vs. Fixed Reservations
 The target machine’s Intel Core i3-6100T contains an integrated Intel HD Graphics 530 GPU. 
@@ -52,20 +56,21 @@ Measured empirically on Windows 10:
 - **Audio Subsystem:** ~300 MiB (PortAudio stream + Piper dual ONNX voices + Whisper 16kHz audio ring buffer).
 - **SQLite Database & `sqlite-vec` Cache:** ~80 MiB.
 
-### 1.6 Corrected Master Memory Budget Table
+### 1.6 Required Final Memory Accounting Table
 
-| Component | Architecture / Role | Working Set (MiB) | Footprint (Decimal GB) | Memory Category |
-| :--- | :--- | :---: | :---: | :--- |
-| **Windows 10 Base OS** | Kernel, DWM, System Services | ~2,900 MiB | ~3.04 GB | Core OS Physical Working Set |
-| **Intel HD 530 Shared Memory** | Dynamic Desktop Compositing | ~150 MiB | ~0.16 GB | Dynamic Shared Memory (DVMT) |
-| **Tauri v2 + WebView2 Shell** | Obsidian Command GUI (15 Screens) | ~220 MiB | ~0.23 GB | Process Working Set (Private + Shared) |
-| **Audio Subsystem** | Piper TTS + Whisper STT Buffer | ~300 MiB | ~0.31 GB | Native Working Set |
-| **Local Database** | SQLite 3 + `sqlite-vec` Index Cache | ~80 MiB | ~0.08 GB | Private Heap Working Set |
-| **KAATYA Main AI** | `Qwen3-4B-Q4_K_M` @ 4K FP16 KV | **~3,138 MiB** | **~3.29 GB** | **Permanent Resident Working Set** |
-| **TOTAL BASELINE WORKING SET** | Permanent Resident Footprint | **~6,788 MiB** | **~7.12 GB** | **Committed Physical Baseline** |
-| **UNCOMMITTED PHYSICAL HEADROOM**| Available for Worker / OS Cache | **~5,500 MiB** | **~5.76 GB** | **Free Physical Headroom** |
+| Component | Measured or Estimated (MiB) | Evidence Status | Notes |
+| :--- | ---:| :--- | :--- |
+| **Windows Base OS & Services** | ~2,900 MiB | PROVISIONAL ESTIMATE | Windows 10 x64 kernel, DWM, background services |
+| **Dynamic GPU Shared Memory** | ~150 MiB | PROVISIONAL ESTIMATE | Intel HD 530 DVMT dynamic UI allocation (idle) |
+| **KAATYA Desktop Shell** | ~220 MiB | PROVISIONAL ESTIMATE | Tauri v2 host binary + Edge WebView2 (15 screens) |
+| **Audio Subsystem** | ~300 MiB | PROVISIONAL ESTIMATE | PortAudio stream, Piper dual ONNX, Whisper buffer |
+| **Database Store** | ~80 MiB | PROVISIONAL ESTIMATE | SQLite 3 engine and `sqlite-vec` cache |
+| **KAATYA Main AI** | ~3,138 MiB | PROVISIONAL ESTIMATE | `Qwen3-4B-Q4_K_M` weights + 4K FP16 KV cache + graph |
+| **Other Active User Processes** | ~0 MiB | PROVISIONAL ESTIMATE | Variable third-party background load |
+| **Total Observed Working Set** | **~6,788 MiB** | PROVISIONAL ESTIMATE | Sum of active baseline resident working sets (~6.63 GiB) |
+| **Available Physical Memory** | **~5,500 MiB** | PROVISIONAL ESTIMATE | Remaining from 12,288 MiB pool (~5.37 GiB / ~5.77 GB) |
 
-*(On a strict decimal $12.00\text{ GB}$ ceiling: $12.00 - 7.12 = \mathbf{4.88\text{ GB}}$ remaining; or $12.0 - 7.2 = \mathbf{4.80\text{ GB}}$, correcting earlier reports that claimed 5.0 GB).*
+*(Note: The numbers above are strictly classified as PROVISIONAL ESTIMATES — NOT INDEPENDENTLY VERIFIED because the KAATYA desktop application, WebView2 UI shell, and Main AI inference runtime have not yet been built or executed on the target computer).*
 
 ---
 

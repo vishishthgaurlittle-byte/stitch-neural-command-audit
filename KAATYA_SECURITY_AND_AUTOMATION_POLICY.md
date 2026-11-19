@@ -49,11 +49,14 @@ flowchart TD
   3. *Process Containment:* All child processes are assigned to a Windows **Job Object** (`JOB_OBJECT_LIMIT_KILL_ON_JOB_CLOSE`). Terminating the job instantly kills the entire process tree, leaving zero orphaned background processes.
   4. *Execution Timeouts:* Every command runs under a strict timeout (default: 30 seconds for routine commands).
 
-### 3.3 Strict Desktop Protections
-- **No Silent Software Installation:** Installing software or downloading packages requires Tier 3 confirmation.
-- **No Silent File Deletion:** File deletion is always staged and requires human confirmation.
-- **No Automatic Communications:** Outbound emails, webhook triggers, and messages remain in draft mode until approved.
-- **No Automatic Video Publishing:** Rendered videos are saved to local disks; publishing to YouTube, Instagram, or social media requires explicit user review.
+### 3.3 Strict Desktop Protections (Mandatory Human Confirmations)
+- **No Silent Software Installation:** Installing software, runtime packages, or dependencies requires explicit Tier 3 user confirmation.
+- **No Silent File Deletion:** File deletion or directory destruction is always staged and requires explicit human confirmation with affected file counts.
+- **No Automatic Communications:** Outbound emails, webhook triggers, and messages remain in draft mode until confirmed by the user.
+- **No Automatic Purchases or Financial Operations:** Any operation involving commercial services, token credit purchases, or payments requires mandatory Tier 3 approval with exact cost disclosure.
+- **No Automatic Security Changes:** Modifying permission tiers, altering workspace whitelist boundaries, or changing security hotkeys requires explicit user authentication and confirmation.
+- **No Automatic Video Publishing:** Rendered videos are saved to local disks; publishing to social platforms requires explicit user review.
+- **Always Visible Operations:** Active tasks and operations display real-time status chips and indicators; covert background tasks are prohibited.
 
 ---
 
@@ -72,8 +75,9 @@ flowchart TD
     CheckPanic -->|No| PassThrough[CallNextHookEx: Pass Unmodified to Windows]
 ```
 
-1. **Context-Aware `ESC` Key:** When the Assistant Main Window or Floating AI HUD has input focus, pressing the bare `ESC` key cancels the active task, dismisses open confirmation modals, and flushes speech synthesis buffers in $<10\text{ ms}$.
-2. **Dedicated Global Panic Interrupt (`Ctrl + Alt + Escape`):** A global registered hotkey (`RegisterHotKey` Win32 API) listens specifically for `Ctrl + Alt + Escape`. This guarantees zero interference with other Windows software while providing an instant panic button.
+1. **Context-Aware `ESC` Key (Never Globally Swallowed):** The bare `ESC` key is **never globally intercepted**. It only cancels tasks when the Assistant Main Window or Floating AI HUD has direct active OS focus. When any external application has focus, `ESC` passes untouched to Windows via `CallNextHookEx`.
+2. **Dedicated Global Panic Interrupt (`Ctrl + Alt + Escape`):** A registered global hotkey listens for `Ctrl + Alt + Escape` across Windows.
+   - *Conflict Resolution Strategy:* If `Ctrl + Alt + Escape` conflicts with a specific development IDE or game, the user can rebind the emergency interrupt in Settings (Screen 14) or toggle to a secondary sequence (e.g. `Pause / Break`). If registration fails due to another application possessing the shortcut, KAATYA prompts the user to select an alternative rather than silently crashing.
 3. **Emergency Stop Action:** When triggered, the Rust core:
    - Sets an atomic cancellation flag on the active Tokio task queue.
    - Dispatches `TerminateJobObject` on the active child process job object.

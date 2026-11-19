@@ -13,7 +13,8 @@
 
 The complete, hardware-calibrated technical blueprint and multimodal architecture for KAATYA:
 
-0. **[KAATYA_PHASE_3_CORRECTION_AND_VALIDATION_REPORT.md](./KAATYA_PHASE_3_CORRECTION_AND_VALIDATION_REPORT.md)** — **Latest Validation & Correction Report:** Arithmetic fixes ($12.0 - 7.2 = 4.8\text{ GB}$), FLUX.2 Klein Qwen3 dependencies, video diffusion feasibility, multi-editor interchange, restored 23-agent roster, and unified tech stack.
+0. **[KAATYA_PHASE_3_FINAL_TECHNICAL_SIGNOFF.md](./KAATYA_PHASE_3_FINAL_TECHNICAL_SIGNOFF.md)** — **Authoritative Phase 3 Sign-Off Report:** Complete technical sign-off covering all 20 sections, memory math, 10-step worker admission, evidence classification table, and Phase 4 hold status.
+00. **[KAATYA_PHASE_3_CORRECTION_AND_VALIDATION_REPORT.md](./KAATYA_PHASE_3_CORRECTION_AND_VALIDATION_REPORT.md)** — **Validation & Correction Report:** Arithmetic fixes ($12.0 - 7.2 = 4.8\text{ GB}$), FLUX.2 Klein Qwen3 dependencies, video diffusion feasibility, multi-editor interchange, restored 23-agent roster, and unified tech stack.
 1. **[KAATYA_FINAL_MASTER_ARCHITECTURE.md](./KAATYA_FINAL_MASTER_ARCHITECTURE.md)** — **The Master Blueprint:** System topology, 12 GB RAM budget, permanent Main AI residency, boundaries.
 2. **[KAATYA_FINAL_MODEL_INVENTORY.md](./KAATYA_FINAL_MODEL_INVENTORY.md)** — **Authoritative Model Inventory:** Exact byte sizes, architectures, SHA-256 hashes for all 10 present models.
 3. **[KAATYA_MODEL_COMPATIBILITY_AND_BENCHMARK_PLAN.md](./KAATYA_MODEL_COMPATIBILITY_AND_BENCHMARK_PLAN.md)** — Model comparisons, KV cache formulas, CPU throughput bounds, and llama-bench suite.
