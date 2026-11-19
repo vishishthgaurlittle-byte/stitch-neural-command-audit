@@ -1,50 +1,40 @@
-# Stitch Design Audit & Desktop AI Master Architecture
+# KAATYA: Final Desktop AI Assistant Master Architecture
 
-**Audit Date:** November 19, 2026  
-**Project Identity:** Premium Windows 10 Desktop AI Assistant Application (Not an OS)  
-**Design System:** Obsidian Command (`stitch_neural_command_desktop_os`)  
-**Target Hardware:** Intel Core i3-6100T (2 Cores, 4 Threads @ 3.20 GHz) | 12.0 GB DDR4 RAM | Intel HD 530 Graphics | Windows 10 64-bit  
-**Current Phase:** **Phase 3.1 Independent Architecture Audit & Corrections Complete** (Implementation Blocked Pending Final Review)  
+**Project Identity:** **KAATYA** — Premium Windows 10 Desktop AI Assistant Application (Not an OS)  
+**Audit & Architecture Finalization Date:** November 19, 2026  
+**Design System:** Obsidian Command (Preserving all 15 Google Stitch Screens)  
+**Target Hardware:** Intel Core i3-6100T (2 Cores, 4 Threads @ 3.20 GHz) | 12.0 GB DDR4 RAM | Intel HD Graphics 530 | Amazon Basics USB 3.0 (116 GB) | Windows 10 64-bit  
+**Current Status:** **Final Architecture, Model Inventory & 23-Agent Expansion Complete** (Phase 4 Blocked Pending Review)  
 **Primary Source Directory:** [`/design-source/`](./design-source/)  
 
 ---
 
-## 🛡️ Phase 3.1: Independent Architecture Audit & Technical Corrections
+## 🏛️ KAATYA Master Architecture & Engineering Deliverables (15 Deliverables)
 
-An independent technical audit was conducted on the Phase 3 architecture, correcting memory allocations, lifecycle rules, benchmark protocols, and security models:
+The complete, hardware-calibrated technical blueprint and multimodal architecture for KAATYA:
 
-1. **[PHASE_3_1_INDEPENDENT_AUDIT.md](./PHASE_3_1_INDEPENDENT_AUDIT.md)** — Comprehensive audit report identifying critical discrepancies, unverified claims, and mandated corrections.
-2. **[MODEL_IDENTITY_AND_MEMORY_CORRECTIONS.md](./MODEL_IDENTITY_AND_MEMORY_CORRECTIONS.md)** — Dissection of GGUF metadata, resolution of the Nemotron 4B/E4B/7.5B naming, and mathematical 12 GB RAM budget proof.
-3. **[MAIN_AI_PERMANENT_RESIDENCY_CORRECTION.md](./MAIN_AI_PERMANENT_RESIDENCY_CORRECTION.md)** — Formal codification of Main AI non-evictable residency, repudiating flawed model swapping.
-4. **[REALISTIC_HARDWARE_BENCHMARK_PROTOCOL.md](./REALISTIC_HARDWARE_BENCHMARK_PROTOCOL.md)** — Empirical benchmark protocol for target PC, retraction of the 120 tok/ms embedding typo, and classification of unmeasured metrics.
-5. **[WINDOWS_10_AND_WEBVIEW2_COMPATIBILITY.md](./WINDOWS_10_AND_WEBVIEW2_COMPATIBILITY.md)** — Analysis of WebView2 distribution, debunking bootstrapper offline claims, and bundling Fixed Version Runtime.
-6. **[SECURITY_AND_AIRGAP_CORRECTIONS.md](./SECURITY_AND_AIRGAP_CORRECTIONS.md)** — Non-destructive emergency interruption (`Ctrl + Alt + Escape`), multi-layer shell AST security, and truthful software Air-Gap definition.
-7. **[STITCH_DESIGN_PRESERVATION_AUDIT.md](./STITCH_DESIGN_PRESERVATION_AUDIT.md)** — 100% visual and functional preservation audit across all 15 screens with low-resource 2D/2.5D Canvas optimizations.
-8. **[PHASE_3_1_FINAL_DECISIONS.md](./PHASE_3_1_FINAL_DECISIONS.md)** — Definitive architectural decisions matrix and final approval gate status.
-
----
-
-## 🏛️ Phase 3 Master Architecture & Engineering Deliverables (Corrected)
-
-The core technical blueprint, updated to align 100% with Phase 3.1 audit decisions:
-
-1. **[PHASE_3_MASTER_ARCHITECTURE.md](./PHASE_3_MASTER_ARCHITECTURE.md)** — **The Master Architecture Blueprint** defining the entire desktop AI assistant system, component topologies, and boundary definitions.
-2. **[TECH_STACK_COMPARISON.md](./TECH_STACK_COMPARISON.md)** — Empirical comparison of Tauri v2 vs. Electron vs. Native C++/WinUI 3 on 12 GB RAM and dual-core Skylake.
-3. **[AI_ORCHESTRATION_ARCHITECTURE.md](./AI_ORCHESTRATION_ARCHITECTURE.md)** — Main AI controller kernel, single-worker concurrency invariants, and specification of all 15 logical agent roles.
-4. **[LOCAL_MODEL_HARDWARE_BENCHMARK_PLAN.md](./LOCAL_MODEL_HARDWARE_BENCHMARK_PLAN.md)** — Mathematical RAM profiling, KV cache formulas, CPU throughput bounds, and automated benchmark commands.
-5. **[DESKTOP_AUTOMATION_SECURITY.md](./DESKTOP_AUTOMATION_SECURITY.md)** — Three-tier human-in-the-loop permission gate, sandboxed shell execution, and non-destructive emergency interrupt.
-6. **[PLUGIN_SYSTEM_ARCHITECTURE.md](./PLUGIN_SYSTEM_ARCHITECTURE.md)** — Sandboxed local MCP tools, cloud AI provider drivers, and Windows DPAPI hardware-bound key vault.
-7. **[MEMORY_AND_VOICE_ARCHITECTURE.md](./MEMORY_AND_VOICE_ARCHITECTURE.md)** — Persistent relational SQLite + `sqlite-vec` semantic memory, offline Piper TTS (English & Hindi), and Whisper Base STT with instant barge-in.
-8. **[SCREEN_TO_FEATURE_IMPLEMENTATION_MAP.md](./SCREEN_TO_FEATURE_IMPLEMENTATION_MAP.md)** — Complete bidirectional mapping of all 15 Google Stitch screens to frontend components, backend IPC, and data models.
-9. **[DEVELOPMENT_ROADMAP.md](./DEVELOPMENT_ROADMAP.md)** — 10-milestone sequential implementation plan with strict dependencies, deliverables, and acceptance criteria.
-10. **[RISKS_AND_UNRESOLVED_DECISIONS.md](./RISKS_AND_UNRESOLVED_DECISIONS.md)** — Detailed hardware bottleneck analysis, thermal mitigations, and resolved architectural decisions.
+1. **[KAATYA_FINAL_MASTER_ARCHITECTURE.md](./KAATYA_FINAL_MASTER_ARCHITECTURE.md)** — **The Master Blueprint:** System topology, 12 GB RAM budget, permanent Main AI residency, boundaries.
+2. **[KAATYA_FINAL_MODEL_INVENTORY.md](./KAATYA_FINAL_MODEL_INVENTORY.md)** — **Authoritative Model Inventory:** Exact byte sizes, architectures, SHA-256 hashes for all 10 present models.
+3. **[KAATYA_MODEL_COMPATIBILITY_AND_BENCHMARK_PLAN.md](./KAATYA_MODEL_COMPATIBILITY_AND_BENCHMARK_PLAN.md)** — Model comparisons, KV cache formulas, CPU throughput bounds, and llama-bench suite.
+4. **[KAATYA_AGENT_ROSTER_AND_CAPABILITY_MATRIX.md](./KAATYA_AGENT_ROSTER_AND_CAPABILITY_MATRIX.md)** — **The 23 Logical Agent Roles:** Complete capability matrix, schemas, and task handoff loops.
+5. **[KAATYA_VIDEO_STUDIO_ARCHITECTURE.md](./KAATYA_VIDEO_STUDIO_ARCHITECTURE.md)** — **Video Studio:** 22-step production pipeline, FFmpeg CLI engine, CapCut UI automation, Whisper subtitles.
+6. **[KAATYA_IMAGE_GENERATION_ARCHITECTURE.md](./KAATYA_IMAGE_GENERATION_ARCHITECTURE.md)** — **Image Studio:** FLUX.2 Klein 4B DiT audit, companion requirements, CPU limits, cloud approval gate.
+7. **[KAATYA_ONLINE_PROVIDER_AND_PLUGIN_ARCHITECTURE.md](./KAATYA_ONLINE_PROVIDER_AND_PLUGIN_ARCHITECTURE.md)** — Online AI Provider Manager (Claude, OpenAI, Groq, Runway), DPAPI key vault, Air-Gap rules.
+8. **[KAATYA_LOCAL_RUNTIME_AND_MEMORY_POLICY.md](./KAATYA_LOCAL_RUNTIME_AND_MEMORY_POLICY.md)** — Dynamic memory policy, pre-flight RAM checking (`GlobalMemoryStatusEx`), single-worker upper bound.
+9. **[KAATYA_MEMORY_AND_VOICE_ARCHITECTURE.md](./KAATYA_MEMORY_AND_VOICE_ARCHITECTURE.md)** — `sqlite-vec` persistent memory (`qwen3-embedding`), Piper TTS (Mike/Rohan), Whisper Base STT, barge-in.
+10. **[KAATYA_SECURITY_AND_AUTOMATION_POLICY.md](./KAATYA_SECURITY_AND_AUTOMATION_POLICY.md)** — Three-tier permissions, workspace scoping, PowerShell AST validation, `Ctrl + Alt + Escape` global panic hotkey.
+11. **[KAATYA_WINDOWS_10_COMPATIBILITY.md](./KAATYA_WINDOWS_10_COMPATIBILITY.md)** — Windows 10 editions, offline WebView2 Fixed Version Runtime bundling, VC++ redistributable, USB 3.0 storage.
+12. **[KAATYA_UI_FEATURE_INTEGRATION_MAP.md](./KAATYA_UI_FEATURE_INTEGRATION_MAP.md)** — Seamless mapping of all 23 agents, Video Studio, Image Studio, and DB runner into the 15 Google Stitch screens.
+13. **[KAATYA_IMPLEMENTATION_ROADMAP.md](./KAATYA_IMPLEMENTATION_ROADMAP.md)** — 10-milestone phased development schedule with dependencies and measurable acceptance criteria.
+14. **[KAATYA_RISKS_AND_UNRESOLVED_DECISIONS.md](./KAATYA_RISKS_AND_UNRESOLVED_DECISIONS.md)** — Hardware risk register, thermal mitigations, verified facts vs untested items, and 3 review decisions.
+15. **[KAATYA_FINAL_AUDIT_REPORT.md](./KAATYA_FINAL_AUDIT_REPORT.md)** — Comprehensive synthesis and final architecture audit sign-off.
 
 ---
 
 ## 🚀 Original Design Source Files (100% Verified)
 
-- **[SOURCE_RECOVERY_VERIFICATION.md](./SOURCE_RECOVERY_VERIFICATION.md)** — **100% Verification Report with direct links to all 15 HTML files & DESIGN.md**
-- **[design-source/](./design-source/)** — **Full, uncompressed Google Stitch design package directory**
+- **[SOURCE_RECOVERY_VERIFICATION.md](./SOURCE_RECOVERY_VERIFICATION.md)** — 100% Verification Report with direct links to all 15 HTML files & DESIGN.md
+- **[design-source/](./design-source/)** — Full, uncompressed Google Stitch design package directory
   - [obsidian_command/DESIGN.md](./design-source/obsidian_command/DESIGN.md) — Obsidian Command Design System Specification
   - [Screen 01: Command Center](./design-source/screen_01_command_center/code.html)
   - [Screen 02: Conversation Workspace](./design-source/screen_02_conversation_workspace/code.html)
@@ -64,15 +54,11 @@ The core technical blueprint, updated to align 100% with Phase 3.1 audit decisio
 
 ---
 
-## 📋 Phase 1 Audit Documentation
+## 📋 Historical Audit Documentation
 
-1. [MASTER_STITCH_DESIGN_AUDIT.md](./MASTER_STITCH_DESIGN_AUDIT.md) — Comprehensive Master Audit Report covering all screens and UX findings.
-2. [STITCH_FILE_INVENTORY.csv](./STITCH_FILE_INVENTORY.csv) — Complete 20-file inventory of source templates.
-3. [PAGE_AND_COMPONENT_MAP.md](./PAGE_AND_COMPONENT_MAP.md) — Screen-by-screen layout and component breakdown.
-4. [INTERACTION_AUDIT.csv](./INTERACTION_AUDIT.csv) — Audit of all 807 interactive UI elements.
-5. [NAVIGATION_MAP.md](./NAVIGATION_MAP.md) — Navigation routing topology.
-6. [MISSING_AND_INCOMPLETE_ITEMS.md](./MISSING_AND_INCOMPLETE_ITEMS.md) — Missing items and gaps.
-7. [AI_ARCHITECTURE_DESIGN_REVIEW.md](./AI_ARCHITECTURE_DESIGN_REVIEW.md) — Initial AI architecture audit.
-8. [PERFORMANCE_AND_COMPATIBILITY_REVIEW.md](./PERFORMANCE_AND_COMPATIBILITY_REVIEW.md) — Hardware review against Core i3-6100T.
-9. [ASSET_MANIFEST.json](./ASSET_MANIFEST.json) — Asset manifest and bundle specifications.
-10. [GITHUB_UPLOAD_LOG.md](./GITHUB_UPLOAD_LOG.md) — Verification log of the GitHub uploads.
+- [PHASE_3_1_INDEPENDENT_AUDIT.md](./PHASE_3_1_INDEPENDENT_AUDIT.md) — Phase 3.1 independent audit and corrections.
+- [MASTER_STITCH_DESIGN_AUDIT.md](./MASTER_STITCH_DESIGN_AUDIT.md) — Phase 1 UX & component audit.
+- [STITCH_FILE_INVENTORY.csv](./STITCH_FILE_INVENTORY.csv) — Inventory of original templates.
+- [PAGE_AND_COMPONENT_MAP.md](./PAGE_AND_COMPONENT_MAP.md) — Screen-by-screen breakdown.
+- [INTERACTION_AUDIT.csv](./INTERACTION_AUDIT.csv) — Audit of all 807 interactive UI elements.
+- [GITHUB_UPLOAD_LOG.md](./GITHUB_UPLOAD_LOG.md) — Remote upload logs.
