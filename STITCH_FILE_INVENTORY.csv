@@ -1,0 +1,21 @@
+Relative File Path,File Name,File Extension,File Size (Bytes),File Category,Purpose,Referenced By Another File,Is Required,File Status
+obsidian_command/DESIGN.md,DESIGN.md,.md,10688,Design System Specification,"Defines color tokens, typography, elevation, spacing, and component specs",Yes (Design reference),Required,Verified
+screen_01_command_center/code.html,code.html,.html,58881,Screen Interface Template,Complete standalone HTML/Tailwind mockup template for screen_01_command_center,Yes (Primary screen entry),Required,Verified
+screen_02_conversation_workspace/code.html,code.html,.html,52008,Screen Interface Template,Complete standalone HTML/Tailwind mockup template for screen_02_conversation_workspace,Yes (Primary screen entry),Required,Verified
+screen_03_3d_neural_core/code.html,code.html,.html,54445,Screen Interface Template,Complete standalone HTML/Tailwind mockup template for screen_03_3d_neural_core,Yes (Primary screen entry),Required,Verified
+screen_04_intelligence_ai_models/code.html,code.html,.html,52980,Screen Interface Template,Complete standalone HTML/Tailwind mockup template for screen_04_intelligence_ai_models,Yes (Primary screen entry),Required,Verified
+screen_04_intelligence_ai_models/screen.png,screen.png,.png,702248,Visual Screen Preview,Visual rendered PNG screenshot of screen_04_intelligence_ai_models,Documentation preview,Optional (Asset),Verified
+screen_05_plugin_centre/code.html,code.html,.html,68498,Screen Interface Template,Complete standalone HTML/Tailwind mockup template for screen_05_plugin_centre,Yes (Primary screen entry),Required,Verified
+screen_06_agent_workspace/code.html,code.html,.html,71124,Screen Interface Template,Complete standalone HTML/Tailwind mockup template for screen_06_agent_workspace,Yes (Primary screen entry),Required,Verified
+screen_06_agent_workspace/screen.png,screen.png,.png,349082,Visual Screen Preview,Visual rendered PNG screenshot of screen_06_agent_workspace,Documentation preview,Optional (Asset),Verified
+screen_07_workflow_builder/code.html,code.html,.html,62622,Screen Interface Template,Complete standalone HTML/Tailwind mockup template for screen_07_workflow_builder,Yes (Primary screen entry),Required,Verified
+screen_08_pc_control_centre/code.html,code.html,.html,60462,Screen Interface Template,Complete standalone HTML/Tailwind mockup template for screen_08_pc_control_centre,Yes (Primary screen entry),Required,Verified
+screen_09_memory_centre/code.html,code.html,.html,67497,Screen Interface Template,Complete standalone HTML/Tailwind mockup template for screen_09_memory_centre,Yes (Primary screen entry),Required,Verified
+screen_10_voice_personality_studio/code.html,code.html,.html,55562,Screen Interface Template,Complete standalone HTML/Tailwind mockup template for screen_10_voice_personality_studio,Yes (Primary screen entry),Required,Verified
+screen_11_tasks_activity/code.html,code.html,.html,59845,Screen Interface Template,Complete standalone HTML/Tailwind mockup template for screen_11_tasks_activity,Yes (Primary screen entry),Required,Verified
+screen_12_system_monitor/code.html,code.html,.html,60725,Screen Interface Template,Complete standalone HTML/Tailwind mockup template for screen_12_system_monitor,Yes (Primary screen entry),Required,Verified
+screen_13_security_permissions/code.html,code.html,.html,49614,Screen Interface Template,Complete standalone HTML/Tailwind mockup template for screen_13_security_permissions,Yes (Primary screen entry),Required,Verified
+screen_13_security_permissions/screen.png,screen.png,.png,760730,Visual Screen Preview,Visual rendered PNG screenshot of screen_13_security_permissions,Documentation preview,Optional (Asset),Verified
+screen_14_settings/code.html,code.html,.html,50832,Screen Interface Template,Complete standalone HTML/Tailwind mockup template for screen_14_settings,Yes (Primary screen entry),Required,Verified
+screen_14_settings/screen.png,screen.png,.png,512909,Visual Screen Preview,Visual rendered PNG screenshot of screen_14_settings,Documentation preview,Optional (Asset),Verified
+screen_15_floating_ai_hud/code.html,code.html,.html,40412,Screen Interface Template,Complete standalone HTML/Tailwind mockup template for screen_15_floating_ai_hud,Yes (Primary screen entry),Required,Verified

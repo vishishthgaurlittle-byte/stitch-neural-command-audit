@@ -1,0 +1,2466 @@
+{
+  "screen_01_command_center": {
+    "name": "01. Command Center",
+    "file_size": 58845,
+    "buttons_count": 40,
+    "inputs_count": 2,
+    "links_count": 14,
+    "images_count": 1,
+    "headings_count": 3,
+    "scripts_count": 3,
+    "buttons_sample": [
+      {
+        "attrs": {
+          "class": "p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors",
+          "title": "Voice Interface Ready"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors",
+          "title": "Encrypted & Enforced"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "relative p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors",
+          "title": "Telemetry Alerts"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "w-full flex items-center justify-between px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "w-full flex items-center justify-between px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "p-0.5 rounded text-on-surface-variant hover:text-primary transition-colors",
+          "title": "Rename Orchestrator"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "state-pill px-space-sm py-1 rounded text-primary-container bg-surface-container font-label-mono text-label-mono font-semibold shadow-sm flex items-center gap-1"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "state-pill px-space-sm py-1 rounded text-on-surface-variant hover:text-on-surface font-label-mono text-label-mono"
+        },
+        "text": "Listening"
+      },
+      {
+        "attrs": {
+          "class": "state-pill px-space-sm py-1 rounded text-on-surface-variant hover:text-on-surface font-label-mono text-label-mono"
+        },
+        "text": "Planning"
+      },
+      {
+        "attrs": {
+          "class": "state-pill px-space-sm py-1 rounded text-on-surface-variant hover:text-on-surface font-label-mono text-label-mono"
+        },
+        "text": "Using Local Model"
+      }
+    ],
+    "inputs_sample": [
+      {
+        "tag": "textarea",
+        "attrs": {
+          "class": "w-full bg-transparent resize-none focus:outline-none text-on-surface font-body-lg text-body-lg placeholder:text-on-surface-variant/45",
+          "placeholder": "/dis| Type '/' for commands, '@' for agents, '#' for models, '>' for workflows...",
+          "rows": "3"
+        }
+      },
+      {
+        "tag": "input",
+        "attrs": {
+          "class": "bg-transparent flex-1 focus:outline-none text-on-surface font-body-md text-body-md placeholder:text-on-surface-variant/50",
+          "placeholder": "Instruct neural orchestrator or input quick prompt...",
+          "type": "text"
+        }
+      }
+    ],
+    "headings": [
+      {
+        "tag": "h1",
+        "text": "[FINAL AI NAME]",
+        "attrs": {
+          "class": "font-headline-md text-headline-md text-on-surface tracking-tight"
+        }
+      },
+      {
+        "tag": "h3",
+        "text": "Local Codebase Security Audit",
+        "attrs": {
+          "class": "font-headline-sm text-headline-sm text-on-surface font-semibold mt-0.5"
+        }
+      },
+      {
+        "tag": "h3",
+        "text": "File Deletion & Overwrite in /dist/artifacts",
+        "attrs": {
+          "class": "font-headline-sm text-headline-sm text-on-surface font-semibold"
+        }
+      }
+    ],
+    "external_scripts": [
+      "https://cdn.tailwindcss.com"
+    ],
+    "has_inline_js": true,
+    "images": [
+      {
+        "alt": "Neural Orchestrator Emblem",
+        "class": "h-8 w-auto object-contain",
+        "src": "https://lh3.googleusercontent.com/aida/ALJJyrDkwdFfa2ZbCR92YUYuBisOJanZ8ecfnNvhI9eXBT--hdx14MyRyg6qfpPnaiS3kIpRGkkX0PNVVtIwneXNiCoblHPpmqiGrQk2CkGEIKcqfD3gRNBMLWSXQEbGOivXgnv71LBNjxftYEsjJ8cw22e5EDAyHmGagINyRC1EEZmHBwkNLqwZmekoCt_AROtGMSmXq54KIdKK2SWARwX6UIilHqAqSfaykmHb1GzCTeU"
+      }
+    ]
+  },
+  "screen_02_conversation_workspace": {
+    "name": "02. Conversation Workspace",
+    "file_size": 51995,
+    "buttons_count": 27,
+    "inputs_count": 3,
+    "links_count": 14,
+    "images_count": 1,
+    "headings_count": 0,
+    "scripts_count": 2,
+    "buttons_sample": [
+      {
+        "attrs": {
+          "class": "p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors",
+          "title": "Voice Interface Ready"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors",
+          "title": "Encrypted & Enforced"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "relative p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors",
+          "title": "Telemetry Alerts"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "w-full flex items-center justify-between px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "w-full flex items-center justify-between px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "w-full flex items-center justify-center gap-space-sm py-space-xs px-space-md bg-secondary-container hover:bg-primary-container text-on-secondary-container hover:text-surface-container-lowest transition-colors rounded-lg font-headline-sm text-headline-sm shadow-sm"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "p-0.5 text-on-surface-variant hover:text-primary transition-colors",
+          "title": "Unpin"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "p-0.5 text-on-surface-variant hover:text-primary transition-colors",
+          "title": "Rename"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "p-0.5 text-on-surface-variant hover:text-primary transition-colors",
+          "title": "Export Context"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "flex items-center gap-1 px-space-xs py-1 rounded bg-surface-container hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface transition-colors font-label-md text-label-md",
+          "title": "Mute voice synthesis"
+        },
+        "text": ""
+      }
+    ],
+    "inputs_sample": [
+      {
+        "tag": "input",
+        "attrs": {
+          "class": "w-full bg-transparent px-space-xs text-on-surface placeholder:text-on-surface-variant/40 font-body-sm text-body-sm focus:outline-none",
+          "placeholder": "Filter history & memory...",
+          "type": "text"
+        }
+      },
+      {
+        "tag": "textarea",
+        "attrs": {
+          "class": "w-full bg-transparent text-on-surface placeholder:text-on-surface-variant/40 font-body-md text-body-md focus:outline-none resize-none pt-1 leading-relaxed",
+          "placeholder": "Direct Central AI or send prompt... (Shift+Enter for newline)",
+          "rows": "2"
+        }
+      },
+      {
+        "tag": "input",
+        "attrs": {
+          "class": "bg-transparent flex-1 focus:outline-none text-on-surface font-body-md text-body-md placeholder:text-on-surface-variant/50",
+          "placeholder": "Instruct neural orchestrator or input quick prompt...",
+          "type": "text"
+        }
+      }
+    ],
+    "headings": [],
+    "external_scripts": [
+      "https://cdn.tailwindcss.com"
+    ],
+    "has_inline_js": true,
+    "images": [
+      {
+        "alt": "Neural Orchestrator Emblem",
+        "class": "h-8 w-auto object-contain",
+        "src": "https://lh3.googleusercontent.com/aida/ALJJyrDkwdFfa2ZbCR92YUYuBisOJanZ8ecfnNvhI9eXBT--hdx14MyRyg6qfpPnaiS3kIpRGkkX0PNVVtIwneXNiCoblHPpmqiGrQk2CkGEIKcqfD3gRNBMLWSXQEbGOivXgnv71LBNjxftYEsjJ8cw22e5EDAyHmGagINyRC1EEZmHBwkNLqwZmekoCt_AROtGMSmXq54KIdKK2SWARwX6UIilHqAqSfaykmHb1GzCTeU"
+      }
+    ]
+  },
+  "screen_03_3d_neural_core": {
+    "name": "03. 3D Neural Core",
+    "file_size": 54440,
+    "buttons_count": 38,
+    "inputs_count": 8,
+    "links_count": 14,
+    "images_count": 1,
+    "headings_count": 1,
+    "scripts_count": 3,
+    "buttons_sample": [
+      {
+        "attrs": {
+          "class": "p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors",
+          "title": "Voice Interface Ready"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors",
+          "title": "Encrypted & Enforced"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "relative p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors",
+          "title": "Telemetry Alerts"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "w-full flex items-center justify-between px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "w-full flex items-center justify-between px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "flex items-center gap-space-xs px-space-sm py-1 rounded bg-secondary-container text-on-secondary-container shadow-sm transition-all text-left whitespace-nowrap"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "flex items-center gap-space-xs px-space-sm py-1 rounded bg-surface-container-low hover:bg-surface-container text-on-surface-variant hover:text-on-surface transition-all text-left whitespace-nowrap"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "flex items-center gap-space-xs px-space-sm py-1 rounded bg-surface-container-low hover:bg-surface-container text-primary hover:text-primary transition-all text-left whitespace-nowrap"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "flex items-center gap-space-xs px-space-sm py-1 rounded bg-surface-container-low hover:bg-surface-container text-tertiary-fixed-dim transition-all text-left whitespace-nowrap"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "flex items-center gap-space-xs px-space-sm py-1 rounded bg-surface-container-low hover:bg-surface-container text-secondary transition-all text-left whitespace-nowrap"
+        },
+        "text": ""
+      }
+    ],
+    "inputs_sample": [
+      {
+        "tag": "input",
+        "attrs": {
+          "class": "bg-transparent text-on-surface font-label-md text-label-md placeholder:text-on-surface-variant/40 focus:outline-none w-36 lg:w-44",
+          "placeholder": "Locate node or conduit...",
+          "type": "text"
+        }
+      },
+      {
+        "tag": "input",
+        "attrs": {
+          "type": "range",
+          "min": "0",
+          "max": "2.5",
+          "step": "0.01",
+          "value": "1.42",
+          "class": "w-full h-1 bg-surface-container rounded-lg appearance-none cursor-pointer accent-[#43D9FF]"
+        }
+      },
+      {
+        "tag": "input",
+        "attrs": {
+          "type": "range",
+          "min": "10",
+          "max": "120",
+          "step": "1",
+          "value": "64",
+          "class": "w-full h-1 bg-surface-container rounded-lg appearance-none cursor-pointer accent-[#0262E6]"
+        }
+      },
+      {
+        "tag": "input",
+        "attrs": {
+          "type": "range",
+          "min": "0",
+          "max": "100",
+          "step": "1",
+          "value": "78",
+          "class": "w-full h-1 bg-surface-container rounded-lg appearance-none cursor-pointer accent-[#43D9FF]"
+        }
+      },
+      {
+        "tag": "input",
+        "attrs": {
+          "type": "range",
+          "min": "0.1",
+          "max": "1.0",
+          "step": "0.05",
+          "value": "0.65",
+          "class": "w-full h-1 bg-surface-container rounded-lg appearance-none cursor-pointer accent-[#CEBDFF]"
+        }
+      },
+      {
+        "tag": "input",
+        "attrs": {
+          "type": "checkbox",
+          "checked": "",
+          "id": "chromaticToggle",
+          "class": "accent-[#43D9FF] rounded cursor-pointer"
+        }
+      },
+      {
+        "tag": "input",
+        "attrs": {
+          "type": "range",
+          "min": "0.00",
+          "max": "0.08",
+          "step": "0.005",
+          "value": "0.03",
+          "class": "w-full h-1 bg-surface-container rounded-lg appearance-none cursor-pointer accent-[#43D9FF]"
+        }
+      },
+      {
+        "tag": "input",
+        "attrs": {
+          "class": "bg-transparent flex-1 focus:outline-none text-on-surface font-body-md text-body-md placeholder:text-on-surface-variant/50",
+          "placeholder": "Instruct neural orchestrator or input quick prompt...",
+          "type": "text"
+        }
+      }
+    ],
+    "headings": [
+      {
+        "tag": "h2",
+        "text": "Mistral-7B-Instruct",
+        "attrs": {
+          "class": "font-headline-md text-headline-md text-on-surface font-semibold"
+        }
+      }
+    ],
+    "external_scripts": [
+      "https://cdn.tailwindcss.com"
+    ],
+    "has_inline_js": true,
+    "images": [
+      {
+        "alt": "Neural Orchestrator Emblem",
+        "class": "h-8 w-auto object-contain",
+        "src": "https://lh3.googleusercontent.com/aida/ALJJyrDkwdFfa2ZbCR92YUYuBisOJanZ8ecfnNvhI9eXBT--hdx14MyRyg6qfpPnaiS3kIpRGkkX0PNVVtIwneXNiCoblHPpmqiGrQk2CkGEIKcqfD3gRNBMLWSXQEbGOivXgnv71LBNjxftYEsjJ8cw22e5EDAyHmGagINyRC1EEZmHBwkNLqwZmekoCt_AROtGMSmXq54KIdKK2SWARwX6UIilHqAqSfaykmHb1GzCTeU"
+      }
+    ]
+  },
+  "screen_04_intelligence_ai_models": {
+    "name": "04. Intelligence & AI Models",
+    "file_size": 52978,
+    "buttons_count": 34,
+    "inputs_count": 2,
+    "links_count": 14,
+    "images_count": 1,
+    "headings_count": 7,
+    "scripts_count": 3,
+    "buttons_sample": [
+      {
+        "attrs": {
+          "class": "p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors",
+          "title": "Voice Interface Ready"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors",
+          "title": "Encrypted & Enforced"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "relative p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors",
+          "title": "Telemetry Alerts"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "w-full flex items-center justify-between px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "w-full flex items-center justify-between px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "flex items-center gap-space-xs px-space-md py-space-xs rounded-lg bg-surface-container-high text-primary font-label-md text-label-md font-semibold shadow-sm transition-colors"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "flex items-center gap-space-xs px-space-md py-space-xs rounded-lg bg-secondary-container text-on-secondary-container font-label-md text-label-md font-semibold shadow-sm transition-colors"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "flex items-center gap-space-xs px-space-md py-space-xs rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface font-label-md text-label-md transition-colors"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "flex items-center gap-space-xs px-space-md py-space-xs rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface font-label-md text-label-md transition-colors"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "flex items-center gap-space-xs px-space-md py-space-xs rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface font-label-md text-label-md transition-colors"
+        },
+        "text": ""
+      }
+    ],
+    "inputs_sample": [
+      {
+        "tag": "select",
+        "attrs": {
+          "class": "bg-transparent text-on-surface font-label-md text-label-md focus:outline-none cursor-pointer"
+        }
+      },
+      {
+        "tag": "input",
+        "attrs": {
+          "class": "bg-transparent flex-1 focus:outline-none text-on-surface font-body-md text-body-md placeholder:text-on-surface-variant/50",
+          "placeholder": "Instruct neural orchestrator or input quick prompt...",
+          "type": "text"
+        }
+      }
+    ],
+    "headings": [
+      {
+        "tag": "h1",
+        "text": "Intelligence & AI Models",
+        "attrs": {
+          "class": "font-headline-lg text-headline-lg text-primary tracking-tight"
+        }
+      },
+      {
+        "tag": "h2",
+        "text": "Dynamic Inference Routing Map",
+        "attrs": {
+          "class": "font-headline-sm text-headline-sm text-on-surface"
+        }
+      },
+      {
+        "tag": "h2",
+        "text": "Configured Local Models",
+        "attrs": {
+          "class": "font-headline-sm text-headline-sm text-on-surface"
+        }
+      },
+      {
+        "tag": "h3",
+        "text": "Mistral-7B-Instruct-v0.3",
+        "attrs": {
+          "class": "font-headline-sm text-headline-sm text-primary font-semibold"
+        }
+      },
+      {
+        "tag": "h3",
+        "text": "DeepSeek-Coder-6.7B",
+        "attrs": {
+          "class": "font-headline-sm text-headline-sm text-on-surface font-semibold"
+        }
+      },
+      {
+        "tag": "h3",
+        "text": "Llama-3-8B-Instruct",
+        "attrs": {
+          "class": "font-headline-sm text-headline-sm text-on-surface font-semibold"
+        }
+      },
+      {
+        "tag": "h3",
+        "text": "Whisper-Base-IN",
+        "attrs": {
+          "class": "font-headline-sm text-headline-sm text-on-surface font-semibold"
+        }
+      }
+    ],
+    "external_scripts": [
+      "https://cdn.tailwindcss.com"
+    ],
+    "has_inline_js": true,
+    "images": [
+      {
+        "alt": "Neural Orchestrator Emblem",
+        "class": "h-8 w-auto object-contain",
+        "src": "https://lh3.googleusercontent.com/aida/ALJJyrDkwdFfa2ZbCR92YUYuBisOJanZ8ecfnNvhI9eXBT--hdx14MyRyg6qfpPnaiS3kIpRGkkX0PNVVtIwneXNiCoblHPpmqiGrQk2CkGEIKcqfD3gRNBMLWSXQEbGOivXgnv71LBNjxftYEsjJ8cw22e5EDAyHmGagINyRC1EEZmHBwkNLqwZmekoCt_AROtGMSmXq54KIdKK2SWARwX6UIilHqAqSfaykmHb1GzCTeU"
+      }
+    ]
+  },
+  "screen_05_plugin_centre": {
+    "name": "05. Plugin Centre",
+    "file_size": 68478,
+    "buttons_count": 50,
+    "inputs_count": 12,
+    "links_count": 14,
+    "images_count": 1,
+    "headings_count": 12,
+    "scripts_count": 3,
+    "buttons_sample": [
+      {
+        "attrs": {
+          "class": "p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors",
+          "title": "Voice Interface Ready"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors",
+          "title": "Encrypted & Enforced"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "relative p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors",
+          "title": "Telemetry Alerts"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "w-full flex items-center justify-between px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "w-full flex items-center justify-between px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "flex items-center gap-space-xs px-space-md py-space-xs rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface transition-all shadow-sm",
+          "id": "btn-scan"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "flex items-center gap-space-xs px-space-md py-space-xs rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface transition-all shadow-sm",
+          "id": "btn-audit"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "flex items-center gap-space-xs px-space-md py-space-xs rounded-lg bg-secondary-container hover:bg-primary-container text-on-secondary-container hover:text-on-primary-container transition-all shadow-md font-medium"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "tab-btn px-space-md py-space-xs rounded-lg bg-secondary-container text-on-secondary-container font-label-md text-label-md font-semibold shadow-sm transition-all",
+          "data-tab": "overview"
+        },
+        "text": "Overview & Store"
+      },
+      {
+        "attrs": {
+          "class": "tab-btn px-space-md py-space-xs rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container font-label-md text-label-md font-medium transition-all",
+          "data-tab": "connected"
+        },
+        "text": "Connected Plugins"
+      }
+    ],
+    "inputs_sample": [
+      {
+        "tag": "input",
+        "attrs": {
+          "class": "w-full pl-10 pr-space-md py-space-xs bg-surface-container rounded-lg font-body-md text-body-md text-on-surface placeholder:text-outline focus:outline-none focus:bg-surface-container-high shadow-inner",
+          "id": "plugin-search",
+          "placeholder": "Search 48+ plugins, tools, or local integrations (press '/' to focus)...",
+          "type": "text"
+        }
+      },
+      {
+        "tag": "input",
+        "attrs": {
+          "checked": "",
+          "class": "w-4 h-4 rounded bg-surface-container-high text-secondary-container focus:ring-0 cursor-pointer",
+          "type": "checkbox"
+        }
+      },
+      {
+        "tag": "input",
+        "attrs": {
+          "checked": "",
+          "class": "w-4 h-4 rounded bg-surface-container-high text-secondary-container focus:ring-0 cursor-pointer",
+          "type": "checkbox"
+        }
+      },
+      {
+        "tag": "input",
+        "attrs": {
+          "class": "w-4 h-4 rounded bg-surface-container-high text-error focus:ring-0 opacity-50 cursor-not-allowed",
+          "disabled": "",
+          "type": "checkbox"
+        }
+      },
+      {
+        "tag": "input",
+        "attrs": {
+          "class": "w-4 h-4 rounded bg-surface-container-high text-error focus:ring-0 opacity-50 cursor-not-allowed",
+          "disabled": "",
+          "type": "checkbox"
+        }
+      },
+      {
+        "tag": "input",
+        "attrs": {
+          "class": "bg-transparent flex-1 focus:outline-none text-on-surface font-body-md text-body-md placeholder:text-on-surface-variant/50",
+          "placeholder": "Instruct neural orchestrator or input quick prompt...",
+          "type": "text"
+        }
+      },
+      {
+        "tag": "input",
+        "attrs": {
+          "type": "text",
+          "readonly": "",
+          "value": "C:/workspace/sandbox_v3",
+          "class": "w-full pl-10 pr-space-md py-space-xs bg-surface-container-lowest border border-outline-variant/40 rounded-lg font-code-md text-code-md text-primary font-medium focus:outline-none shadow-inner"
+        }
+      },
+      {
+        "tag": "input",
+        "attrs": {
+          "type": "checkbox",
+          "checked": "",
+          "class": "w-4 h-4 rounded bg-surface-container-high text-secondary-container focus:ring-0 cursor-pointer"
+        }
+      },
+      {
+        "tag": "input",
+        "attrs": {
+          "type": "checkbox",
+          "checked": "",
+          "class": "w-4 h-4 rounded bg-surface-container-high text-secondary-container focus:ring-0 cursor-pointer"
+        }
+      },
+      {
+        "tag": "input",
+        "attrs": {
+          "type": "checkbox",
+          "disabled": "",
+          "class": "w-4 h-4 rounded bg-surface-container-high text-error focus:ring-0 cursor-not-allowed"
+        }
+      }
+    ],
+    "headings": [
+      {
+        "tag": "h1",
+        "text": "Plugin Centre",
+        "attrs": {
+          "class": "font-headline-lg text-headline-lg text-on-surface tracking-tight"
+        }
+      },
+      {
+        "tag": "h3",
+        "text": "FS Local Sandbox",
+        "attrs": {
+          "class": "font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors"
+        }
+      },
+      {
+        "tag": "h3",
+        "text": "Obsidian Vault Sync",
+        "attrs": {
+          "class": "font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors"
+        }
+      },
+      {
+        "tag": "h3",
+        "text": "Brave Local Indexer",
+        "attrs": {
+          "class": "font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors"
+        }
+      },
+      {
+        "tag": "h3",
+        "text": "Git & AST Engine",
+        "attrs": {
+          "class": "font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors"
+        }
+      },
+      {
+        "tag": "h3",
+        "text": "Terminal Exec Enclave",
+        "attrs": {
+          "class": "font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors"
+        }
+      },
+      {
+        "tag": "h3",
+        "text": "Database Inspector",
+        "attrs": {
+          "class": "font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors"
+        }
+      },
+      {
+        "tag": "h3",
+        "text": "Whisper Stream DirectML",
+        "attrs": {
+          "class": "font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors"
+        }
+      },
+      {
+        "tag": "h3",
+        "text": "Telegram Bot Gateway",
+        "attrs": {
+          "class": "font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors"
+        }
+      },
+      {
+        "tag": "h2",
+        "text": "Local FS Sandbox",
+        "attrs": {
+          "class": "font-headline-md text-headline-md text-on-surface"
+        }
+      }
+    ],
+    "external_scripts": [
+      "https://cdn.tailwindcss.com"
+    ],
+    "has_inline_js": true,
+    "images": [
+      {
+        "alt": "Neural Orchestrator Emblem",
+        "class": "h-8 w-auto object-contain",
+        "src": "https://lh3.googleusercontent.com/aida/ALJJyrDkwdFfa2ZbCR92YUYuBisOJanZ8ecfnNvhI9eXBT--hdx14MyRyg6qfpPnaiS3kIpRGkkX0PNVVtIwneXNiCoblHPpmqiGrQk2CkGEIKcqfD3gRNBMLWSXQEbGOivXgnv71LBNjxftYEsjJ8cw22e5EDAyHmGagINyRC1EEZmHBwkNLqwZmekoCt_AROtGMSmXq54KIdKK2SWARwX6UIilHqAqSfaykmHb1GzCTeU"
+      }
+    ]
+  },
+  "screen_06_agent_workspace": {
+    "name": "06. Agent Workspace",
+    "file_size": 71082,
+    "buttons_count": 63,
+    "inputs_count": 2,
+    "links_count": 14,
+    "images_count": 1,
+    "headings_count": 9,
+    "scripts_count": 3,
+    "buttons_sample": [
+      {
+        "attrs": {
+          "class": "p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors",
+          "title": "Voice Interface Ready"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors",
+          "title": "Encrypted & Enforced"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "relative p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors",
+          "title": "Telemetry Alerts"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "w-full flex items-center justify-between px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "w-full flex items-center justify-between px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "px-space-sm py-1 rounded bg-secondary-container text-on-secondary-container font-label-mono text-label-mono font-semibold flex items-center gap-1 shadow-sm"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "px-space-sm py-1 rounded bg-surface-container hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface font-label-mono text-label-mono transition-colors flex items-center gap-1"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "px-space-sm py-1 rounded bg-surface-container hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface font-label-mono text-label-mono transition-colors flex items-center gap-1"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "flex items-center gap-space-xs px-space-md py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md text-label-md transition-colors shadow-sm"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "flex items-center gap-space-xs px-space-md py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md text-label-md transition-colors shadow-sm"
+        },
+        "text": ""
+      }
+    ],
+    "inputs_sample": [
+      {
+        "tag": "input",
+        "attrs": {
+          "class": "w-full bg-surface-container text-on-surface pl-9 pr-space-md py-1.5 rounded-lg text-body-sm font-body-sm focus:outline-none focus:bg-surface-container-high transition-colors placeholder:text-on-surface-variant/60",
+          "id": "agent-search",
+          "placeholder": "Filter by agent, scope, or model...",
+          "type": "text"
+        }
+      },
+      {
+        "tag": "input",
+        "attrs": {
+          "class": "bg-transparent flex-1 focus:outline-none text-on-surface font-body-md text-body-md placeholder:text-on-surface-variant/50",
+          "placeholder": "Instruct neural orchestrator or input quick prompt...",
+          "type": "text"
+        }
+      }
+    ],
+    "headings": [
+      {
+        "tag": "h1",
+        "text": "Agent Workspace & Swarm Specialist Matrix",
+        "attrs": {
+          "class": "font-headline-lg text-headline-lg text-on-surface tracking-tight mt-1"
+        }
+      },
+      {
+        "tag": "h2",
+        "text": "Coder Agent",
+        "attrs": {
+          "class": "font-headline-sm text-headline-sm text-on-surface font-semibold group-hover:text-primary transition-colors"
+        }
+      },
+      {
+        "tag": "h2",
+        "text": "Security Auditor",
+        "attrs": {
+          "class": "font-headline-sm text-headline-sm text-on-surface font-semibold group-hover:text-primary transition-colors"
+        }
+      },
+      {
+        "tag": "h2",
+        "text": "PC Automation Agent",
+        "attrs": {
+          "class": "font-headline-sm text-headline-sm text-on-surface font-semibold group-hover:text-primary transition-colors"
+        }
+      },
+      {
+        "tag": "h2",
+        "text": "Voice Synthesis Agent",
+        "attrs": {
+          "class": "font-headline-sm text-headline-sm text-on-surface font-semibold group-hover:text-primary transition-colors"
+        }
+      },
+      {
+        "tag": "h2",
+        "text": "Designer",
+        "attrs": {
+          "class": "font-headline-sm text-headline-sm text-on-surface font-semibold group-hover:text-primary transition-colors"
+        }
+      },
+      {
+        "tag": "h2",
+        "text": "Researcher",
+        "attrs": {
+          "class": "font-headline-sm text-headline-sm text-on-surface font-semibold group-hover:text-primary transition-colors"
+        }
+      },
+      {
+        "tag": "h2",
+        "text": "Coder Agent",
+        "attrs": {
+          "class": "font-headline-md text-headline-md text-on-surface mt-0.5"
+        }
+      },
+      {
+        "tag": "h2",
+        "text": "Inter-Agent Message Simulation Trace",
+        "attrs": {
+          "class": "font-headline-sm text-headline-sm text-on-surface font-bold"
+        }
+      }
+    ],
+    "external_scripts": [
+      "https://cdn.tailwindcss.com"
+    ],
+    "has_inline_js": true,
+    "images": [
+      {
+        "alt": "Neural Orchestrator Emblem",
+        "class": "h-8 w-auto object-contain",
+        "src": "https://lh3.googleusercontent.com/aida/ALJJyrDkwdFfa2ZbCR92YUYuBisOJanZ8ecfnNvhI9eXBT--hdx14MyRyg6qfpPnaiS3kIpRGkkX0PNVVtIwneXNiCoblHPpmqiGrQk2CkGEIKcqfD3gRNBMLWSXQEbGOivXgnv71LBNjxftYEsjJ8cw22e5EDAyHmGagINyRC1EEZmHBwkNLqwZmekoCt_AROtGMSmXq54KIdKK2SWARwX6UIilHqAqSfaykmHb1GzCTeU"
+      }
+    ]
+  },
+  "screen_07_workflow_builder": {
+    "name": "07. Workflow Builder",
+    "file_size": 62610,
+    "buttons_count": 24,
+    "inputs_count": 5,
+    "links_count": 14,
+    "images_count": 1,
+    "headings_count": 1,
+    "scripts_count": 2,
+    "buttons_sample": [
+      {
+        "attrs": {
+          "class": "p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors",
+          "title": "Voice Interface Ready"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors",
+          "title": "Encrypted & Enforced"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "relative p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors",
+          "title": "Telemetry Alerts"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "w-full flex items-center justify-between px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "w-full flex items-center justify-between px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "p-1 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors",
+          "title": "Undo (Ctrl+Z)"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "p-1 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors",
+          "title": "Redo (Ctrl+Y)"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "flex items-center gap-space-xs px-space-sm py-1.5 rounded-lg bg-surface-container text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors font-label-md text-label-md"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "flex items-center gap-space-xs px-space-sm py-1.5 rounded-lg bg-surface-container-high text-on-surface hover:bg-surface-bright transition-colors font-label-md text-label-md"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "flex items-center gap-space-xs px-space-sm py-1.5 rounded-lg bg-secondary-container text-on-secondary-container hover:bg-primary-container hover:text-on-primary-container transition-all font-label-md text-label-md font-semibold shadow-sm"
+        },
+        "text": ""
+      }
+    ],
+    "inputs_sample": [
+      {
+        "tag": "input",
+        "attrs": {
+          "class": "bg-transparent w-full text-body-sm font-body-sm text-on-surface focus:outline-none placeholder:text-on-surface-variant/40",
+          "placeholder": "Search node definitions...",
+          "type": "text"
+        }
+      },
+      {
+        "tag": "input",
+        "attrs": {
+          "checked": "",
+          "class": "mt-0.5 text-primary focus:ring-0 bg-surface-container-lowest",
+          "name": "policy",
+          "type": "radio"
+        }
+      },
+      {
+        "tag": "input",
+        "attrs": {
+          "class": "mt-0.5 text-primary focus:ring-0 bg-surface-container-lowest",
+          "disabled": "",
+          "name": "policy",
+          "type": "radio"
+        }
+      },
+      {
+        "tag": "input",
+        "attrs": {
+          "class": "w-full h-1.5 bg-surface-container rounded-lg appearance-none cursor-pointer accent-primary",
+          "max": "900",
+          "min": "30",
+          "type": "range",
+          "value": "300"
+        }
+      },
+      {
+        "tag": "input",
+        "attrs": {
+          "class": "bg-transparent flex-1 focus:outline-none text-on-surface font-body-md text-body-md placeholder:text-on-surface-variant/50",
+          "placeholder": "Instruct neural orchestrator or input quick prompt...",
+          "type": "text"
+        }
+      }
+    ],
+    "headings": [
+      {
+        "tag": "h1",
+        "text": "Local Codebase Security Audit & Release Verifier",
+        "attrs": {
+          "class": "font-headline-sm text-headline-sm text-on-surface truncate"
+        }
+      }
+    ],
+    "external_scripts": [
+      "https://cdn.tailwindcss.com"
+    ],
+    "has_inline_js": true,
+    "images": [
+      {
+        "alt": "Neural Orchestrator Emblem",
+        "class": "h-8 w-auto object-contain",
+        "src": "https://lh3.googleusercontent.com/aida/ALJJyrDkwdFfa2ZbCR92YUYuBisOJanZ8ecfnNvhI9eXBT--hdx14MyRyg6qfpPnaiS3kIpRGkkX0PNVVtIwneXNiCoblHPpmqiGrQk2CkGEIKcqfD3gRNBMLWSXQEbGOivXgnv71LBNjxftYEsjJ8cw22e5EDAyHmGagINyRC1EEZmHBwkNLqwZmekoCt_AROtGMSmXq54KIdKK2SWARwX6UIilHqAqSfaykmHb1GzCTeU"
+      }
+    ]
+  },
+  "screen_08_pc_control_centre": {
+    "name": "08. PC Control Centre",
+    "file_size": 60436,
+    "buttons_count": 21,
+    "inputs_count": 1,
+    "links_count": 14,
+    "images_count": 1,
+    "headings_count": 7,
+    "scripts_count": 3,
+    "buttons_sample": [
+      {
+        "attrs": {
+          "class": "p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors",
+          "title": "Voice Interface Ready"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors",
+          "title": "Encrypted & Enforced"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "relative p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors",
+          "title": "Telemetry Alerts"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "w-full flex items-center justify-between px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "w-full flex items-center justify-between px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "flex items-center gap-space-sm bg-error-container hover:bg-error px-space-md py-space-xs rounded-lg text-on-error-container hover:text-on-error transition-all shadow-[0_0_24px_rgba(255,99,122,0.35)] active:scale-95 group",
+          "id": "emergency-halt-btn"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "px-1.5 py-0.5 rounded hover:bg-surface-container-high text-on-surface-variant text-[11px] font-label-mono transition-colors",
+          "title": "Clear terminal buffer"
+        },
+        "text": "Clear"
+      },
+      {
+        "attrs": {
+          "class": "px-1.5 py-0.5 rounded bg-surface-container hover:bg-surface-container-high text-on-surface transition-colors flex items-center gap-1 font-semibold"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "py-1 px-2.5 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors flex items-center gap-1"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "py-1 px-2.5 rounded bg-secondary-container text-on-secondary-container font-semibold shadow-sm flex items-center gap-1"
+        },
+        "text": ""
+      }
+    ],
+    "inputs_sample": [
+      {
+        "tag": "input",
+        "attrs": {
+          "class": "bg-transparent flex-1 focus:outline-none text-on-surface font-body-md text-body-md placeholder:text-on-surface-variant/50",
+          "placeholder": "Instruct neural orchestrator or input quick prompt...",
+          "type": "text"
+        }
+      }
+    ],
+    "headings": [
+      {
+        "tag": "h1",
+        "text": "PC Control Centre",
+        "attrs": {
+          "class": "font-headline-lg text-headline-lg text-on-surface tracking-tight"
+        }
+      },
+      {
+        "tag": "h2",
+        "text": "Monitored Apps",
+        "attrs": {
+          "class": "font-headline-sm text-headline-sm text-on-surface"
+        }
+      },
+      {
+        "tag": "h2",
+        "text": "Sandbox Rules",
+        "attrs": {
+          "class": "font-headline-sm text-headline-sm text-on-surface"
+        }
+      },
+      {
+        "tag": "h3",
+        "text": "",
+        "attrs": {
+          "class": "font-headline-sm text-headline-sm text-on-surface flex items-center gap-2"
+        }
+      },
+      {
+        "tag": "h2",
+        "text": "Execution Sequence Plan",
+        "attrs": {
+          "class": "font-headline-sm text-headline-sm text-on-surface"
+        }
+      },
+      {
+        "tag": "h2",
+        "text": "Input Telemetry",
+        "attrs": {
+          "class": "font-headline-sm text-headline-sm text-on-surface"
+        }
+      },
+      {
+        "tag": "h2",
+        "text": "Security Policy Matrix",
+        "attrs": {
+          "class": "font-headline-sm text-headline-sm text-on-surface"
+        }
+      }
+    ],
+    "external_scripts": [
+      "https://cdn.tailwindcss.com"
+    ],
+    "has_inline_js": true,
+    "images": [
+      {
+        "alt": "Neural Orchestrator Emblem",
+        "class": "h-8 w-auto object-contain",
+        "src": "https://lh3.googleusercontent.com/aida/ALJJyrDkwdFfa2ZbCR92YUYuBisOJanZ8ecfnNvhI9eXBT--hdx14MyRyg6qfpPnaiS3kIpRGkkX0PNVVtIwneXNiCoblHPpmqiGrQk2CkGEIKcqfD3gRNBMLWSXQEbGOivXgnv71LBNjxftYEsjJ8cw22e5EDAyHmGagINyRC1EEZmHBwkNLqwZmekoCt_AROtGMSmXq54KIdKK2SWARwX6UIilHqAqSfaykmHb1GzCTeU"
+      }
+    ]
+  },
+  "screen_09_memory_centre": {
+    "name": "09. Memory Centre",
+    "file_size": 67477,
+    "buttons_count": 45,
+    "inputs_count": 8,
+    "links_count": 14,
+    "images_count": 1,
+    "headings_count": 7,
+    "scripts_count": 3,
+    "buttons_sample": [
+      {
+        "attrs": {
+          "class": "p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors",
+          "title": "Voice Interface Ready"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors",
+          "title": "Encrypted & Enforced"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "relative p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors",
+          "title": "Telemetry Alerts"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "w-full flex items-center justify-between px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "w-full flex items-center justify-between px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "flex items-center gap-space-xs px-space-md py-space-xs rounded-lg bg-secondary-container text-on-secondary-container hover:bg-primary hover:text-on-primary transition-all duration-150 shadow-md",
+          "id": "btn-manual-mem"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "flex items-center gap-space-xs px-space-md py-space-xs rounded-lg bg-surface-container-high text-on-surface hover:bg-surface-container-highest transition-colors"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "flex items-center gap-space-xs px-space-md py-space-xs rounded-lg bg-surface-container-high text-on-surface hover:bg-surface-container-highest transition-colors"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "flex items-center gap-space-xs px-space-md py-space-xs rounded-lg bg-error-container/40 text-error hover:bg-error-container/70 transition-colors",
+          "id": "btn-purge-open"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "flex items-center gap-space-xs px-space-lg py-space-xs rounded-lg bg-secondary-container text-on-secondary-container shadow-sm font-label-md text-label-md font-semibold tracking-wide"
+        },
+        "text": ""
+      }
+    ],
+    "inputs_sample": [
+      {
+        "tag": "input",
+        "attrs": {
+          "class": "bg-transparent flex-1 px-space-xs text-on-surface font-body-sm text-body-sm focus:outline-none placeholder:text-on-surface-variant/40",
+          "id": "vector-search-input",
+          "placeholder": "Query vectors or semantic tag...",
+          "type": "text"
+        }
+      },
+      {
+        "tag": "input",
+        "attrs": {
+          "checked": "",
+          "class": "sr-only peer",
+          "type": "checkbox"
+        }
+      },
+      {
+        "tag": "input",
+        "attrs": {
+          "checked": "",
+          "class": "sr-only peer",
+          "type": "checkbox"
+        }
+      },
+      {
+        "tag": "select",
+        "attrs": {
+          "class": "bg-surface-container text-on-surface px-space-xs py-0.5 rounded text-[11px] focus:outline-none cursor-pointer"
+        }
+      },
+      {
+        "tag": "input",
+        "attrs": {
+          "class": "px-space-sm py-2 rounded-lg bg-surface-container-lowest text-on-surface font-body-sm text-body-sm focus:outline-none",
+          "placeholder": "e.g., Default to strict type checking in Rust workspace...",
+          "type": "text"
+        }
+      },
+      {
+        "tag": "select",
+        "attrs": {
+          "class": "px-space-sm py-2 rounded-lg bg-surface-container-lowest text-on-surface font-body-sm text-body-sm focus:outline-none"
+        }
+      },
+      {
+        "tag": "textarea",
+        "attrs": {
+          "class": "px-space-sm py-2 rounded-lg bg-surface-container-lowest text-on-surface font-body-sm text-body-sm focus:outline-none resize-none",
+          "placeholder": "Enter dense semantic payload for SQLite-VSS embedding calculation...",
+          "rows": "4"
+        }
+      },
+      {
+        "tag": "input",
+        "attrs": {
+          "class": "bg-transparent flex-1 focus:outline-none text-on-surface font-body-md text-body-md placeholder:text-on-surface-variant/50",
+          "placeholder": "Instruct neural orchestrator or input quick prompt...",
+          "type": "text"
+        }
+      }
+    ],
+    "headings": [
+      {
+        "tag": "h1",
+        "text": "Memory Centre",
+        "attrs": {
+          "class": "font-display-lg text-display-lg text-on-surface tracking-tight"
+        }
+      },
+      {
+        "tag": "h2",
+        "text": "Core Coding Architecture: Rust + WebAssembly + Zero-Copy Shared Memory",
+        "attrs": {
+          "class": "font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors"
+        }
+      },
+      {
+        "tag": "h2",
+        "text": "User UI Preference: High-density desktop layouts with Manrope font and dark slate palette",
+        "attrs": {
+          "class": "font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors"
+        }
+      },
+      {
+        "tag": "h2",
+        "text": "Security Boundary: Air-gap strictly enforced on Windows DPAPI credentials & API keys",
+        "attrs": {
+          "class": "font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors"
+        }
+      },
+      {
+        "tag": "h2",
+        "text": "Local Model Quantization Strategy: Favor Q4_K_M for Mistral-7B to fit within 6GB VRAM on Intel i3",
+        "attrs": {
+          "class": "font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors"
+        }
+      },
+      {
+        "tag": "h3",
+        "text": "Confirm Irreversible Forget",
+        "attrs": {
+          "class": "font-headline-sm text-headline-sm text-on-surface"
+        }
+      },
+      {
+        "tag": "h3",
+        "text": "Inject Manual Memory Vector",
+        "attrs": {
+          "class": "font-headline-sm text-headline-sm text-on-surface"
+        }
+      }
+    ],
+    "external_scripts": [
+      "https://cdn.tailwindcss.com"
+    ],
+    "has_inline_js": true,
+    "images": [
+      {
+        "alt": "Neural Orchestrator Emblem",
+        "class": "h-8 w-auto object-contain",
+        "src": "https://lh3.googleusercontent.com/aida/ALJJyrDkwdFfa2ZbCR92YUYuBisOJanZ8ecfnNvhI9eXBT--hdx14MyRyg6qfpPnaiS3kIpRGkkX0PNVVtIwneXNiCoblHPpmqiGrQk2CkGEIKcqfD3gRNBMLWSXQEbGOivXgnv71LBNjxftYEsjJ8cw22e5EDAyHmGagINyRC1EEZmHBwkNLqwZmekoCt_AROtGMSmXq54KIdKK2SWARwX6UIilHqAqSfaykmHb1GzCTeU"
+      }
+    ]
+  },
+  "screen_10_voice_personality_studio": {
+    "name": "10. Voice & Personality Studio",
+    "file_size": 55498,
+    "buttons_count": 31,
+    "inputs_count": 8,
+    "links_count": 14,
+    "images_count": 1,
+    "headings_count": 7,
+    "scripts_count": 3,
+    "buttons_sample": [
+      {
+        "attrs": {
+          "class": "p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors",
+          "title": "Voice Interface Ready"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors",
+          "title": "Encrypted & Enforced"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "relative p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors",
+          "title": "Telemetry Alerts"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "w-full flex items-center justify-between px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "w-full flex items-center justify-between px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "flex items-center gap-space-xs px-space-md py-2 rounded-lg bg-surface-container-high hover:bg-surface-container-highest text-on-surface text-label-md font-label-md transition-all shadow-sm",
+          "id": "calibrateMicBtn"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "flex items-center gap-space-xs px-space-md py-2 rounded-lg bg-surface-container-high hover:bg-surface-container-highest text-on-surface-variant hover:text-on-surface text-label-md font-label-md transition-all shadow-sm"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "flex items-center gap-space-xs px-space-md py-2 rounded-lg bg-secondary-container hover:bg-primary-container text-on-secondary-container hover:text-on-primary-fixed font-headline-sm text-headline-sm transition-all shadow-md"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "flex items-center gap-space-xs px-space-md py-1.5 rounded-lg bg-surface-container-high text-primary-container font-headline-sm text-headline-sm shadow-sm transition-all whitespace-nowrap"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "flex items-center gap-space-xs px-space-md py-1.5 rounded-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface font-label-md text-label-md transition-all whitespace-nowrap"
+        },
+        "text": ""
+      }
+    ],
+    "inputs_sample": [
+      {
+        "tag": "input",
+        "attrs": {
+          "class": "w-full h-1.5 bg-surface-container-highest rounded-lg appearance-none cursor-pointer accent-primary-container",
+          "max": "100",
+          "min": "10",
+          "type": "range",
+          "value": "65"
+        }
+      },
+      {
+        "tag": "input",
+        "attrs": {
+          "class": "accent-primary-container",
+          "name": "lang_select",
+          "type": "radio"
+        }
+      },
+      {
+        "tag": "input",
+        "attrs": {
+          "class": "accent-primary-container",
+          "name": "lang_select",
+          "type": "radio"
+        }
+      },
+      {
+        "tag": "input",
+        "attrs": {
+          "checked": "",
+          "class": "accent-primary-container",
+          "name": "lang_select",
+          "type": "radio"
+        }
+      },
+      {
+        "tag": "input",
+        "attrs": {
+          "class": "w-full h-1.5 bg-surface-container-highest rounded-lg appearance-none cursor-pointer accent-primary-container",
+          "max": "140",
+          "min": "80",
+          "type": "range",
+          "value": "105"
+        }
+      },
+      {
+        "tag": "input",
+        "attrs": {
+          "class": "w-full h-1.5 bg-surface-container-highest rounded-lg appearance-none cursor-pointer accent-primary-container",
+          "max": "150",
+          "min": "50",
+          "type": "range",
+          "value": "104"
+        }
+      },
+      {
+        "tag": "input",
+        "attrs": {
+          "class": "bg-transparent flex-1 px-2 font-body-md text-body-md text-on-surface focus:outline-none placeholder:text-on-surface-variant/40",
+          "placeholder": "Type prompt to synthesize...",
+          "type": "text"
+        }
+      },
+      {
+        "tag": "input",
+        "attrs": {
+          "class": "bg-transparent flex-1 focus:outline-none text-on-surface font-body-md text-body-md placeholder:text-on-surface-variant/50",
+          "placeholder": "Instruct neural orchestrator or input quick prompt...",
+          "type": "text"
+        }
+      }
+    ],
+    "headings": [
+      {
+        "tag": "h1",
+        "text": "Voice & Personality Studio",
+        "attrs": {
+          "class": "font-headline-lg text-headline-lg text-on-surface tracking-tight"
+        }
+      },
+      {
+        "tag": "h2",
+        "text": "Speech Recognition & STT",
+        "attrs": {
+          "class": "font-headline-sm text-headline-sm text-on-surface"
+        }
+      },
+      {
+        "tag": "h2",
+        "text": "Synthesis & Personality",
+        "attrs": {
+          "class": "font-headline-sm text-headline-sm text-on-surface"
+        }
+      },
+      {
+        "tag": "h3",
+        "text": "Aarav",
+        "attrs": {
+          "class": "font-headline-sm text-headline-sm text-on-surface"
+        }
+      },
+      {
+        "tag": "h3",
+        "text": "Priya",
+        "attrs": {
+          "class": "font-headline-sm text-headline-sm text-on-surface"
+        }
+      },
+      {
+        "tag": "h3",
+        "text": "Dev",
+        "attrs": {
+          "class": "font-headline-sm text-headline-sm text-on-surface"
+        }
+      },
+      {
+        "tag": "h2",
+        "text": "Playground & Diagnostics",
+        "attrs": {
+          "class": "font-headline-sm text-headline-sm text-on-surface"
+        }
+      }
+    ],
+    "external_scripts": [
+      "https://cdn.tailwindcss.com"
+    ],
+    "has_inline_js": true,
+    "images": [
+      {
+        "alt": "Neural Orchestrator Emblem",
+        "class": "h-8 w-auto object-contain",
+        "src": "https://lh3.googleusercontent.com/aida/ALJJyrDkwdFfa2ZbCR92YUYuBisOJanZ8ecfnNvhI9eXBT--hdx14MyRyg6qfpPnaiS3kIpRGkkX0PNVVtIwneXNiCoblHPpmqiGrQk2CkGEIKcqfD3gRNBMLWSXQEbGOivXgnv71LBNjxftYEsjJ8cw22e5EDAyHmGagINyRC1EEZmHBwkNLqwZmekoCt_AROtGMSmXq54KIdKK2SWARwX6UIilHqAqSfaykmHb1GzCTeU"
+      }
+    ]
+  },
+  "screen_11_tasks_activity": {
+    "name": "11. Tasks & Activity",
+    "file_size": 59828,
+    "buttons_count": 39,
+    "inputs_count": 4,
+    "links_count": 14,
+    "images_count": 1,
+    "headings_count": 9,
+    "scripts_count": 3,
+    "buttons_sample": [
+      {
+        "attrs": {
+          "class": "p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors",
+          "title": "Voice Interface Ready"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors",
+          "title": "Encrypted & Enforced"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "relative p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors",
+          "title": "Telemetry Alerts"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "w-full flex items-center justify-between px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "w-full flex items-center justify-between px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "px-space-md py-1.5 rounded bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-label-md text-label-md flex items-center gap-space-xs transition-colors shadow-sm"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "px-space-md py-1.5 rounded bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-label-md text-label-md flex items-center gap-space-xs transition-colors shadow-sm"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "px-space-md py-1.5 rounded bg-secondary-container hover:bg-primary-container hover:text-on-primary-container text-on-secondary-container font-label-md text-label-md font-semibold flex items-center gap-space-xs transition-colors shadow-sm"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "px-space-md py-1 rounded-full bg-surface-container-highest text-primary font-label-mono text-label-mono font-semibold flex items-center gap-1.5 whitespace-nowrap shadow-sm"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "px-space-md py-1 rounded-full bg-surface-container-low hover:bg-surface-container text-on-surface-variant hover:text-on-surface font-label-mono text-label-mono flex items-center gap-1.5 whitespace-nowrap transition-colors"
+        },
+        "text": ""
+      }
+    ],
+    "inputs_sample": [
+      {
+        "tag": "input",
+        "attrs": {
+          "type": "checkbox",
+          "checked": "",
+          "class": "accent-primary-container cursor-pointer"
+        }
+      },
+      {
+        "tag": "input",
+        "attrs": {
+          "type": "checkbox",
+          "checked": "",
+          "class": "accent-primary-container cursor-pointer"
+        }
+      },
+      {
+        "tag": "input",
+        "attrs": {
+          "type": "checkbox",
+          "class": "accent-primary-container cursor-pointer"
+        }
+      },
+      {
+        "tag": "input",
+        "attrs": {
+          "class": "bg-transparent flex-1 focus:outline-none text-on-surface font-body-md text-body-md placeholder:text-on-surface-variant/50",
+          "placeholder": "Instruct neural orchestrator or input quick prompt...",
+          "type": "text"
+        }
+      }
+    ],
+    "headings": [
+      {
+        "tag": "h1",
+        "text": "Tasks & Activity",
+        "attrs": {
+          "class": "font-headline-lg text-headline-lg text-on-surface tracking-tight"
+        }
+      },
+      {
+        "tag": "h2",
+        "text": "Waiting for Approval (2)",
+        "attrs": {
+          "class": "font-label-mono text-label-mono uppercase tracking-wider text-secondary-fixed font-bold"
+        }
+      },
+      {
+        "tag": "h3",
+        "text": "",
+        "attrs": {
+          "class": "font-headline-sm text-headline-sm text-on-surface mt-1 break-all flex items-center gap-space-xs flex-wrap"
+        }
+      },
+      {
+        "tag": "h3",
+        "text": "External Package Installation:",
+        "attrs": {
+          "class": "font-headline-sm text-headline-sm text-on-surface mt-1"
+        }
+      },
+      {
+        "tag": "h2",
+        "text": "In Flight / Active (3)",
+        "attrs": {
+          "class": "font-label-mono text-label-mono uppercase tracking-wider text-primary font-bold"
+        }
+      },
+      {
+        "tag": "h3",
+        "text": "Full Codebase AST Security Audit",
+        "attrs": {
+          "class": "font-headline-sm text-headline-sm text-primary tracking-tight"
+        }
+      },
+      {
+        "tag": "h3",
+        "text": "Obsidian Vector Index Reranking",
+        "attrs": {
+          "class": "font-headline-sm text-headline-sm text-on-surface"
+        }
+      },
+      {
+        "tag": "h3",
+        "text": "Hinglish Acoustic Lexicon Cache Warmup",
+        "attrs": {
+          "class": "font-headline-sm text-headline-sm text-on-surface"
+        }
+      },
+      {
+        "tag": "h2",
+        "text": "Queued (5 Tasks Ready)",
+        "attrs": {
+          "class": "font-label-mono text-label-mono uppercase tracking-wider text-on-surface-variant font-bold"
+        }
+      }
+    ],
+    "external_scripts": [
+      "https://cdn.tailwindcss.com"
+    ],
+    "has_inline_js": true,
+    "images": [
+      {
+        "alt": "Neural Orchestrator Emblem",
+        "class": "h-8 w-auto object-contain",
+        "src": "https://lh3.googleusercontent.com/aida/ALJJyrDkwdFfa2ZbCR92YUYuBisOJanZ8ecfnNvhI9eXBT--hdx14MyRyg6qfpPnaiS3kIpRGkkX0PNVVtIwneXNiCoblHPpmqiGrQk2CkGEIKcqfD3gRNBMLWSXQEbGOivXgnv71LBNjxftYEsjJ8cw22e5EDAyHmGagINyRC1EEZmHBwkNLqwZmekoCt_AROtGMSmXq54KIdKK2SWARwX6UIilHqAqSfaykmHb1GzCTeU"
+      }
+    ]
+  },
+  "screen_12_system_monitor": {
+    "name": "12. System Monitor",
+    "file_size": 60692,
+    "buttons_count": 22,
+    "inputs_count": 2,
+    "links_count": 14,
+    "images_count": 1,
+    "headings_count": 4,
+    "scripts_count": 3,
+    "buttons_sample": [
+      {
+        "attrs": {
+          "class": "p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors",
+          "title": "Voice Interface Ready"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors",
+          "title": "Encrypted & Enforced"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "relative p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors",
+          "title": "Telemetry Alerts"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "w-full flex items-center justify-between px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "w-full flex items-center justify-between px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "px-space-sm py-1.5 rounded bg-surface-container hover:bg-surface-container-high text-on-surface text-label-md font-label-md flex items-center gap-1.5 transition-colors",
+          "id": "cleanCacheBtn",
+          "title": "Flush unreferenced KV buffers"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "px-space-sm py-1.5 rounded bg-surface-container hover:bg-surface-container-high text-on-surface text-label-md font-label-md flex items-center gap-1.5 transition-colors",
+          "id": "gcTriggerBtn",
+          "title": "Force OS/Runtime garbage collection cycle"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "px-space-sm py-1.5 rounded bg-secondary-container hover:bg-primary-container text-on-secondary-container hover:text-on-primary-container text-label-md font-label-md font-semibold flex items-center gap-1.5 transition-colors",
+          "id": "exportDiagBtn"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "w-8 h-4 rounded-full bg-primary-container p-0.5 flex items-center justify-end shadow-inner cursor-pointer",
+          "title": "Toggle CPU Thermal Guard"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "w-8 h-4 rounded-full bg-primary-container p-0.5 flex items-center justify-end shadow-inner cursor-pointer",
+          "title": "Toggle Memory Guard"
+        },
+        "text": ""
+      }
+    ],
+    "inputs_sample": [
+      {
+        "tag": "select",
+        "attrs": {
+          "class": "appearance-none bg-surface-container-high hover:bg-surface-bright text-on-surface font-label-md text-label-md pl-space-md pr-8 py-2.5 rounded-lg shadow-sm focus:outline-none focus:ring-1 focus:ring-primary-container cursor-pointer transition-colors",
+          "id": "profileSelector"
+        }
+      },
+      {
+        "tag": "input",
+        "attrs": {
+          "class": "bg-transparent flex-1 focus:outline-none text-on-surface font-body-md text-body-md placeholder:text-on-surface-variant/50",
+          "placeholder": "Instruct neural orchestrator or input quick prompt...",
+          "type": "text"
+        }
+      }
+    ],
+    "headings": [
+      {
+        "tag": "h1",
+        "text": "System Monitor",
+        "attrs": {
+          "class": "font-headline-lg text-headline-lg text-on-surface tracking-tight mt-1"
+        }
+      },
+      {
+        "tag": "h2",
+        "text": "Active Subsystem Engine Processes",
+        "attrs": {
+          "class": "font-headline-md text-headline-md text-on-surface"
+        }
+      },
+      {
+        "tag": "h3",
+        "text": "Hardware Safeguards & Throttling",
+        "attrs": {
+          "class": "font-headline-sm text-headline-sm text-on-surface"
+        }
+      },
+      {
+        "tag": "h3",
+        "text": "Active Hardware & Inference Benchmark",
+        "attrs": {
+          "class": "font-headline-sm text-headline-sm text-on-surface"
+        }
+      }
+    ],
+    "external_scripts": [
+      "https://cdn.tailwindcss.com"
+    ],
+    "has_inline_js": true,
+    "images": [
+      {
+        "alt": "Neural Orchestrator Emblem",
+        "class": "h-8 w-auto object-contain",
+        "src": "https://lh3.googleusercontent.com/aida/ALJJyrDkwdFfa2ZbCR92YUYuBisOJanZ8ecfnNvhI9eXBT--hdx14MyRyg6qfpPnaiS3kIpRGkkX0PNVVtIwneXNiCoblHPpmqiGrQk2CkGEIKcqfD3gRNBMLWSXQEbGOivXgnv71LBNjxftYEsjJ8cw22e5EDAyHmGagINyRC1EEZmHBwkNLqwZmekoCt_AROtGMSmXq54KIdKK2SWARwX6UIilHqAqSfaykmHb1GzCTeU"
+      }
+    ]
+  },
+  "screen_13_security_permissions": {
+    "name": "13. Security & Permissions",
+    "file_size": 49590,
+    "buttons_count": 34,
+    "inputs_count": 1,
+    "links_count": 14,
+    "images_count": 1,
+    "headings_count": 3,
+    "scripts_count": 3,
+    "buttons_sample": [
+      {
+        "attrs": {
+          "class": "p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors",
+          "title": "Voice Interface Ready"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors",
+          "title": "Encrypted & Enforced"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "relative p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors",
+          "title": "Telemetry Alerts"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "w-full flex items-center justify-between px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "w-full flex items-center justify-between px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "group px-space-md py-space-sm rounded-lg bg-surface-container-high hover:bg-surface-container-highest transition-all duration-200 flex items-center gap-space-sm text-tertiary-fixed shadow-md active:scale-95",
+          "id": "btn-master-pause"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "group px-space-md py-space-sm rounded-lg bg-error-container hover:bg-error transition-all duration-200 flex items-center gap-space-sm text-on-error-container hover:text-on-error shadow-lg shadow-error-container/20 active:scale-95",
+          "id": "btn-kill-switch"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "p-space-sm rounded-lg bg-surface-container-high hover:bg-surface-container-highest text-on-surface-variant hover:text-on-surface transition-colors",
+          "title": "Lock System Console"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "px-space-xs py-0.5 rounded bg-secondary-container text-on-secondary-container text-label-mono font-label-mono hover:opacity-90 transition-opacity"
+        },
+        "text": "Review"
+      },
+      {
+        "attrs": {
+          "class": "px-space-sm py-1 rounded bg-surface-container-high text-primary font-label-mono text-label-mono font-semibold shadow-sm"
+        },
+        "text": "Agents"
+      }
+    ],
+    "inputs_sample": [
+      {
+        "tag": "input",
+        "attrs": {
+          "class": "bg-transparent flex-1 focus:outline-none text-on-surface font-body-md text-body-md placeholder:text-on-surface-variant/50",
+          "placeholder": "Instruct neural orchestrator or input quick prompt...",
+          "type": "text"
+        }
+      }
+    ],
+    "headings": [
+      {
+        "tag": "h1",
+        "text": "Security & Permissions",
+        "attrs": {
+          "class": "font-display-lg text-display-lg text-on-surface tracking-tight"
+        }
+      },
+      {
+        "tag": "h2",
+        "text": "Granular Permission Governance",
+        "attrs": {
+          "class": "font-headline-md text-headline-md text-on-surface"
+        }
+      },
+      {
+        "tag": "h3",
+        "text": "Tamper-Proof Audit Log",
+        "attrs": {
+          "class": "font-headline-sm text-headline-sm text-on-surface font-semibold"
+        }
+      }
+    ],
+    "external_scripts": [
+      "https://cdn.tailwindcss.com"
+    ],
+    "has_inline_js": true,
+    "images": [
+      {
+        "alt": "Neural Orchestrator Emblem",
+        "class": "h-8 w-auto object-contain",
+        "src": "https://lh3.googleusercontent.com/aida/ALJJyrDkwdFfa2ZbCR92YUYuBisOJanZ8ecfnNvhI9eXBT--hdx14MyRyg6qfpPnaiS3kIpRGkkX0PNVVtIwneXNiCoblHPpmqiGrQk2CkGEIKcqfD3gRNBMLWSXQEbGOivXgnv71LBNjxftYEsjJ8cw22e5EDAyHmGagINyRC1EEZmHBwkNLqwZmekoCt_AROtGMSmXq54KIdKK2SWARwX6UIilHqAqSfaykmHb1GzCTeU"
+      }
+    ]
+  },
+  "screen_14_settings": {
+    "name": "14. Settings",
+    "file_size": 50827,
+    "buttons_count": 27,
+    "inputs_count": 8,
+    "links_count": 27,
+    "images_count": 1,
+    "headings_count": 5,
+    "scripts_count": 2,
+    "buttons_sample": [
+      {
+        "attrs": {
+          "class": "p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors",
+          "title": "Voice Interface Ready"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors",
+          "title": "Encrypted & Enforced"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "relative p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors",
+          "title": "Telemetry Alerts"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "w-full flex items-center justify-between px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "w-full flex items-center justify-between px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "flex items-center gap-space-xs px-space-sm py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface font-label-md text-label-md transition-all shadow-sm"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "flex items-center gap-space-xs px-space-sm py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high text-error font-label-md text-label-md transition-all shadow-sm"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "flex items-center gap-space-xs px-space-md py-1.5 rounded-lg bg-secondary-container hover:bg-primary-container hover:text-on-primary-container text-on-secondary-container font-label-md text-label-md font-semibold transition-all shadow-md group"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "w-10 h-5 rounded-full bg-primary-container flex items-center px-0.5 transition-colors cursor-pointer",
+          "title": "Toggle Startup"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "w-10 h-5 rounded-full bg-surface-container-highest flex items-center px-0.5 transition-colors cursor-pointer",
+          "title": "Toggle HUD Minimized"
+        },
+        "text": ""
+      }
+    ],
+    "inputs_sample": [
+      {
+        "tag": "input",
+        "attrs": {
+          "class": "bg-transparent flex-1 text-on-surface font-body-md text-body-md focus:outline-none",
+          "type": "text",
+          "value": "[FINAL AI NAME]"
+        }
+      },
+      {
+        "tag": "select",
+        "attrs": {
+          "class": "w-full bg-transparent px-space-md py-space-xs text-on-surface font-body-md text-body-md appearance-none focus:outline-none cursor-pointer"
+        }
+      },
+      {
+        "tag": "select",
+        "attrs": {
+          "class": "w-full bg-transparent px-space-md py-space-xs text-on-surface font-body-md text-body-md appearance-none focus:outline-none cursor-pointer"
+        }
+      },
+      {
+        "tag": "input",
+        "attrs": {
+          "class": "flex-1 accent-[#43D9FF] cursor-pointer h-1 bg-surface-container rounded-lg",
+          "max": "5",
+          "min": "1",
+          "type": "range",
+          "value": "2"
+        }
+      },
+      {
+        "tag": "select",
+        "attrs": {
+          "class": "w-full bg-transparent px-space-md py-space-xs text-on-surface font-body-md text-body-md appearance-none focus:outline-none cursor-pointer"
+        }
+      },
+      {
+        "tag": "input",
+        "attrs": {
+          "class": "bg-transparent flex-1 text-on-surface font-code-md text-code-md focus:outline-none",
+          "readonly": "",
+          "type": "text",
+          "value": "D:\\AI_Models\\GGUF"
+        }
+      },
+      {
+        "tag": "input",
+        "attrs": {
+          "class": "bg-transparent flex-1 text-on-surface font-code-md text-code-md focus:outline-none",
+          "readonly": "",
+          "type": "text",
+          "value": "C:\\Users\\Local\\Vaults\\Engineering"
+        }
+      },
+      {
+        "tag": "input",
+        "attrs": {
+          "class": "bg-transparent flex-1 focus:outline-none text-on-surface font-body-md text-body-md placeholder:text-on-surface-variant/50",
+          "placeholder": "Instruct neural orchestrator or input quick prompt...",
+          "type": "text"
+        }
+      }
+    ],
+    "headings": [
+      {
+        "tag": "h1",
+        "text": "Settings",
+        "attrs": {
+          "class": "font-headline-lg text-headline-lg text-on-surface tracking-tight"
+        }
+      },
+      {
+        "tag": "h2",
+        "text": "General Application Behavior",
+        "attrs": {
+          "class": "font-headline-sm text-headline-sm text-on-surface"
+        }
+      },
+      {
+        "tag": "h2",
+        "text": "AI Orchestrator & Routing Policy",
+        "attrs": {
+          "class": "font-headline-sm text-headline-sm text-on-surface"
+        }
+      },
+      {
+        "tag": "h2",
+        "text": "Hardware & Performance Optimization",
+        "attrs": {
+          "class": "font-headline-sm text-headline-sm text-on-surface"
+        }
+      },
+      {
+        "tag": "h2",
+        "text": "Storage & Data Directories",
+        "attrs": {
+          "class": "font-headline-sm text-headline-sm text-on-surface"
+        }
+      }
+    ],
+    "external_scripts": [
+      "https://cdn.tailwindcss.com"
+    ],
+    "has_inline_js": true,
+    "images": [
+      {
+        "alt": "Neural Orchestrator Emblem",
+        "class": "h-8 w-auto object-contain",
+        "src": "https://lh3.googleusercontent.com/aida/ALJJyrDkwdFfa2ZbCR92YUYuBisOJanZ8ecfnNvhI9eXBT--hdx14MyRyg6qfpPnaiS3kIpRGkkX0PNVVtIwneXNiCoblHPpmqiGrQk2CkGEIKcqfD3gRNBMLWSXQEbGOivXgnv71LBNjxftYEsjJ8cw22e5EDAyHmGagINyRC1EEZmHBwkNLqwZmekoCt_AROtGMSmXq54KIdKK2SWARwX6UIilHqAqSfaykmHb1GzCTeU"
+      }
+    ]
+  },
+  "screen_15_floating_ai_hud": {
+    "name": "15. Floating AI HUD",
+    "file_size": 40400,
+    "buttons_count": 32,
+    "inputs_count": 4,
+    "links_count": 14,
+    "images_count": 1,
+    "headings_count": 1,
+    "scripts_count": 2,
+    "buttons_sample": [
+      {
+        "attrs": {
+          "class": "p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors",
+          "title": "Voice Interface Ready"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors",
+          "title": "Encrypted & Enforced"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "relative p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors",
+          "title": "Telemetry Alerts"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "w-full flex items-center justify-between px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "w-full flex items-center justify-between px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "px-2 py-0.5 rounded bg-primary-container text-on-primary-container font-label-mono text-[9px] font-bold uppercase transition-all shadow-sm flex items-center gap-1"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "px-2 py-0.5 rounded text-on-surface-variant hover:text-on-surface font-label-mono text-[9px] font-medium uppercase transition-colors flex items-center gap-1"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "p-1 rounded hover:bg-surface-container-high text-primary transition-colors",
+          "title": "Pinned to Always on Top"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "p-1 rounded hover:bg-surface-container-high hover:text-on-surface transition-colors",
+          "title": "Toggle Opacity (80% / 100%)"
+        },
+        "text": ""
+      },
+      {
+        "attrs": {
+          "class": "p-1 rounded hover:bg-surface-container-high hover:text-on-surface transition-colors",
+          "title": "Dock to Capsule"
+        },
+        "text": ""
+      }
+    ],
+    "inputs_sample": [
+      {
+        "tag": "input",
+        "attrs": {
+          "class": "bg-transparent flex-1 text-on-surface placeholder:text-on-surface-variant/40 font-body-sm text-body-sm focus:outline-none px-space-xs",
+          "placeholder": "Ask orchestrator or dispatch task... (Esc to dismiss)",
+          "type": "text"
+        }
+      },
+      {
+        "tag": "input",
+        "attrs": {
+          "class": "rounded bg-surface-container border-outline-variant text-primary-container focus:ring-0",
+          "name": "remember_sess",
+          "type": "checkbox"
+        }
+      },
+      {
+        "tag": "input",
+        "attrs": {
+          "checked": "",
+          "class": "rounded bg-surface-container border-outline-variant text-primary-container focus:ring-0",
+          "name": "sandbox_audit",
+          "type": "checkbox"
+        }
+      },
+      {
+        "tag": "input",
+        "attrs": {
+          "class": "bg-transparent flex-1 focus:outline-none text-on-surface font-body-md text-body-md placeholder:text-on-surface-variant/50",
+          "placeholder": "Instruct neural orchestrator or input quick prompt...",
+          "type": "text"
+        }
+      }
+    ],
+    "headings": [
+      {
+        "tag": "h1",
+        "text": "Screen 15: Floating AI HUD",
+        "attrs": {
+          "class": "font-headline-lg text-headline-lg text-on-surface font-semibold tracking-tight"
+        }
+      }
+    ],
+    "external_scripts": [
+      "https://cdn.tailwindcss.com"
+    ],
+    "has_inline_js": true,
+    "images": [
+      {
+        "alt": "Neural Orchestrator Emblem",
+        "class": "h-8 w-auto object-contain",
+        "src": "https://lh3.googleusercontent.com/aida/ALJJyrDkwdFfa2ZbCR92YUYuBisOJanZ8ecfnNvhI9eXBT--hdx14MyRyg6qfpPnaiS3kIpRGkkX0PNVVtIwneXNiCoblHPpmqiGrQk2CkGEIKcqfD3gRNBMLWSXQEbGOivXgnv71LBNjxftYEsjJ8cw22e5EDAyHmGagINyRC1EEZmHBwkNLqwZmekoCt_AROtGMSmXq54KIdKK2SWARwX6UIilHqAqSfaykmHb1GzCTeU"
+      }
+    ]
+  }
+}

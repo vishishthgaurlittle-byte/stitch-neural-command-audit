@@ -1,0 +1,3240 @@
+{
+  "screen_01_command_center": {
+    "name": "01. Command Center",
+    "nav_links": [
+      "tasks-activity",
+      "intelligence-models",
+      "system-monitor",
+      "plugin-center",
+      "pc-control",
+      "voice-studio",
+      "agent-workspace",
+      "3d-neural-core",
+      "settings",
+      "security-permissions",
+      "workflow-builder",
+      "conversation",
+      "memory-center",
+      "command-center"
+    ],
+    "buttons": [
+      {
+        "attrs": "class=\"p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors\" title=\"Voice Interface Ready\"",
+        "text": "mic"
+      },
+      {
+        "attrs": "class=\"p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors\" title=\"Encrypted &amp; Enforced\"",
+        "text": "verified_user"
+      },
+      {
+        "attrs": "class=\"relative p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors\" title=\"Telemetry Alerts\"",
+        "text": "notifications"
+      },
+      {
+        "attrs": "class=\"w-full flex items-center justify-between px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors\"",
+        "text": "deployed_code HUD Mode F9"
+      },
+      {
+        "attrs": "class=\"w-full flex items-center justify-between px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors\"",
+        "text": "dock_to_right Collapse Rail Ctrl+["
+      },
+      {
+        "attrs": "class=\"p-0.5 rounded text-on-surface-variant hover:text-primary transition-colors\" title=\"Rename Orchestrator\"",
+        "text": "edit"
+      },
+      {
+        "attrs": "class=\"state-pill px-space-sm py-1 rounded text-primary-container bg-surface-container font-label-mono text-label-mono font-semibold shadow-sm flex items-center gap-1\"",
+        "text": "Ready"
+      },
+      {
+        "attrs": "class=\"state-pill px-space-sm py-1 rounded text-on-surface-variant hover:text-on-surface font-label-mono text-label-mono\"",
+        "text": "Listening"
+      },
+      {
+        "attrs": "class=\"state-pill px-space-sm py-1 rounded text-on-surface-variant hover:text-on-surface font-label-mono text-label-mono\"",
+        "text": "Planning"
+      },
+      {
+        "attrs": "class=\"state-pill px-space-sm py-1 rounded text-on-surface-variant hover:text-on-surface font-label-mono text-label-mono\"",
+        "text": "Using Local Model"
+      },
+      {
+        "attrs": "class=\"state-pill px-space-sm py-1 rounded text-on-surface-variant hover:text-on-surface font-label-mono text-label-mono\"",
+        "text": "Activating Agent"
+      },
+      {
+        "attrs": "class=\"state-pill px-space-sm py-1 rounded text-on-surface-variant hover:text-on-surface font-label-mono text-label-mono\"",
+        "text": "Executing Approved Action"
+      },
+      {
+        "attrs": "class=\"state-pill px-space-sm py-1 rounded text-on-surface-variant hover:text-on-surface font-label-mono text-label-mono\"",
+        "text": "Completed"
+      },
+      {
+        "attrs": "class=\"inline-flex items-center gap-1 px-space-sm py-1 rounded bg-surface-container-low hover:bg-surface-container-highest text-on-surface-variant hover:text-primary transition-colors\" title=\"Voice Input &amp; Acoustic Waveform\"",
+        "text": "mic Voice"
+      },
+      {
+        "attrs": "class=\"p-1.5 rounded hover:bg-surface-container-highest text-on-surface-variant hover:text-primary transition-colors\" title=\"Attach payload or system file\"",
+        "text": "attach_file"
+      },
+      {
+        "attrs": "class=\"p-1.5 rounded hover:bg-surface-container-highest text-on-surface-variant hover:text-primary transition-colors\" title=\"Attach screen or schematic capture\"",
+        "text": "image"
+      },
+      {
+        "attrs": "class=\"px-space-md py-1.5 rounded-lg bg-secondary-container hover:bg-primary-container text-on-secondary-container hover:text-surface-container-lowest font-body-md text-body-md font-semibold flex items-center gap-space-xs transition-all shadow-[0_0_12px_rgba(2,98,230,0.4)]\"",
+        "text": "Dispatch arrow_forward"
+      },
+      {
+        "attrs": "class=\"px-space-sm py-0.5 rounded bg-surface-container-high text-primary font-label-mono text-label-mono font-semibold shadow-sm flex items-center gap-1 border border-primary-container/30\"",
+        "text": "All (12)"
+      },
+      {
+        "attrs": "class=\"px-space-sm py-0.5 rounded hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface font-label-mono text-label-mono transition-colors\"",
+        "text": "Commands (/)"
+      },
+      {
+        "attrs": "class=\"px-space-sm py-0.5 rounded hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface font-label-mono text-label-mono transition-colors\"",
+        "text": "Agents (@)"
+      },
+      {
+        "attrs": "class=\"px-space-sm py-0.5 rounded hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface font-label-mono text-label-mono transition-colors\"",
+        "text": "Models (#)"
+      },
+      {
+        "attrs": "class=\"px-space-sm py-0.5 rounded hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface font-label-mono text-label-mono transition-colors\"",
+        "text": "Workflows (&gt;)"
+      },
+      {
+        "attrs": "class=\"quick-chip shrink-0 px-space-sm py-1 rounded bg-surface-container-low hover:bg-surface-container text-on-surface font-body-sm text-body-sm transition-colors flex items-center gap-1\"",
+        "text": "web Build a website"
+      },
+      {
+        "attrs": "class=\"quick-chip shrink-0 px-space-sm py-1 rounded bg-surface-container-low hover:bg-surface-container text-on-surface font-body-sm text-body-sm transition-colors flex items-center gap-1\"",
+        "text": "memory Research local models"
+      },
+      {
+        "attrs": "class=\"quick-chip shrink-0 px-space-sm py-1 rounded bg-surface-container-low hover:bg-surface-container text-on-surface font-body-sm text-body-sm transition-colors flex items-center gap-1\"",
+        "text": "folder_supervised Organize project files"
+      },
+      {
+        "attrs": "class=\"quick-chip shrink-0 px-space-sm py-1 rounded bg-surface-container-low hover:bg-surface-container text-on-surface font-body-sm text-body-sm transition-colors flex items-center gap-1\"",
+        "text": "difference Review code diff"
+      },
+      {
+        "attrs": "class=\"quick-chip shrink-0 px-space-sm py-1 rounded bg-surface-container-low hover:bg-surface-container text-on-surface font-body-sm text-body-sm transition-colors flex items-center gap-1\"",
+        "text": "alt_route Create automated workflow"
+      },
+      {
+        "attrs": "class=\"quick-chip shrink-0 px-space-sm py-1 rounded bg-surface-container-low hover:bg-surface-container text-on-surface font-body-sm text-body-sm transition-colors flex items-center gap-1\"",
+        "text": "monitor_heart Summarize system health"
+      },
+      {
+        "attrs": "class=\"flow-tab px-space-xs py-1.5 rounded text-primary font-label-mono text-label-mono font-semibold bg-surface-container-high text-center transition-all\" data-flow=\"a\"",
+        "text": "Flow A: Normal Request"
+      },
+      {
+        "attrs": "class=\"flow-tab px-space-xs py-1.5 rounded text-on-surface-variant hover:text-on-surface font-label-mono text-label-mono text-center transition-all\" data-flow=\"b\"",
+        "text": "Flow B: Multi-Agent"
+      },
+      {
+        "attrs": "class=\"flow-tab px-space-xs py-1.5 rounded text-on-surface-variant hover:text-on-surface font-label-mono text-label-mono text-center transition-all\" data-flow=\"c\"",
+        "text": "Flow C: Approval Gate"
+      },
+      {
+        "attrs": "class=\"flow-tab px-space-xs py-1.5 rounded text-on-surface-variant hover:text-on-surface font-label-mono text-label-mono text-center transition-all\" data-flow=\"d\"",
+        "text": "Flow D: Air-Gapped Mode"
+      },
+      {
+        "attrs": "class=\"px-space-sm py-1 rounded bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md text-label-md transition-colors flex items-center gap-1\"",
+        "text": "pause Pause"
+      },
+      {
+        "attrs": "class=\"px-space-sm py-1 rounded bg-surface-container hover:bg-surface-container-high text-error font-label-md text-label-md transition-colors flex items-center gap-1\"",
+        "text": "stop Stop Task"
+      },
+      {
+        "attrs": "class=\"px-space-sm py-1 rounded bg-surface-container-high hover:bg-surface-container-highest text-primary font-label-md text-label-md transition-colors flex items-center gap-1\"",
+        "text": "terminal View Trace Logs"
+      },
+      {
+        "attrs": "class=\"px-space-sm py-1 rounded hover:bg-surface-container text-on-surface-variant font-label-md text-label-md transition-colors flex items-center gap-1\"",
+        "text": "find_in_page Inspect Diffs"
+      },
+      {
+        "attrs": "class=\"px-space-md py-1.5 rounded-lg bg-surface-container hover:bg-error-container text-error hover:text-on-error font-body-sm text-body-sm font-semibold transition-all\" onclick=\"document.getElementById('approvalCard').style.opacity='0.4'; this.innerText='Rejected';\"",
+        "text": "Reject"
+      },
+      {
+        "attrs": "class=\"px-space-md py-1.5 rounded-lg bg-secondary-container hover:bg-primary-container text-on-secondary-container hover:text-surface-container-lowest font-body-sm text-body-sm font-semibold transition-all shadow-md\" onclick=\"document.getElementById('approvalCard').style.opacity='0.4'; this.innerText='Approved';\"",
+        "text": "Approve Action"
+      },
+      {
+        "attrs": "class=\"p-1 rounded text-on-surface-variant hover:text-primary transition-colors\" title=\"Attach context or file payload\"",
+        "text": "attach_file"
+      },
+      {
+        "attrs": "class=\"p-1 rounded text-on-surface-variant hover:text-primary transition-colors\" title=\"Toggle audio transcription\"",
+        "text": "mic"
+      }
+    ],
+    "inputs": [
+      {
+        "tag": "textarea",
+        "attrs": "class=\"w-full bg-transparent resize-none focus:outline-none text-on-surface font-body-lg text-body-lg placeholder:text-on-surface-variant/45\" placeholder=\"/dis| Type '/' for commands, '@' for agents, '#' for models, '&gt;' for workflows...\" rows=\"3\""
+      },
+      {
+        "tag": "input",
+        "attrs": "class=\"bg-transparent flex-1 focus:outline-none text-on-surface font-body-md text-body-md placeholder:text-on-surface-variant/50\" placeholder=\"Instruct neural orchestrator or input quick prompt...\" type=\"text\""
+      }
+    ],
+    "headings": [
+      {
+        "tag": "h1",
+        "text": "[FINAL AI NAME]"
+      },
+      {
+        "tag": "h3",
+        "text": "Local Codebase Security Audit"
+      },
+      {
+        "tag": "h3",
+        "text": "File Deletion &amp; Overwrite in /dist/artifacts"
+      }
+    ],
+    "has_canvas": false,
+    "has_svg": false,
+    "svg_count": 0,
+    "script_snippets": [
+      "// Simple micro-interactions for simulation pills and quick chips\n  document.querySelectorAll('.state-pill').forEach(btn => {\n    btn.addEventListener('click', () => {\n      document.querySelectorAll('.state-pill').forEach(b => {\n        b.classList.remove('bg-surface-container', 'text-primary-container', 'font-semibold', 'shadow-sm');\n        b.classList.add('text-on-surface-variant');\n      });\n      btn.classList.add('bg-surface-container', 'text-primary-container', 'font-semibold', 'shadow-sm');\n      btn.classList.remove('text-on-surface-variant');\n    });\n  });\n\n  const flowTemplates = {\n    a: {\n      title: 'TASK BREAKDOWN: \"Scan git branch and flag vulnerabilities\"',\n      runtime: 'Runtime: Mistral-7B Instruct (Quantized Q5)',\n      step1: 'Intent Parser: Central core maps request to Codebase Security schema.',\n      step2: 'Agent Delegate: Spawning Subordinate Coder Agent with read-only AST plugin.',\n      step3: 'Synthesis: Central core formats and commits findings into Memory Center.'\n    },\n    b: {\n      title: 'TASK BREAKDOWN: \"Cross-examine user survey against financial telemetry\"',\n      runtime: 'Runtime: Llama-3-8B + DeepSeek Combined',\n      step1: 'Decomposer: Central orchestrator divides task into Data Extraction & Analysis.',\n      step2: 'Synthesis: Researcher Agent and Analyst Agent operate in parallel threads.',\n      step3: 'Consensus: Central model reconciles disparate outputs into single markdown report.'\n    },\n    c: {\n      title: 'TASK BREAKDOWN: \"Deploy signed microservice update to host registry\"',\n      runtime: 'Runtime: Local Core (Elevated Ring Gate)',\n      step1: 'Pre-flight check: Binary signature calculated and verified.',\n      step2: 'Approval Gate: Halting execution. User clearance required before write.',\n      step3: 'Post-commit: Central orchestrator logs telemetry record upon manual sign-off.'\n    },\n    d: {\n      title: 'TASK BREAKDOWN: \"Air-Gapped Offline Execution Demonstration\"',\n      runtime: 'Runtime: Full Local Quantization (Network Null-Routed)',\n      step1: 'Sandbox: All socket interfaces to WAN blocked via firewall rule.',\n      step2: 'Local Embeddings: Vector recall performed solely via local SQLite-vss.',\n      step3: 'Zero Footprint: Inference executed on local GPU with zero outbound payload.'\n    }\n  };\n\n  document.querySelectorAll('.flow-tab').forEach(tab => {\n    tab.addEventListener('click', () => {\n      document.querySelectorAll('.flow-tab').forEach(t => {\n        t.classList.remove('bg-surface-container-high', 'text-primary', 'font-semibold');\n        t.classList.add('text-on-surface-variant');\n      });\n      tab.classList.add('bg-surface-container-high', 'text-primary', 'font-semibold');\n      tab.classList.remove('text-on-surface-variant');\n\n      const key = tab.getAttribute('data-flow');\n      const data = flowTemplates[key];\n      if (data) {\n        document.getElementById('flowContent').innerHTML = `\n          <div class=\"flex items-center justify-between text-on-surface font-label-mono text-label-mono\">\n            <span class=\"text-primary font-semibold\">${data.title}</span>\n            <span class=\"text-on-surface-variant\">${data.runtime}</span>\n          </div>\n          <div class=\"grid grid-cols-1 md:grid-cols-3 gap-space-sm pt-space-xs\">\n            <div class=\"p-space-sm rounded bg-surface-container-low flex flex-col gap-1\">\n              <span class=\"font-label-mono text-label-mono text-primary font-semibold\">STAGE 01</span>\n              <p class=\"font-body-sm text-body-sm text-on-surface-variant\">${data.step1}</p>\n            </div>\n            <div class=\"p-space-sm rounded bg-surface-container-low flex flex-col gap-1\">\n              <span class=\"font-label-mono text-label-mono text-primary-container font-semibold\">STAGE 02</span>\n              <p class=\"font-body-sm text-body-sm text-on-surface-variant\">${data.step2}</p>\n            </div>\n            <div class=\"p-space-sm rounded bg-surface-container-low flex flex-col gap-1\">\n              <span class=\"font-label-mono text-label-mono text-tertiary-fixed-dim font-semibold\">STAGE 03</span>\n              <p class=\"font-body-sm text-body-sm text-on-surface-variant\">${data.step3}</p>\n            </div>\n          </div>\n        `;\n      }\n    });\n  });\n\n  document.querySelectorAll('.quick-chip').forEach(chip => {\n    chip.addEventListener('click', () => {\n      const textarea = document.querySelector('textarea');\n      if (textarea) {\n        textarea.value = chip.textContent.trim();\n        textarea.focus();\n      }\n    });\n  });"
+    ],
+    "external_assets": [
+      "https://cdn.tailwindcss.com",
+      "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap",
+      "https://lh3.googleusercontent.com/aida/ALJJyrDkwdFfa2ZbCR92YUYuBisOJanZ8ecfnNvhI9eXBT--hdx14MyRyg6qfpPnaiS3kIpRGkkX0PNVVtIwneXNiCoblHPpmqiGrQk2CkGEIKcqfD3gRNBMLWSXQEbGOivXgnv71LBNjxftYEsjJ8cw22e5EDAyHmGagINyRC1EEZmHBwkNLqwZmekoCt_AROtGMSmXq54KIdKK2SWARwX6UIilHqAqSfaykmHb1GzCTeU",
+      "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    ]
+  },
+  "screen_02_conversation_workspace": {
+    "name": "02. Conversation Workspace",
+    "nav_links": [
+      "tasks-activity",
+      "intelligence-models",
+      "system-monitor",
+      "plugin-center",
+      "pc-control",
+      "voice-studio",
+      "agent-workspace",
+      "3d-neural-core",
+      "settings",
+      "security-permissions",
+      "workflow-builder",
+      "conversation",
+      "memory-center",
+      "command-center"
+    ],
+    "buttons": [
+      {
+        "attrs": "class=\"p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors\" title=\"Voice Interface Ready\"",
+        "text": "mic"
+      },
+      {
+        "attrs": "class=\"p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors\" title=\"Encrypted &amp; Enforced\"",
+        "text": "verified_user"
+      },
+      {
+        "attrs": "class=\"relative p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors\" title=\"Telemetry Alerts\"",
+        "text": "notifications"
+      },
+      {
+        "attrs": "class=\"w-full flex items-center justify-between px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors\"",
+        "text": "deployed_code HUD Mode F9"
+      },
+      {
+        "attrs": "class=\"w-full flex items-center justify-between px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors\"",
+        "text": "dock_to_right Collapse Rail Ctrl+["
+      },
+      {
+        "attrs": "class=\"w-full flex items-center justify-center gap-space-sm py-space-xs px-space-md bg-secondary-container hover:bg-primary-container text-on-secondary-container hover:text-surface-container-lowest transition-colors rounded-lg font-headline-sm text-headline-sm shadow-sm\"",
+        "text": "add_circle New Session Ctrl+N"
+      },
+      {
+        "attrs": "class=\"p-0.5 text-on-surface-variant hover:text-primary transition-colors\" title=\"Unpin\"",
+        "text": "keep_off"
+      },
+      {
+        "attrs": "class=\"p-0.5 text-on-surface-variant hover:text-primary transition-colors\" title=\"Rename\"",
+        "text": "edit"
+      },
+      {
+        "attrs": "class=\"p-0.5 text-on-surface-variant hover:text-primary transition-colors\" title=\"Export Context\"",
+        "text": "file_download"
+      },
+      {
+        "attrs": "class=\"flex items-center gap-1 px-space-xs py-1 rounded bg-surface-container hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface transition-colors font-label-md text-label-md\" title=\"Mute voice synthesis\"",
+        "text": "volume_up Voice Out"
+      },
+      {
+        "attrs": "class=\"p-1 rounded bg-surface-container hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface transition-colors\" title=\"Pin to Head-Up Display\"",
+        "text": "push_pin"
+      },
+      {
+        "attrs": "class=\"p-1 rounded bg-surface-container hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface transition-colors\" title=\"Export session transcripts\"",
+        "text": "download"
+      },
+      {
+        "attrs": "class=\"p-1 rounded bg-surface-container hover:bg-error-container hover:text-on-error-container text-on-surface-variant transition-colors\" title=\"Purge prompt context window\"",
+        "text": "delete_sweep"
+      },
+      {
+        "attrs": "class=\"flex items-center gap-1 px-space-xs py-1 rounded bg-surface-container hover:bg-surface-container-high text-on-surface-variant hover:text-primary font-label-mono text-label-mono transition-colors\" title=\"Export full reasoning trace for audit\"",
+        "text": "receipt_long Export Reasoning Trace JSON"
+      },
+      {
+        "attrs": "class=\"flex items-center gap-1 px-space-xs py-1 rounded bg-surface-container-high text-on-surface font-label-mono text-label-mono hover:bg-surface-container transition-colors\" title=\"Collapse or expand detailed stream steps\"",
+        "text": "unfold_less Compact View"
+      },
+      {
+        "attrs": "class=\"flex items-center gap-1 text-on-surface-variant hover:text-primary font-label-mono text-label-mono transition-colors\"",
+        "text": "content_copy Copy Diff"
+      },
+      {
+        "attrs": "class=\"flex items-center gap-space-sm bg-secondary-container hover:bg-primary-container text-on-secondary-container hover:text-surface-container-lowest px-space-md py-space-xs rounded-lg font-headline-sm text-headline-sm transition-all shadow-md group\"",
+        "text": "verified_user Review Pending Clearance in Live Operations"
+      },
+      {
+        "attrs": "class=\"px-space-md py-space-xs rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface font-label-md text-label-md transition-colors\"",
+        "text": "Discard Patch"
+      },
+      {
+        "attrs": "class=\"p-1 rounded text-on-surface-variant hover:text-primary hover:bg-surface-container transition-colors\" title=\"Attach file context\"",
+        "text": "attach_file"
+      },
+      {
+        "attrs": "class=\"p-1 rounded text-on-surface-variant hover:text-primary hover:bg-surface-container transition-colors\" title=\"Upload visual memory payload\"",
+        "text": "image"
+      },
+      {
+        "attrs": "class=\"flex items-center gap-1 text-primary hover:text-primary-container font-label-mono text-label-mono\"",
+        "text": "graphic_eq VOICE FEED"
+      },
+      {
+        "attrs": "class=\"flex items-center gap-space-xs bg-secondary-container hover:bg-primary-container text-on-secondary-container hover:text-surface-container-lowest px-space-md py-1 rounded-lg font-headline-sm text-headline-sm transition-colors shadow-sm\"",
+        "text": "Dispatch send"
+      },
+      {
+        "attrs": "class=\"py-1 text-center font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors rounded\"",
+        "text": "Friendly"
+      },
+      {
+        "attrs": "class=\"py-1 text-center font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors rounded\"",
+        "text": "Concise"
+      },
+      {
+        "attrs": "class=\"py-1 text-center font-label-md text-label-md bg-secondary-container text-on-secondary-container font-semibold rounded shadow-sm\"",
+        "text": "Technical"
+      },
+      {
+        "attrs": "class=\"p-1 rounded text-on-surface-variant hover:text-primary transition-colors\" title=\"Attach context or file payload\"",
+        "text": "attach_file"
+      },
+      {
+        "attrs": "class=\"p-1 rounded text-on-surface-variant hover:text-primary transition-colors\" title=\"Toggle audio transcription\"",
+        "text": "mic"
+      }
+    ],
+    "inputs": [
+      {
+        "tag": "input",
+        "attrs": "class=\"w-full bg-transparent px-space-xs text-on-surface placeholder:text-on-surface-variant/40 font-body-sm text-body-sm focus:outline-none\" placeholder=\"Filter history &amp; memory...\" type=\"text\""
+      },
+      {
+        "tag": "textarea",
+        "attrs": "class=\"w-full bg-transparent text-on-surface placeholder:text-on-surface-variant/40 font-body-md text-body-md focus:outline-none resize-none pt-1 leading-relaxed\" placeholder=\"Direct Central AI or send prompt... (Shift+Enter for newline)\" rows=\"2\""
+      },
+      {
+        "tag": "input",
+        "attrs": "class=\"bg-transparent flex-1 focus:outline-none text-on-surface font-body-md text-body-md placeholder:text-on-surface-variant/50\" placeholder=\"Instruct neural orchestrator or input quick prompt...\" type=\"text\""
+      }
+    ],
+    "headings": [],
+    "has_canvas": false,
+    "has_svg": false,
+    "svg_count": 0,
+    "script_snippets": [],
+    "external_assets": [
+      "https://cdn.tailwindcss.com",
+      "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap",
+      "https://lh3.googleusercontent.com/aida/ALJJyrDkwdFfa2ZbCR92YUYuBisOJanZ8ecfnNvhI9eXBT--hdx14MyRyg6qfpPnaiS3kIpRGkkX0PNVVtIwneXNiCoblHPpmqiGrQk2CkGEIKcqfD3gRNBMLWSXQEbGOivXgnv71LBNjxftYEsjJ8cw22e5EDAyHmGagINyRC1EEZmHBwkNLqwZmekoCt_AROtGMSmXq54KIdKK2SWARwX6UIilHqAqSfaykmHb1GzCTeU",
+      "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    ]
+  },
+  "screen_03_3d_neural_core": {
+    "name": "03. 3D Neural Core",
+    "nav_links": [
+      "tasks-activity",
+      "intelligence-models",
+      "system-monitor",
+      "plugin-center",
+      "pc-control",
+      "voice-studio",
+      "agent-workspace",
+      "3d-neural-core",
+      "settings",
+      "security-permissions",
+      "workflow-builder",
+      "conversation",
+      "memory-center",
+      "command-center"
+    ],
+    "buttons": [
+      {
+        "attrs": "class=\"p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors\" title=\"Voice Interface Ready\"",
+        "text": "mic"
+      },
+      {
+        "attrs": "class=\"p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors\" title=\"Encrypted &amp; Enforced\"",
+        "text": "verified_user"
+      },
+      {
+        "attrs": "class=\"relative p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors\" title=\"Telemetry Alerts\"",
+        "text": "notifications"
+      },
+      {
+        "attrs": "class=\"w-full flex items-center justify-between px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors\"",
+        "text": "deployed_code HUD Mode F9"
+      },
+      {
+        "attrs": "class=\"w-full flex items-center justify-between px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors\"",
+        "text": "dock_to_right Collapse Rail Ctrl+["
+      },
+      {
+        "attrs": "class=\"flex items-center gap-space-xs px-space-sm py-1 rounded bg-secondary-container text-on-secondary-container shadow-sm transition-all text-left whitespace-nowrap\"",
+        "text": "ALL NODES (24)"
+      },
+      {
+        "attrs": "class=\"flex items-center gap-space-xs px-space-sm py-1 rounded bg-surface-container-low hover:bg-surface-container text-on-surface-variant hover:text-on-surface transition-all text-left whitespace-nowrap\"",
+        "text": "ORCHESTRATOR (1)"
+      },
+      {
+        "attrs": "class=\"flex items-center gap-space-xs px-space-sm py-1 rounded bg-surface-container-low hover:bg-surface-container text-primary hover:text-primary transition-all text-left whitespace-nowrap\"",
+        "text": "LOCAL MODELS (4)"
+      },
+      {
+        "attrs": "class=\"flex items-center gap-space-xs px-space-sm py-1 rounded bg-surface-container-low hover:bg-surface-container text-tertiary-fixed-dim transition-all text-left whitespace-nowrap\"",
+        "text": "CLOUD ENDPOINTS (3)"
+      },
+      {
+        "attrs": "class=\"flex items-center gap-space-xs px-space-sm py-1 rounded bg-surface-container-low hover:bg-surface-container text-secondary transition-all text-left whitespace-nowrap\"",
+        "text": "AGENTS (8)"
+      },
+      {
+        "attrs": "class=\"flex items-center gap-space-xs px-space-sm py-1 rounded bg-surface-container-low hover:bg-surface-container text-on-surface-variant transition-all text-left whitespace-nowrap\"",
+        "text": "PLUGINS (5)"
+      },
+      {
+        "attrs": "class=\"flex items-center gap-space-xs px-space-sm py-1 rounded bg-surface-container-low hover:bg-surface-container text-on-surface-variant transition-all text-left whitespace-nowrap\"",
+        "text": "MEMORIES (3)"
+      },
+      {
+        "attrs": "class=\"hidden md:flex items-center gap-1.5 px-space-sm py-1 rounded bg-surface-container-low hover:bg-surface-container text-on-surface-variant hover:text-on-surface transition-colors\" title=\"Toggle idle path visibility\"",
+        "text": "alt_route Active Only"
+      },
+      {
+        "attrs": "class=\"px-space-xs py-0.5 rounded font-label-mono text-label-mono text-on-surface-variant hover:text-on-surface transition-colors\"",
+        "text": "2D"
+      },
+      {
+        "attrs": "class=\"px-space-xs py-0.5 rounded bg-surface-container text-primary font-label-mono text-label-mono font-semibold shadow-inner\"",
+        "text": "2.5D"
+      },
+      {
+        "attrs": "class=\"p-1 rounded bg-surface-container-low hover:bg-surface-container text-on-surface-variant hover:text-primary transition-colors\" id=\"simToggle\" title=\"Pause Force Directed Physics\"",
+        "text": "pause_circle"
+      },
+      {
+        "attrs": "class=\"p-1 hover:text-on-surface transition-colors\" title=\"Zoom in\"",
+        "text": "add"
+      },
+      {
+        "attrs": "class=\"p-1 hover:text-on-surface transition-colors\" title=\"Zoom out\"",
+        "text": "remove"
+      },
+      {
+        "attrs": "class=\"p-1 hover:text-on-surface transition-colors\" title=\"Reset Viewport\"",
+        "text": "fit_screen"
+      },
+      {
+        "attrs": "class=\"p-1.5 rounded bg-surface-container-low hover:bg-surface-container text-on-surface-variant hover:text-on-surface transition-colors\" title=\"Toggle Fullscreen Canvas\"",
+        "text": "fullscreen"
+      },
+      {
+        "attrs": "class=\"w-full flex items-center justify-between p-space-sm rounded-lg bg-surface-container text-on-surface shadow-sm\"",
+        "text": "hub Radial Orbital PRIMARY"
+      },
+      {
+        "attrs": "class=\"w-full flex items-center justify-between p-space-sm rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface-variant hover:text-on-surface transition-colors\"",
+        "text": "account_tree Force Tree PHYSICS"
+      },
+      {
+        "attrs": "class=\"w-full flex items-center justify-between p-space-sm rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface-variant hover:text-on-surface transition-colors\"",
+        "text": "grid_4x4 Subordinate Matrix TIERED"
+      },
+      {
+        "attrs": "class=\"w-full mt-1 flex items-center justify-center gap-space-xs py-1.5 rounded-lg bg-surface-container-low hover:bg-surface-container text-primary hover:text-primary-container transition-colors\"",
+        "text": "lock_reset Bypass Proxy Policy"
+      },
+      {
+        "attrs": "class=\"p-0.5 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors\" title=\"Minimize tuning panel\"",
+        "text": "expand_less"
+      },
+      {
+        "attrs": "class=\"px-1.5 py-0.5 rounded bg-primary-container text-on-primary font-label-mono text-[9px] font-bold shadow-sm whitespace-nowrap\"",
+        "text": "Obsidian Cyan"
+      },
+      {
+        "attrs": "class=\"px-1.5 py-0.5 rounded bg-surface-container text-on-surface-variant hover:text-on-surface font-label-mono text-[9px] whitespace-nowrap\"",
+        "text": "Deep Plasma"
+      },
+      {
+        "attrs": "class=\"px-1.5 py-0.5 rounded bg-surface-container text-on-surface-variant hover:text-on-surface font-label-mono text-[9px] whitespace-nowrap\"",
+        "text": "Amber Synapse"
+      },
+      {
+        "attrs": "class=\"px-1.5 py-0.5 rounded bg-surface-container text-on-surface-variant hover:text-on-surface font-label-mono text-[9px] whitespace-nowrap\"",
+        "text": "Grid"
+      },
+      {
+        "attrs": "class=\"w-full flex items-center justify-between px-space-sm py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high border border-primary-container/40 hover:border-primary-container text-on-surface hover:text-primary transition-all shadow-[0_0_12px_rgba(67,217,255,0.15)]\"",
+        "text": "refresh Compile &amp; Hot-Reload GLSL 0.12ms compile"
+      },
+      {
+        "attrs": "class=\"flex items-center justify-center gap-1 py-1 rounded bg-surface-container-low hover:bg-surface-container text-on-surface-variant hover:text-on-surface transition-colors font-label-mono text-[10px]\"",
+        "text": "restart_alt Reset Defaults"
+      },
+      {
+        "attrs": "class=\"flex items-center justify-center gap-1 py-1 rounded bg-surface-container-low hover:bg-surface-container text-primary hover:text-primary-container transition-colors font-label-mono text-[10px]\"",
+        "text": "data_object Export JSON"
+      },
+      {
+        "attrs": "class=\"w-full flex items-center justify-center gap-space-xs py-2 rounded-lg bg-secondary-container hover:bg-primary-container text-on-secondary-container hover:text-on-primary transition-all font-body-sm text-body-sm font-semibold shadow-sm\"",
+        "text": "speed Test Latency &amp; Inference"
+      },
+      {
+        "attrs": "class=\"flex items-center justify-center gap-1 py-1.5 rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface-variant hover:text-on-surface transition-colors font-label-md text-label-md\"",
+        "text": "tune Configure"
+      },
+      {
+        "attrs": "class=\"flex items-center justify-center gap-1 py-1.5 rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface-variant hover:text-on-surface transition-colors font-label-md text-label-md\"",
+        "text": "folder_open Weights Path"
+      },
+      {
+        "attrs": "class=\"w-full mt-1 flex items-center justify-center gap-space-xs py-1.5 rounded-lg bg-surface-container-low hover:bg-error-container text-on-surface-variant hover:text-on-error-container transition-colors font-label-md text-label-md\"",
+        "text": "eject Unload Weights from VRAM"
+      },
+      {
+        "attrs": "class=\"p-1 rounded text-on-surface-variant hover:text-primary transition-colors\" title=\"Attach context or file payload\"",
+        "text": "attach_file"
+      },
+      {
+        "attrs": "class=\"p-1 rounded text-on-surface-variant hover:text-primary transition-colors\" title=\"Toggle audio transcription\"",
+        "text": "mic"
+      }
+    ],
+    "inputs": [
+      {
+        "tag": "input",
+        "attrs": "class=\"bg-transparent text-on-surface font-label-md text-label-md placeholder:text-on-surface-variant/40 focus:outline-none w-36 lg:w-44\" placeholder=\"Locate node or conduit...\" type=\"text\""
+      },
+      {
+        "tag": "input",
+        "attrs": "type=\"range\" min=\"0\" max=\"2.5\" step=\"0.01\" value=\"1.42\" class=\"w-full h-1 bg-surface-container rounded-lg appearance-none cursor-pointer accent-[#43D9FF]\""
+      },
+      {
+        "tag": "input",
+        "attrs": "type=\"range\" min=\"10\" max=\"120\" step=\"1\" value=\"64\" class=\"w-full h-1 bg-surface-container rounded-lg appearance-none cursor-pointer accent-[#0262E6]\""
+      },
+      {
+        "tag": "input",
+        "attrs": "type=\"range\" min=\"0\" max=\"100\" step=\"1\" value=\"78\" class=\"w-full h-1 bg-surface-container rounded-lg appearance-none cursor-pointer accent-[#43D9FF]\""
+      },
+      {
+        "tag": "input",
+        "attrs": "type=\"range\" min=\"0.1\" max=\"1.0\" step=\"0.05\" value=\"0.65\" class=\"w-full h-1 bg-surface-container rounded-lg appearance-none cursor-pointer accent-[#CEBDFF]\""
+      },
+      {
+        "tag": "input",
+        "attrs": "type=\"checkbox\" checked=\"\" id=\"chromaticToggle\" class=\"accent-[#43D9FF] rounded cursor-pointer\""
+      },
+      {
+        "tag": "input",
+        "attrs": "type=\"range\" min=\"0.00\" max=\"0.08\" step=\"0.005\" value=\"0.03\" class=\"w-full h-1 bg-surface-container rounded-lg appearance-none cursor-pointer accent-[#43D9FF]\""
+      },
+      {
+        "tag": "input",
+        "attrs": "class=\"bg-transparent flex-1 focus:outline-none text-on-surface font-body-md text-body-md placeholder:text-on-surface-variant/50\" placeholder=\"Instruct neural orchestrator or input quick prompt...\" type=\"text\""
+      }
+    ],
+    "headings": [
+      {
+        "tag": "h2",
+        "text": "Mistral-7B-Instruct"
+      }
+    ],
+    "has_canvas": false,
+    "has_svg": true,
+    "svg_count": 2,
+    "script_snippets": [
+      "// Simple micro-interaction for simulation toggle button\n  document.getElementById('simToggle')?.addEventListener('click', function() {\n    const icon = this.querySelector('span');\n    if (icon.innerText === 'pause_circle') {\n      icon.innerText = 'play_circle';\n      this.classList.add('text-primary');\n    } else {\n      icon.innerText = 'pause_circle';\n      this.classList.remove('text-primary');\n    }\n  });"
+    ],
+    "external_assets": [
+      "https://cdn.tailwindcss.com",
+      "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap",
+      "https://lh3.googleusercontent.com/aida/ALJJyrDkwdFfa2ZbCR92YUYuBisOJanZ8ecfnNvhI9eXBT--hdx14MyRyg6qfpPnaiS3kIpRGkkX0PNVVtIwneXNiCoblHPpmqiGrQk2CkGEIKcqfD3gRNBMLWSXQEbGOivXgnv71LBNjxftYEsjJ8cw22e5EDAyHmGagINyRC1EEZmHBwkNLqwZmekoCt_AROtGMSmXq54KIdKK2SWARwX6UIilHqAqSfaykmHb1GzCTeU",
+      "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    ]
+  },
+  "screen_04_intelligence_ai_models": {
+    "name": "04. Intelligence & AI Models",
+    "nav_links": [
+      "tasks-activity",
+      "intelligence-models",
+      "system-monitor",
+      "plugin-center",
+      "pc-control",
+      "voice-studio",
+      "agent-workspace",
+      "3d-neural-core",
+      "settings",
+      "security-permissions",
+      "workflow-builder",
+      "conversation",
+      "memory-center",
+      "command-center"
+    ],
+    "buttons": [
+      {
+        "attrs": "class=\"p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors\" title=\"Voice Interface Ready\"",
+        "text": "mic"
+      },
+      {
+        "attrs": "class=\"p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors\" title=\"Encrypted &amp; Enforced\"",
+        "text": "verified_user"
+      },
+      {
+        "attrs": "class=\"relative p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors\" title=\"Telemetry Alerts\"",
+        "text": "notifications"
+      },
+      {
+        "attrs": "class=\"w-full flex items-center justify-between px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors\"",
+        "text": "deployed_code HUD Mode F9"
+      },
+      {
+        "attrs": "class=\"w-full flex items-center justify-between px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors\"",
+        "text": "dock_to_right Collapse Rail Ctrl+["
+      },
+      {
+        "attrs": "class=\"flex items-center gap-space-xs px-space-md py-space-xs rounded-lg bg-surface-container-high text-primary font-label-md text-label-md font-semibold shadow-sm transition-colors\"",
+        "text": "grid_view Overview"
+      },
+      {
+        "attrs": "class=\"flex items-center gap-space-xs px-space-md py-space-xs rounded-lg bg-secondary-container text-on-secondary-container font-label-md text-label-md font-semibold shadow-sm transition-colors\"",
+        "text": "laptop_chromebook Local Models 4"
+      },
+      {
+        "attrs": "class=\"flex items-center gap-space-xs px-space-md py-space-xs rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface font-label-md text-label-md transition-colors\"",
+        "text": "cloud_sync Online Providers"
+      },
+      {
+        "attrs": "class=\"flex items-center gap-space-xs px-space-md py-space-xs rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface font-label-md text-label-md transition-colors\"",
+        "text": "alt_route Routing Rules Pipeline"
+      },
+      {
+        "attrs": "class=\"flex items-center gap-space-xs px-space-md py-space-xs rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface font-label-md text-label-md transition-colors\"",
+        "text": "speed Performance &amp; Telemetry"
+      },
+      {
+        "attrs": "class=\"flex items-center gap-space-xs px-space-md py-space-xs rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface font-label-md text-label-md transition-colors\"",
+        "text": "download_for_offline Privacy &amp; Downloads"
+      },
+      {
+        "attrs": "class=\"p-1 rounded hover:bg-surface-container-high text-on-surface-variant hover:text-primary transition-colors\" title=\"Sync Models Manifest\"",
+        "text": "sync"
+      },
+      {
+        "attrs": "class=\"relative w-8 h-4 rounded-full bg-primary-container flex items-center transition-colors p-0.5\" id=\"toggleAirgap\"",
+        "text": ""
+      },
+      {
+        "attrs": "class=\"relative w-8 h-4 rounded-full bg-surface-container-highest flex items-center transition-colors p-0.5\"",
+        "text": ""
+      },
+      {
+        "attrs": "class=\"relative w-8 h-4 rounded-full bg-surface-container-highest flex items-center transition-colors p-0.5\"",
+        "text": ""
+      },
+      {
+        "attrs": "class=\"flex items-center gap-space-xs px-space-sm py-space-xs rounded-lg bg-surface-container-high hover:bg-surface-container text-primary font-label-md text-label-md transition-colors\"",
+        "text": "tune Edit Logic"
+      },
+      {
+        "attrs": "class=\"flex items-center gap-space-xs px-space-sm py-space-xs rounded-lg bg-secondary-container hover:bg-primary text-on-secondary-container hover:text-on-primary font-label-md text-label-md font-semibold transition-colors shadow-sm\"",
+        "text": "play_circle Test Inference"
+      },
+      {
+        "attrs": "class=\"flex items-center gap-space-xs px-space-sm py-space-xs rounded-lg bg-surface-container-high hover:bg-surface-container text-on-surface font-label-md text-label-md transition-colors\"",
+        "text": "tune Context &amp; Temp (0.4)"
+      },
+      {
+        "attrs": "class=\"flex items-center gap-space-xs px-space-sm py-space-xs rounded-lg bg-surface-container hover:bg-error-container hover:text-on-error-container text-on-surface-variant font-label-md text-label-md transition-colors\" title=\"Evict from VRAM\"",
+        "text": "eject Unload"
+      },
+      {
+        "attrs": "class=\"flex items-center gap-space-xs px-space-sm py-space-xs rounded-lg bg-surface-container-high hover:bg-surface-container text-on-surface font-label-md text-label-md font-semibold transition-colors shadow-sm\"",
+        "text": "terminal Test Inference"
+      },
+      {
+        "attrs": "class=\"flex items-center gap-space-xs px-space-sm py-space-xs rounded-lg bg-surface-container-high hover:bg-surface-container text-on-surface font-label-md text-label-md transition-colors\"",
+        "text": "tune Configure AST"
+      },
+      {
+        "attrs": "class=\"flex items-center gap-space-xs px-space-sm py-space-xs rounded-lg bg-surface-container hover:bg-error-container hover:text-on-error-container text-on-surface-variant font-label-md text-label-md transition-colors\"",
+        "text": "pause Standby"
+      },
+      {
+        "attrs": "class=\"flex items-center gap-space-xs px-space-sm py-space-xs rounded-lg bg-surface-container-high hover:bg-primary hover:text-on-primary text-primary font-label-md text-label-md font-semibold transition-colors shadow-sm\"",
+        "text": "upload Load to VRAM"
+      },
+      {
+        "attrs": "class=\"flex items-center gap-space-xs px-space-sm py-space-xs rounded-lg bg-surface-container-high hover:bg-surface-container text-on-surface font-label-md text-label-md transition-colors\"",
+        "text": "settings Settings"
+      },
+      {
+        "attrs": "class=\"flex items-center gap-space-xs px-space-sm py-space-xs rounded-lg bg-surface-container hover:bg-error-container hover:text-on-error text-error font-label-md text-label-md transition-colors\" title=\"Remove local GGUF weight files\"",
+        "text": "delete Delete..."
+      },
+      {
+        "attrs": "class=\"flex items-center gap-space-xs px-space-sm py-space-xs rounded-lg bg-surface-container-high hover:bg-surface-container text-on-surface font-label-md text-label-md font-semibold transition-colors shadow-sm\"",
+        "text": "mic Calibrate Mic Input"
+      },
+      {
+        "attrs": "class=\"flex items-center gap-space-xs px-space-sm py-space-xs rounded-lg bg-surface-container-high hover:bg-surface-container text-on-surface font-label-md text-label-md transition-colors\"",
+        "text": "speed VAD Sens"
+      },
+      {
+        "attrs": "class=\"flex items-center gap-space-xs px-space-sm py-space-xs rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface-variant font-label-md text-label-md transition-colors\"",
+        "text": "tune Configure"
+      },
+      {
+        "attrs": "class=\"flex items-center gap-space-xs px-space-md py-space-xs rounded-lg bg-secondary-container hover:bg-primary text-on-secondary-container hover:text-on-primary font-label-md text-label-md font-semibold transition-all shadow-md\"",
+        "text": "add_circle Import Local GGUF / SafeTensors"
+      },
+      {
+        "attrs": "class=\"flex items-center gap-space-xs px-space-md py-space-xs rounded-lg bg-surface-container-high hover:bg-surface-container text-on-surface font-label-md text-label-md transition-colors\"",
+        "text": "folder_open Scan Active Directory (/models)"
+      },
+      {
+        "attrs": "class=\"flex items-center gap-space-xs px-space-md py-space-xs rounded-lg bg-surface-container-high hover:bg-surface-container text-on-surface font-label-md text-label-md transition-colors\"",
+        "text": "cloud_download Pull from HuggingFace Hub"
+      },
+      {
+        "attrs": "class=\"flex items-center gap-space-xs px-space-md py-space-xs rounded-lg bg-surface-container hover:bg-surface-container-highest text-on-surface-variant hover:text-error transition-colors\"",
+        "text": "cleaning_services Purge Model Cache"
+      },
+      {
+        "attrs": "class=\"p-1 rounded text-on-surface-variant hover:text-primary transition-colors\" title=\"Attach context or file payload\"",
+        "text": "attach_file"
+      },
+      {
+        "attrs": "class=\"p-1 rounded text-on-surface-variant hover:text-primary transition-colors\" title=\"Toggle audio transcription\"",
+        "text": "mic"
+      }
+    ],
+    "inputs": [
+      {
+        "tag": "select",
+        "attrs": "class=\"bg-transparent text-on-surface font-label-md text-label-md focus:outline-none cursor-pointer\""
+      },
+      {
+        "tag": "input",
+        "attrs": "class=\"bg-transparent flex-1 focus:outline-none text-on-surface font-body-md text-body-md placeholder:text-on-surface-variant/50\" placeholder=\"Instruct neural orchestrator or input quick prompt...\" type=\"text\"/"
+      }
+    ],
+    "headings": [
+      {
+        "tag": "h1",
+        "text": "Intelligence &amp; AI Models"
+      },
+      {
+        "tag": "h2",
+        "text": "Dynamic Inference Routing Map"
+      },
+      {
+        "tag": "h2",
+        "text": "Configured Local Models"
+      },
+      {
+        "tag": "h3",
+        "text": "Mistral-7B-Instruct-v0.3"
+      },
+      {
+        "tag": "h3",
+        "text": "DeepSeek-Coder-6.7B"
+      },
+      {
+        "tag": "h3",
+        "text": "Llama-3-8B-Instruct"
+      },
+      {
+        "tag": "h3",
+        "text": "Whisper-Base-IN"
+      }
+    ],
+    "has_canvas": false,
+    "has_svg": true,
+    "svg_count": 1,
+    "script_snippets": [
+      "// Micro-interaction for air-gap visual toggle\n  document.getElementById('toggleAirgap')?.addEventListener('click', function(e) {\n    const knob = this.querySelector('span');\n    if (this.classList.contains('bg-primary-container')) {\n      this.classList.remove('bg-primary-container');\n      this.classList.add('bg-surface-container-highest');\n      knob.classList.remove('translate-x-4');\n      knob.classList.add('translate-x-0');\n    } else {\n      this.classList.add('bg-primary-container');\n      this.classList.remove('bg-surface-container-highest');\n      knob.classList.add('translate-x-4');\n      knob.classList.remove('translate-x-0');\n    }\n  });"
+    ],
+    "external_assets": [
+      "https://cdn.tailwindcss.com",
+      "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap",
+      "https://lh3.googleusercontent.com/aida/ALJJyrDkwdFfa2ZbCR92YUYuBisOJanZ8ecfnNvhI9eXBT--hdx14MyRyg6qfpPnaiS3kIpRGkkX0PNVVtIwneXNiCoblHPpmqiGrQk2CkGEIKcqfD3gRNBMLWSXQEbGOivXgnv71LBNjxftYEsjJ8cw22e5EDAyHmGagINyRC1EEZmHBwkNLqwZmekoCt_AROtGMSmXq54KIdKK2SWARwX6UIilHqAqSfaykmHb1GzCTeU",
+      "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    ]
+  },
+  "screen_05_plugin_centre": {
+    "name": "05. Plugin Centre",
+    "nav_links": [
+      "tasks-activity",
+      "intelligence-models",
+      "system-monitor",
+      "plugin-center",
+      "pc-control",
+      "voice-studio",
+      "agent-workspace",
+      "3d-neural-core",
+      "settings",
+      "security-permissions",
+      "workflow-builder",
+      "conversation",
+      "memory-center",
+      "command-center"
+    ],
+    "buttons": [
+      {
+        "attrs": "class=\"p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors\" title=\"Voice Interface Ready\"",
+        "text": "mic"
+      },
+      {
+        "attrs": "class=\"p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors\" title=\"Encrypted &amp; Enforced\"",
+        "text": "verified_user"
+      },
+      {
+        "attrs": "class=\"relative p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors\" title=\"Telemetry Alerts\"",
+        "text": "notifications"
+      },
+      {
+        "attrs": "class=\"w-full flex items-center justify-between px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors\"",
+        "text": "deployed_code HUD Mode F9"
+      },
+      {
+        "attrs": "class=\"w-full flex items-center justify-between px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors\"",
+        "text": "dock_to_right Collapse Rail Ctrl+["
+      },
+      {
+        "attrs": "class=\"flex items-center gap-space-xs px-space-md py-space-xs rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface transition-all shadow-sm\" id=\"btn-scan\"",
+        "text": "sync Scan Directory"
+      },
+      {
+        "attrs": "class=\"flex items-center gap-space-xs px-space-md py-space-xs rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface transition-all shadow-sm\" id=\"btn-audit\"",
+        "text": "verified_user Audit Permissions"
+      },
+      {
+        "attrs": "class=\"flex items-center gap-space-xs px-space-md py-space-xs rounded-lg bg-secondary-container hover:bg-primary-container text-on-secondary-container hover:text-on-primary-container transition-all shadow-md font-medium\"",
+        "text": "add_box + Add Custom Local Plugin"
+      },
+      {
+        "attrs": "class=\"tab-btn px-space-md py-space-xs rounded-lg bg-secondary-container text-on-secondary-container font-label-md text-label-md font-semibold shadow-sm transition-all\" data-tab=\"overview\"",
+        "text": "Overview &amp; Store"
+      },
+      {
+        "attrs": "class=\"tab-btn px-space-md py-space-xs rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container font-label-md text-label-md font-medium transition-all\" data-tab=\"connected\"",
+        "text": "Connected Plugins 8"
+      },
+      {
+        "attrs": "class=\"tab-btn px-space-md py-space-xs rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container font-label-md text-label-md font-medium transition-all\" data-tab=\"permissions\"",
+        "text": "Granular Permissions"
+      },
+      {
+        "attrs": "class=\"tab-btn px-space-md py-space-xs rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container font-label-md text-label-md font-medium transition-all\" data-tab=\"logs\"",
+        "text": "Audit &amp; Execution Logs"
+      },
+      {
+        "attrs": "class=\"tab-btn px-space-md py-space-xs rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container font-label-md text-label-md font-medium transition-all\" data-tab=\"workflows\"",
+        "text": "Workflow Integrations"
+      },
+      {
+        "attrs": "class=\"filter-pill px-space-sm py-space-xs rounded-full bg-surface-container-high text-primary font-label-md text-label-md font-semibold whitespace-nowrap shadow-sm\" data-category=\"all\"",
+        "text": "All Tools"
+      },
+      {
+        "attrs": "class=\"filter-pill px-space-sm py-space-xs rounded-full bg-surface-container-low hover:bg-surface-container text-on-surface-variant font-label-md text-label-md whitespace-nowrap transition-colors\" data-category=\"developer\"",
+        "text": "Developer"
+      },
+      {
+        "attrs": "class=\"filter-pill px-space-sm py-space-xs rounded-full bg-surface-container-low hover:bg-surface-container text-on-surface-variant font-label-md text-label-md whitespace-nowrap transition-colors\" data-category=\"files\"",
+        "text": "Files &amp; I/O"
+      },
+      {
+        "attrs": "class=\"filter-pill px-space-sm py-space-xs rounded-full bg-surface-container-low hover:bg-surface-container text-on-surface-variant font-label-md text-label-md whitespace-nowrap transition-colors\" data-category=\"automation\"",
+        "text": "PC Automation"
+      },
+      {
+        "attrs": "class=\"filter-pill px-space-sm py-space-xs rounded-full bg-surface-container-low hover:bg-surface-container text-on-surface-variant font-label-md text-label-md whitespace-nowrap transition-colors\" data-category=\"memory\"",
+        "text": "Research &amp; Vault"
+      },
+      {
+        "attrs": "class=\"filter-pill px-space-sm py-space-xs rounded-full bg-surface-container-low hover:bg-surface-container text-on-surface-variant font-label-md text-label-md whitespace-nowrap transition-colors\" data-category=\"media\"",
+        "text": "Speech &amp; Media"
+      },
+      {
+        "attrs": "class=\"px-space-sm py-0.5 rounded bg-surface-container hover:bg-surface-container-highest text-primary font-label-md text-label-md transition-colors\"",
+        "text": "Inspect"
+      },
+      {
+        "attrs": "class=\"px-space-sm py-0.5 rounded bg-primary-container/20 text-primary-container font-label-md text-label-md font-semibold border border-primary-container/40 transition-colors\"",
+        "text": "Config"
+      },
+      {
+        "attrs": "class=\"px-space-sm py-0.5 rounded bg-surface-container-low hover:bg-surface-container-highest text-primary font-label-md text-label-md transition-colors\"",
+        "text": "Inspect"
+      },
+      {
+        "attrs": "class=\"px-space-sm py-0.5 rounded bg-surface-container-low hover:bg-surface-container-highest text-on-surface-variant font-label-md text-label-md transition-colors\"",
+        "text": "Config"
+      },
+      {
+        "attrs": "class=\"px-space-sm py-0.5 rounded bg-surface-container-low hover:bg-surface-container-highest text-primary font-label-md text-label-md transition-colors\"",
+        "text": "Inspect"
+      },
+      {
+        "attrs": "class=\"px-space-sm py-0.5 rounded bg-surface-container-low hover:bg-surface-container-highest text-on-surface-variant font-label-md text-label-md transition-colors\"",
+        "text": "Config"
+      },
+      {
+        "attrs": "class=\"px-space-sm py-0.5 rounded bg-surface-container-low hover:bg-surface-container-highest text-primary font-label-md text-label-md transition-colors\"",
+        "text": "Inspect"
+      },
+      {
+        "attrs": "class=\"px-space-sm py-0.5 rounded bg-surface-container-low hover:bg-surface-container-highest text-on-surface-variant font-label-md text-label-md transition-colors\"",
+        "text": "Config"
+      },
+      {
+        "attrs": "class=\"px-space-sm py-0.5 rounded bg-surface-container-low hover:bg-surface-container-highest text-primary font-label-md text-label-md transition-colors\"",
+        "text": "Inspect"
+      },
+      {
+        "attrs": "class=\"px-space-sm py-0.5 rounded bg-surface-container-low hover:bg-surface-container-highest text-on-surface-variant font-label-md text-label-md transition-colors\"",
+        "text": "Config"
+      },
+      {
+        "attrs": "class=\"px-space-sm py-0.5 rounded bg-surface-container-low hover:bg-surface-container-highest text-primary font-label-md text-label-md transition-colors\"",
+        "text": "Inspect"
+      },
+      {
+        "attrs": "class=\"px-space-sm py-0.5 rounded bg-surface-container-low hover:bg-surface-container-highest text-on-surface-variant font-label-md text-label-md transition-colors\"",
+        "text": "Config"
+      },
+      {
+        "attrs": "class=\"px-space-sm py-0.5 rounded bg-surface-container-low hover:bg-surface-container-highest text-primary font-label-md text-label-md transition-colors\"",
+        "text": "Inspect"
+      },
+      {
+        "attrs": "class=\"px-space-sm py-0.5 rounded bg-surface-container-low hover:bg-surface-container-highest text-on-surface-variant font-label-md text-label-md transition-colors\"",
+        "text": "Config"
+      },
+      {
+        "attrs": "class=\"px-space-sm py-0.5 rounded bg-surface-container-high hover:bg-secondary-container hover:text-on-secondary-container text-primary font-label-md text-label-md transition-all\"",
+        "text": "Install Plugin"
+      },
+      {
+        "attrs": "class=\"flex-1 py-space-xs rounded-lg bg-surface-container hover:bg-surface-container-highest text-on-surface font-label-md text-label-md font-semibold transition-colors shadow-sm\"",
+        "text": "Edit Path Sandbox"
+      },
+      {
+        "attrs": "class=\"flex-1 py-space-xs rounded-lg bg-surface-container hover:bg-surface-container-highest text-primary font-label-md text-label-md font-semibold transition-colors shadow-sm\"",
+        "text": "Flush Buffer Cache"
+      },
+      {
+        "attrs": "class=\"p-space-xs rounded-lg bg-surface-container hover:bg-error-container hover:text-on-error-container text-error transition-colors\" title=\"Emergency Disable Plugin\"",
+        "text": "power_settings_new"
+      },
+      {
+        "attrs": "class=\"p-1 rounded text-on-surface-variant hover:text-primary transition-colors\" title=\"Attach context or file payload\"",
+        "text": "attach_file"
+      },
+      {
+        "attrs": "class=\"p-1 rounded text-on-surface-variant hover:text-primary transition-colors\" title=\"Toggle audio transcription\"",
+        "text": "mic"
+      },
+      {
+        "attrs": "onclick=\"document.getElementById('plugin-config-modal-overlay').remove()\" class=\"w-8 h-8 rounded-lg flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-colors\" title=\"Close modal\"",
+        "text": "close"
+      },
+      {
+        "attrs": "class=\"px-space-md py-space-xs font-label-md text-label-md font-semibold text-primary border-b-2 border-primary transition-all\"",
+        "text": "Security &amp; Scope"
+      },
+      {
+        "attrs": "class=\"px-space-md py-space-xs font-label-md text-label-md font-medium text-on-surface-variant hover:text-on-surface hover:bg-surface-container/50 rounded-t-lg transition-all\"",
+        "text": "IPC Channels"
+      },
+      {
+        "attrs": "class=\"px-space-md py-space-xs font-label-md text-label-md font-medium text-on-surface-variant hover:text-on-surface hover:bg-surface-container/50 rounded-t-lg transition-all\"",
+        "text": "Resource Limits"
+      },
+      {
+        "attrs": "class=\"px-space-md py-space-xs font-label-md text-label-md font-medium text-on-surface-variant hover:text-on-surface hover:bg-surface-container/50 rounded-t-lg transition-all\"",
+        "text": "Audit Triggers"
+      },
+      {
+        "attrs": "class=\"px-space-md py-space-xs rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md text-label-md font-medium border border-outline-variant/40 transition-colors shadow-sm\"",
+        "text": "Browse Root"
+      },
+      {
+        "attrs": "class=\"px-space-md py-space-xs rounded-lg bg-surface-container-high hover:bg-surface-container-highest text-surface-tint font-label-md text-label-md font-semibold border border-primary-container/30 transition-colors flex items-center gap-1 shadow-sm\"",
+        "text": "verified Verify VFS Jail"
+      },
+      {
+        "attrs": "class=\"text-primary hover:underline font-label-md text-label-md flex items-center gap-0.5\"",
+        "text": "add + Add Path Rule"
+      },
+      {
+        "attrs": "class=\"text-error hover:text-on-error-container font-label-md text-label-md font-medium transition-colors\"",
+        "text": "Reset to Enclave Defaults"
+      },
+      {
+        "attrs": "class=\"px-space-md py-space-xs rounded-lg bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-label-md text-label-md font-medium border border-outline-variant/40 transition-colors shadow-sm\"",
+        "text": "Test Path Containment"
+      },
+      {
+        "attrs": "onclick=\"document.getElementById('plugin-config-modal-overlay').remove()\" class=\"px-space-md py-space-xs rounded-lg bg-secondary-container hover:bg-primary-container text-on-secondary-container hover:text-on-primary-container font-label-md text-label-md font-semibold transition-all shadow-[0_0_12px_#43D9FF] border border-primary-container\"",
+        "text": "Save Configuration &amp; Reload Plugin"
+      }
+    ],
+    "inputs": [
+      {
+        "tag": "input",
+        "attrs": "class=\"w-full pl-10 pr-space-md py-space-xs bg-surface-container rounded-lg font-body-md text-body-md text-on-surface placeholder:text-outline focus:outline-none focus:bg-surface-container-high shadow-inner\" id=\"plugin-search\" placeholder=\"Search 48+ plugins, tools, or local integrations (press '/' to focus)...\" type=\"text\""
+      },
+      {
+        "tag": "input",
+        "attrs": "checked=\"\" class=\"w-4 h-4 rounded bg-surface-container-high text-secondary-container focus:ring-0 cursor-pointer\" type=\"checkbox\""
+      },
+      {
+        "tag": "input",
+        "attrs": "checked=\"\" class=\"w-4 h-4 rounded bg-surface-container-high text-secondary-container focus:ring-0 cursor-pointer\" type=\"checkbox\""
+      },
+      {
+        "tag": "input",
+        "attrs": "class=\"w-4 h-4 rounded bg-surface-container-high text-error focus:ring-0 opacity-50 cursor-not-allowed\" disabled=\"\" type=\"checkbox\""
+      },
+      {
+        "tag": "input",
+        "attrs": "class=\"w-4 h-4 rounded bg-surface-container-high text-error focus:ring-0 opacity-50 cursor-not-allowed\" disabled=\"\" type=\"checkbox\""
+      },
+      {
+        "tag": "input",
+        "attrs": "class=\"bg-transparent flex-1 focus:outline-none text-on-surface font-body-md text-body-md placeholder:text-on-surface-variant/50\" placeholder=\"Instruct neural orchestrator or input quick prompt...\" type=\"text\""
+      },
+      {
+        "tag": "input",
+        "attrs": "type=\"text\" readonly=\"\" value=\"C:/workspace/sandbox_v3\" class=\"w-full pl-10 pr-space-md py-space-xs bg-surface-container-lowest border border-outline-variant/40 rounded-lg font-code-md text-code-md text-primary font-medium focus:outline-none shadow-inner\""
+      },
+      {
+        "tag": "input",
+        "attrs": "type=\"checkbox\" checked=\"\" class=\"w-4 h-4 rounded bg-surface-container-high text-secondary-container focus:ring-0 cursor-pointer\""
+      },
+      {
+        "tag": "input",
+        "attrs": "type=\"checkbox\" checked=\"\" class=\"w-4 h-4 rounded bg-surface-container-high text-secondary-container focus:ring-0 cursor-pointer\""
+      },
+      {
+        "tag": "input",
+        "attrs": "type=\"checkbox\" disabled=\"\" class=\"w-4 h-4 rounded bg-surface-container-high text-error focus:ring-0 cursor-not-allowed\""
+      },
+      {
+        "tag": "input",
+        "attrs": "type=\"checkbox\" disabled=\"\" class=\"w-4 h-4 rounded bg-surface-container-high text-error focus:ring-0 cursor-not-allowed\""
+      },
+      {
+        "tag": "input",
+        "attrs": "type=\"range\" min=\"128\" max=\"2048\" value=\"512\" class=\"w-full accent-primary-container cursor-pointer\""
+      }
+    ],
+    "headings": [
+      {
+        "tag": "h1",
+        "text": "Plugin Centre"
+      },
+      {
+        "tag": "h3",
+        "text": "FS Local Sandbox"
+      },
+      {
+        "tag": "h3",
+        "text": "Obsidian Vault Sync"
+      },
+      {
+        "tag": "h3",
+        "text": "Brave Local Indexer"
+      },
+      {
+        "tag": "h3",
+        "text": "Git &amp; AST Engine"
+      },
+      {
+        "tag": "h3",
+        "text": "Terminal Exec Enclave"
+      },
+      {
+        "tag": "h3",
+        "text": "Database Inspector"
+      },
+      {
+        "tag": "h3",
+        "text": "Whisper Stream DirectML"
+      },
+      {
+        "tag": "h3",
+        "text": "Telegram Bot Gateway"
+      },
+      {
+        "tag": "h2",
+        "text": "Local FS Sandbox"
+      },
+      {
+        "tag": "h4",
+        "text": "Deterministic Sandbox Guarantees"
+      },
+      {
+        "tag": "h2",
+        "text": "Configure Plugin \u2014 Local FS Sandbox v2.4.0"
+      }
+    ],
+    "has_canvas": false,
+    "has_svg": true,
+    "svg_count": 1,
+    "script_snippets": [
+      "(function initPluginCentre() {\n      // Tab switching\n      const tabs = document.querySelectorAll('.tab-btn');\n      tabs.forEach(tab => {\n        tab.addEventListener('click', () => {\n          tabs.forEach(t => {\n            t.classList.remove('bg-secondary-container', 'text-on-secondary-container', 'font-semibold');\n            t.classList.add('text-on-surface-variant', 'font-medium');\n          });\n          tab.classList.add('bg-secondary-container', 'text-on-secondary-container', 'font-semibold');\n          tab.classList.remove('text-on-surface-variant', 'font-medium');\n        });\n      });\n\n      // Filter pills\n      const filterPills = document.querySelectorAll('.filter-pill');\n      filterPills.forEach(pill => {\n        pill.addEventListener('click', () => {\n          filterPills.forEach(p => {\n            p.classList.remove('bg-surface-container-high', 'text-primary', 'font-semibold');\n            p.classList.add('bg-surface-container-low', 'text-on-surface-variant');\n          });\n          pill.classList.add('bg-surface-container-high', 'text-primary', 'font-semibold');\n          pill.classList.remove('bg-surface-container-low', 'text-on-surface-variant');\n        });\n      });\n\n      // Plugin card click selection\n      const cards = document.querySelectorAll('.plugin-card');\n      cards.forEach(card => {\n        card.addEventListener('click', () => {\n          cards.forEach(c => {\n            c.classList.remove('bg-surface-container-high');\n            c.classList.add('bg-surface-container');\n          });\n          card.classList.remove('bg-surface-container');\n          card.classList.add('bg-surface-container-high');\n        });\n      });\n\n      // Quick key listener for search input\n      window.addEventListener('keydown', (e) => {\n        if (e.key === '/' && document.activeElement.tagName !== 'INPUT') {\n          e.preventDefault();\n          const search = document.getElementById('plugin-search');\n          if (search) search.focus();\n        }\n      });\n    })();"
+    ],
+    "external_assets": [
+      "https://cdn.tailwindcss.com",
+      "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap",
+      "https://lh3.googleusercontent.com/aida/ALJJyrDkwdFfa2ZbCR92YUYuBisOJanZ8ecfnNvhI9eXBT--hdx14MyRyg6qfpPnaiS3kIpRGkkX0PNVVtIwneXNiCoblHPpmqiGrQk2CkGEIKcqfD3gRNBMLWSXQEbGOivXgnv71LBNjxftYEsjJ8cw22e5EDAyHmGagINyRC1EEZmHBwkNLqwZmekoCt_AROtGMSmXq54KIdKK2SWARwX6UIilHqAqSfaykmHb1GzCTeU",
+      "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    ]
+  },
+  "screen_06_agent_workspace": {
+    "name": "06. Agent Workspace",
+    "nav_links": [
+      "tasks-activity",
+      "intelligence-models",
+      "system-monitor",
+      "plugin-center",
+      "pc-control",
+      "voice-studio",
+      "agent-workspace",
+      "3d-neural-core",
+      "settings",
+      "security-permissions",
+      "workflow-builder",
+      "conversation",
+      "memory-center",
+      "command-center"
+    ],
+    "buttons": [
+      {
+        "attrs": "class=\"p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors\" title=\"Voice Interface Ready\"",
+        "text": "mic"
+      },
+      {
+        "attrs": "class=\"p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors\" title=\"Encrypted &amp; Enforced\"",
+        "text": "verified_user"
+      },
+      {
+        "attrs": "class=\"relative p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors\" title=\"Telemetry Alerts\"",
+        "text": "notifications"
+      },
+      {
+        "attrs": "class=\"w-full flex items-center justify-between px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors\"",
+        "text": "deployed_code HUD Mode F9"
+      },
+      {
+        "attrs": "class=\"w-full flex items-center justify-between px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors\"",
+        "text": "dock_to_right Collapse Rail Ctrl+["
+      },
+      {
+        "attrs": "class=\"px-space-sm py-1 rounded bg-secondary-container text-on-secondary-container font-label-mono text-label-mono font-semibold flex items-center gap-1 shadow-sm\"",
+        "text": "hub Mesh View"
+      },
+      {
+        "attrs": "class=\"px-space-sm py-1 rounded bg-surface-container hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface font-label-mono text-label-mono transition-colors flex items-center gap-1\"",
+        "text": "account_tree Hierarchy Tree"
+      },
+      {
+        "attrs": "class=\"px-space-sm py-1 rounded bg-surface-container hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface font-label-mono text-label-mono transition-colors flex items-center gap-1\"",
+        "text": "swap_horiz Ring-Buffer Trace"
+      },
+      {
+        "attrs": "class=\"flex items-center gap-space-xs px-space-md py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md text-label-md transition-colors shadow-sm\"",
+        "text": "balance Re-balance Weights"
+      },
+      {
+        "attrs": "class=\"flex items-center gap-space-xs px-space-md py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md text-label-md transition-colors shadow-sm\"",
+        "text": "shield Security Rules"
+      },
+      {
+        "attrs": "class=\"flex items-center gap-space-xs px-space-md py-1.5 rounded-lg bg-error-container/20 text-error hover:bg-error-container/30 font-label-md text-label-md transition-colors shadow-sm\"",
+        "text": "pause_circle Suspend Subordinates"
+      },
+      {
+        "attrs": "class=\"filter-btn active px-space-md py-1.5 rounded-lg font-label-md text-label-md bg-secondary-container text-on-secondary-container font-semibold transition-all\"",
+        "text": "All Specialists (15)"
+      },
+      {
+        "attrs": "class=\"filter-btn px-space-md py-1.5 rounded-lg font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all\"",
+        "text": "Active Warm (4)"
+      },
+      {
+        "attrs": "class=\"filter-btn px-space-md py-1.5 rounded-lg font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all\"",
+        "text": "Standby (6)"
+      },
+      {
+        "attrs": "class=\"filter-btn px-space-md py-1.5 rounded-lg font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all\"",
+        "text": "Air-Gapped / Cold (5)"
+      },
+      {
+        "attrs": "class=\"p-1.5 rounded-md bg-surface-container-high text-primary transition-all\" id=\"view-grid\" title=\"Card Grid Matrix\"",
+        "text": "grid_view"
+      },
+      {
+        "attrs": "class=\"p-1.5 rounded-md text-on-surface-variant hover:text-on-surface transition-all\" id=\"view-hierarchy\" title=\"Hierarchical Tree View\"",
+        "text": "account_tree"
+      },
+      {
+        "attrs": "class=\"px-space-md py-1.5 rounded-lg bg-primary-container text-on-primary-container hover:bg-primary transition-colors font-label-md text-label-md font-semibold flex items-center gap-1 shadow-sm\"",
+        "text": "tune Root Config"
+      },
+      {
+        "attrs": "class=\"p-1 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors\" title=\"Inspect Directives\"",
+        "text": "visibility"
+      },
+      {
+        "attrs": "class=\"p-1 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors\" title=\"Test Dispatch Vector\"",
+        "text": "play_arrow"
+      },
+      {
+        "attrs": "class=\"p-1 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors\" title=\"Configure Model &amp; Quant\"",
+        "text": "settings"
+      },
+      {
+        "attrs": "class=\"p-1 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container\"",
+        "text": "visibility"
+      },
+      {
+        "attrs": "class=\"p-1 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container\"",
+        "text": "play_arrow"
+      },
+      {
+        "attrs": "class=\"p-1 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container\"",
+        "text": "settings"
+      },
+      {
+        "attrs": "class=\"p-1 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container\"",
+        "text": "visibility"
+      },
+      {
+        "attrs": "class=\"p-1 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container\"",
+        "text": "play_arrow"
+      },
+      {
+        "attrs": "class=\"p-1 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container\"",
+        "text": "settings"
+      },
+      {
+        "attrs": "class=\"p-1 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container\"",
+        "text": "visibility"
+      },
+      {
+        "attrs": "class=\"p-1 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container\"",
+        "text": "play_arrow"
+      },
+      {
+        "attrs": "class=\"p-1 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container\"",
+        "text": "settings"
+      },
+      {
+        "attrs": "class=\"p-1 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container\"",
+        "text": "visibility"
+      },
+      {
+        "attrs": "class=\"p-1 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container\"",
+        "text": "play_arrow"
+      },
+      {
+        "attrs": "class=\"p-1 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container\"",
+        "text": "settings"
+      },
+      {
+        "attrs": "class=\"p-1 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container\"",
+        "text": "visibility"
+      },
+      {
+        "attrs": "class=\"p-1 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container\"",
+        "text": "play_arrow"
+      },
+      {
+        "attrs": "class=\"p-1 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container\"",
+        "text": "settings"
+      },
+      {
+        "attrs": "class=\"p-1 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors\" title=\"Reload Agent Memory\"",
+        "text": "restart_alt"
+      },
+      {
+        "attrs": "class=\"p-1 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors\" title=\"Close Panel\"",
+        "text": "close"
+      },
+      {
+        "attrs": "class=\"flex-1 py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md text-label-md font-semibold transition-colors shadow-sm\"",
+        "text": "Flush Context"
+      },
+      {
+        "attrs": "class=\"flex-1 py-1.5 rounded-lg bg-primary-container text-on-primary-container hover:bg-primary font-label-md text-label-md font-semibold transition-colors shadow-sm\"",
+        "text": "Dispatch Test Prompt"
+      },
+      {
+        "attrs": "class=\"px-space-xs py-0.5 rounded bg-secondary-container text-on-secondary-container font-label-mono text-[10px] font-semibold\"",
+        "text": "All Buses"
+      },
+      {
+        "attrs": "class=\"px-space-xs py-0.5 rounded bg-surface-container hover:bg-surface-container-high text-on-surface-variant font-label-mono text-[10px]\"",
+        "text": "Ring-Buffer IPC"
+      },
+      {
+        "attrs": "class=\"px-space-xs py-0.5 rounded bg-surface-container hover:bg-surface-container-high text-on-surface-variant font-label-mono text-[10px]\"",
+        "text": "Unix Sockets"
+      },
+      {
+        "attrs": "class=\"px-space-xs py-0.5 rounded bg-surface-container hover:bg-surface-container-high text-on-surface-variant font-label-mono text-[10px]\"",
+        "text": "Direct Event"
+      },
+      {
+        "attrs": "class=\"p-1 rounded text-on-surface-variant hover:text-primary transition-colors\" title=\"Attach context or file payload\"",
+        "text": "attach_file"
+      },
+      {
+        "attrs": "class=\"p-1 rounded text-on-surface-variant hover:text-primary transition-colors\" title=\"Toggle audio transcription\"",
+        "text": "mic"
+      },
+      {
+        "attrs": "class=\"px-space-sm py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md text-label-md flex items-center gap-1 transition-colors\"",
+        "text": "pause Pause"
+      },
+      {
+        "attrs": "class=\"px-space-sm py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md text-label-md flex items-center gap-1 transition-colors\"",
+        "text": "download Export Trace"
+      },
+      {
+        "attrs": "onclick=\"document.getElementById('bus-trace-modal').remove()\" class=\"p-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface transition-colors flex items-center justify-center\" title=\"Close Modal\"",
+        "text": "close [Esc]"
+      },
+      {
+        "attrs": "class=\"px-space-sm py-1 rounded bg-secondary-container text-on-secondary-container font-label-mono text-label-mono font-semibold shadow-sm\"",
+        "text": "All Channels (4)"
+      },
+      {
+        "attrs": "class=\"px-space-sm py-1 rounded bg-surface-container-low hover:bg-surface-container-high text-on-surface-variant font-label-mono text-label-mono transition-colors flex items-center gap-1\"",
+        "text": "IPC Ring-Buffer (Active)"
+      },
+      {
+        "attrs": "class=\"px-space-sm py-1 rounded bg-surface-container-low hover:bg-surface-container-high text-on-surface-variant font-label-mono text-label-mono transition-colors\"",
+        "text": "Unix Sockets"
+      },
+      {
+        "attrs": "class=\"px-space-sm py-1 rounded bg-surface-container-low hover:bg-surface-container-high text-on-surface-variant font-label-mono text-label-mono transition-colors\"",
+        "text": "Direct Event Callbacks"
+      },
+      {
+        "attrs": "class=\"px-1.5 py-0.5 rounded bg-surface-container-high text-primary font-semibold\"",
+        "text": "All Agents"
+      },
+      {
+        "attrs": "class=\"px-1.5 py-0.5 rounded bg-surface-container-low text-on-surface-variant hover:text-on-surface\"",
+        "text": "@Orchestrator"
+      },
+      {
+        "attrs": "class=\"px-1.5 py-0.5 rounded bg-surface-container-low text-on-surface-variant hover:text-on-surface\"",
+        "text": "@Security"
+      },
+      {
+        "attrs": "class=\"px-1.5 py-0.5 rounded bg-surface-container-low text-on-surface-variant hover:text-on-surface\"",
+        "text": "@Coder"
+      },
+      {
+        "attrs": "class=\"px-1.5 py-0.5 rounded bg-surface-container-low text-on-surface-variant hover:text-on-surface\"",
+        "text": "@PC_Control"
+      },
+      {
+        "attrs": "class=\"px-1.5 py-0.5 rounded bg-surface-container-low text-on-surface-variant hover:text-on-surface\"",
+        "text": "@Voice"
+      },
+      {
+        "attrs": "class=\"px-space-xs py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-label-mono text-[11px] font-semibold flex items-center justify-center gap-1 transition-colors\"",
+        "text": "replay Replay Fault Vector"
+      },
+      {
+        "attrs": "class=\"px-space-xs py-1.5 rounded-lg bg-error-container/20 hover:bg-error-container/30 text-error font-label-mono text-[11px] font-semibold flex items-center justify-center gap-1 transition-colors\"",
+        "text": "delete_forever Purge Quarantine"
+      },
+      {
+        "attrs": "class=\"w-full py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high text-primary font-label-mono text-[11px] font-semibold flex items-center justify-center gap-1 transition-colors shadow-sm\"",
+        "text": "description Generate Incident Audit Report (.JSON)"
+      },
+      {
+        "attrs": "class=\"flex items-center gap-1 px-1.5 py-0.5 rounded bg-surface-container text-primary font-semibold\"",
+        "text": "Auto-Scroll: ON [Space]"
+      }
+    ],
+    "inputs": [
+      {
+        "tag": "input",
+        "attrs": "class=\"w-full bg-surface-container text-on-surface pl-9 pr-space-md py-1.5 rounded-lg text-body-sm font-body-sm focus:outline-none focus:bg-surface-container-high transition-colors placeholder:text-on-surface-variant/60\" id=\"agent-search\" placeholder=\"Filter by agent, scope, or model...\" type=\"text\""
+      },
+      {
+        "tag": "input",
+        "attrs": "class=\"bg-transparent flex-1 focus:outline-none text-on-surface font-body-md text-body-md placeholder:text-on-surface-variant/50\" placeholder=\"Instruct neural orchestrator or input quick prompt...\" type=\"text\""
+      }
+    ],
+    "headings": [
+      {
+        "tag": "h1",
+        "text": "Agent Workspace &amp; Swarm Specialist Matrix"
+      },
+      {
+        "tag": "h2",
+        "text": "Coder Agent"
+      },
+      {
+        "tag": "h2",
+        "text": "Security Auditor"
+      },
+      {
+        "tag": "h2",
+        "text": "PC Automation Agent"
+      },
+      {
+        "tag": "h2",
+        "text": "Voice Synthesis Agent"
+      },
+      {
+        "tag": "h2",
+        "text": "Designer"
+      },
+      {
+        "tag": "h2",
+        "text": "Researcher"
+      },
+      {
+        "tag": "h2",
+        "text": "Coder Agent"
+      },
+      {
+        "tag": "h2",
+        "text": "Inter-Agent Message Simulation Trace"
+      }
+    ],
+    "has_canvas": false,
+    "has_svg": true,
+    "svg_count": 1,
+    "script_snippets": [
+      "// Simple client-side micro-interactions for agent search and selection\n  document.addEventListener('DOMContentLoaded', () => {\n    const searchInput = document.getElementById('agent-search');\n    const cards = document.querySelectorAll('.agent-card');\n    const filterButtons = document.querySelectorAll('.filter-btn');\n\n    if (searchInput) {\n      searchInput.addEventListener('input', (e) => {\n        const query = e.target.value.toLowerCase();\n        cards.forEach(card => {\n          const text = card.innerText.toLowerCase();\n          card.style.display = text.includes(query) ? 'block' : 'none';\n        });\n      });\n    }\n\n    filterButtons.forEach(btn => {\n      btn.addEventListener('click', () => {\n        filterButtons.forEach(b => {\n          b.classList.remove('bg-secondary-container', 'text-on-secondary-container', 'font-semibold');\n          b.classList.add('text-on-surface-variant');\n        });\n        btn.classList.add('bg-secondary-container', 'text-on-secondary-container', 'font-semibold');\n        btn.classList.remove('text-on-surface-variant');\n      });\n    });\n\n    cards.forEach(card => {\n      card.addEventListener('click', () => {\n        cards.forEach(c => c.classList.remove('ring-1', 'ring-secondary-container/40'));\n        card.classList.add('ring-1', 'ring-secondary-container/40');\n      });\n    });\n  });"
+    ],
+    "external_assets": [
+      "https://cdn.tailwindcss.com",
+      "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap",
+      "https://lh3.googleusercontent.com/aida/ALJJyrDkwdFfa2ZbCR92YUYuBisOJanZ8ecfnNvhI9eXBT--hdx14MyRyg6qfpPnaiS3kIpRGkkX0PNVVtIwneXNiCoblHPpmqiGrQk2CkGEIKcqfD3gRNBMLWSXQEbGOivXgnv71LBNjxftYEsjJ8cw22e5EDAyHmGagINyRC1EEZmHBwkNLqwZmekoCt_AROtGMSmXq54KIdKK2SWARwX6UIilHqAqSfaykmHb1GzCTeU",
+      "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    ]
+  },
+  "screen_07_workflow_builder": {
+    "name": "07. Workflow Builder",
+    "nav_links": [
+      "tasks-activity",
+      "intelligence-models",
+      "system-monitor",
+      "plugin-center",
+      "pc-control",
+      "voice-studio",
+      "agent-workspace",
+      "3d-neural-core",
+      "settings",
+      "security-permissions",
+      "workflow-builder",
+      "conversation",
+      "memory-center",
+      "command-center"
+    ],
+    "buttons": [
+      {
+        "attrs": "class=\"p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors\" title=\"Voice Interface Ready\"",
+        "text": "mic"
+      },
+      {
+        "attrs": "class=\"p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors\" title=\"Encrypted &amp; Enforced\"",
+        "text": "verified_user"
+      },
+      {
+        "attrs": "class=\"relative p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors\" title=\"Telemetry Alerts\"",
+        "text": "notifications"
+      },
+      {
+        "attrs": "class=\"w-full flex items-center justify-between px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors\"",
+        "text": "deployed_code HUD Mode F9"
+      },
+      {
+        "attrs": "class=\"w-full flex items-center justify-between px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors\"",
+        "text": "dock_to_right Collapse Rail Ctrl+["
+      },
+      {
+        "attrs": "class=\"p-1 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors\" title=\"Undo (Ctrl+Z)\"",
+        "text": "undo"
+      },
+      {
+        "attrs": "class=\"p-1 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors\" title=\"Redo (Ctrl+Y)\"",
+        "text": "redo"
+      },
+      {
+        "attrs": "class=\"flex items-center gap-space-xs px-space-sm py-1.5 rounded-lg bg-surface-container text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors font-label-md text-label-md\"",
+        "text": "data_object Export JSON"
+      },
+      {
+        "attrs": "class=\"flex items-center gap-space-xs px-space-sm py-1.5 rounded-lg bg-surface-container-high text-on-surface hover:bg-surface-bright transition-colors font-label-md text-label-md\"",
+        "text": "science Dry Run"
+      },
+      {
+        "attrs": "class=\"flex items-center gap-space-xs px-space-sm py-1.5 rounded-lg bg-secondary-container text-on-secondary-container hover:bg-primary-container hover:text-on-primary-container transition-all font-label-md text-label-md font-semibold shadow-sm\"",
+        "text": "play_arrow Execute Live (Local)"
+      },
+      {
+        "attrs": "class=\"flex items-center gap-space-xs px-space-sm py-1.5 rounded-lg bg-surface-container-highest text-primary hover:bg-surface-bright transition-colors font-label-md text-label-md font-medium\"",
+        "text": "save Save"
+      },
+      {
+        "attrs": "class=\"p-1 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors\" title=\"Zoom In\"",
+        "text": "add"
+      },
+      {
+        "attrs": "class=\"p-1 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors\" title=\"Zoom Out\"",
+        "text": "remove"
+      },
+      {
+        "attrs": "class=\"p-1 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors\" title=\"Fit to Screen\"",
+        "text": "center_focus_strong"
+      },
+      {
+        "attrs": "class=\"p-1 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors\" title=\"Toggle Auto-Align\"",
+        "text": "grid_view"
+      },
+      {
+        "attrs": "class=\"px-2 py-0.5 rounded bg-tertiary text-on-tertiary text-[10px] font-label-md font-semibold hover:bg-tertiary-container transition-colors shadow-sm\"",
+        "text": "Authorize"
+      },
+      {
+        "attrs": "class=\"p-1 rounded hover:bg-surface-container hover:text-on-surface transition-colors\" title=\"Center Graph\"",
+        "text": "center_focus_strong"
+      },
+      {
+        "attrs": "class=\"p-1 rounded hover:bg-surface-container hover:text-on-surface transition-colors\" title=\"Fit to View\"",
+        "text": "fit_screen"
+      },
+      {
+        "attrs": "class=\"p-1 rounded hover:bg-surface-container hover:text-on-surface transition-colors\" title=\"Reset Zoom\"",
+        "text": "restart_alt"
+      },
+      {
+        "attrs": "class=\"w-full flex items-center justify-center gap-space-xs py-2 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface transition-colors font-label-md text-label-md\"",
+        "text": "play_circle Test Node In Isolation"
+      },
+      {
+        "attrs": "class=\"p-2 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface transition-colors\" title=\"Pause Pipeline\"",
+        "text": "pause"
+      },
+      {
+        "attrs": "class=\"p-2 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface transition-colors\" title=\"Abort Run\"",
+        "text": "stop"
+      },
+      {
+        "attrs": "class=\"p-1 rounded text-on-surface-variant hover:text-primary transition-colors\" title=\"Attach context or file payload\"",
+        "text": "attach_file"
+      },
+      {
+        "attrs": "class=\"p-1 rounded text-on-surface-variant hover:text-primary transition-colors\" title=\"Toggle audio transcription\"",
+        "text": "mic"
+      }
+    ],
+    "inputs": [
+      {
+        "tag": "input",
+        "attrs": "class=\"bg-transparent w-full text-body-sm font-body-sm text-on-surface focus:outline-none placeholder:text-on-surface-variant/40\" placeholder=\"Search node definitions...\" type=\"text\""
+      },
+      {
+        "tag": "input",
+        "attrs": "checked=\"\" class=\"mt-0.5 text-primary focus:ring-0 bg-surface-container-lowest\" name=\"policy\" type=\"radio\""
+      },
+      {
+        "tag": "input",
+        "attrs": "class=\"mt-0.5 text-primary focus:ring-0 bg-surface-container-lowest\" disabled=\"\" name=\"policy\" type=\"radio\""
+      },
+      {
+        "tag": "input",
+        "attrs": "class=\"w-full h-1.5 bg-surface-container rounded-lg appearance-none cursor-pointer accent-primary\" max=\"900\" min=\"30\" type=\"range\" value=\"300\""
+      },
+      {
+        "tag": "input",
+        "attrs": "class=\"bg-transparent flex-1 focus:outline-none text-on-surface font-body-md text-body-md placeholder:text-on-surface-variant/50\" placeholder=\"Instruct neural orchestrator or input quick prompt...\" type=\"text\""
+      }
+    ],
+    "headings": [
+      {
+        "tag": "h1",
+        "text": "Local Codebase Security Audit &amp; Release Verifier"
+      }
+    ],
+    "has_canvas": false,
+    "has_svg": true,
+    "svg_count": 3,
+    "script_snippets": [],
+    "external_assets": [
+      "https://cdn.tailwindcss.com",
+      "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap",
+      "https://lh3.googleusercontent.com/aida/ALJJyrDkwdFfa2ZbCR92YUYuBisOJanZ8ecfnNvhI9eXBT--hdx14MyRyg6qfpPnaiS3kIpRGkkX0PNVVtIwneXNiCoblHPpmqiGrQk2CkGEIKcqfD3gRNBMLWSXQEbGOivXgnv71LBNjxftYEsjJ8cw22e5EDAyHmGagINyRC1EEZmHBwkNLqwZmekoCt_AROtGMSmXq54KIdKK2SWARwX6UIilHqAqSfaykmHb1GzCTeU",
+      "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    ]
+  },
+  "screen_08_pc_control_centre": {
+    "name": "08. PC Control Centre",
+    "nav_links": [
+      "tasks-activity",
+      "intelligence-models",
+      "system-monitor",
+      "plugin-center",
+      "pc-control",
+      "voice-studio",
+      "agent-workspace",
+      "3d-neural-core",
+      "settings",
+      "security-permissions",
+      "workflow-builder",
+      "conversation",
+      "memory-center",
+      "command-center"
+    ],
+    "buttons": [
+      {
+        "attrs": "class=\"p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors\" title=\"Voice Interface Ready\"",
+        "text": "mic"
+      },
+      {
+        "attrs": "class=\"p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors\" title=\"Encrypted &amp; Enforced\"",
+        "text": "verified_user"
+      },
+      {
+        "attrs": "class=\"relative p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors\" title=\"Telemetry Alerts\"",
+        "text": "notifications"
+      },
+      {
+        "attrs": "class=\"w-full flex items-center justify-between px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors\"",
+        "text": "deployed_code HUD Mode F9"
+      },
+      {
+        "attrs": "class=\"w-full flex items-center justify-between px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors\"",
+        "text": "dock_to_right Collapse Rail Ctrl+["
+      },
+      {
+        "attrs": "class=\"flex items-center gap-space-sm bg-error-container hover:bg-error px-space-md py-space-xs rounded-lg text-on-error-container hover:text-on-error transition-all shadow-[0_0_24px_rgba(255,99,122,0.35)] active:scale-95 group\" id=\"emergency-halt-btn\"",
+        "text": "emergency Emergency Stop Esc x2 Kill Switch"
+      },
+      {
+        "attrs": "class=\"px-1.5 py-0.5 rounded hover:bg-surface-container-high text-on-surface-variant text-[11px] font-label-mono transition-colors\" title=\"Clear terminal buffer\"",
+        "text": "Clear"
+      },
+      {
+        "attrs": "class=\"px-1.5 py-0.5 rounded bg-surface-container hover:bg-surface-container-high text-on-surface transition-colors flex items-center gap-1 font-semibold\"",
+        "text": "content_copy Copy Logs"
+      },
+      {
+        "attrs": "class=\"py-1 px-2.5 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors flex items-center gap-1\"",
+        "text": "view_column Unified Diff"
+      },
+      {
+        "attrs": "class=\"py-1 px-2.5 rounded bg-secondary-container text-on-secondary-container font-semibold shadow-sm flex items-center gap-1\"",
+        "text": "splitscreen Split Diff"
+      },
+      {
+        "attrs": "class=\"py-1 px-2.5 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors flex items-center gap-1\"",
+        "text": "account_tree Raw AST"
+      },
+      {
+        "attrs": "class=\"px-space-md py-space-xs rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md text-label-md transition-colors flex items-center gap-1 border border-outline-variant/30\"",
+        "text": "account_tree Inspect AST Tree"
+      },
+      {
+        "attrs": "class=\"px-space-md py-space-xs rounded-lg bg-surface-container-low hover:bg-error-container text-error hover:text-on-error font-label-md text-label-md transition-colors flex items-center gap-1 border border-error/40 hover:border-transparent active:scale-95\"",
+        "text": "block Reject &amp; Rollback (Esc)"
+      },
+      {
+        "attrs": "class=\"px-space-md py-space-xs rounded-lg bg-primary hover:bg-primary-container text-on-primary font-label-md text-label-md font-semibold transition-all shadow-[0_0_16px_rgba(67,217,255,0.4)] flex items-center gap-1.5 active:scale-95\"",
+        "text": "check_circle Approve &amp; Apply Diff (Enter)"
+      },
+      {
+        "attrs": "class=\"p-1 px-2 rounded bg-surface-container hover:bg-surface-container-high text-on-surface font-label-mono text-label-mono flex items-center gap-1 transition-colors\"",
+        "text": "step Step"
+      },
+      {
+        "attrs": "class=\"p-1 px-2 rounded bg-surface-container hover:bg-surface-container-high text-on-surface font-label-mono text-label-mono flex items-center gap-1 transition-colors\"",
+        "text": "pause Pause"
+      },
+      {
+        "attrs": "class=\"p-1 px-2 rounded bg-surface-container hover:bg-surface-container-high text-error font-label-mono text-label-mono flex items-center gap-1 transition-colors\"",
+        "text": "stop Abort"
+      },
+      {
+        "attrs": "class=\"px-1.5 py-0.5 rounded hover:bg-surface-container-high text-on-surface-variant text-[11px] font-label-mono transition-colors\" title=\"Clear terminal buffer\"",
+        "text": "Clear"
+      },
+      {
+        "attrs": "class=\"px-1.5 py-0.5 rounded bg-surface-container hover:bg-surface-container-high text-on-surface transition-colors flex items-center gap-1 font-semibold\"",
+        "text": "content_copy Copy Logs"
+      },
+      {
+        "attrs": "class=\"p-1 rounded text-on-surface-variant hover:text-primary transition-colors\" title=\"Attach context or file payload\"",
+        "text": "attach_file"
+      },
+      {
+        "attrs": "class=\"p-1 rounded text-on-surface-variant hover:text-primary transition-colors\" title=\"Toggle audio transcription\"",
+        "text": "mic"
+      }
+    ],
+    "inputs": [
+      {
+        "tag": "input",
+        "attrs": "class=\"bg-transparent flex-1 focus:outline-none text-on-surface font-body-md text-body-md placeholder:text-on-surface-variant/50\" placeholder=\"Instruct neural orchestrator or input quick prompt...\" type=\"text\""
+      }
+    ],
+    "headings": [
+      {
+        "tag": "h1",
+        "text": "PC Control Centre"
+      },
+      {
+        "tag": "h2",
+        "text": "Monitored Apps"
+      },
+      {
+        "tag": "h2",
+        "text": "Sandbox Rules"
+      },
+      {
+        "tag": "h3",
+        "text": "Live Code Diff &amp; FS Modification src/orchestrator/dispatch.ts"
+      },
+      {
+        "tag": "h2",
+        "text": "Execution Sequence Plan"
+      },
+      {
+        "tag": "h2",
+        "text": "Input Telemetry"
+      },
+      {
+        "tag": "h2",
+        "text": "Security Policy Matrix"
+      }
+    ],
+    "has_canvas": false,
+    "has_svg": true,
+    "svg_count": 1,
+    "script_snippets": [
+      "// Emergency stop interaction & Escape x2 key handler\n  let lastEscTime = 0;\n  window.addEventListener('keydown', (e) => {\n    if (e.key === 'Escape') {\n      const now = Date.now();\n      if (now - lastEscTime < 400) {\n        triggerEmergencyHalt();\n      }\n      lastEscTime = now;\n    }\n  });\n\n  const haltBtn = document.getElementById('emergency-halt-btn');\n  if (haltBtn) {\n    haltBtn.addEventListener('click', triggerEmergencyHalt);\n  }\n\n  function triggerEmergencyHalt() {\n    alert('EMERGENCY STOP EXECUTED: All peripheral input simulation hooks instantly unhooked. Active subroutines frozen.');\n  }"
+    ],
+    "external_assets": [
+      "https://cdn.tailwindcss.com",
+      "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap",
+      "https://lh3.googleusercontent.com/aida/ALJJyrDkwdFfa2ZbCR92YUYuBisOJanZ8ecfnNvhI9eXBT--hdx14MyRyg6qfpPnaiS3kIpRGkkX0PNVVtIwneXNiCoblHPpmqiGrQk2CkGEIKcqfD3gRNBMLWSXQEbGOivXgnv71LBNjxftYEsjJ8cw22e5EDAyHmGagINyRC1EEZmHBwkNLqwZmekoCt_AROtGMSmXq54KIdKK2SWARwX6UIilHqAqSfaykmHb1GzCTeU",
+      "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    ]
+  },
+  "screen_09_memory_centre": {
+    "name": "09. Memory Centre",
+    "nav_links": [
+      "tasks-activity",
+      "intelligence-models",
+      "system-monitor",
+      "plugin-center",
+      "pc-control",
+      "voice-studio",
+      "agent-workspace",
+      "3d-neural-core",
+      "settings",
+      "security-permissions",
+      "workflow-builder",
+      "conversation",
+      "memory-center",
+      "command-center"
+    ],
+    "buttons": [
+      {
+        "attrs": "class=\"p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors\" title=\"Voice Interface Ready\"",
+        "text": "mic"
+      },
+      {
+        "attrs": "class=\"p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors\" title=\"Encrypted &amp; Enforced\"",
+        "text": "verified_user"
+      },
+      {
+        "attrs": "class=\"relative p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors\" title=\"Telemetry Alerts\"",
+        "text": "notifications"
+      },
+      {
+        "attrs": "class=\"w-full flex items-center justify-between px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors\"",
+        "text": "deployed_code HUD Mode F9"
+      },
+      {
+        "attrs": "class=\"w-full flex items-center justify-between px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors\"",
+        "text": "dock_to_right Collapse Rail Ctrl+["
+      },
+      {
+        "attrs": "class=\"flex items-center gap-space-xs px-space-md py-space-xs rounded-lg bg-secondary-container text-on-secondary-container hover:bg-primary hover:text-on-primary transition-all duration-150 shadow-md\" id=\"btn-manual-mem\"",
+        "text": "add_circle Add Manual Memory"
+      },
+      {
+        "attrs": "class=\"flex items-center gap-space-xs px-space-md py-space-xs rounded-lg bg-surface-container-high text-on-surface hover:bg-surface-container-highest transition-colors\"",
+        "text": "folder_special Import Vault"
+      },
+      {
+        "attrs": "class=\"flex items-center gap-space-xs px-space-md py-space-xs rounded-lg bg-surface-container-high text-on-surface hover:bg-surface-container-highest transition-colors\"",
+        "text": "archive Export Archive"
+      },
+      {
+        "attrs": "class=\"flex items-center gap-space-xs px-space-md py-space-xs rounded-lg bg-error-container/40 text-error hover:bg-error-container/70 transition-colors\" id=\"btn-purge-open\"",
+        "text": "delete_sweep Purge Store"
+      },
+      {
+        "attrs": "class=\"flex items-center gap-space-xs px-space-lg py-space-xs rounded-lg bg-secondary-container text-on-secondary-container shadow-sm font-label-md text-label-md font-semibold tracking-wide\"",
+        "text": "library_books Memory Library 1,420"
+      },
+      {
+        "attrs": "class=\"flex items-center gap-space-xs px-space-lg py-space-xs rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low transition-colors font-label-md text-label-md font-medium\"",
+        "text": "hub Knowledge Graph (Obsidian Engine)"
+      },
+      {
+        "attrs": "class=\"flex items-center gap-space-xs px-space-lg py-space-xs rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low transition-colors font-label-md text-label-md font-medium\"",
+        "text": "workspaces Projects &amp; Context"
+      },
+      {
+        "attrs": "class=\"font-label-mono text-[10px] text-primary hover:underline\"",
+        "text": "Re-index"
+      },
+      {
+        "attrs": "class=\"flex items-center justify-between px-space-sm py-2 rounded-lg bg-secondary-container text-on-secondary-container font-semibold transition-colors\"",
+        "text": "folder_copy All Memories 1,420"
+      },
+      {
+        "attrs": "class=\"flex items-center justify-between px-space-sm py-2 rounded-lg text-on-surface hover:bg-surface-container transition-colors\"",
+        "text": "tune User Preferences &amp; Principles 84"
+      },
+      {
+        "attrs": "class=\"flex items-center justify-between px-space-sm py-2 rounded-lg text-on-surface hover:bg-surface-container transition-colors\"",
+        "text": "source_notes Project Context 612"
+      },
+      {
+        "attrs": "class=\"flex items-center justify-between px-space-sm py-2 rounded-lg text-on-surface hover:bg-surface-container transition-colors\"",
+        "text": "architecture Technical Decisions &amp; AST 340"
+      },
+      {
+        "attrs": "class=\"flex items-center justify-between px-space-sm py-2 rounded-lg text-on-surface hover:bg-surface-container transition-colors\"",
+        "text": "code Code Snippets &amp; ASTs 214"
+      },
+      {
+        "attrs": "class=\"flex items-center justify-between px-space-sm py-2 rounded-lg text-on-surface hover:bg-surface-container transition-colors\"",
+        "text": "groups People &amp; Roles 45"
+      },
+      {
+        "attrs": "class=\"flex items-center justify-between px-space-sm py-2 rounded-lg text-on-surface hover:bg-surface-container transition-colors\"",
+        "text": "forum Past Conversations 125"
+      },
+      {
+        "attrs": "class=\"px-2 py-1 rounded bg-surface-container-highest hover:bg-secondary-container hover:text-on-secondary-container transition-colors flex items-center gap-1\" title=\"Inspect Vector Dimensions\"",
+        "text": "analytics Inspect"
+      },
+      {
+        "attrs": "class=\"px-2 py-1 rounded bg-surface-container-highest hover:bg-surface-bright text-on-surface transition-colors\" title=\"Edit Memory\"",
+        "text": "edit"
+      },
+      {
+        "attrs": "class=\"px-2 py-1 rounded bg-surface-container-highest hover:bg-error hover:text-on-error transition-colors\" onclick=\"openForgetModal('Core Coding Architecture: Rust + WebAssembly')\" title=\"Purge Record\"",
+        "text": "delete"
+      },
+      {
+        "attrs": "class=\"px-2 py-1 rounded bg-surface-container-highest hover:bg-secondary-container hover:text-on-secondary-container transition-colors flex items-center gap-1\"",
+        "text": "analytics Inspect"
+      },
+      {
+        "attrs": "class=\"px-2 py-1 rounded bg-surface-container-highest hover:bg-error hover:text-on-error transition-colors\" onclick=\"openForgetModal('User UI Preference: High-density desktop')\"",
+        "text": "delete"
+      },
+      {
+        "attrs": "class=\"px-2 py-1 rounded bg-surface-container-highest hover:bg-secondary-container hover:text-on-secondary-container transition-colors flex items-center gap-1\"",
+        "text": "analytics Inspect"
+      },
+      {
+        "attrs": "class=\"px-2 py-1 rounded bg-surface-container-highest hover:bg-error hover:text-on-error transition-colors\" onclick=\"openForgetModal('Security Boundary: Air-gap strictly enforced')\"",
+        "text": "delete"
+      },
+      {
+        "attrs": "class=\"px-2 py-1 rounded bg-surface-container-highest hover:bg-secondary-container hover:text-on-secondary-container transition-colors flex items-center gap-1\"",
+        "text": "analytics Inspect"
+      },
+      {
+        "attrs": "class=\"px-2 py-1 rounded bg-surface-container-highest hover:bg-error hover:text-on-error transition-colors\" onclick=\"openForgetModal('Local Model Quantization Strategy')\"",
+        "text": "delete"
+      },
+      {
+        "attrs": "class=\"px-2 py-0.5 rounded bg-primary-container/20 hover:bg-primary-container text-primary hover:text-on-primary transition-all flex items-center gap-1 font-label-mono text-[10px] font-semibold shadow-sm\" title=\"Simulate vector proximity pulse\"",
+        "text": "sensors Trace Pulse"
+      },
+      {
+        "attrs": "class=\"p-1 rounded bg-surface-container hover:bg-surface-container-high text-on-surface-variant\" title=\"Zoom In\"",
+        "text": "add"
+      },
+      {
+        "attrs": "class=\"p-1 rounded bg-surface-container hover:bg-surface-container-high text-on-surface-variant\" title=\"Zoom Out\"",
+        "text": "remove"
+      },
+      {
+        "attrs": "class=\"p-1 rounded bg-surface-container hover:bg-surface-container-high text-on-surface-variant\" title=\"Recenter Graph\"",
+        "text": "filter_center_focus"
+      },
+      {
+        "attrs": "class=\"px-1.5 py-1 rounded bg-secondary-container text-on-secondary-container font-label-mono text-[10px] font-semibold text-center shadow-sm\"",
+        "text": "Cosine (0.984)"
+      },
+      {
+        "attrs": "class=\"px-1.5 py-1 rounded bg-surface-container-highest hover:bg-surface-bright text-on-surface font-label-mono text-[10px] text-center transition-colors\"",
+        "text": "Dot (14.28)"
+      },
+      {
+        "attrs": "class=\"px-1.5 py-1 rounded bg-surface-container-highest hover:bg-surface-bright text-on-surface font-label-mono text-[10px] text-center transition-colors\"",
+        "text": "L2 (0.179)"
+      },
+      {
+        "attrs": "class=\"flex items-center justify-center gap-1 px-space-sm py-space-xs rounded-lg bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-label-md text-label-md font-medium transition-colors\"",
+        "text": "sync Re-compute Vector"
+      },
+      {
+        "attrs": "class=\"flex items-center justify-center gap-1 px-space-sm py-space-xs rounded-lg bg-secondary-container hover:bg-primary text-on-secondary-container hover:text-on-primary font-label-md text-label-md font-semibold transition-colors\"",
+        "text": "filter_center_focus Isolate Subgraph"
+      },
+      {
+        "attrs": "class=\"px-space-md py-space-xs rounded-lg bg-surface-container text-on-surface hover:bg-surface-container-high transition-colors font-label-md text-label-md\" onclick=\"closeForgetModal()\"",
+        "text": "Cancel"
+      },
+      {
+        "attrs": "class=\"px-space-md py-space-xs rounded-lg bg-error-container text-error hover:bg-error hover:text-on-error transition-colors font-label-md text-label-md font-semibold flex items-center gap-1\" onclick=\"confirmForget()\"",
+        "text": "delete_forever Confirm &amp; Evict Vector"
+      },
+      {
+        "attrs": "class=\"p-1 rounded text-on-surface-variant hover:text-on-surface\" onclick=\"closeManualMemModal()\"",
+        "text": "close"
+      },
+      {
+        "attrs": "class=\"px-space-md py-space-xs rounded-lg bg-surface-container text-on-surface font-label-md text-label-md\" onclick=\"closeManualMemModal()\"",
+        "text": "Cancel"
+      },
+      {
+        "attrs": "class=\"px-space-md py-space-xs rounded-lg bg-secondary-container text-on-secondary-container font-label-md text-label-md font-semibold\" onclick=\"closeManualMemModal()\"",
+        "text": "Compute &amp; Store"
+      },
+      {
+        "attrs": "class=\"p-1 rounded text-on-surface-variant hover:text-primary transition-colors\" title=\"Attach context or file payload\"",
+        "text": "attach_file"
+      },
+      {
+        "attrs": "class=\"p-1 rounded text-on-surface-variant hover:text-primary transition-colors\" title=\"Toggle audio transcription\"",
+        "text": "mic"
+      }
+    ],
+    "inputs": [
+      {
+        "tag": "input",
+        "attrs": "class=\"bg-transparent flex-1 px-space-xs text-on-surface font-body-sm text-body-sm focus:outline-none placeholder:text-on-surface-variant/40\" id=\"vector-search-input\" placeholder=\"Query vectors or semantic tag...\" type=\"text\""
+      },
+      {
+        "tag": "input",
+        "attrs": "checked=\"\" class=\"sr-only peer\" type=\"checkbox\""
+      },
+      {
+        "tag": "input",
+        "attrs": "checked=\"\" class=\"sr-only peer\" type=\"checkbox\""
+      },
+      {
+        "tag": "select",
+        "attrs": "class=\"bg-surface-container text-on-surface px-space-xs py-0.5 rounded text-[11px] focus:outline-none cursor-pointer\""
+      },
+      {
+        "tag": "input",
+        "attrs": "class=\"px-space-sm py-2 rounded-lg bg-surface-container-lowest text-on-surface font-body-sm text-body-sm focus:outline-none\" placeholder=\"e.g., Default to strict type checking in Rust workspace...\" type=\"text\""
+      },
+      {
+        "tag": "select",
+        "attrs": "class=\"px-space-sm py-2 rounded-lg bg-surface-container-lowest text-on-surface font-body-sm text-body-sm focus:outline-none\""
+      },
+      {
+        "tag": "textarea",
+        "attrs": "class=\"px-space-sm py-2 rounded-lg bg-surface-container-lowest text-on-surface font-body-sm text-body-sm focus:outline-none resize-none\" placeholder=\"Enter dense semantic payload for SQLite-VSS embedding calculation...\" rows=\"4\""
+      },
+      {
+        "tag": "input",
+        "attrs": "class=\"bg-transparent flex-1 focus:outline-none text-on-surface font-body-md text-body-md placeholder:text-on-surface-variant/50\" placeholder=\"Instruct neural orchestrator or input quick prompt...\" type=\"text\""
+      }
+    ],
+    "headings": [
+      {
+        "tag": "h1",
+        "text": "Memory Centre"
+      },
+      {
+        "tag": "h2",
+        "text": "Core Coding Architecture: Rust + WebAssembly + Zero-Copy Shared Memory"
+      },
+      {
+        "tag": "h2",
+        "text": "User UI Preference: High-density desktop layouts with Manrope font and dark slate palette"
+      },
+      {
+        "tag": "h2",
+        "text": "Security Boundary: Air-gap strictly enforced on Windows DPAPI credentials &amp; API keys"
+      },
+      {
+        "tag": "h2",
+        "text": "Local Model Quantization Strategy: Favor Q4_K_M for Mistral-7B to fit within 6GB VRAM on Intel i3"
+      },
+      {
+        "tag": "h3",
+        "text": "Confirm Irreversible Forget"
+      },
+      {
+        "tag": "h3",
+        "text": "Inject Manual Memory Vector"
+      }
+    ],
+    "has_canvas": false,
+    "has_svg": true,
+    "svg_count": 1,
+    "script_snippets": [
+      "// Hotkey listener for '/' search trigger\n    document.addEventListener('keydown', function(e) {\n      if (e.key === '/' && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {\n        e.preventDefault();\n        const searchInput = document.getElementById('vector-search-input');\n        if (searchInput) {\n          searchInput.focus();\n          searchInput.select();\n        }\n      }\n    });\n\n    // Forget Modal Logic\n    function openForgetModal(targetTitle) {\n      const modal = document.getElementById('forget-modal');\n      const targetText = document.getElementById('forget-target-title');\n      if (modal && targetText) {\n        targetText.textContent = targetTitle;\n        modal.classList.remove('hidden');\n        modal.classList.add('flex');\n      }\n    }\n\n    function closeForgetModal() {\n      const modal = document.getElementById('forget-modal');\n      if (modal) {\n        modal.classList.add('hidden');\n        modal.classList.remove('flex');\n      }\n    }\n\n    function confirmForget() {\n      closeForgetModal();\n    }\n\n    // Manual Memory Modal Logic\n    const btnManual = document.getElementById('btn-manual-mem');\n    const manualModal = document.getElementById('manual-mem-modal');\n\n    if (btnManual && manualModal) {\n      btnManual.addEventListener('click', () => {\n        manualModal.classList.remove('hidden');\n        manualModal.classList.add('flex');\n      });\n    }\n\n    function closeManualMemModal() {\n      if (manualModal) {\n        manualModal.classList.add('hidden');\n        manualModal.classList.remove('flex');\n      }\n    }\n\n    // Purge Store Button Shortcut Trigger\n    const btnPurge = document.getElementById('btn-purge-open');\n    if (btnPurge) {\n      btnPurge.addEventListener('click', () => {\n        openForgetModal('ENTIRE LOCAL STORE (54,120 Embeddings)');\n      });\n    }"
+    ],
+    "external_assets": [
+      "https://cdn.tailwindcss.com",
+      "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap",
+      "https://lh3.googleusercontent.com/aida/ALJJyrDkwdFfa2ZbCR92YUYuBisOJanZ8ecfnNvhI9eXBT--hdx14MyRyg6qfpPnaiS3kIpRGkkX0PNVVtIwneXNiCoblHPpmqiGrQk2CkGEIKcqfD3gRNBMLWSXQEbGOivXgnv71LBNjxftYEsjJ8cw22e5EDAyHmGagINyRC1EEZmHBwkNLqwZmekoCt_AROtGMSmXq54KIdKK2SWARwX6UIilHqAqSfaykmHb1GzCTeU",
+      "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    ]
+  },
+  "screen_10_voice_personality_studio": {
+    "name": "10. Voice & Personality Studio",
+    "nav_links": [
+      "tasks-activity",
+      "intelligence-models",
+      "system-monitor",
+      "plugin-center",
+      "pc-control",
+      "voice-studio",
+      "agent-workspace",
+      "3d-neural-core",
+      "settings",
+      "security-permissions",
+      "workflow-builder",
+      "conversation",
+      "memory-center",
+      "command-center"
+    ],
+    "buttons": [
+      {
+        "attrs": "class=\"p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors\" title=\"Voice Interface Ready\"",
+        "text": "mic"
+      },
+      {
+        "attrs": "class=\"p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors\" title=\"Encrypted &amp; Enforced\"",
+        "text": "verified_user"
+      },
+      {
+        "attrs": "class=\"relative p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors\" title=\"Telemetry Alerts\"",
+        "text": "notifications"
+      },
+      {
+        "attrs": "class=\"w-full flex items-center justify-between px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors\"",
+        "text": "deployed_code HUD Mode F9"
+      },
+      {
+        "attrs": "class=\"w-full flex items-center justify-between px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors\"",
+        "text": "dock_to_right Collapse Rail Ctrl+["
+      },
+      {
+        "attrs": "class=\"flex items-center gap-space-xs px-space-md py-2 rounded-lg bg-surface-container-high hover:bg-surface-container-highest text-on-surface text-label-md font-label-md transition-all shadow-sm\" id=\"calibrateMicBtn\"",
+        "text": "tune Calibrate Mic"
+      },
+      {
+        "attrs": "class=\"flex items-center gap-space-xs px-space-md py-2 rounded-lg bg-surface-container-high hover:bg-surface-container-highest text-on-surface-variant hover:text-on-surface text-label-md font-label-md transition-all shadow-sm\"",
+        "text": "restart_alt Reset Defaults"
+      },
+      {
+        "attrs": "class=\"flex items-center gap-space-xs px-space-md py-2 rounded-lg bg-secondary-container hover:bg-primary-container text-on-secondary-container hover:text-on-primary-fixed font-headline-sm text-headline-sm transition-all shadow-md\"",
+        "text": "save Save Configuration"
+      },
+      {
+        "attrs": "class=\"flex items-center gap-space-xs px-space-md py-1.5 rounded-lg bg-surface-container-high text-primary-container font-headline-sm text-headline-sm shadow-sm transition-all whitespace-nowrap\"",
+        "text": "equalizer Voice Overview"
+      },
+      {
+        "attrs": "class=\"flex items-center gap-space-xs px-space-md py-1.5 rounded-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface font-label-md text-label-md transition-all whitespace-nowrap\"",
+        "text": "mic Audio Input (STT)"
+      },
+      {
+        "attrs": "class=\"flex items-center gap-space-xs px-space-md py-1.5 rounded-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface font-label-md text-label-md transition-all whitespace-nowrap\"",
+        "text": "record_voice_over Voice Output (TTS)"
+      },
+      {
+        "attrs": "class=\"flex items-center gap-space-xs px-space-md py-1.5 rounded-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface font-label-md text-label-md transition-all whitespace-nowrap\"",
+        "text": "keyboard Wake Word &amp; Hotkeys"
+      },
+      {
+        "attrs": "class=\"flex items-center gap-space-xs px-space-md py-1.5 rounded-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface font-label-md text-label-md transition-all whitespace-nowrap\"",
+        "text": "psychology_alt Personality &amp; Culture"
+      },
+      {
+        "attrs": "class=\"flex items-center gap-space-xs px-space-md py-1.5 rounded-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface font-label-md text-label-md transition-all whitespace-nowrap\"",
+        "text": "science Testing Bench"
+      },
+      {
+        "attrs": "class=\"px-space-xs py-0.5 rounded bg-surface-container-high text-on-surface-variant hover:text-on-surface font-label-mono text-label-mono\"",
+        "text": "SELECT"
+      },
+      {
+        "attrs": "class=\"px-space-xs py-0.5 rounded bg-surface-container-high text-on-surface-variant hover:text-on-surface font-label-mono text-label-mono\"",
+        "text": "SELECT"
+      },
+      {
+        "attrs": "class=\"relative w-8 h-8 rounded-full bg-primary-container text-on-primary flex items-center justify-center shadow-[0_0_8px_#43D9FF] hover:opacity-90 transition-opacity cursor-pointer\" id=\"playSampleBtn\" title=\"Pause / Resume\"",
+        "text": "pause"
+      },
+      {
+        "attrs": "class=\"px-1.5 py-0.5 rounded bg-surface-container-high text-primary font-label-mono text-[10px] hover:bg-surface-container-highest transition-colors cursor-pointer\"",
+        "text": "1.0x"
+      },
+      {
+        "attrs": "class=\"px-1.5 py-0.5 rounded bg-surface-container-high text-primary-container font-label-mono text-[10px] flex items-center gap-0.5 shadow-sm cursor-pointer\" title=\"Loop Active\"",
+        "text": "repeat Loop"
+      },
+      {
+        "attrs": "class=\"p-2 rounded bg-surface-container-high text-primary-container font-headline-sm text-headline-sm text-left truncate shadow-sm\"",
+        "text": "Friendly Indian"
+      },
+      {
+        "attrs": "class=\"p-2 rounded bg-surface-container text-on-surface-variant hover:text-on-surface font-label-md text-label-md text-left truncate\"",
+        "text": "Strict Technical"
+      },
+      {
+        "attrs": "class=\"p-2 rounded bg-surface-container text-on-surface-variant hover:text-on-surface font-label-md text-label-md text-left truncate\"",
+        "text": "Concise CLI"
+      },
+      {
+        "attrs": "class=\"p-2 rounded bg-surface-container text-on-surface-variant hover:text-on-surface font-label-md text-label-md text-left truncate\"",
+        "text": "Executive Formal"
+      },
+      {
+        "attrs": "class=\"px-2 py-1 rounded bg-surface-container-high text-primary-container font-label-mono text-label-mono flex items-center gap-1 shadow-sm\"",
+        "text": "graphic_eq Sample Playback Stream"
+      },
+      {
+        "attrs": "class=\"px-2 py-1 rounded text-on-surface-variant hover:text-on-surface font-label-mono text-label-mono flex items-center gap-1 transition-colors\"",
+        "text": "mic Live Mic In"
+      },
+      {
+        "attrs": "class=\"w-7 h-7 rounded-full bg-primary-container text-on-primary flex items-center justify-center shadow-sm hover:opacity-90 transition-opacity cursor-pointer\" title=\"Play / Pause Stream\"",
+        "text": "pause"
+      },
+      {
+        "attrs": "class=\"w-7 h-7 rounded-full bg-surface-container-high text-on-surface-variant hover:text-on-surface flex items-center justify-center transition-colors cursor-pointer\" title=\"Restart Stream\"",
+        "text": "replay"
+      },
+      {
+        "attrs": "class=\"p-1 text-on-surface-variant hover:text-primary transition-colors\" title=\"Replay response audio\"",
+        "text": "volume_up"
+      },
+      {
+        "attrs": "class=\"px-space-sm py-1.5 rounded bg-primary-container hover:bg-surface-tint text-on-primary-fixed font-headline-sm text-headline-sm transition-all flex items-center gap-1 shadow-sm\"",
+        "text": "record_voice_over Speak"
+      },
+      {
+        "attrs": "class=\"p-1 rounded text-on-surface-variant hover:text-primary transition-colors\" title=\"Attach context or file payload\"",
+        "text": "attach_file"
+      },
+      {
+        "attrs": "class=\"p-1 rounded text-on-surface-variant hover:text-primary transition-colors\" title=\"Toggle audio transcription\"",
+        "text": "mic"
+      }
+    ],
+    "inputs": [
+      {
+        "tag": "input",
+        "attrs": "class=\"w-full h-1.5 bg-surface-container-highest rounded-lg appearance-none cursor-pointer accent-primary-container\" max=\"100\" min=\"10\" type=\"range\" value=\"65\""
+      },
+      {
+        "tag": "input",
+        "attrs": "class=\"accent-primary-container\" name=\"lang_select\" type=\"radio\""
+      },
+      {
+        "tag": "input",
+        "attrs": "class=\"accent-primary-container\" name=\"lang_select\" type=\"radio\""
+      },
+      {
+        "tag": "input",
+        "attrs": "checked=\"\" class=\"accent-primary-container\" name=\"lang_select\" type=\"radio\""
+      },
+      {
+        "tag": "input",
+        "attrs": "class=\"w-full h-1.5 bg-surface-container-highest rounded-lg appearance-none cursor-pointer accent-primary-container\" max=\"140\" min=\"80\" type=\"range\" value=\"105\""
+      },
+      {
+        "tag": "input",
+        "attrs": "class=\"w-full h-1.5 bg-surface-container-highest rounded-lg appearance-none cursor-pointer accent-primary-container\" max=\"150\" min=\"50\" type=\"range\" value=\"104\""
+      },
+      {
+        "tag": "input",
+        "attrs": "class=\"bg-transparent flex-1 px-2 font-body-md text-body-md text-on-surface focus:outline-none placeholder:text-on-surface-variant/40\" placeholder=\"Type prompt to synthesize...\" type=\"text\""
+      },
+      {
+        "tag": "input",
+        "attrs": "class=\"bg-transparent flex-1 focus:outline-none text-on-surface font-body-md text-body-md placeholder:text-on-surface-variant/50\" placeholder=\"Instruct neural orchestrator or input quick prompt...\" type=\"text\""
+      }
+    ],
+    "headings": [
+      {
+        "tag": "h1",
+        "text": "Voice &amp; Personality Studio"
+      },
+      {
+        "tag": "h2",
+        "text": "Speech Recognition &amp; STT"
+      },
+      {
+        "tag": "h2",
+        "text": "Synthesis &amp; Personality"
+      },
+      {
+        "tag": "h3",
+        "text": "Aarav"
+      },
+      {
+        "tag": "h3",
+        "text": "Priya"
+      },
+      {
+        "tag": "h3",
+        "text": "Dev"
+      },
+      {
+        "tag": "h2",
+        "text": "Playground &amp; Diagnostics"
+      }
+    ],
+    "has_canvas": false,
+    "has_svg": true,
+    "svg_count": 1,
+    "script_snippets": [
+      "(function () {\n    const playBtn = document.getElementById('playSampleBtn');\n    if (playBtn) {\n      playBtn.addEventListener('click', function () {\n        const icon = playBtn.querySelector('.material-symbols-outlined');\n        if (icon) {\n          icon.textContent = icon.textContent === 'play_arrow' ? 'pause' : 'play_arrow';\n          setTimeout(() => {\n            icon.textContent = 'play_arrow';\n          }, 3200);\n        }\n      });\n    }\n\n    const calibrateBtn = document.getElementById('calibrateMicBtn');\n    const vuVal = document.getElementById('vuValue');\n    if (calibrateBtn && vuVal) {\n      calibrateBtn.addEventListener('click', function () {\n        vuVal.textContent = 'CALIBRATING...';\n        vuVal.classList.add('text-secondary');\n        setTimeout(() => {\n          vuVal.textContent = '-14 dBFS (Calibrated)';\n          vuVal.classList.remove('text-secondary');\n        }, 1500);\n      });\n    }\n  })();"
+    ],
+    "external_assets": [
+      "https://cdn.tailwindcss.com",
+      "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap",
+      "https://lh3.googleusercontent.com/aida/ALJJyrDkwdFfa2ZbCR92YUYuBisOJanZ8ecfnNvhI9eXBT--hdx14MyRyg6qfpPnaiS3kIpRGkkX0PNVVtIwneXNiCoblHPpmqiGrQk2CkGEIKcqfD3gRNBMLWSXQEbGOivXgnv71LBNjxftYEsjJ8cw22e5EDAyHmGagINyRC1EEZmHBwkNLqwZmekoCt_AROtGMSmXq54KIdKK2SWARwX6UIilHqAqSfaykmHb1GzCTeU",
+      "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    ]
+  },
+  "screen_11_tasks_activity": {
+    "name": "11. Tasks & Activity",
+    "nav_links": [
+      "tasks-activity",
+      "intelligence-models",
+      "system-monitor",
+      "plugin-center",
+      "pc-control",
+      "voice-studio",
+      "agent-workspace",
+      "3d-neural-core",
+      "settings",
+      "security-permissions",
+      "workflow-builder",
+      "conversation",
+      "memory-center",
+      "command-center"
+    ],
+    "buttons": [
+      {
+        "attrs": "class=\"p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors\" title=\"Voice Interface Ready\"",
+        "text": "mic"
+      },
+      {
+        "attrs": "class=\"p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors\" title=\"Encrypted &amp; Enforced\"",
+        "text": "verified_user"
+      },
+      {
+        "attrs": "class=\"relative p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors\" title=\"Telemetry Alerts\"",
+        "text": "notifications"
+      },
+      {
+        "attrs": "class=\"w-full flex items-center justify-between px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors\"",
+        "text": "deployed_code HUD Mode F9"
+      },
+      {
+        "attrs": "class=\"w-full flex items-center justify-between px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors\"",
+        "text": "dock_to_right Collapse Rail Ctrl+["
+      },
+      {
+        "attrs": "class=\"px-space-md py-1.5 rounded bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-label-md text-label-md flex items-center gap-space-xs transition-colors shadow-sm\"",
+        "text": "pause_circle Pause All Queues"
+      },
+      {
+        "attrs": "class=\"px-space-md py-1.5 rounded bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-label-md text-label-md flex items-center gap-space-xs transition-colors shadow-sm\"",
+        "text": "cleaning_services Purge Completed"
+      },
+      {
+        "attrs": "class=\"px-space-md py-1.5 rounded bg-secondary-container hover:bg-primary-container hover:text-on-primary-container text-on-secondary-container font-label-md text-label-md font-semibold flex items-center gap-space-xs transition-colors shadow-sm\"",
+        "text": "file_download Export JSON Audit"
+      },
+      {
+        "attrs": "class=\"px-space-md py-1 rounded-full bg-surface-container-highest text-primary font-label-mono text-label-mono font-semibold flex items-center gap-1.5 whitespace-nowrap shadow-sm\"",
+        "text": "All Tasks 18"
+      },
+      {
+        "attrs": "class=\"px-space-md py-1 rounded-full bg-surface-container-low hover:bg-surface-container text-on-surface-variant hover:text-on-surface font-label-mono text-label-mono flex items-center gap-1.5 whitespace-nowrap transition-colors\"",
+        "text": "Active 3"
+      },
+      {
+        "attrs": "class=\"px-space-md py-1 rounded-full bg-surface-container-low hover:bg-surface-container text-on-surface-variant hover:text-on-surface font-label-mono text-label-mono flex items-center gap-1.5 whitespace-nowrap transition-colors\"",
+        "text": "Queued 5"
+      },
+      {
+        "attrs": "class=\"px-space-md py-1 rounded-full bg-surface-container-low hover:bg-surface-container text-on-surface-variant hover:text-on-surface font-label-mono text-label-mono flex items-center gap-1.5 whitespace-nowrap transition-colors\"",
+        "text": "Waiting Approval 2"
+      },
+      {
+        "attrs": "class=\"px-space-md py-1 rounded-full bg-surface-container-low hover:bg-surface-container text-on-surface-variant hover:text-on-surface font-label-mono text-label-mono flex items-center gap-1.5 whitespace-nowrap transition-colors\"",
+        "text": "Completed 8"
+      },
+      {
+        "attrs": "class=\"px-space-md py-1 rounded-full bg-surface-container-low hover:bg-surface-container text-on-surface-variant hover:text-on-surface font-label-mono text-label-mono flex items-center gap-1.5 whitespace-nowrap transition-colors\"",
+        "text": "Failed 0"
+      },
+      {
+        "attrs": "class=\"px-space-md py-1 rounded-full bg-surface-container-low hover:bg-surface-container text-on-surface-variant hover:text-on-surface font-label-mono text-label-mono flex items-center gap-1.5 whitespace-nowrap transition-colors\"",
+        "text": "Scheduled 4"
+      },
+      {
+        "attrs": "class=\"px-2 py-0.5 rounded bg-surface-container-high text-primary font-semibold\"",
+        "text": "Unified Diff"
+      },
+      {
+        "attrs": "class=\"px-2 py-0.5 rounded text-on-surface-variant hover:text-on-surface\"",
+        "text": "Split"
+      },
+      {
+        "attrs": "class=\"px-space-md py-1.5 rounded bg-primary-container hover:bg-primary text-on-primary font-label-md text-label-md font-semibold flex items-center gap-1.5 transition-colors shadow-[0_0_8px_#43D9FF]\"",
+        "text": "check_circle Approve Diff &amp; Apply (Enter)"
+      },
+      {
+        "attrs": "class=\"px-space-sm py-1.5 rounded bg-surface-container-highest hover:bg-error-container hover:text-on-error-container text-error font-label-md text-label-md flex items-center gap-1 transition-colors\"",
+        "text": "cancel Reject &amp; Halt (Esc)"
+      },
+      {
+        "attrs": "class=\"px-space-sm py-1.5 rounded bg-surface-container hover:bg-surface-container-highest text-primary font-code-md text-code-md flex items-center gap-1.5 transition-colors\"",
+        "text": "open_in_new Inspect AST Tree in New Window"
+      },
+      {
+        "attrs": "class=\"px-space-md py-1 rounded bg-secondary-container hover:bg-primary-container hover:text-on-primary-container text-on-secondary-container font-label-md text-label-md font-semibold flex items-center gap-1 transition-colors shadow-sm\"",
+        "text": "check_circle Approve Install"
+      },
+      {
+        "attrs": "class=\"px-space-sm py-1 rounded bg-surface-container-highest hover:bg-error-container hover:text-on-error-container text-on-surface font-label-md text-label-md flex items-center gap-1 transition-colors\"",
+        "text": "cancel Deny"
+      },
+      {
+        "attrs": "class=\"px-space-sm py-1 rounded bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-label-md text-label-md flex items-center gap-1 transition-colors\"",
+        "text": "pause Pause"
+      },
+      {
+        "attrs": "class=\"px-space-sm py-1 rounded bg-surface-container-high hover:bg-error-container hover:text-on-error-container text-on-surface font-label-md text-label-md flex items-center gap-1 transition-colors\"",
+        "text": "stop Stop Task"
+      },
+      {
+        "attrs": "class=\"px-space-sm py-1 rounded bg-secondary-container text-on-secondary-container font-label-md text-label-md flex items-center gap-1\"",
+        "text": "terminal Inspecting"
+      },
+      {
+        "attrs": "class=\"px-space-sm py-0.5 rounded hover:bg-surface-container-highest text-on-surface-variant hover:text-on-surface transition-colors\"",
+        "text": "visibility"
+      },
+      {
+        "attrs": "class=\"p-1 rounded hover:bg-surface-container-highest text-on-surface-variant hover:text-on-surface\"",
+        "text": "play_arrow"
+      },
+      {
+        "attrs": "class=\"p-1 rounded hover:bg-surface-container-highest text-on-surface-variant hover:text-on-surface\"",
+        "text": "play_arrow"
+      },
+      {
+        "attrs": "class=\"p-1 rounded hover:bg-surface-container-highest text-on-surface-variant hover:text-on-surface\"",
+        "text": "play_arrow"
+      },
+      {
+        "attrs": "class=\"p-1 rounded hover:bg-surface-container-highest text-on-surface-variant hover:text-on-surface\"",
+        "text": "play_arrow"
+      },
+      {
+        "attrs": "class=\"p-1 rounded hover:bg-surface-container-highest text-on-surface-variant hover:text-on-surface\"",
+        "text": "play_arrow"
+      },
+      {
+        "attrs": "class=\"flex-1 py-1 rounded bg-secondary-container text-on-secondary-container font-semibold shadow-sm flex items-center justify-center gap-1\"",
+        "text": "account_tree Execution Steps"
+      },
+      {
+        "attrs": "class=\"flex-1 py-1 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors flex items-center justify-center gap-1\"",
+        "text": "difference Code Diff (1)"
+      },
+      {
+        "attrs": "class=\"flex-1 py-1 rounded text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors flex items-center justify-center gap-1\"",
+        "text": "terminal STDOUT Stream"
+      },
+      {
+        "attrs": "class=\"px-space-sm py-1.5 rounded bg-surface-container-highest hover:bg-error-container hover:text-on-error-container text-error font-label-md text-label-md flex items-center gap-1 transition-colors\"",
+        "text": "cancel Abort Task"
+      },
+      {
+        "attrs": "class=\"px-space-sm py-1.5 rounded bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md text-label-md flex items-center gap-1 transition-colors\"",
+        "text": "account_tree Spawn Child"
+      },
+      {
+        "attrs": "class=\"px-space-sm py-1.5 rounded bg-secondary-container hover:bg-primary-container hover:text-on-primary-container text-on-secondary-container font-label-md text-label-md font-semibold flex items-center gap-1 transition-colors\"",
+        "text": "view_in_ar View in Core"
+      },
+      {
+        "attrs": "class=\"p-1 rounded text-on-surface-variant hover:text-primary transition-colors\" title=\"Attach context or file payload\"",
+        "text": "attach_file"
+      },
+      {
+        "attrs": "class=\"p-1 rounded text-on-surface-variant hover:text-primary transition-colors\" title=\"Toggle audio transcription\"",
+        "text": "mic"
+      }
+    ],
+    "inputs": [
+      {
+        "tag": "input",
+        "attrs": "type=\"checkbox\" checked=\"\" class=\"accent-primary-container cursor-pointer\""
+      },
+      {
+        "tag": "input",
+        "attrs": "type=\"checkbox\" checked=\"\" class=\"accent-primary-container cursor-pointer\""
+      },
+      {
+        "tag": "input",
+        "attrs": "type=\"checkbox\" class=\"accent-primary-container cursor-pointer\""
+      },
+      {
+        "tag": "input",
+        "attrs": "class=\"bg-transparent flex-1 focus:outline-none text-on-surface font-body-md text-body-md placeholder:text-on-surface-variant/50\" placeholder=\"Instruct neural orchestrator or input quick prompt...\" type=\"text\""
+      }
+    ],
+    "headings": [
+      {
+        "tag": "h1",
+        "text": "Tasks &amp; Activity"
+      },
+      {
+        "tag": "h2",
+        "text": "Waiting for Approval (2)"
+      },
+      {
+        "tag": "h3",
+        "text": "Atomic File Overwrite: /crates/auth/src/token_handler.rs"
+      },
+      {
+        "tag": "h3",
+        "text": "External Package Installation: tree-sitter-rust v0.20.4"
+      },
+      {
+        "tag": "h2",
+        "text": "In Flight / Active (3)"
+      },
+      {
+        "tag": "h3",
+        "text": "Full Codebase AST Security Audit"
+      },
+      {
+        "tag": "h3",
+        "text": "Obsidian Vector Index Reranking"
+      },
+      {
+        "tag": "h3",
+        "text": "Hinglish Acoustic Lexicon Cache Warmup"
+      },
+      {
+        "tag": "h2",
+        "text": "Queued (5 Tasks Ready)"
+      }
+    ],
+    "has_canvas": false,
+    "has_svg": true,
+    "svg_count": 1,
+    "script_snippets": [
+      "(function highlightNav() {\n      const targetPath = 'tasks-activity';\n      const navLinks = document.querySelectorAll('aside nav a');\n      navLinks.forEach(link => {\n        if (link.getAttribute('data-path') === targetPath) {\n          link.className = 'flex items-center gap-space-md px-space-sm py-space-xs rounded bg-secondary-container text-on-secondary-container font-semibold shadow-sm transition-colors';\n        } else {\n          link.className = 'flex items-center gap-space-md px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors';\n        }\n      });\n    })();"
+    ],
+    "external_assets": [
+      "https://cdn.tailwindcss.com",
+      "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap",
+      "https://lh3.googleusercontent.com/aida/ALJJyrDkwdFfa2ZbCR92YUYuBisOJanZ8ecfnNvhI9eXBT--hdx14MyRyg6qfpPnaiS3kIpRGkkX0PNVVtIwneXNiCoblHPpmqiGrQk2CkGEIKcqfD3gRNBMLWSXQEbGOivXgnv71LBNjxftYEsjJ8cw22e5EDAyHmGagINyRC1EEZmHBwkNLqwZmekoCt_AROtGMSmXq54KIdKK2SWARwX6UIilHqAqSfaykmHb1GzCTeU",
+      "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    ]
+  },
+  "screen_12_system_monitor": {
+    "name": "12. System Monitor",
+    "nav_links": [
+      "tasks-activity",
+      "intelligence-models",
+      "system-monitor",
+      "plugin-center",
+      "pc-control",
+      "voice-studio",
+      "agent-workspace",
+      "3d-neural-core",
+      "settings",
+      "security-permissions",
+      "workflow-builder",
+      "conversation",
+      "memory-center",
+      "command-center"
+    ],
+    "buttons": [
+      {
+        "attrs": "class=\"p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors\" title=\"Voice Interface Ready\"",
+        "text": "mic"
+      },
+      {
+        "attrs": "class=\"p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors\" title=\"Encrypted &amp; Enforced\"",
+        "text": "verified_user"
+      },
+      {
+        "attrs": "class=\"relative p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors\" title=\"Telemetry Alerts\"",
+        "text": "notifications"
+      },
+      {
+        "attrs": "class=\"w-full flex items-center justify-between px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors\"",
+        "text": "deployed_code HUD Mode F9"
+      },
+      {
+        "attrs": "class=\"w-full flex items-center justify-between px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors\"",
+        "text": "dock_to_right Collapse Rail Ctrl+["
+      },
+      {
+        "attrs": "class=\"px-space-sm py-1.5 rounded bg-surface-container hover:bg-surface-container-high text-on-surface text-label-md font-label-md flex items-center gap-1.5 transition-colors\" id=\"cleanCacheBtn\" title=\"Flush unreferenced KV buffers\"",
+        "text": "cleaning_services Clear Buffers"
+      },
+      {
+        "attrs": "class=\"px-space-sm py-1.5 rounded bg-surface-container hover:bg-surface-container-high text-on-surface text-label-md font-label-md flex items-center gap-1.5 transition-colors\" id=\"gcTriggerBtn\" title=\"Force OS/Runtime garbage collection cycle\"",
+        "text": "delete_sweep Trigger GC"
+      },
+      {
+        "attrs": "class=\"px-space-sm py-1.5 rounded bg-secondary-container hover:bg-primary-container text-on-secondary-container hover:text-on-primary-container text-label-md font-label-md font-semibold flex items-center gap-1.5 transition-colors\" id=\"exportDiagBtn\"",
+        "text": "file_download Export Report"
+      },
+      {
+        "attrs": "class=\"w-8 h-4 rounded-full bg-primary-container p-0.5 flex items-center justify-end shadow-inner cursor-pointer\" title=\"Toggle CPU Thermal Guard\"",
+        "text": ""
+      },
+      {
+        "attrs": "class=\"w-8 h-4 rounded-full bg-primary-container p-0.5 flex items-center justify-end shadow-inner cursor-pointer\" title=\"Toggle Memory Guard\"",
+        "text": ""
+      },
+      {
+        "attrs": "class=\"w-8 h-4 rounded-full bg-surface-container-highest p-0.5 flex items-center justify-start cursor-not-allowed\" title=\"Disabled on AC Power\"",
+        "text": ""
+      },
+      {
+        "attrs": "class=\"px-space-xs py-1 rounded bg-secondary-container text-on-secondary-container font-label-mono text-[10px] font-semibold shadow-sm flex items-center gap-1.5 border border-primary-container/40\"",
+        "text": "check Mistral-7B Q4_K_M TTFT &amp; Eval (Passed)"
+      },
+      {
+        "attrs": "class=\"px-space-xs py-1 rounded bg-surface-container-low hover:bg-surface-container-high text-on-surface-variant font-label-mono text-[10px] transition-colors\"",
+        "text": "DeepSeek-Coder Tokens/Sec"
+      },
+      {
+        "attrs": "class=\"px-space-xs py-1 rounded bg-surface-container-low hover:bg-surface-container-high text-on-surface-variant font-label-mono text-[10px] transition-colors\"",
+        "text": "DirectML Whisper STT RTF"
+      },
+      {
+        "attrs": "class=\"px-space-xs py-1 rounded bg-surface-container-low hover:bg-surface-container-high text-on-surface-variant font-label-mono text-[10px] transition-colors\"",
+        "text": "SQLite-VSS 1536-dim Latency"
+      },
+      {
+        "attrs": "class=\"px-space-md py-1.5 rounded bg-primary-container text-on-primary-container hover:bg-primary font-label-mono text-label-mono font-semibold flex items-center gap-1.5 transition-all shadow-[0_0_8px_#43D9FF] cursor-pointer\" id=\"runNewBenchmarkBtn\"",
+        "text": "play_arrow Run New Benchmark (F5)"
+      },
+      {
+        "attrs": "class=\"px-space-sm py-1.5 rounded bg-surface-container hover:bg-surface-container-high text-on-surface font-label-mono text-[10px] flex items-center gap-1 transition-colors cursor-pointer\"",
+        "text": "file_download Export Benchmark Report (.JSON/.CSV)"
+      },
+      {
+        "attrs": "class=\"px-space-sm py-1.5 rounded bg-surface-container hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface font-label-mono text-[10px] flex items-center gap-1 transition-colors cursor-pointer\"",
+        "text": "compare_arrows Compare Baseline"
+      },
+      {
+        "attrs": "class=\"hover:text-primary transition-colors text-label-md font-label-md flex items-center gap-1 text-on-surface-variant\"",
+        "text": "history Run History"
+      },
+      {
+        "attrs": "class=\"hover:text-primary transition-colors text-label-md font-label-md flex items-center gap-1\"",
+        "text": "tune Parameters"
+      },
+      {
+        "attrs": "class=\"p-1 rounded text-on-surface-variant hover:text-primary transition-colors\" title=\"Attach context or file payload\"",
+        "text": "attach_file"
+      },
+      {
+        "attrs": "class=\"p-1 rounded text-on-surface-variant hover:text-primary transition-colors\" title=\"Toggle audio transcription\"",
+        "text": "mic"
+      }
+    ],
+    "inputs": [
+      {
+        "tag": "select",
+        "attrs": "class=\"appearance-none bg-surface-container-high hover:bg-surface-bright text-on-surface font-label-md text-label-md pl-space-md pr-8 py-2.5 rounded-lg shadow-sm focus:outline-none focus:ring-1 focus:ring-primary-container cursor-pointer transition-colors\" id=\"profileSelector\""
+      },
+      {
+        "tag": "input",
+        "attrs": "class=\"bg-transparent flex-1 focus:outline-none text-on-surface font-body-md text-body-md placeholder:text-on-surface-variant/50\" placeholder=\"Instruct neural orchestrator or input quick prompt...\" type=\"text\""
+      }
+    ],
+    "headings": [
+      {
+        "tag": "h1",
+        "text": "System Monitor"
+      },
+      {
+        "tag": "h2",
+        "text": "Active Subsystem Engine Processes"
+      },
+      {
+        "tag": "h3",
+        "text": "Hardware Safeguards &amp; Throttling"
+      },
+      {
+        "tag": "h3",
+        "text": "Active Hardware &amp; Inference Benchmark"
+      }
+    ],
+    "has_canvas": false,
+    "has_svg": true,
+    "svg_count": 5,
+    "script_snippets": [
+      "(function initSystemMonitor() {\n      // Highlight sidebar 'System Monitor' item if matching nav element exists\n      const currentNav = document.querySelector('aside nav a[data-path=\"system-monitor\"]');\n      if (currentNav) {\n        document.querySelectorAll('aside nav a').forEach(el => {\n          el.className = 'flex items-center gap-space-md px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors';\n        });\n        currentNav.className = 'flex items-center gap-space-md px-space-sm py-space-xs rounded bg-secondary-container text-on-secondary-container font-semibold shadow-sm transition-colors';\n      }\n\n      // Garbage Collection Action trigger\n      const gcBtn = document.getElementById('gcTriggerBtn');\n      const terminal = document.getElementById('diagnosticTerminal');\n      if (gcBtn && terminal) {\n        gcBtn.addEventListener('click', () => {\n          const originalText = gcBtn.innerHTML;\n          gcBtn.innerHTML = '<span class=\"material-symbols-outlined text-[16px] animate-spin text-tertiary\">sync</span><span>Reclaiming...</span>';\n          gcBtn.classList.add('pointer-events-none', 'opacity-75');\n\n          setTimeout(() => {\n            const now = new Date();\n            const timeStr = [now.getHours(), now.getMinutes(), now.getSeconds()]\n              .map(v => String(v).padStart(2, '0'))\n              .join(':');\n            \n            const logEntry = document.createElement('div');\n            logEntry.className = 'flex items-start gap-2 bg-surface-container-high p-1 rounded animate-fade-in';\n            logEntry.innerHTML = `\n              <span class=\"font-label-mono text-label-mono text-primary\">${timeStr}</span>\n              <span class=\"px-1 rounded bg-secondary-container font-label-mono text-[9px] text-on-secondary-container font-semibold\">GC_FORCE</span>\n              <span class=\"text-on-surface font-semibold\">Garbage collection executed. 182 MB stale KV memory purged.</span>\n            `;\n            terminal.insertBefore(logEntry, terminal.firstChild);\n\n            gcBtn.innerHTML = originalText;\n            gcBtn.classList.remove('pointer-events-none', 'opacity-75');\n          }, 850);\n        });\n      }\n\n      // Clear Buffer Button Action\n      const cleanBtn = document.getElementById('cleanCacheBtn');\n      if (cleanBtn && terminal) {\n        cleanBtn.addEventListener('click', () => {\n          cleanBtn.classList.add('bg-surface-container-highest');\n          setTimeout(() => cleanBtn.classList.remove('bg-surface-container-highest'), 300);\n\n          const now = new Date();\n          const timeStr = [now.getHours(), now.getMinutes(), now.getSeconds()]\n            .map(v => String(v).padStart(2, '0'))\n            .join(':');\n\n          const logEntry = document.createElement('div');\n          logEntry.className = 'flex items-start gap-2 text-primary-container';\n          logEntry.innerHTML = `\n            <span class=\"font-label-mono text-label-mono\">${timeStr}</span>\n            <span class=\"px-1 rounded bg-surface-container-high font-label-mono text-[9px] text-primary font-semibold\">FLUSH</span>\n            <span class=\"text-on-surface\">D:\\\\AI_Models\\\\GGUF swap buffers verified clean. Zero dangling locks.</span>\n          `;\n          terminal.insertBefore(logEntry, terminal.firstChild);\n        });\n      }\n\n      // Clear logs terminal button\n      const clearLogsBtn = document.getElementById('clearLogsBtn');\n      if (clearLogsBtn && terminal) {\n        clearLogsBtn.addEventListener('click', () => {\n          terminal.innerHTML = `\n            <div class=\"flex items-start gap-2 text-on-surface-variant font-label-mono text-label-mono\">\n              <span>-- Console cleared. Telemetry ring restarted. --</span>\n            </div>\n          `;\n        });\n      }\n\n      // Export Diagnostic Report\n      const exportDiagBtn = document.getElementById('exportDiagBtn');\n      if (exportDiagBtn) {\n        exportDiagBtn.addEventListener('click', () => {\n          const reportPayload = {\n            system: \"Intel Core i3-6100T (2C/4T @ 3.20GHz)\",\n            ram: \"12.0 GB DDR4 (7.8 GB used, 65%)\",\n            gpu: \"Intel HD Graphics 530 (1.8 GB shared VRAM)\",\n            storage: \"D:\\\\AI_Models\\\\GGUF (28.4 GB / 256 GB)\",\n            processes: [\n              { name: \"Mistral-7B-Instruct-v0.3\", pid: 14022, memory: \"4.18 GB\", state: \"ACTIVE\" },\n              { name: \"DeepSeek-Coder-6.7B\", pid: 14088, memory: \"3.82 GB\", state: \"WARM STANDBY\" },\n              { name: \"Whisper-Base-IN\", pid: 14102, memory: \"142 MB\", state: \"RUNNING\" }\n            ],\n            airgapped: true,\n            timestamp: new Date().toISOString()\n          };\n          const blob = new Blob([JSON.stringify(reportPayload, null, 2)], { type: 'application/json' });\n          const url = URL.createObjectURL(blob);\n          const a = document.createElement('a');\n          a.href = url;\n          a.download = `system_diagnostic_report_${Date.now()}.json`;\n          a.click();\n          URL.revokeObjectURL(url);\n        });\n      }\n    })();"
+    ],
+    "external_assets": [
+      "https://cdn.tailwindcss.com",
+      "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap",
+      "https://lh3.googleusercontent.com/aida/ALJJyrDkwdFfa2ZbCR92YUYuBisOJanZ8ecfnNvhI9eXBT--hdx14MyRyg6qfpPnaiS3kIpRGkkX0PNVVtIwneXNiCoblHPpmqiGrQk2CkGEIKcqfD3gRNBMLWSXQEbGOivXgnv71LBNjxftYEsjJ8cw22e5EDAyHmGagINyRC1EEZmHBwkNLqwZmekoCt_AROtGMSmXq54KIdKK2SWARwX6UIilHqAqSfaykmHb1GzCTeU",
+      "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    ]
+  },
+  "screen_13_security_permissions": {
+    "name": "13. Security & Permissions",
+    "nav_links": [
+      "tasks-activity",
+      "intelligence-models",
+      "system-monitor",
+      "plugin-center",
+      "pc-control",
+      "voice-studio",
+      "agent-workspace",
+      "3d-neural-core",
+      "settings",
+      "security-permissions",
+      "workflow-builder",
+      "conversation",
+      "memory-center",
+      "command-center"
+    ],
+    "buttons": [
+      {
+        "attrs": "class=\"p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors\" title=\"Voice Interface Ready\"",
+        "text": "mic"
+      },
+      {
+        "attrs": "class=\"p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors\" title=\"Encrypted &amp; Enforced\"",
+        "text": "verified_user"
+      },
+      {
+        "attrs": "class=\"relative p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors\" title=\"Telemetry Alerts\"",
+        "text": "notifications"
+      },
+      {
+        "attrs": "class=\"w-full flex items-center justify-between px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors\"",
+        "text": "deployed_code HUD Mode F9"
+      },
+      {
+        "attrs": "class=\"w-full flex items-center justify-between px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors\"",
+        "text": "dock_to_right Collapse Rail Ctrl+["
+      },
+      {
+        "attrs": "class=\"group px-space-md py-space-sm rounded-lg bg-surface-container-high hover:bg-surface-container-highest transition-all duration-200 flex items-center gap-space-sm text-tertiary-fixed shadow-md active:scale-95\" id=\"btn-master-pause\"",
+        "text": "pause_circle Master Pause (Freeze All)"
+      },
+      {
+        "attrs": "class=\"group px-space-md py-space-sm rounded-lg bg-error-container hover:bg-error transition-all duration-200 flex items-center gap-space-sm text-on-error-container hover:text-on-error shadow-lg shadow-error-container/20 active:scale-95\" id=\"btn-kill-switch\"",
+        "text": "crisis_alert Emergency Kill Switch"
+      },
+      {
+        "attrs": "class=\"p-space-sm rounded-lg bg-surface-container-high hover:bg-surface-container-highest text-on-surface-variant hover:text-on-surface transition-colors\" title=\"Lock System Console\"",
+        "text": "lock"
+      },
+      {
+        "attrs": "class=\"px-space-xs py-0.5 rounded bg-secondary-container text-on-secondary-container text-label-mono font-label-mono hover:opacity-90 transition-opacity\"",
+        "text": "Review"
+      },
+      {
+        "attrs": "class=\"px-space-sm py-1 rounded bg-surface-container-high text-primary font-label-mono text-label-mono font-semibold shadow-sm\"",
+        "text": "Agents"
+      },
+      {
+        "attrs": "class=\"px-space-sm py-1 rounded text-on-surface-variant hover:text-on-surface font-label-mono text-label-mono transition-colors\"",
+        "text": "Plugins"
+      },
+      {
+        "attrs": "class=\"px-space-sm py-1 rounded text-on-surface-variant hover:text-on-surface font-label-mono text-label-mono transition-colors\"",
+        "text": "FS Scopes"
+      },
+      {
+        "attrs": "class=\"px-space-sm py-1 rounded text-on-surface-variant hover:text-on-surface font-label-mono text-label-mono transition-colors\"",
+        "text": "Automation"
+      },
+      {
+        "attrs": "class=\"px-space-sm py-1 rounded bg-secondary-container hover:bg-opacity-90 text-on-secondary-container font-label-mono text-label-mono font-semibold transition-all\"",
+        "text": "Authorize"
+      },
+      {
+        "attrs": "class=\"px-space-sm py-1 rounded bg-error-container hover:bg-opacity-90 text-on-error-container font-label-mono text-label-mono font-semibold transition-all\"",
+        "text": "Deny"
+      },
+      {
+        "attrs": "class=\"px-space-sm py-1 rounded bg-surface-container-high hover:bg-surface-container-highest text-on-surface text-label-mono font-label-mono transition-colors\"",
+        "text": "Edit Policy"
+      },
+      {
+        "attrs": "class=\"px-space-sm py-1 rounded bg-surface-container-high hover:bg-error-container hover:text-on-error-container text-error text-label-mono font-label-mono transition-colors\"",
+        "text": "Revoke All"
+      },
+      {
+        "attrs": "class=\"px-space-sm py-1 rounded bg-surface-container-high hover:bg-surface-container-highest text-on-surface text-label-mono font-label-mono transition-colors\"",
+        "text": "Edit Policy"
+      },
+      {
+        "attrs": "class=\"px-space-sm py-1 rounded bg-surface-container-high hover:bg-error-container hover:text-on-error-container text-error text-label-mono font-label-mono transition-colors\"",
+        "text": "Revoke All"
+      },
+      {
+        "attrs": "class=\"px-space-sm py-1 rounded bg-surface-container-high hover:bg-surface-container-highest text-on-surface text-label-mono font-label-mono transition-colors\"",
+        "text": "Edit Policy"
+      },
+      {
+        "attrs": "class=\"px-space-sm py-1 rounded bg-surface-container-high hover:bg-error-container hover:text-on-error-container text-error text-label-mono font-label-mono transition-colors\"",
+        "text": "Revoke All"
+      },
+      {
+        "attrs": "class=\"px-space-sm py-1 rounded bg-surface-container-high hover:bg-surface-container-highest text-on-surface text-label-mono font-label-mono transition-colors\"",
+        "text": "Edit Scope"
+      },
+      {
+        "attrs": "class=\"px-space-sm py-1 rounded bg-surface-container-high hover:bg-error-container hover:text-on-error-container text-error text-label-mono font-label-mono transition-colors\"",
+        "text": "Freeze"
+      },
+      {
+        "attrs": "class=\"px-space-sm py-1 rounded bg-surface-container-high hover:bg-surface-container-highest text-on-surface text-label-mono font-label-mono transition-colors\"",
+        "text": "Edit Scope"
+      },
+      {
+        "attrs": "class=\"px-space-sm py-1 rounded bg-surface-container-high hover:bg-error-container hover:text-on-error-container text-error text-label-mono font-label-mono transition-colors\"",
+        "text": "Unmount"
+      },
+      {
+        "attrs": "class=\"px-space-xs py-0.5 rounded bg-surface-container-high text-primary font-label-mono text-[10px] font-semibold shrink-0\"",
+        "text": "All Events"
+      },
+      {
+        "attrs": "class=\"px-space-xs py-0.5 rounded hover:bg-surface-container-high text-on-surface-variant font-label-mono text-[10px] shrink-0\"",
+        "text": "Critical Only"
+      },
+      {
+        "attrs": "class=\"px-space-xs py-0.5 rounded hover:bg-surface-container-high text-on-surface-variant font-label-mono text-[10px] shrink-0\"",
+        "text": "Clearance Requests"
+      },
+      {
+        "attrs": "class=\"px-space-xs py-0.5 rounded hover:bg-surface-container-high text-on-surface-variant font-label-mono text-[10px] shrink-0\"",
+        "text": "Blocked Egress"
+      },
+      {
+        "attrs": "class=\"flex-1 py-1.5 px-space-sm rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-label-mono text-[11px] font-medium transition-colors flex items-center justify-center gap-1.5\"",
+        "text": "download Audit Export (.SIG)"
+      },
+      {
+        "attrs": "class=\"flex-1 py-1.5 px-space-sm rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-label-mono text-[11px] font-medium transition-colors flex items-center justify-center gap-1.5\"",
+        "text": "enhanced_encryption Verify Hash Integrity"
+      },
+      {
+        "attrs": "class=\"w-full py-1.5 px-space-sm rounded-lg bg-surface-container-low hover:bg-error-container hover:text-on-error-container text-on-surface-variant font-label-mono text-[11px] font-medium transition-all flex items-center justify-center gap-1.5\"",
+        "text": "restart_alt Reset All Policies to Strict Defaults"
+      },
+      {
+        "attrs": "class=\"p-1 rounded text-on-surface-variant hover:text-primary transition-colors\" title=\"Attach context or file payload\"",
+        "text": "attach_file"
+      },
+      {
+        "attrs": "class=\"p-1 rounded text-on-surface-variant hover:text-primary transition-colors\" title=\"Toggle audio transcription\"",
+        "text": "mic"
+      }
+    ],
+    "inputs": [
+      {
+        "tag": "input",
+        "attrs": "class=\"bg-transparent flex-1 focus:outline-none text-on-surface font-body-md text-body-md placeholder:text-on-surface-variant/50\" placeholder=\"Instruct neural orchestrator or input quick prompt...\" type=\"text\"/"
+      }
+    ],
+    "headings": [
+      {
+        "tag": "h1",
+        "text": "Security &amp; Permissions"
+      },
+      {
+        "tag": "h2",
+        "text": "Granular Permission Governance"
+      },
+      {
+        "tag": "h3",
+        "text": "Tamper-Proof Audit Log"
+      }
+    ],
+    "has_canvas": false,
+    "has_svg": false,
+    "svg_count": 0,
+    "script_snippets": [
+      "(function initSecurityScreen() {\n    // Master Pause Toggle Interaction\n    const pauseBtn = document.getElementById('btn-master-pause');\n    let isPaused = false;\n    if (pauseBtn) {\n      pauseBtn.addEventListener('click', () => {\n        isPaused = !isPaused;\n        const icon = pauseBtn.querySelector('.material-symbols-outlined');\n        const text = pauseBtn.querySelector('span:not(.material-symbols-outlined)');\n        if (isPaused) {\n          pauseBtn.classList.remove('bg-surface-container-high', 'text-tertiary-fixed');\n          pauseBtn.classList.add('bg-tertiary-fixed-dim', 'text-on-tertiary');\n          icon.textContent = 'play_circle';\n          text.textContent = 'RESUME AGENTS (UNFREEZE)';\n        } else {\n          pauseBtn.classList.add('bg-surface-container-high', 'text-tertiary-fixed');\n          pauseBtn.classList.remove('bg-tertiary-fixed-dim', 'text-on-tertiary');\n          icon.textContent = 'pause_circle';\n          text.textContent = 'MASTER PAUSE (FREEZE ALL)';\n        }\n      });\n    }\n\n    // Kill Switch Safety Trigger\n    const killBtn = document.getElementById('btn-kill-switch');\n    if (killBtn) {\n      killBtn.addEventListener('click', () => {\n        const confirmed = window.confirm(\"CRITICAL WARNING: This will immediately sever all local agent IPC sockets, dump volatile memory to encrypted logs, and terminate all AppContainers. Proceed?\");\n        if (confirmed) {\n          killBtn.innerHTML = `\n            <span class=\"material-symbols-outlined text-[20px]\">done_all</span>\n            <span class=\"font-label-mono text-label-mono font-bold uppercase tracking-wider\">ALL PROCESSES KILLED</span>\n          `;\n          killBtn.classList.remove('bg-error-container');\n          killBtn.classList.add('bg-error', 'text-on-error');\n        }\n      });\n    }\n  })();"
+    ],
+    "external_assets": [
+      "https://cdn.tailwindcss.com",
+      "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap",
+      "https://lh3.googleusercontent.com/aida/ALJJyrDkwdFfa2ZbCR92YUYuBisOJanZ8ecfnNvhI9eXBT--hdx14MyRyg6qfpPnaiS3kIpRGkkX0PNVVtIwneXNiCoblHPpmqiGrQk2CkGEIKcqfD3gRNBMLWSXQEbGOivXgnv71LBNjxftYEsjJ8cw22e5EDAyHmGagINyRC1EEZmHBwkNLqwZmekoCt_AROtGMSmXq54KIdKK2SWARwX6UIilHqAqSfaykmHb1GzCTeU",
+      "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    ]
+  },
+  "screen_14_settings": {
+    "name": "14. Settings",
+    "nav_links": [
+      "tasks-activity",
+      "intelligence-models",
+      "system-monitor",
+      "plugin-center",
+      "pc-control",
+      "voice-studio",
+      "agent-workspace",
+      "3d-neural-core",
+      "settings",
+      "security-permissions",
+      "workflow-builder",
+      "conversation",
+      "memory-center",
+      "command-center"
+    ],
+    "buttons": [
+      {
+        "attrs": "class=\"p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors\" title=\"Voice Interface Ready\"",
+        "text": "mic"
+      },
+      {
+        "attrs": "class=\"p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors\" title=\"Encrypted &amp; Enforced\"",
+        "text": "verified_user"
+      },
+      {
+        "attrs": "class=\"relative p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors\" title=\"Telemetry Alerts\"",
+        "text": "notifications"
+      },
+      {
+        "attrs": "class=\"w-full flex items-center justify-between px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors\"",
+        "text": "deployed_code HUD Mode F9"
+      },
+      {
+        "attrs": "class=\"w-full flex items-center justify-between px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors\"",
+        "text": "dock_to_right Collapse Rail Ctrl+["
+      },
+      {
+        "attrs": "class=\"flex items-center gap-space-xs px-space-sm py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface font-label-md text-label-md transition-all shadow-sm\"",
+        "text": "file_download Export Config (JSON)"
+      },
+      {
+        "attrs": "class=\"flex items-center gap-space-xs px-space-sm py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high text-error font-label-md text-label-md transition-all shadow-sm\"",
+        "text": "restart_alt Reset Defaults"
+      },
+      {
+        "attrs": "class=\"flex items-center gap-space-xs px-space-md py-1.5 rounded-lg bg-secondary-container hover:bg-primary-container hover:text-on-primary-container text-on-secondary-container font-label-md text-label-md font-semibold transition-all shadow-md group\"",
+        "text": "save Save Changes Ctrl+S"
+      },
+      {
+        "attrs": "class=\"w-10 h-5 rounded-full bg-primary-container flex items-center px-0.5 transition-colors cursor-pointer\" title=\"Toggle Startup\"",
+        "text": ""
+      },
+      {
+        "attrs": "class=\"w-10 h-5 rounded-full bg-surface-container-highest flex items-center px-0.5 transition-colors cursor-pointer\" title=\"Toggle HUD Minimized\"",
+        "text": ""
+      },
+      {
+        "attrs": "class=\"w-10 h-5 rounded-full bg-primary-container flex items-center px-0.5 transition-colors cursor-pointer\" title=\"Enforce Strict Air-Gap\"",
+        "text": ""
+      },
+      {
+        "attrs": "class=\"flex items-center justify-center gap-space-xs py-1.5 rounded-md bg-secondary-container text-on-secondary-container font-label-md text-label-md font-semibold shadow-sm\"",
+        "text": "translate Hinglish (Hindi + English Auto)"
+      },
+      {
+        "attrs": "class=\"flex items-center justify-center gap-space-xs py-1.5 rounded-md text-on-surface-variant hover:text-on-surface font-label-md text-label-md transition-colors\"",
+        "text": "English Only"
+      },
+      {
+        "attrs": "class=\"flex items-center justify-center gap-space-xs py-1.5 rounded-md text-on-surface-variant hover:text-on-surface font-label-md text-label-md transition-colors\"",
+        "text": "Hindi (Devanagari)"
+      },
+      {
+        "attrs": "class=\"w-10 h-5 rounded-full bg-primary-container flex items-center px-0.5 transition-colors cursor-pointer\" title=\"Toggle Low-Resource Mode\"",
+        "text": ""
+      },
+      {
+        "attrs": "class=\"w-7 h-7 rounded bg-surface-container hover:bg-surface-container-high text-on-surface flex items-center justify-center transition-colors\"",
+        "text": "remove"
+      },
+      {
+        "attrs": "class=\"w-7 h-7 rounded bg-surface-container hover:bg-surface-container-high text-on-surface flex items-center justify-center transition-colors\"",
+        "text": "add"
+      },
+      {
+        "attrs": "class=\"flex flex-col p-space-sm rounded-lg bg-surface-container-lowest hover:bg-surface-container transition-colors text-left\"",
+        "text": "512 MB 2K Context Window"
+      },
+      {
+        "attrs": "class=\"flex flex-col p-space-sm rounded-lg bg-secondary-container text-on-secondary-container shadow-sm text-left\"",
+        "text": "1,024 MB (Active) check_circle 4K Context Window (Balanced)"
+      },
+      {
+        "attrs": "class=\"flex flex-col p-space-sm rounded-lg bg-surface-container-lowest hover:bg-surface-container transition-colors text-left opacity-75\"",
+        "text": "2,048 MB VRAM WARNING 8K Context (Risks Swap Paging)"
+      },
+      {
+        "attrs": "class=\"px-space-md py-space-xs rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md text-label-md flex items-center gap-1 transition-colors\"",
+        "text": "folder Browse..."
+      },
+      {
+        "attrs": "class=\"px-space-md py-space-xs rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md text-label-md flex items-center gap-1 transition-colors\"",
+        "text": "folder Browse..."
+      },
+      {
+        "attrs": "class=\"px-space-sm py-1 rounded bg-surface-container hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface font-label-md text-label-md transition-colors\"",
+        "text": "Re-index"
+      },
+      {
+        "attrs": "class=\"px-space-md py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface font-label-md text-label-md transition-colors\"",
+        "text": "Discard"
+      },
+      {
+        "attrs": "class=\"px-space-md py-1.5 rounded-lg bg-secondary-container hover:bg-primary-container hover:text-on-primary-container text-on-secondary-container font-label-md text-label-md font-semibold transition-all shadow-md\"",
+        "text": "Save Preferences"
+      },
+      {
+        "attrs": "class=\"p-1 rounded text-on-surface-variant hover:text-primary transition-colors\" title=\"Attach context or file payload\"",
+        "text": "attach_file"
+      },
+      {
+        "attrs": "class=\"p-1 rounded text-on-surface-variant hover:text-primary transition-colors\" title=\"Toggle audio transcription\"",
+        "text": "mic"
+      }
+    ],
+    "inputs": [
+      {
+        "tag": "input",
+        "attrs": "class=\"bg-transparent flex-1 text-on-surface font-body-md text-body-md focus:outline-none\" type=\"text\" value=\"[FINAL AI NAME]\"/"
+      },
+      {
+        "tag": "select",
+        "attrs": "class=\"w-full bg-transparent px-space-md py-space-xs text-on-surface font-body-md text-body-md appearance-none focus:outline-none cursor-pointer\""
+      },
+      {
+        "tag": "select",
+        "attrs": "class=\"w-full bg-transparent px-space-md py-space-xs text-on-surface font-body-md text-body-md appearance-none focus:outline-none cursor-pointer\""
+      },
+      {
+        "tag": "input",
+        "attrs": "class=\"flex-1 accent-[#43D9FF] cursor-pointer h-1 bg-surface-container rounded-lg\" max=\"5\" min=\"1\" type=\"range\" value=\"2\"/"
+      },
+      {
+        "tag": "select",
+        "attrs": "class=\"w-full bg-transparent px-space-md py-space-xs text-on-surface font-body-md text-body-md appearance-none focus:outline-none cursor-pointer\""
+      },
+      {
+        "tag": "input",
+        "attrs": "class=\"bg-transparent flex-1 text-on-surface font-code-md text-code-md focus:outline-none\" readonly=\"\" type=\"text\" value=\"D:\\AI_Models\\GGUF\"/"
+      },
+      {
+        "tag": "input",
+        "attrs": "class=\"bg-transparent flex-1 text-on-surface font-code-md text-code-md focus:outline-none\" readonly=\"\" type=\"text\" value=\"C:\\Users\\Local\\Vaults\\Engineering\"/"
+      },
+      {
+        "tag": "input",
+        "attrs": "class=\"bg-transparent flex-1 focus:outline-none text-on-surface font-body-md text-body-md placeholder:text-on-surface-variant/50\" placeholder=\"Instruct neural orchestrator or input quick prompt...\" type=\"text\"/"
+      }
+    ],
+    "headings": [
+      {
+        "tag": "h1",
+        "text": "Settings"
+      },
+      {
+        "tag": "h2",
+        "text": "General Application Behavior"
+      },
+      {
+        "tag": "h2",
+        "text": "AI Orchestrator &amp; Routing Policy"
+      },
+      {
+        "tag": "h2",
+        "text": "Hardware &amp; Performance Optimization"
+      },
+      {
+        "tag": "h2",
+        "text": "Storage &amp; Data Directories"
+      }
+    ],
+    "has_canvas": false,
+    "has_svg": false,
+    "svg_count": 0,
+    "script_snippets": [],
+    "external_assets": [
+      "https://cdn.tailwindcss.com",
+      "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap",
+      "https://lh3.googleusercontent.com/aida/ALJJyrDkwdFfa2ZbCR92YUYuBisOJanZ8ecfnNvhI9eXBT--hdx14MyRyg6qfpPnaiS3kIpRGkkX0PNVVtIwneXNiCoblHPpmqiGrQk2CkGEIKcqfD3gRNBMLWSXQEbGOivXgnv71LBNjxftYEsjJ8cw22e5EDAyHmGagINyRC1EEZmHBwkNLqwZmekoCt_AROtGMSmXq54KIdKK2SWARwX6UIilHqAqSfaykmHb1GzCTeU",
+      "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    ]
+  },
+  "screen_15_floating_ai_hud": {
+    "name": "15. Floating AI HUD",
+    "nav_links": [
+      "tasks-activity",
+      "intelligence-models",
+      "system-monitor",
+      "plugin-center",
+      "pc-control",
+      "voice-studio",
+      "agent-workspace",
+      "3d-neural-core",
+      "settings",
+      "security-permissions",
+      "workflow-builder",
+      "conversation",
+      "memory-center",
+      "command-center"
+    ],
+    "buttons": [
+      {
+        "attrs": "class=\"p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors\" title=\"Voice Interface Ready\"",
+        "text": "mic"
+      },
+      {
+        "attrs": "class=\"p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors\" title=\"Encrypted &amp; Enforced\"",
+        "text": "verified_user"
+      },
+      {
+        "attrs": "class=\"relative p-space-xs rounded hover:bg-surface-container-high hover:text-on-surface transition-colors\" title=\"Telemetry Alerts\"",
+        "text": "notifications"
+      },
+      {
+        "attrs": "class=\"w-full flex items-center justify-between px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors\"",
+        "text": "deployed_code HUD Mode F9"
+      },
+      {
+        "attrs": "class=\"w-full flex items-center justify-between px-space-sm py-space-xs rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors\"",
+        "text": "dock_to_right Collapse Rail Ctrl+["
+      },
+      {
+        "attrs": "class=\"px-2 py-0.5 rounded bg-primary-container text-on-primary-container font-label-mono text-[9px] font-bold uppercase transition-all shadow-sm flex items-center gap-1\"",
+        "text": "fit_screen Expanded"
+      },
+      {
+        "attrs": "class=\"px-2 py-0.5 rounded text-on-surface-variant hover:text-on-surface font-label-mono text-[9px] font-medium uppercase transition-colors flex items-center gap-1\"",
+        "text": "pill Mini-Pill"
+      },
+      {
+        "attrs": "class=\"p-1 rounded hover:bg-surface-container-high text-primary transition-colors\" title=\"Pinned to Always on Top\"",
+        "text": "push_pin"
+      },
+      {
+        "attrs": "class=\"p-1 rounded hover:bg-surface-container-high hover:text-on-surface transition-colors\" title=\"Toggle Opacity (80% / 100%)\"",
+        "text": "opacity"
+      },
+      {
+        "attrs": "class=\"p-1 rounded hover:bg-surface-container-high hover:text-on-surface transition-colors\" title=\"Dock to Capsule\"",
+        "text": "vertical_align_top"
+      },
+      {
+        "attrs": "class=\"p-1 rounded hover:bg-error-container hover:text-error transition-colors\" title=\"Close HUD\"",
+        "text": "close"
+      },
+      {
+        "attrs": "class=\"px-2 py-0.5 rounded bg-primary-container/20 text-primary-container border border-primary-container/40 font-label-mono text-[10px] font-semibold flex items-center gap-1\"",
+        "text": "Listening (PTT)"
+      },
+      {
+        "attrs": "class=\"px-2 py-0.5 rounded text-on-surface-variant hover:text-on-surface font-label-mono text-[10px] transition-colors flex items-center gap-1\"",
+        "text": "record_voice_over Speaking"
+      },
+      {
+        "attrs": "class=\"px-2 py-0.5 rounded text-on-surface-variant hover:text-on-surface font-label-mono text-[10px] transition-colors\"",
+        "text": "Standby"
+      },
+      {
+        "attrs": "class=\"p-1 rounded-md text-on-surface-variant hover:text-primary transition-colors\" title=\"Attach active clipboard context\"",
+        "text": "attach_file"
+      },
+      {
+        "attrs": "class=\"p-1 rounded-md text-primary-container bg-surface-container hover:bg-surface-container-high transition-colors\" title=\"Switch language model mode\"",
+        "text": "EN/HI"
+      },
+      {
+        "attrs": "class=\"flex items-center gap-1 bg-primary-container text-on-primary-container px-space-sm py-1 rounded-lg font-label-md text-label-md font-semibold hover:brightness-110 active:scale-95 transition-all\"",
+        "text": "Run arrow_forward"
+      },
+      {
+        "attrs": "class=\"hover:text-primary transition-colors\" title=\"Pause Task\"",
+        "text": "Pause"
+      },
+      {
+        "attrs": "class=\"hover:text-error transition-colors\" title=\"Abort Task\"",
+        "text": "Abort"
+      },
+      {
+        "attrs": "class=\"ml-1 text-primary hover:underline flex items-center gap-0.5 font-label-mono text-[10px]\"",
+        "text": "View Unified Diff open_in_new"
+      },
+      {
+        "attrs": "class=\"px-space-sm py-1 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface-variant font-label-md text-label-md transition-colors\"",
+        "text": "Inspect AST"
+      },
+      {
+        "attrs": "class=\"px-space-sm py-1 rounded-lg bg-error-container/40 hover:bg-error-container text-error font-label-md text-label-md transition-colors font-medium\"",
+        "text": "Reject"
+      },
+      {
+        "attrs": "class=\"px-space-md py-1 rounded-lg bg-secondary-container hover:bg-secondary-container/90 text-on-secondary-container font-label-md text-label-md font-semibold shadow-sm transition-all flex items-center gap-1\"",
+        "text": "verified Approve (Enter)"
+      },
+      {
+        "attrs": "class=\"flex items-center gap-1 px-space-xs py-1 rounded hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface transition-colors\" title=\"Open Full Command Center\"",
+        "text": "dashboard F1 Core"
+      },
+      {
+        "attrs": "class=\"flex items-center gap-1 px-space-xs py-1 rounded hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface transition-colors\" title=\"Voice Studio\"",
+        "text": "mic Hinglish"
+      },
+      {
+        "attrs": "class=\"flex items-center gap-1 px-space-sm py-0.5 rounded bg-error-container/30 hover:bg-error-container text-error font-label-mono text-[10px] transition-colors\" title=\"Instant Emergency Shutdown\"",
+        "text": "gpp_bad Kill Switch (2x Esc)"
+      },
+      {
+        "attrs": "class=\"px-space-xs py-1.5 rounded-lg bg-surface-container-highest text-primary-container font-label-mono text-[11px] font-semibold ring-1 ring-primary-container/40\"",
+        "text": "Top-Right*"
+      },
+      {
+        "attrs": "class=\"px-space-xs py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface-variant font-label-mono text-[11px] transition-colors\"",
+        "text": "Top-Center"
+      },
+      {
+        "attrs": "class=\"px-space-xs py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface-variant font-label-mono text-[11px] transition-colors\"",
+        "text": "Bottom-Right"
+      },
+      {
+        "attrs": "class=\"px-space-xs py-1.5 rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface-variant font-label-mono text-[11px] transition-colors\"",
+        "text": "Free-Float"
+      },
+      {
+        "attrs": "class=\"p-1 rounded text-on-surface-variant hover:text-primary transition-colors\" title=\"Attach context or file payload\"",
+        "text": "attach_file"
+      },
+      {
+        "attrs": "class=\"p-1 rounded text-on-surface-variant hover:text-primary transition-colors\" title=\"Toggle audio transcription\"",
+        "text": "mic"
+      }
+    ],
+    "inputs": [
+      {
+        "tag": "input",
+        "attrs": "class=\"bg-transparent flex-1 text-on-surface placeholder:text-on-surface-variant/40 font-body-sm text-body-sm focus:outline-none px-space-xs\" placeholder=\"Ask orchestrator or dispatch task... (Esc to dismiss)\" type=\"text\""
+      },
+      {
+        "tag": "input",
+        "attrs": "class=\"rounded bg-surface-container border-outline-variant text-primary-container focus:ring-0\" name=\"remember_sess\" type=\"checkbox\""
+      },
+      {
+        "tag": "input",
+        "attrs": "checked=\"\" class=\"rounded bg-surface-container border-outline-variant text-primary-container focus:ring-0\" name=\"sandbox_audit\" type=\"checkbox\""
+      },
+      {
+        "tag": "input",
+        "attrs": "class=\"bg-transparent flex-1 focus:outline-none text-on-surface font-body-md text-body-md placeholder:text-on-surface-variant/50\" placeholder=\"Instruct neural orchestrator or input quick prompt...\" type=\"text\""
+      }
+    ],
+    "headings": [
+      {
+        "tag": "h1",
+        "text": "Screen 15: Floating AI HUD"
+      }
+    ],
+    "has_canvas": false,
+    "has_svg": false,
+    "svg_count": 0,
+    "script_snippets": [],
+    "external_assets": [
+      "https://cdn.tailwindcss.com",
+      "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap",
+      "https://lh3.googleusercontent.com/aida/ALJJyrDkwdFfa2ZbCR92YUYuBisOJanZ8ecfnNvhI9eXBT--hdx14MyRyg6qfpPnaiS3kIpRGkkX0PNVVtIwneXNiCoblHPpmqiGrQk2CkGEIKcqfD3gRNBMLWSXQEbGOivXgnv71LBNjxftYEsjJ8cw22e5EDAyHmGagINyRC1EEZmHBwkNLqwZmekoCt_AROtGMSmXq54KIdKK2SWARwX6UIilHqAqSfaykmHb1GzCTeU",
+      "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    ]
+  }
+}

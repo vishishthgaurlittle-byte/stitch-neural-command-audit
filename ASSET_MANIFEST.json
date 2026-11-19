@@ -1,0 +1,174 @@
+{
+  "design_system_name": "Obsidian Command",
+  "total_screens": 15,
+  "total_files": 20,
+  "screens": [
+    {
+      "screen_id": "screen_01_command_center",
+      "title": "Command Center",
+      "index": "01",
+      "html_file": "screen_01_command_center/code.html",
+      "html_size_bytes": 58881,
+      "has_bundled_screenshot": false,
+      "screenshot_file": null
+    },
+    {
+      "screen_id": "screen_02_conversation_workspace",
+      "title": "Conversation Workspace",
+      "index": "02",
+      "html_file": "screen_02_conversation_workspace/code.html",
+      "html_size_bytes": 52008,
+      "has_bundled_screenshot": false,
+      "screenshot_file": null
+    },
+    {
+      "screen_id": "screen_03_3d_neural_core",
+      "title": "3D Neural Core",
+      "index": "03",
+      "html_file": "screen_03_3d_neural_core/code.html",
+      "html_size_bytes": 54445,
+      "has_bundled_screenshot": false,
+      "screenshot_file": null
+    },
+    {
+      "screen_id": "screen_04_intelligence_ai_models",
+      "title": "Intelligence & AI Models",
+      "index": "04",
+      "html_file": "screen_04_intelligence_ai_models/code.html",
+      "html_size_bytes": 52980,
+      "has_bundled_screenshot": true,
+      "screenshot_file": "screen_04_intelligence_ai_models/screen.png"
+    },
+    {
+      "screen_id": "screen_05_plugin_centre",
+      "title": "Plugin Centre",
+      "index": "05",
+      "html_file": "screen_05_plugin_centre/code.html",
+      "html_size_bytes": 68498,
+      "has_bundled_screenshot": false,
+      "screenshot_file": null
+    },
+    {
+      "screen_id": "screen_06_agent_workspace",
+      "title": "Agent Workspace",
+      "index": "06",
+      "html_file": "screen_06_agent_workspace/code.html",
+      "html_size_bytes": 71124,
+      "has_bundled_screenshot": true,
+      "screenshot_file": "screen_06_agent_workspace/screen.png"
+    },
+    {
+      "screen_id": "screen_07_workflow_builder",
+      "title": "Workflow Builder",
+      "index": "07",
+      "html_file": "screen_07_workflow_builder/code.html",
+      "html_size_bytes": 62622,
+      "has_bundled_screenshot": false,
+      "screenshot_file": null
+    },
+    {
+      "screen_id": "screen_08_pc_control_centre",
+      "title": "PC Control Centre",
+      "index": "08",
+      "html_file": "screen_08_pc_control_centre/code.html",
+      "html_size_bytes": 60462,
+      "has_bundled_screenshot": false,
+      "screenshot_file": null
+    },
+    {
+      "screen_id": "screen_09_memory_centre",
+      "title": "Memory Centre",
+      "index": "09",
+      "html_file": "screen_09_memory_centre/code.html",
+      "html_size_bytes": 67497,
+      "has_bundled_screenshot": false,
+      "screenshot_file": null
+    },
+    {
+      "screen_id": "screen_10_voice_personality_studio",
+      "title": "Voice & Personality Studio",
+      "index": "10",
+      "html_file": "screen_10_voice_personality_studio/code.html",
+      "html_size_bytes": 55562,
+      "has_bundled_screenshot": false,
+      "screenshot_file": null
+    },
+    {
+      "screen_id": "screen_11_tasks_activity",
+      "title": "Tasks & Activity",
+      "index": "11",
+      "html_file": "screen_11_tasks_activity/code.html",
+      "html_size_bytes": 59845,
+      "has_bundled_screenshot": false,
+      "screenshot_file": null
+    },
+    {
+      "screen_id": "screen_12_system_monitor",
+      "title": "System Monitor",
+      "index": "12",
+      "html_file": "screen_12_system_monitor/code.html",
+      "html_size_bytes": 60725,
+      "has_bundled_screenshot": false,
+      "screenshot_file": null
+    },
+    {
+      "screen_id": "screen_13_security_permissions",
+      "title": "Security & Permissions",
+      "index": "13",
+      "html_file": "screen_13_security_permissions/code.html",
+      "html_size_bytes": 49614,
+      "has_bundled_screenshot": true,
+      "screenshot_file": "screen_13_security_permissions/screen.png"
+    },
+    {
+      "screen_id": "screen_14_settings",
+      "title": "Settings",
+      "index": "14",
+      "html_file": "screen_14_settings/code.html",
+      "html_size_bytes": 50832,
+      "has_bundled_screenshot": true,
+      "screenshot_file": "screen_14_settings/screen.png"
+    },
+    {
+      "screen_id": "screen_15_floating_ai_hud",
+      "title": "Floating AI HUD",
+      "index": "15",
+      "html_file": "screen_15_floating_ai_hud/code.html",
+      "html_size_bytes": 40412,
+      "has_bundled_screenshot": false,
+      "screenshot_file": null
+    }
+  ],
+  "external_dependencies": [
+    {
+      "name": "Tailwind CSS CDN",
+      "url": "https://cdn.tailwindcss.com",
+      "type": "Stylesheet Engine",
+      "risk": "Requires internet access; must be compiled locally for 100% offline desktop app"
+    },
+    {
+      "name": "Google Fonts Material Symbols Outlined",
+      "url": "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined",
+      "type": "Icon Font",
+      "risk": "External network dependency; must bundle WOFF2 icons locally"
+    },
+    {
+      "name": "Google Fonts (Manrope, Inter, JetBrains Mono)",
+      "url": "https://fonts.googleapis.com",
+      "type": "Web Typography",
+      "risk": "External network dependency; must bundle WOFF2 fonts locally"
+    },
+    {
+      "name": "Neural Emblem Image Asset",
+      "url": "https://lh3.googleusercontent.com/aida/ALJJyrDkwdFfa2ZbCR92YUYuBisOJanZ8ecfnNvhI9eXBT--hdx14MyRyg6qfpPnaiS3kIpRGkkX0PNVVtIwneXNiCoblHPpmqiGrQk2CkGEIKcqfD3gRNBMLWSXQEbGOivXgnv71LBNjxftYEsjJ8cw22e5EDAyHmGagINyRC1EEZmHBwkNLqwZmekoCt_AROtGMSmXq54KIdKK2SWARwX6UIilHqAqSfaykmHb1GzCTeU",
+      "type": "Remote PNG Logo",
+      "risk": "External Google CDN URL; breaks offline; must download to local assets folder"
+    }
+  ],
+  "bundled_screenshots": [
+    "screen_04_intelligence_ai_models.png",
+    "screen_06_agent_workspace.png",
+    "screen_13_security_permissions.png",
+    "screen_14_settings.png"
+  ]
+}
