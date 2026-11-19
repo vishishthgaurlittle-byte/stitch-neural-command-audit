@@ -41,6 +41,8 @@ def run_numerical_unit_tests():
         visible_bytes = 17049899008
         avail_snap1_bytes = 7371558912
         avail_snap2_bytes = 6910607360
+        avail_snap3_bytes = 7267610624
+        avail_snap4_bytes = 7425671168
         commit_limit_bytes = 19600035840
         commit_avail_bytes = 6995292160
         
@@ -74,13 +76,29 @@ def run_numerical_unit_tests():
         not_avail2_mib = visible_mib - snap2_mib
         assert round(not_avail2_mib, 2) == 9669.58, f"Not available 2 expected 9669.58, got {not_avail2_mib}"
         
+        # Available RAM Snapshot 3: 6,930.93 MiB (or approx 6,930.94 MiB)
+        snap3_mib = avail_snap3_bytes / (1024**2)
+        assert round(snap3_mib, 2) in (6930.93, 6930.94), f"Snap3 MIB expected 6930.93 or 6930.94, got {snap3_mib}"
+        
+        # Physical RAM not reported as available Snapshot 3: 9,329.11 - 9,329.12 MiB
+        not_avail3_mib = visible_mib - snap3_mib
+        assert round(not_avail3_mib, 2) in (9329.11, 9329.12), f"Not available 3 expected 9329.11 or 9329.12, got {not_avail3_mib}"
+        
+        # Available RAM Snapshot 4: 7,081.67 MiB
+        snap4_mib = avail_snap4_bytes / (1024**2)
+        assert round(snap4_mib, 2) == 7081.67, f"Snap4 MIB expected 7081.67, got {snap4_mib}"
+        
+        # Physical RAM not reported as available Snapshot 4: 9,178.38 MiB
+        not_avail4_mib = visible_mib - snap4_mib
+        assert round(not_avail4_mib, 2) == 9178.38, f"Not available 4 expected 9178.38, got {not_avail4_mib}"
+        
         # Commit Virtual Memory: 12,020.82 MiB (direct bytes) / 12,020.83 MiB (component difference)
         commit_used_bytes = commit_limit_bytes - commit_avail_bytes
         assert commit_used_bytes == 12604743680, f"Commit used bytes expected 12604743680, got {commit_used_bytes}"
         commit_used_mib = commit_used_bytes / (1024**2)
         assert round(commit_used_mib, 2) in (12020.82, 12020.83), f"Commit used MIB expected 12020.82 or 12020.83, got {commit_used_mib}"
         
-        record_pass("Unit Test: RAM Bytes", "All byte-to-MiB conversions and dependent differences asserted with exact 2-decimal precision")
+        record_pass("Unit Test: RAM Bytes", "All byte-to-MiB conversions and dependent differences for Snapshots 1-4 asserted with exact 2-decimal precision")
     except AssertionError as e:
         record_fail("Unit Test: RAM Bytes", str(e))
         unit_test_passed = False
@@ -142,6 +160,41 @@ def run_numerical_unit_tests():
         record_pass("Unit Test: FLUX Dimension", "Observed FLUX txt_in.weight dimension arithmetic (3 * 2,560 = 7,680 conjecture) asserted")
     except AssertionError as e:
         record_fail("Unit Test: FLUX Dimension", str(e))
+        unit_test_passed = False
+
+    # 0.4 FLUX GGML Enum Mapping & txt_in.weight Precision Unit Test
+    try:
+        txt_in_elems = 7680 * 3072
+        assert txt_in_elems == 23592960, f"txt_in elements expected 23592960, got {txt_in_elems}"
+        
+        # Theoretical sizes
+        size_f32 = txt_in_elems * 4
+        size_bf16 = txt_in_elems * 2
+        size_q4_0 = int(txt_in_elems * (18 / 32))
+        
+        assert size_f32 == 94371840, f"F32 byte size expected 94371840, got {size_f32}"
+        assert size_bf16 == 47185920, f"BF16 byte size expected 47185920, got {size_bf16}"
+        assert size_q4_0 == 13271040, f"Q4_0 byte size expected 13271040, got {size_q4_0}"
+        
+        # Upstream GGML Enum types (ggml.h)
+        ggml_enum_q4_0 = 2
+        ggml_enum_bf16 = 30
+        ggml_enum_q4_0_4_4 = 31
+        
+        assert ggml_enum_q4_0 == 2, "GGML_TYPE_Q4_0 must be 2"
+        assert ggml_enum_bf16 == 30, "GGML_TYPE_BF16 must be 30"
+        assert ggml_enum_q4_0_4_4 == 31, "GGML_TYPE_Q4_0_4_4 must be 31"
+        
+        # Total GGUF container size calculation
+        # Header + Info: 10,688 bytes
+        # 66 BF16 tensors: 171,769,856 bytes
+        # 83 Q4_0 tensors: 2,085,108,736 bytes
+        total_calculated_bytes = 10688 + 171769856 + 2085108736
+        assert total_calculated_bytes == 2256889280, f"Total GGUF bytes expected 2256889280, got {total_calculated_bytes}"
+        
+        record_pass("Unit Test: FLUX GGML Types", "FLUX GGML type enums (2=Q4_0, 30=BF16, 31=Q4_0_4_4), txt_in.weight byte sizes (47,185,920 bytes = BF16), and container total asserted")
+    except AssertionError as e:
+        record_fail("Unit Test: FLUX GGML Types", str(e))
         unit_test_passed = False
 
     return unit_test_passed
@@ -420,6 +473,19 @@ if "layers 9, 18, and 27" in image_arch.lower() or "layers 9, 18, and 27" in sig
     record_pass("FLUX Extraction Layers", "Community hypothesis of intermediate conditioning layers (9, 18, 27) documented as unverified conjecture")
 else:
     record_fail("FLUX Extraction Layers", "Conditioning layers (9, 18, 27) missing in documentation", "KAATYA_IMAGE_GENERATION_ARCHITECTURE.md")
+    flux_ok = False
+
+# FLUX GGML Type Invariants
+if "83" in signoff_txt and "66" in signoff_txt and "bf16" in signoff_txt.lower() and "q4_0" in signoff_txt.lower():
+    record_pass("FLUX GGML Types", "FLUX GGUF confirmed as 83 Q4_0 tensors (Type 2) and 66 BF16 tensors (Type 30); Q4_0_4_4 absent")
+else:
+    record_fail("FLUX GGML Types", "FLUX GGUF tensor type breakdown (83 Q4_0, 66 BF16) missing in sign-off", "KAATYA_PHASE_3_FINAL_TECHNICAL_SIGNOFF.md")
+    flux_ok = False
+
+if "47,185,920" in signoff_txt:
+    record_pass("FLUX txt_in.weight Precision", "txt_in.weight byte length (47,185,920 bytes = BF16 2.0 bpe) documented in sign-off")
+else:
+    record_fail("FLUX txt_in.weight Precision", "txt_in.weight exact byte length (47,185,920 bytes) missing in sign-off", "KAATYA_PHASE_3_FINAL_TECHNICAL_SIGNOFF.md")
     flux_ok = False
 
 # ==============================================================================

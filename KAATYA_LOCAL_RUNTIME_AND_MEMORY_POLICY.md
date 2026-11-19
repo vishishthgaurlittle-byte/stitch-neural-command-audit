@@ -72,10 +72,16 @@ $$\begin{aligned}
 \text{Projected Base Working Set Commitment} &\approx 6,788\text{ MiB} \quad (~6.63\text{ GiB} \text{ / } ~7.12\text{ GB}) \\
 \hline
 \text{Theoretical Idle Margin (Visible minus Baseline)} &\approx 9,472.05\text{ MiB} \quad (~9.25\text{ GiB} \text{ / } ~9.93\text{ GB}) \\
-\mathbf{Actual\ Measured\ Available\ Physical\ RAM\ (ullAvailPhys)} &= \mathbf{7,030.07\text{ MiB}} \quad (\mathbf{~6.87\text{ GiB}})
+\mathbf{Dynamic\ Measured\ Available\ Physical\ RAM\ (ullAvailPhys)} &= \mathbf{6,590.47\text{ to } 7,081.67\text{ MiB}} \quad (\text{Workload-dependent})
 \end{aligned}$$
 
-*(Critical Distinction: $9,472.05\text{ MiB}$ is a theoretical calculation assuming an idle OS with Main AI resident. It is NOT measured available RAM. The actual live available RAM measured via `GlobalMemoryStatusEx.ullAvailPhys` is **$7,030.07\text{ MiB}$** ($7,371,558,912\text{ bytes} / 1,048,576 = 7,030.07\text{ MiB}$) at initial baseline capture and **$6,590.47\text{ MiB}$** during active multitasking. In Windows memory architecture, `ullAvailPhys` includes Free, Zeroed, and Standby pages. Physical RAM not currently reported as available is $16,260.05 - 7,030.07 = \mathbf{9,229.98\text{ MiB}}$. This non-available physical RAM consists of active process working sets (which includes running user applications and the `Memory Compression` process working set, observed at 1,160,495,104 bytes / ~1,106.73 MiB as an element of active working sets, NOT an additive quantity), modified pages, and locked kernel allocations (non-paged pool, resident paged pool); standby pages are NOT part of this non-available quantity. The ~2,442 MiB difference between the 6,788 MiB baseline and the 9,230 MiB host load is partially explained by active developer software [Chrome, IDE], Windows Memory Compression (`MemCompression` ~1,106.73 MiB, managed by the Windows Memory Manager `ntoskrnl.exe`), and kernel pools [~1.23 GB], while KAATYA Main AI is not yet loaded. Note that physical RAM not reported as available does NOT equal the arithmetic sum of process working sets due to shared pages and kernel allocations, and component reconciliation cannot be claimed without independent, non-overlapping measurements).*
+*(Critical Distinction: $9,472.05\text{ MiB}$ is a theoretical calculation assuming an idle OS with Main AI resident. It is NOT measured available RAM. The actual live available RAM measured via `GlobalMemoryStatusEx.ullAvailPhys` is workload-dependent and fluctuates dynamically across measurement snapshots:
+- **Snapshot 1 (2026-11-19T18:32:43):** $7,371,558,912\text{ bytes}$ = **$7,030.07\text{ MiB}$**; non-available physical RAM: $16,260.05 - 7,030.07 = \mathbf{9,229.98\text{ MiB}}$.
+- **Snapshot 2 (2026-11-19T18:54:14):** $6,910,607,360\text{ bytes}$ = **$6,590.47\text{ MiB}$**; non-available physical RAM: $16,260.05 - 6,590.47 = \mathbf{9,669.58\text{ MiB}}$.
+- **Snapshot 3 (2026-11-19T20:27:06):** $7,267,610,624\text{ bytes}$ = **$6,930.94\text{ MiB}$**; non-available physical RAM: $16,260.05 - 6,930.94 = \mathbf{9,329.12\text{ MiB}}$.
+- **Snapshot 4 (2026-11-19T20:42:12):** $7,425,671,168\text{ bytes}$ = **$7,081.67\text{ MiB}$**; non-available physical RAM: $16,260.05 - 7,081.67 = \mathbf{9,178.38\text{ MiB}}$.
+
+In Windows memory architecture, `ullAvailPhys` includes Free, Zeroed, and Standby pages. Physical RAM not currently reported as available consists of active process working sets (which includes running user applications and the `Memory Compression` process working set, observed at ~1,106.73 MiB at 18:32:43 and ~1,108.14 MiB at 20:27:29 as an internal element of active working sets, NOT an additive quantity), modified pages, and locked kernel allocations (non-paged pool, resident paged pool); standby pages are NOT part of this non-available quantity. The ~2,442 MiB difference between the 6,788 MiB baseline and the 9,230 MiB host load is partially explained by active developer software [Chrome, IDE], Windows Memory Compression (`MemCompression`, managed by the Windows Memory Manager `ntoskrnl.exe`), and kernel pools [~1.23 GB], while KAATYA Main AI is not yet loaded. Note that physical RAM not reported as available does NOT equal the arithmetic sum of process working sets due to shared pages and kernel allocations, and component reconciliation cannot be claimed without independent, non-overlapping measurements).*
 
 ### 3.2 Required Itemized Memory Accounting Table
 
@@ -89,7 +95,7 @@ $$\begin{aligned}
 | **KAATYA Main AI** | ~3,138 MiB | THEORETICAL CALCULATION | `Qwen3-4B-Q4_K_M` weights (2,382 MiB) + 4K FP16 KV (576 MiB) + graph/scratch (180 MiB) |
 | **Total Projected Baseline** | **~6,788 MiB** | **PROJECTED ESTIMATE** | **Sum of projected components — NOT AN OBSERVED RUNNING SYSTEM** |
 | **Live Host Visible RAM** | **16,260.05 MiB** | **EMPIRICALLY MEASURED** | Win32 API `GlobalMemoryStatusEx.ullTotalPhys` |
-| **Live Host Available RAM** | **7,030.07 MiB** | **EMPIRICALLY MEASURED** | Win32 API `GlobalMemoryStatusEx.ullAvailPhys` (Includes Free, Zeroed, Standby pages) |
+| **Live Host Available RAM** | **7,030.07 MiB** | **EMPIRICALLY MEASURED** | Win32 API `GlobalMemoryStatusEx.ullAvailPhys` (Snapshot 1 at 18:32:43; subsequent captures 6,590.47 to 7,081.67 MiB; includes Free, Zeroed, Standby pages) |
 | **Live Host Commit Charge** | **12,020.82 MiB** | **EMPIRICALLY MEASURED** | Win32 API `ullTotalPageFile - ullAvailPageFile` (Virtual commit across all apps; NOT physical RAM consumed) |
 
 ### 3.3 Memory Concepts & Distinctions

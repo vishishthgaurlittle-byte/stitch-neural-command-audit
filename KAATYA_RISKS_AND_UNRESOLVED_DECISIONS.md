@@ -55,7 +55,7 @@ To maintain absolute technical truthfulness, all project metrics are categorized
 - **Base Committed Working Set:** ~3.65 GB (Windows 10 base ~3.0 GB + dynamic Intel HD 530 idle UI ~0.16 GB + Tauri/WebView2 shell/audio ~0.50 GB).
 - **KAATYA Main AI Resident Working Set:** ~3.14 GB (2.38 GB weights + 360 MB 4K FP16 KV cache + compute graph buffers).
 - **Total Base Active Working Set:** ~6.79 to 7.12 GB (~6,788 MiB).
-- **Physical Headroom:** $16,260\text{ MiB} - 6,788\text{ MiB} = \mathbf{9,472\text{ MiB}}$ (~9.25 GiB binary / ~9.93 GB decimal).
+- **Theoretical Idle Margin:** $16,260\text{ MiB} - 6,788\text{ MiB} = \mathbf{9,472\text{ MiB}}$ (~9.25 GiB binary / ~9.93 GB decimal) under projected idle baseline; actual live available RAM fluctuates between ~6,590 and 7,082 MiB based on active host processes.
 - **Dynamic Worker Admission:** Evaluated on demand via the 10-step procedure (enforcing a minimum 2,048 MiB system floor before calculating model weights, KV cache, and runtime buffers).
 
 

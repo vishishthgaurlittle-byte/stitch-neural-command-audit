@@ -38,12 +38,13 @@ flowchart TD
 - **Upstream Source:** Community Hugging Face GGUF repository (unverified upstream signed manifest).
 - **GGUF Structure:** Version 3, 149 tensors, **0 KV metadata entries** (architecture reported as `unknown` due to missing `general.architecture`).
 - **Quantization Types & Runtime Limits:**
-  - Numeric GGML Type ID 30 maps to `GGML_TYPE_Q4_0_4_4` (a 4-bit quantization packed in 4x4 tiled blocks with block size 32 and type size 18 bytes).
-  - Tensors use Type 30 (`Q4_0_4_4`) for weights and Type 0 (`F32`) for modulation and projection layers.
-  - Runtime note: CPU AVX2 instruction support alone does **NOT** establish inference compatibility. An inference runtime must implement dedicated matrix multiplication kernels for `Q4_0_4_4`.
-  - Neither intended runtime (`stable-diffusion.cpp` or `ComfyUI-GGUF`) has been demonstrated on this machine to support `GGML_TYPE_Q4_0_4_4` for FLUX models or to load a 0-metadata DiT container without hyper-parameters. Therefore, runtime inference compatibility remains explicitly **UNVERIFIED**.
+  - *Empirical Header Audit:* All 149 tensor headers have been verified. Exactly two numeric type IDs appear: Type ID `2` (83 tensors) and Type ID `30` (66 tensors).
+  - *Resolution of Enum Mapping:* Upstream GGML specification (`ggml.h`) defines Type ID 2 as `GGML_TYPE_Q4_0` (18 bytes / 32 elements = 0.5625 bytes/element) and Type ID 30 as `GGML_TYPE_BF16` (2 bytes / element). An earlier inspection script bug mislabeled Type 30 as `Q4_0_4_4` (which is actually Type 31 in GGML).
+  - *Absence of Q4_0_4_4:* **Zero `Q4_0_4_4` tensors** exist in this file. The file uses standard `Q4_0` for transformer projection blocks and unquantized `BF16` for input/output projections, timesteps, and normalization layers. The tensor `txt_in.weight` is stored in full 16-bit `BF16` ($47,185,920\text{ bytes}$).
+  - *Runtime note:* CPU AVX2 instruction support alone does **NOT** establish inference compatibility. An inference runtime must support FLUX DiT architecture and be able to parse a 0-metadata container without native hyperparameters.
+  - *Compatibility Status:* Neither intended runtime (`stable-diffusion.cpp` or `ComfyUI-GGUF`) has been demonstrated on this machine to load a 0-metadata DiT container without hyper-parameters. Therefore, runtime inference compatibility remains explicitly **UNVERIFIED**.
 - **Tensors Present:** Exclusively the Diffusion Transformer (DiT) weights: 5 double blocks (`double_blocks.0` through `double_blocks.4`) and 20 single blocks (`single_blocks.0` through `single_blocks.19`), plus input/output modulations and `txt_in.weight` of observed dimension `[7680, 3072]`.
-- **Binary Boundary Validation:** Verified via `tools/inspect_model_metadata.py` (Exit code 0). Tensor offsets are monotonically ascending and all 149 tensor payloads fall strictly within the 2,256,889,280-byte file boundary (maximum tensor end offset: 2,222,974,400 bytes).
+- **Binary Boundary Validation:** Verified via `tools/inspect_model_metadata.py` (Exit code 0). Tensor offsets are monotonically ascending and all 149 tensor payloads fall strictly within the 2,256,889,280-byte file boundary (maximum tensor end offset: 2,256,889,280 bytes; header: 10,688 bytes; 83 Q4_0 tensors: 2,085,108,736 bytes; 66 BF16 tensors: 171,769,856 bytes; sum = 2,256,889,280 bytes).
 - **Scope of Binary Validation:** Passing container boundary validation confirms that the file is structurally intact as a GGUF container on disk. It does **NOT** prove model authenticity, does not prove weights are untampered or properly trained, does not prove architecture compatibility, and does not prove successful runtime inference.
 - **Definitive Classification:** **EXPERIMENTAL — END-TO-END COMPATIBILITY AND PERFORMANCE UNPROVEN ON TARGET PC.**
 
@@ -57,7 +58,7 @@ Earlier audit references erroneously listed legacy FLUX.1 assets (`clip_l.safete
 
 | Pipeline Component | Actual Required Asset | Architecture Details | Status in `T:\ai creation` |
 | :--- | :--- | :--- | :---: |
-| **Diffusion Backbone (DiT)** | `flux-2-klein-4b-q4_0.gguf` | 4B DiT backbone, Q4_0_4_4 quant, 149 tensors | **CONFIRMED PRESENT** |
+| **Diffusion Backbone (DiT)** | `flux-2-klein-4b-q4_0.gguf` | 4B DiT backbone, Q4_0 & BF16, 149 tensors | **CONFIRMED PRESENT** |
 | **Text Encoder** | Qwen3 Language Model Feature Extractor (Hypothesized) | Community hypothesis suggests extracting intermediate layers 9, 18, and 27 ($2560 \times 3 = 7,680$ dims); unverified conjecture | **ABSENT AS COMPANION FILE** |
 | **Variational Autoencoder** | `flux2-vae.safetensors` | FLUX.2 Latent Autoencoder (16-channel) | **ABSENT** |
 | **Tokenizer & Template** | Qwen3 Tokenizer | Structured `<|im_start|>` chat template formatting | Bundled with Qwen3 runtime |

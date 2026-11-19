@@ -3,25 +3,30 @@ import os
 import sys
 import argparse
 
-# GGML Type sizes / block sizes for offset and range validation
+# GGML Type sizes / block sizes for offset and range validation conforming to upstream ggml.h
 GGML_TYPE_INFO = {
-    0:  {"name": "F32",     "block_size": 1,  "type_size": 4},
-    1:  {"name": "F16",     "block_size": 1,  "type_size": 2},
-    2:  {"name": "Q4_0",    "block_size": 32, "type_size": 18},
-    3:  {"name": "Q4_1",    "block_size": 32, "type_size": 20},
-    6:  {"name": "Q5_0",    "block_size": 32, "type_size": 22},
-    7:  {"name": "Q5_1",    "block_size": 32, "type_size": 24},
-    8:  {"name": "Q8_0",    "block_size": 32, "type_size": 34},
-    9:  {"name": "Q8_1",    "block_size": 32, "type_size": 40},
-    10: {"name": "Q2_K",    "block_size": 256, "type_size": 84},
-    11: {"name": "Q3_K",    "block_size": 256, "type_size": 110},
-    12: {"name": "Q4_K",    "block_size": 256, "type_size": 144},
-    13: {"name": "Q5_K",    "block_size": 256, "type_size": 176},
-    14: {"name": "Q6_K",    "block_size": 256, "type_size": 210},
-    15: {"name": "Q8_K",    "block_size": 256, "type_size": 292},
-    16: {"name": "IQ2_XXS", "block_size": 256, "type_size": 66},
-    28: {"name": "BF16",    "block_size": 1,  "type_size": 2},
-    30: {"name": "Q4_0_4_4","block_size": 32, "type_size": 18},
+    0:  {"name": "F32",      "block_size": 1,   "type_size": 4},
+    1:  {"name": "F16",      "block_size": 1,   "type_size": 2},
+    2:  {"name": "Q4_0",     "block_size": 32,  "type_size": 18},
+    3:  {"name": "Q4_1",     "block_size": 32,  "type_size": 20},
+    6:  {"name": "Q5_0",     "block_size": 32,  "type_size": 22},
+    7:  {"name": "Q5_1",     "block_size": 32,  "type_size": 24},
+    8:  {"name": "Q8_0",     "block_size": 32,  "type_size": 34},
+    9:  {"name": "Q8_1",     "block_size": 32,  "type_size": 40},
+    10: {"name": "Q2_K",     "block_size": 256, "type_size": 84},
+    11: {"name": "Q3_K",     "block_size": 256, "type_size": 110},
+    12: {"name": "Q4_K",     "block_size": 256, "type_size": 144},
+    13: {"name": "Q5_K",     "block_size": 256, "type_size": 176},
+    14: {"name": "Q6_K",     "block_size": 256, "type_size": 210},
+    15: {"name": "Q8_K",     "block_size": 256, "type_size": 292},
+    16: {"name": "IQ2_XXS",  "block_size": 256, "type_size": 66},
+    25: {"name": "I8",       "block_size": 1,   "type_size": 1},
+    26: {"name": "I16",      "block_size": 1,   "type_size": 2},
+    27: {"name": "I32",      "block_size": 1,   "type_size": 4},
+    28: {"name": "I64",      "block_size": 1,   "type_size": 8},
+    29: {"name": "F64",      "block_size": 1,   "type_size": 8},
+    30: {"name": "BF16",     "block_size": 1,   "type_size": 2},
+    31: {"name": "Q4_0_4_4", "block_size": 32,  "type_size": 18},
 }
 
 def parse_gguf_metadata(filepath, verbose=False):
